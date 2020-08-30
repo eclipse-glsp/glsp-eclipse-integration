@@ -1,0 +1,39 @@
+target "2020-06 - Release" with source requirements
+
+location "http://download.eclipse.org/releases/2020-06" {
+	org.eclipse.equinox.p2.discovery.feature.feature.group
+	org.eclipse.equinox.executable.feature.group
+	org.eclipse.emf.sdk.feature.group
+	org.eclipse.platform.feature.group
+	org.eclipse.rcp.feature.group
+	org.eclipse.sdk.feature.group
+}
+
+location "https://download.eclipse.org/tools/orbit/downloads/drops/R20200529191137/repository/" {
+	org.apache.commons.io
+	com.google.gson
+	com.google.guava
+	com.google.inject
+	org.apache.commons.cli
+}
+
+location "https://download.eclipse.org/glsp/server/p2/nightly/0.8/0.8.0.202008281249/" {
+	org.eclipse.glsp.feature.feature.group lazy
+	org.eclipse.glsp.server.websocket lazy
+	org.eclipse.glsp.layout lazy
+}
+
+location "https://download.eclipse.org/jetty/updates/jetty-bundles-9.x/9.4.14.v20181113/" {
+	org.eclipse.jetty.bundles.f.feature.group
+}
+
+location "https://build.eclipse.org/modeling/elk/updates/0.6.0/" {
+	org.eclipse.elk.core
+	org.eclipse.elk.graph
+	org.eclipse.elk.graph.text
+	org.eclipse.elk.alg.layered
+}
+
+location "https://download.eclipse.org/gemini/updates/web/3.0.4" {
+	org.apache.jasper
+}

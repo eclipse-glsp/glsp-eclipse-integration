@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Gentium+Basic&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/sprotty.css">
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        #sprotty {
+            z-index: 0;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgb(179, 196, 202);
+        }
+
+        svg {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+    </style>
+    <!-- support Microsoft browsers -->
+    <script src="lib/dom.js">/* DOM4 */</script>
+</head>
+
+<body>
+    <div id="sprotty"></div>
+    <script src="bundle.js"></script>
+</body>
+
+</html>

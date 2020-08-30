@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="org.eclipse.glsp.integration.editor.GLSPDiagramEditorPart"
+            default="true"
+            extensions="wf"
+            id="org.eclipse.glsp.workflow.editor"
+            name="Workflow Diagram Editor">
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.glsp.editor.integration">
+      <configuration
+            editorId="org.eclipse.glsp.workflow.editor"
+            serverManagerClass="org.eclipse.glsp.integration.workflow.editor.WorkflowServerManager">
+      </configuration>
+   </extension>
+
+</plugin>
