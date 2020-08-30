@@ -19,7 +19,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.glsp.integration.editor.ui.GLSPEditorIntegrationPlugin;
@@ -27,7 +26,7 @@ import org.eclipse.glsp.integration.editor.ui.GLSPEditorIntegrationPlugin;
 import com.google.inject.Injector;
 
 public class GLSPServerManagerRegistry {
-   private static String EDITOR_INTEGRATION_EXTENSION_POINT = "com.eclipse.glsp.integration.editor.configuration";
+   private static String EDITOR_INTEGRATION_EXTENSION_POINT = "org.eclipse.glsp.editor.integration";
    private static String SERVER_MANAGER_CLASS_ATTRIBUTE = "serverManagerClass";
    private static String GLSP_EDITOR_ID_ATTRIBUTE = "editorId";
    private final Map<String, GLSPServerManager> serverManagers;
@@ -40,14 +39,17 @@ public class GLSPServerManagerRegistry {
    private void obtainProvidersFromRegistry() {
       IConfigurationElement[] config = Platform.getExtensionRegistry()
          .getConfigurationElementsFor(EDITOR_INTEGRATION_EXTENSION_POINT);
+
       for (IConfigurationElement element : config) {
          try {
             Object classObject = element.createExecutableExtension(SERVER_MANAGER_CLASS_ATTRIBUTE);
             String editorId = element.getAttribute(GLSP_EDITOR_ID_ATTRIBUTE);
             if (classObject instanceof GLSPServerManager) {
-               serverManagers.put(editorId, (GLSPServerManager) classObject);
+               GLSPServerManager serverManager = (GLSPServerManager) classObject;
+               serverManager.start();
+               serverManagers.put(editorId, serverManager);
             }
-         } catch (CoreException e) {
+         } catch (Exception e) {
             GLSPEditorIntegrationPlugin.error("Exception while obtaining registered converters", e);
          }
       }

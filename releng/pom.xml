@@ -34,7 +34,6 @@
 
 			<modules>
 				<module>org.eclipse.glsp.repository</module>
-				<module>org.eclipse.glsp.feature</module>
 				<module>org.eclipse.glsp.codestyle</module>
 			</modules>
 			<build>

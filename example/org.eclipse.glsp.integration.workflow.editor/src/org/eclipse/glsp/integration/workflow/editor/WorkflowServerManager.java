@@ -15,12 +15,19 @@
  ********************************************************************************/
 package org.eclipse.glsp.integration.workflow.editor;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 
+import javax.servlet.ServletException;
+import javax.websocket.DeploymentException;
+
+import org.eclipse.elk.alg.layered.options.LayeredMetaDataProvider;
 import org.eclipse.glsp.example.workflow.WorkflowGLSPModule;
 import org.eclipse.glsp.integration.editor.GLSPServerManager;
-import org.eclipse.glsp.integration.editor.ui.GLSPEditorIntegrationPlugin;
+import org.eclipse.glsp.layout.ElkLayoutEngine;
 import org.eclipse.glsp.server.di.GLSPModule;
+import org.eclipse.jetty.server.Server;
 
 public class WorkflowServerManager extends GLSPServerManager {
 
@@ -31,6 +38,13 @@ public class WorkflowServerManager extends GLSPServerManager {
    public GLSPModule getModule() { return new WorkflowGLSPModule(); }
 
    @Override
-   public URL getResourceURL() { return GLSPEditorIntegrationPlugin.getDefault().getBundle().getResource("diagram"); }
+   public URL getResourceURL() { return Activator.getDefault().getBundle().getResource("diagram"); }
+
+   @Override
+   protected void configure(final Server server)
+      throws URISyntaxException, IOException, ServletException, DeploymentException {
+      ElkLayoutEngine.initialize(new LayeredMetaDataProvider());
+      super.configure(server);
+   }
 
 }

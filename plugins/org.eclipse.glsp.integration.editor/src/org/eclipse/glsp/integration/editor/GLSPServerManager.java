@@ -49,11 +49,7 @@ public abstract class GLSPServerManager {
 
    public Injector getInjector() { return injector; }
 
-   // Bundle bundle = GLSPEditorPlugin.getInstance().getBundle();
-   // bundle.getResource("diagram")
    public abstract URL getResourceURL();
-
-   // ElkLayoutEngine.initialize(new LayeredMetaDataProvider());
 
    protected void configure(final Server server)
       throws URISyntaxException, IOException, ServletException, DeploymentException {

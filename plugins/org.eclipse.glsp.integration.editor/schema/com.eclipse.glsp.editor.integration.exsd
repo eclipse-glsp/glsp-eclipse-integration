@@ -3,7 +3,7 @@
 <schema targetNamespace="org.eclipse.glsp.integration.editor" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appinfo>
-         <meta.schema plugin="org.eclipse.glsp.integration.editor" id="com.eclipse.glsp.integration.editor.configuration" name="Eclipse GLSP editor configuration"/>
+         <meta.schema plugin="org.eclipse.glsp.integration.editor" id="org.eclipse.glsp.integration.editor.configuration" name="Eclipse GLSP editor configuration"/>
       </appinfo>
       <documentation>
          Extension point to properly integrate a GLSP based web editor into the Eclipse IDE.
@@ -66,7 +66,7 @@ In addition, a GLSPEditorPart for this  GLSP id needs to be provided via the &qu
                   The GLSPServerManager class for this GLSP language/id. The servermanager is responsible for starting the corresponding GLSP client and is the common connection point between the browser and the Eclipse IDE
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn="com.eclipsesource.glsp.editor.GLSPServerManager:"/>
+                  <meta.attribute kind="java" basedOn="org.eclipse.glsp.integration.editor.GLSPServerManager:"/>
                </appinfo>
             </annotation>
          </attribute>

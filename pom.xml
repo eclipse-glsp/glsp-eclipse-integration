@@ -166,8 +166,8 @@
 					</environments>
 					<target>
 						<artifact>
-							<groupId>org.eclipse.glsp</groupId>
-							<artifactId>org.eclipse.glsp.parent</artifactId>
+							<groupId>org.eclipse.glsp.integration</groupId>
+							<artifactId>org.eclipse.glsp.integration.parent</artifactId>
 							<classifier>targetplatforms/r2020-06</classifier>
 							<version>${target.version}</version>
 						</artifact>

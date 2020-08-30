@@ -154,7 +154,7 @@ public class GLSPDiagramEditorPart extends EditorPart {
          }
 
       });
-
+      browser.refresh();
    }
 
    @Override
@@ -214,7 +214,7 @@ public class GLSPDiagramEditorPart extends EditorPart {
                connector.getPort(), encodeParameter(getClientId()), encodeParameter(path));
             browser.setUrl(
                url);
-            LOG.info(url);
+            System.out.println(url);
             this.connected = true;
 
          }
