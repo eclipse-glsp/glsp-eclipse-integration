@@ -45,7 +45,7 @@ public class Activator extends Plugin {
    }
 
    /**
-    * Returns the shared instance
+    * Returns the shared instance.
     *
     * @return the shared instance
     */

@@ -48,7 +48,6 @@ if (urlParameters.client) {
 const actionDispatcher = container.get<GLSPActionDispatcher>(TYPES.IActionDispatcher);
 
 websocket.onopen = () => {
-    location.reload(true);
     const connectionProvider = JsonrpcGLSPClient.createWebsocketConnectionProvider(websocket);
     const glspClient = new BaseJsonrpcGLSPClient({ id, name, connectionProvider });
     diagramServer.connect(glspClient).then(client => {
@@ -61,7 +60,6 @@ websocket.onopen = () => {
         actionDispatcher.dispatch(new RequestTypeHintsAction("workflow-diagram"));
         actionDispatcher.dispatch(new EnableToolPaletteAction());
         actionDispatcher.onceModelInitialized().then(() => actionDispatcher.dispatch(new CenterAction([])));
-
     });
 };
 

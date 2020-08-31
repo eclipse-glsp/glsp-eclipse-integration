@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde?>
 <!-- generated with https://github.com/eclipse-cbi/targetplatform-dsl -->
-<target name="2020-06 - Release" sequenceNumber="1598829311">
+<target name="2020-06 - Release" sequenceNumber="1598877807">
   <locations>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.platform.feature.group" version="4.16.0.v20200604-0951"/>
-      <unit id="org.eclipse.rcp.feature.group" version="4.16.0.v20200604-0951"/>
-      <unit id="org.eclipse.sdk.feature.group" version="4.16.0.v20200604-0951"/>
-      <unit id="org.eclipse.egit.feature.group" version="5.8.0.202006091008-r"/>
       <unit id="org.eclipse.emf.sdk.feature.group" version="2.22.0.v20200519-1135"/>
       <unit id="org.eclipse.emf.transaction.feature.group" version="1.12.0.201805140824"/>
       <unit id="org.eclipse.equinox.executable.feature.group" version="3.8.800.v20200514-1529"/>
       <unit id="org.eclipse.equinox.p2.discovery.feature.feature.group" version="1.2.600.v20200521-1852"/>
-      <unit id="org.eclipse.jgit.feature.group" version="5.8.0.202006091008-r"/>
-      <unit id="org.eclipse.pde.feature.group" version="3.14.400.v20200604-0540"/>
       <repository location="http://download.eclipse.org/releases/2020-06"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
@@ -28,7 +23,7 @@
       <unit id="org.eclipse.glsp.feature.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.glsp.server.websocket" version="0.0.0"/>
       <unit id="org.eclipse.glsp.layout" version="0.0.0"/>
-      <repository location="https://download.eclipse.org/glsp/server/p2/nightly/0.8/0.8.0.202008281249/"/>
+      <repository location="https://download.eclipse.org/glsp/server/p2/nightly/0.8/0.8.0.202008301344/"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.jetty.bundles.f.feature.group" version="9.4.14.v20181113"/>

@@ -86,6 +86,36 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./css/diagram.css":
+/*!*************************!*\
+  !*** ./css/diagram.css ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../node_modules/css-loader/dist/cjs.js!./diagram.css */ "./node_modules/css-loader/dist/cjs.js!./css/diagram.css");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./lib/di.config.js":
 /*!**************************!*\
   !*** ./lib/di.config.js ***!
@@ -95,6 +125,7 @@
 
 "use strict";
 
+Object.defineProperty(exports, "__esModule", { value: true });
 /********************************************************************************
  * Copyright (c) 2020 EclipseSource and others.
  *
@@ -110,7 +141,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-Object.defineProperty(exports, "__esModule", { value: true });
+__webpack_require__(/*! ../css/diagram.css */ "./css/diagram.css");
 var lib_1 = __webpack_require__(/*! @eclipse-glsp-examples/workflow-sprotty/lib */ "./node_modules/@eclipse-glsp-examples/workflow-sprotty/lib/index.js");
 var client_1 = __webpack_require__(/*! @eclipse-glsp/client */ "./node_modules/@eclipse-glsp/client/lib/index.js");
 var sprotty_1 = __webpack_require__(/*! sprotty */ "./node_modules/sprotty/lib/index.js");
@@ -169,7 +200,6 @@ if (urlParameters.client) {
 }
 var actionDispatcher = container.get(sprotty_1.TYPES.IActionDispatcher);
 websocket.onopen = function () {
-    location.reload(true);
     var connectionProvider = client_1.JsonrpcGLSPClient.createWebsocketConnectionProvider(websocket);
     var glspClient = new client_1.BaseJsonrpcGLSPClient({ id: id, name: name, connectionProvider: connectionProvider });
     diagramServer.connect(glspClient).then(function (client) {
@@ -34770,6 +34800,21 @@ exports.constants = {
   'POINT_CONVERSION_UNCOMPRESSED': 4,
   'POINT_CONVERSION_HYBRID': 6
 }
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js!./css/diagram.css":
+/*!***************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./css/diagram.css ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
+// Module
+exports.push([module.i, ".sprotty-graph {\n    background: rgb(179, 196, 202);\n}\n\n.sprotty-node {\n    fill: #cdc;\n    stroke: rgb(0, 0, 0);\n}\n\n.sprotty-edge {\n    stroke: black;\n}\n\n.sprotty-edge.arrow {\n    fill: black;\n}\n\n.sprotty-edge.selected {\n    stroke: #844;\n}\n\n.sprotty-edge.selected>.arrow {\n    fill: #844;\n    stroke: #844;\n}\n\n.sprotty-node:not(.selected) {\n    stroke: black;\n}\n\n.sprotty-node.forkOrJoin {\n    fill: black;\n}\n\n.sprotty-node.forkOrJoin.selected {\n    stroke: rgb(87, 87, 214);\n}\n\npolygon.sprotty-node {\n    stroke: black;\n}\n\n.sprotty-node.selected {\n    stroke: rgb(87, 87, 214);\n}\n", ""]);
+
 
 
 /***/ }),

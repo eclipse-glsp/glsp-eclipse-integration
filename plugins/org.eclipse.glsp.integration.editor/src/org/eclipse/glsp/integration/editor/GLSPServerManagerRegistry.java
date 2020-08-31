@@ -36,7 +36,8 @@ public class GLSPServerManagerRegistry {
       obtainProvidersFromRegistry();
    }
 
-   private void obtainProvidersFromRegistry() {
+   @SuppressWarnings("checkstyle:illegalCatch")
+   protected void obtainProvidersFromRegistry() {
       IConfigurationElement[] config = Platform.getExtensionRegistry()
          .getConfigurationElementsFor(EDITOR_INTEGRATION_EXTENSION_POINT);
 
@@ -49,6 +50,7 @@ public class GLSPServerManagerRegistry {
                serverManager.start();
                serverManagers.put(editorId, serverManager);
             }
+
          } catch (Exception e) {
             GLSPEditorIntegrationPlugin.error("Exception while obtaining registered converters", e);
          }
