@@ -23,34 +23,23 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 
-public class UIUtil {
+public final class UIUtil {
+
+   private UIUtil() {}
 
    public static Optional<IWorkbenchWindow> getActiveWorkbenchWindow() {
-      IWorkbench wb = PlatformUI.getWorkbench();
-      if (wb != null) {
-         return Optional.ofNullable(wb.getActiveWorkbenchWindow());
-      }
-      return Optional.empty();
+      return Optional.ofNullable(PlatformUI.getWorkbench()).map(IWorkbench::getActiveWorkbenchWindow);
    }
 
    public static Optional<IWorkbenchPage> getActivePage() {
-      Optional<IWorkbenchWindow> workbenchWindow = getActiveWorkbenchWindow();
-      if (workbenchWindow.isPresent()) {
-         return Optional.ofNullable(workbenchWindow.get().getActivePage());
-      }
-      return Optional.empty();
+      return getActiveWorkbenchWindow().map(IWorkbenchWindow::getActivePage);
    }
 
    public static Optional<IEditorPart> getActiveEditor() {
-      Optional<IWorkbenchPage> activePage = getActivePage();
-      if (activePage.isPresent()) {
-         return Optional.ofNullable(activePage.get().getActiveEditor());
-      }
-      return Optional.empty();
+      return getActivePage().flatMap(page -> Optional.ofNullable(page.getActiveEditor()));
    }
 
    public static <T extends IEditorPart> Optional<T> getActiveEditor(final Class<T> clazz) {
       return getActiveEditor().filter(clazz::isInstance).map(clazz::cast);
    }
-
 }

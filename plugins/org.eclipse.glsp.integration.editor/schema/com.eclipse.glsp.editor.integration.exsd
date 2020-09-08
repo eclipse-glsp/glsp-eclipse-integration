@@ -77,6 +77,13 @@ In addition, a GLSPEditorPart for this  GLSP id needs to be provided via the &qu
                </documentation>
             </annotation>
          </attribute>
+         <attribute name="glspId" type="string" use="required">
+            <annotation>
+               <documentation>
+                  Id of the GLSP diagram language
+               </documentation>
+            </annotation>
+         </attribute>
       </complexType>
    </element>
 

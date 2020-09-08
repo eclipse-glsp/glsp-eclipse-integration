@@ -22,17 +22,25 @@ import java.util.Optional;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.glsp.integration.editor.ui.GLSPEditorIntegrationPlugin;
+import org.eclipse.glsp.integration.editor.utils.UIUtil;
+import org.eclipse.ui.IPartListener;
+import org.eclipse.ui.IWorkbenchPart;
 
 import com.google.inject.Injector;
 
-public class GLSPServerManagerRegistry {
+public class GLSPEditorRegistry {
    private static String EDITOR_INTEGRATION_EXTENSION_POINT = "org.eclipse.glsp.editor.integration";
    private static String SERVER_MANAGER_CLASS_ATTRIBUTE = "serverManagerClass";
    private static String GLSP_EDITOR_ID_ATTRIBUTE = "editorId";
-   private final Map<String, GLSPServerManager> serverManagers;
+   private final Map<String, GLSPServerManager> editorIdToServerManager;
+   private final Map<String, GLSPDiagramEditorPart> clientIdtoDiagramEditorPart;
 
-   public GLSPServerManagerRegistry() {
-      serverManagers = new HashMap<>();
+   public GLSPEditorRegistry() {
+      editorIdToServerManager = new HashMap<>();
+      clientIdtoDiagramEditorPart = new HashMap<>();
+
+      UIUtil.getActiveWorkbenchWindow()
+         .ifPresent(window -> window.getPartService().addPartListener(new GLSPDiagramEditorPartListener()));
       obtainProvidersFromRegistry();
    }
 
@@ -48,7 +56,7 @@ public class GLSPServerManagerRegistry {
             if (classObject instanceof GLSPServerManager) {
                GLSPServerManager serverManager = (GLSPServerManager) classObject;
                serverManager.start();
-               serverManagers.put(editorId, serverManager);
+               editorIdToServerManager.put(editorId, serverManager);
             }
 
          } catch (Exception e) {
@@ -59,18 +67,57 @@ public class GLSPServerManagerRegistry {
    }
 
    public Optional<GLSPServerManager> getGLSPServerManager(final GLSPDiagramEditorPart diagramEditorPart) {
-      return getGLSPServerManager(diagramEditorPart.getEditorSite().getId());
+      return getGLSPServerManager(diagramEditorPart.getEditorId());
    }
 
    public Optional<GLSPServerManager> getGLSPServerManager(final String editorId) {
-      return Optional.of(serverManagers.get(editorId));
+      return Optional.of(editorIdToServerManager.get(editorId));
    }
 
    public Optional<Injector> getInjector(final GLSPDiagramEditorPart diagramEditorPart) {
-      return getInjector(diagramEditorPart.getEditorSite().getId());
+      return getGLSPServerManager(diagramEditorPart.getEditorId()).map(GLSPServerManager::getInjector);
    }
 
-   public Optional<Injector> getInjector(final String editorId) {
-      return getGLSPServerManager(editorId).map(GLSPServerManager::getInjector);
+   public Optional<Injector> getInjector(final String clientId) {
+      return getGLSPEditor(clientId).flatMap(this::getInjector);
+   }
+
+   public Optional<GLSPDiagramEditorPart> getGLSPEditor(final String clientId) {
+      return Optional.ofNullable(clientIdtoDiagramEditorPart.get(clientId));
+   }
+
+   class GLSPDiagramEditorPartListener implements IPartListener {
+
+      @Override
+      public void partActivated(final IWorkbenchPart part) {
+
+      }
+
+      @Override
+      public void partBroughtToTop(final IWorkbenchPart part) {}
+
+      @Override
+      public void partClosed(final IWorkbenchPart part) {
+         if (part instanceof GLSPDiagramEditorPart)
+
+         {
+            GLSPDiagramEditorPart editorPart = (GLSPDiagramEditorPart) part;
+            clientIdtoDiagramEditorPart.remove(editorPart.getClientId());
+         }
+      }
+
+      @Override
+      public void partDeactivated(final IWorkbenchPart part) {
+
+      }
+
+      @Override
+      public void partOpened(final IWorkbenchPart part) {
+         if (part instanceof GLSPDiagramEditorPart) {
+            GLSPDiagramEditorPart editorPart = (GLSPDiagramEditorPart) part;
+            clientIdtoDiagramEditorPart.put(editorPart.getClientId(), editorPart);
+         }
+      }
+
    }
 }

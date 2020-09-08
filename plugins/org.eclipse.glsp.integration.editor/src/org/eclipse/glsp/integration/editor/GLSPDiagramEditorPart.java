@@ -25,12 +25,15 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
 import org.apache.commons.io.FilenameUtils;
-import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.glsp.api.action.ActionDispatcher;
+import org.eclipse.glsp.api.action.kind.SaveModelAction;
 import org.eclipse.glsp.api.action.kind.ServerStatusAction;
+import org.eclipse.glsp.api.action.kind.SetDirtyStateAction;
 import org.eclipse.glsp.api.protocol.GLSPServerException;
 import org.eclipse.glsp.integration.editor.ui.GLSPEditorIntegrationPlugin;
 import org.eclipse.jetty.server.ServerConnector;
@@ -51,6 +54,7 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.ISharedImages;
+import org.eclipse.ui.IWorkbenchPartConstants;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.EditorPart;
@@ -58,9 +62,7 @@ import org.eclipse.ui.part.EditorPart;
 import com.google.gson.JsonObject;
 
 public class GLSPDiagramEditorPart extends EditorPart {
-
-   private static Logger LOG = Logger.getLogger(GLSPDiagramEditorPart.class);
-
+   private static final AtomicInteger COUNT = new AtomicInteger(0);
    private Browser browser;
 
    private String filePath;
@@ -70,13 +72,15 @@ public class GLSPDiagramEditorPart extends EditorPart {
    private Label statusBarIcon;
    private Label statusBarMessage;
    private final ISharedImages sharedImages = PlatformUI.getWorkbench().getSharedImages();
+   private String clientId;
+   private boolean dirty;
 
    private boolean connected;
 
    public GLSPDiagramEditorPart() {}
 
    public GLSPServerManager getServerManager() {
-      Optional<GLSPServerManager> serverManager = GLSPEditorIntegrationPlugin.getDefault().getServerProviderRegistry()
+      Optional<GLSPServerManager> serverManager = GLSPEditorIntegrationPlugin.getDefault().getGLSPEditorRegistry()
          .getGLSPServerManager(this);
       if (!serverManager.isPresent()) {
          throw new GLSPServerException(
@@ -85,15 +89,16 @@ public class GLSPDiagramEditorPart extends EditorPart {
       return serverManager.get();
    }
 
+   public String getEditorId() { return getConfigurationElement().getAttribute("id"); }
+
    @Override
    public void doSave(final IProgressMonitor monitor) {
-      // TODO Auto-generated method stub
-
+      ActionDispatcher dispatcher = getServerManager().getInjector().getInstance(ActionDispatcher.class);
+      dispatcher.dispatch(clientId, new SaveModelAction());
    }
 
    @Override
    public void doSaveAs() {
-      // TODO Auto-generated method stub
 
    }
 
@@ -104,19 +109,23 @@ public class GLSPDiagramEditorPart extends EditorPart {
       }
       IFileEditorInput fileInput = (IFileEditorInput) input;
       filePath = fileInput.getFile().getLocationURI().getPath();
-
+      this.clientId = getServerManager().getGlspId() + "_Editor_" + COUNT.incrementAndGet();
       setSite(site);
       setInput(input);
 
    }
 
    @Override
-   public boolean isDirty() { return false; }
+   public boolean isDirty() { return dirty; }
 
    @Override
-   public boolean isSaveAsAllowed() {
-      // TODO Auto-generated method stub
-      return false;
+   public boolean isSaveAsAllowed() { return false; }
+
+   public void handle(final SetDirtyStateAction action) {
+      if (this.dirty != action.isDirty()) {
+         this.dirty = action.isDirty();
+         firePropertyChange(IWorkbenchPartConstants.PROP_DIRTY);
+      }
    }
 
    @Override
@@ -178,7 +187,7 @@ public class GLSPDiagramEditorPart extends EditorPart {
       super.dispose();
    }
 
-   public String getClientId() { return getClass().getSimpleName() + "_" + hashCode(); }
+   public String getClientId() { return clientId; }
 
    protected String getFileName() { return FilenameUtils.getName(filePath); }
 

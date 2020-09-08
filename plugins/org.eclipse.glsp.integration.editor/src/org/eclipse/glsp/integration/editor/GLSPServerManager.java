@@ -58,7 +58,9 @@ public abstract class GLSPServerManager {
       }
    }
 
-   public abstract String getId();
+   public abstract String getGlspId();
+
+   public GLSPServerManager() {}
 
    public abstract GLSPModule getModule();
 
@@ -85,7 +87,7 @@ public abstract class GLSPServerManager {
 
       container = WebSocketServerContainerInitializer.configureContext(context);
       ServerEndpointConfig.Builder builder = ServerEndpointConfig.Builder.create(GLSPServerEndpoint.class,
-         "/" + getId());
+         "/" + getGlspId());
       builder.configurator(new GLSPConfigurator(injector));
       container.addEndpoint(builder.build());
 

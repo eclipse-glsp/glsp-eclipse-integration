@@ -23,7 +23,6 @@ import javax.servlet.ServletException;
 import javax.websocket.DeploymentException;
 
 import org.eclipse.elk.alg.layered.options.LayeredMetaDataProvider;
-import org.eclipse.glsp.example.workflow.WorkflowGLSPModule;
 import org.eclipse.glsp.integration.editor.GLSPServerManager;
 import org.eclipse.glsp.layout.ElkLayoutEngine;
 import org.eclipse.glsp.server.di.GLSPModule;
@@ -31,11 +30,10 @@ import org.eclipse.jetty.server.Server;
 
 public class WorkflowServerManager extends GLSPServerManager {
 
-   @Override
-   public String getId() { return "workflow"; }
+   public WorkflowServerManager() {}
 
    @Override
-   public GLSPModule getModule() { return new WorkflowGLSPModule(); }
+   public GLSPModule getModule() { return new WorkflowGLSPEclipseModule(); }
 
    @Override
    public URL getResourceURL() { return Activator.getDefault().getBundle().getResource("diagram"); }
@@ -47,4 +45,6 @@ public class WorkflowServerManager extends GLSPServerManager {
       super.configure(server);
    }
 
+   @Override
+   public String getGlspId() { return "workflow"; }
 }

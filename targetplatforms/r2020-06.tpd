@@ -16,10 +16,11 @@ location "https://download.eclipse.org/tools/orbit/downloads/drops/R202005291911
 	org.apache.commons.cli
 }
 
-location "https://download.eclipse.org/glsp/server/p2/nightly/0.8/0.8.0.202008301344/" {
+location "https://download.eclipse.org/glsp/server/p2/nightly/0.8/0.8.0.202009041424/" {
 	org.eclipse.glsp.feature.feature.group lazy
 	org.eclipse.glsp.server.websocket lazy
 	org.eclipse.glsp.layout lazy
+	org.eclipse.glsp.example.workflow lazy
 }
 
 location "https://download.eclipse.org/jetty/updates/jetty-bundles-9.x/9.4.14.v20181113/" {

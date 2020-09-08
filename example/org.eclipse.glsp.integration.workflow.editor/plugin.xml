@@ -15,6 +15,7 @@
          point="org.eclipse.glsp.editor.integration">
       <configuration
             editorId="org.eclipse.glsp.workflow.editor"
+            glspId="workflow"
             serverManagerClass="org.eclipse.glsp.integration.workflow.editor.WorkflowServerManager">
       </configuration>
    </extension>

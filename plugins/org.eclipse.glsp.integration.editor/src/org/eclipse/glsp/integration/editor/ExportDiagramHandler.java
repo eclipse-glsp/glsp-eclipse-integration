@@ -44,7 +44,7 @@ public class ExportDiagramHandler extends AbstractHandler {
    }
 
    protected Injector getInjector(final GLSPDiagramEditorPart editorPart) {
-      Optional<Injector> injector = GLSPEditorIntegrationPlugin.getDefault().getServerProviderRegistry()
+      Optional<Injector> injector = GLSPEditorIntegrationPlugin.getDefault().getGLSPEditorRegistry()
          .getInjector(editorPart);
       if (!injector.isPresent()) {
          throw new GLSPServerException(

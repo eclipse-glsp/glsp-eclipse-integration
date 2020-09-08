@@ -18,7 +18,7 @@ package org.eclipse.glsp.integration.editor.ui;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.glsp.integration.editor.GLSPServerManagerRegistry;
+import org.eclipse.glsp.integration.editor.GLSPEditorRegistry;
 import org.osgi.framework.BundleContext;
 
 public class GLSPEditorIntegrationPlugin extends Plugin {
@@ -27,7 +27,7 @@ public class GLSPEditorIntegrationPlugin extends Plugin {
 
    // The shared instance
    private static GLSPEditorIntegrationPlugin instance;
-   private GLSPServerManagerRegistry serverProviderRegistry;
+   private GLSPEditorRegistry glspEditorRegistry;
 
    /**
     * The constructor.
@@ -39,7 +39,7 @@ public class GLSPEditorIntegrationPlugin extends Plugin {
    @Override
    public void start(final BundleContext context) throws Exception {
       super.start(context);
-      serverProviderRegistry = new GLSPServerManagerRegistry();
+      glspEditorRegistry = new GLSPEditorRegistry();
       instance = this;
    }
 
@@ -61,6 +61,6 @@ public class GLSPEditorIntegrationPlugin extends Plugin {
     */
    public static GLSPEditorIntegrationPlugin getDefault() { return instance; }
 
-   public GLSPServerManagerRegistry getServerProviderRegistry() { return serverProviderRegistry; }
+   public GLSPEditorRegistry getGLSPEditorRegistry() { return glspEditorRegistry; }
 
 }

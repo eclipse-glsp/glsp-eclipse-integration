@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2019 EclipseSource and others.
+ * Copyright (c) 2020 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -13,15 +13,25 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-package org.eclipse.glsp.example.workflow;
+package org.eclipse.glsp.integration.workflow.editor;
 
-import java.util.Date;
+import javax.websocket.Endpoint;
 
-public class WorkflowInitializeOptions {
-   private Date timestamp;
-   private String message;
+import org.eclipse.glsp.api.action.ActionDispatcher;
+import org.eclipse.glsp.example.workflow.WorkflowGLSPModule;
+import org.eclipse.glsp.integration.editor.di.EclipseEditorActionDispatcher;
+import org.eclipse.glsp.server.websocket.GLSPServerEndpoint;
 
-   public Date getTimestamp() { return timestamp; }
+class WorkflowGLSPEclipseModule extends WorkflowGLSPModule {
+   @Override
+   public void configure() {
+      super.configure();
+      bind(Endpoint.class).to(GLSPServerEndpoint.class);
+   }
 
-   public String getMessage() { return message; }
+   @Override
+   protected Class<? extends ActionDispatcher> bindActionDispatcher() {
+      return EclipseEditorActionDispatcher.class;
+   }
+
 }
