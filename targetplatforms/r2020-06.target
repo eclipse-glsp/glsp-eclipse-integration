@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde?>
 <!-- generated with https://github.com/eclipse-cbi/targetplatform-dsl -->
-<target name="2020-06 - Release" sequenceNumber="1599572540">
+<target name="2020-06 - Release" sequenceNumber="1602055085">
   <locations>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
-      <unit id="org.eclipse.platform.feature.group" version="4.16.0.v20200604-0951"/>
-      <unit id="org.eclipse.emf.sdk.feature.group" version="2.22.0.v20200519-1135"/>
+      <unit id="org.eclipse.platform.feature.group" version="4.17.0.v20200902-1800"/>
+      <unit id="org.eclipse.emf.sdk.feature.group" version="2.23.0.v20200822-0801"/>
       <unit id="org.eclipse.emf.transaction.feature.group" version="1.12.0.201805140824"/>
-      <unit id="org.eclipse.equinox.executable.feature.group" version="3.8.800.v20200514-1529"/>
-      <unit id="org.eclipse.equinox.p2.discovery.feature.feature.group" version="1.2.600.v20200521-1852"/>
-      <repository location="http://download.eclipse.org/releases/2020-06"/>
+      <unit id="org.eclipse.equinox.executable.feature.group" version="3.8.900.v20200819-0940"/>
+      <unit id="org.eclipse.equinox.p2.discovery.feature.feature.group" version="1.2.700.v20200705-1016"/>
+      <repository location="http://download.eclipse.org/releases/2020-09"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.apache.commons.io" version="2.6.0.v20190123-2029"/>
@@ -17,7 +17,7 @@
       <unit id="com.google.guava" version="27.1.0.v20190517-1946"/>
       <unit id="com.google.inject" version="3.0.0.v201605172100"/>
       <unit id="org.apache.commons.cli" version="1.4.0.v20200417-1444"/>
-      <repository location="https://download.eclipse.org/tools/orbit/downloads/drops/R20200529191137/repository/"/>
+      <repository location="https://download.eclipse.org/tools/orbit/downloads/drops/R20200831200620/repository/"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.glsp.feature.feature.group" version="0.0.0"/>

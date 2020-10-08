@@ -133,7 +133,7 @@ public class GLSPDiagramEditorPart extends EditorPart {
       comp = new Composite(parent, SWT.NO_SCROLL);
       comp.setLayout(new GridLayout(1, true));
 
-      browser = new Browser(comp, SWT.NO_SCROLL);
+      browser = new Browser(comp, SWT.CHROMIUM | SWT.NO_SCROLL);
       browser.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, true));
       Browser.clearSessions();
       browser.refresh();
