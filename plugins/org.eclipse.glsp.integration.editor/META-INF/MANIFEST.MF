@@ -29,6 +29,7 @@ Require-Bundle: org.eclipse.ui.ide;bundle-version="3.13.1",
  org.eclipse.glsp.server;bundle-version="0.8.0"
 Bundle-ClassPath: .
 Export-Package: org.eclipse.glsp.integration.editor,
+ org.eclipse.glsp.integration.editor.actions,
  org.eclipse.glsp.integration.editor.di,
  org.eclipse.glsp.integration.editor.ui,
  org.eclipse.glsp.integration.editor.utils,

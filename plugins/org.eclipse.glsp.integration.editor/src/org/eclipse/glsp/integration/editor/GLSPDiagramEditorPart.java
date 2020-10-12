@@ -31,16 +31,25 @@ import java.util.stream.Stream;
 import org.apache.commons.io.FilenameUtils;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.glsp.api.action.ActionDispatcher;
+import org.eclipse.glsp.api.action.kind.RequestContextActions;
 import org.eclipse.glsp.api.action.kind.SaveModelAction;
 import org.eclipse.glsp.api.action.kind.ServerStatusAction;
 import org.eclipse.glsp.api.action.kind.SetDirtyStateAction;
+import org.eclipse.glsp.api.model.GraphicalModelState;
+import org.eclipse.glsp.api.model.ModelStateProvider;
 import org.eclipse.glsp.api.protocol.GLSPServerException;
+import org.eclipse.glsp.integration.editor.actions.GLSPActionProvider;
 import org.eclipse.glsp.integration.editor.ui.GLSPEditorIntegrationPlugin;
 import org.eclipse.jetty.server.ServerConnector;
+import org.eclipse.jface.action.IMenuListener;
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.ControlEvent;
+import org.eclipse.swt.events.MenuEvent;
+import org.eclipse.swt.events.MenuListener;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseTrackAdapter;
 import org.eclipse.swt.graphics.Point;
@@ -50,6 +59,7 @@ import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IFileEditorInput;
@@ -88,6 +98,8 @@ public class GLSPDiagramEditorPart extends EditorPart {
       }
       return serverManager.get();
    }
+
+   public Optional<GLSPActionProvider> getActionProvider() { return Optional.empty(); }
 
    public String getEditorId() { return getConfigurationElement().getAttribute("id"); }
 
@@ -181,6 +193,14 @@ public class GLSPDiagramEditorPart extends EditorPart {
       browser.refresh();
    }
 
+   private void fillContextMenu(final IMenuManager manager, final RequestContextActions action) {
+      getActionProvider().ifPresent(p -> {
+         ModelStateProvider modelStateProvider = getServerManager().getInjector().getInstance(ModelStateProvider.class);
+         Optional<GraphicalModelState> modelState = modelStateProvider.getModelState(clientId);
+         modelState.ifPresent(s -> p.fillContextMenu(manager, s, action.getEditorContext()));
+      });
+   }
+
    @Override
    public void dispose() {
       disconnect();
@@ -271,5 +291,29 @@ public class GLSPDiagramEditorPart extends EditorPart {
       } catch (URISyntaxException e) {
          return file.getAbsoluteFile().toURI();
       }
+   }
+
+   public void showContextMenu(final RequestContextActions action) {
+      IMenuListener menuListener = manager -> fillContextMenu(manager, action);
+      final MenuManager menuMgr = new MenuManager();
+      menuMgr.setRemoveAllWhenShown(true);
+      menuMgr.addMenuListener(menuListener);
+      browser.getDisplay().asyncExec(() -> {
+         final Menu menu = menuMgr.createContextMenu(browser);
+         browser.setMenu(menu);
+         menu.addMenuListener(new MenuListener() {
+
+            @Override
+            public void menuShown(final MenuEvent e) {}
+
+            @Override
+            public void menuHidden(final MenuEvent e) {
+               // set back to null to avoid default trigger on next right click
+               browser.setMenu(null);
+            }
+         });
+         menu.setVisible(true);
+      });
+
    }
 }

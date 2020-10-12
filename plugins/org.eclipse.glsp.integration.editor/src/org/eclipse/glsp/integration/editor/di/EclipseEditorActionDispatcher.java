@@ -16,6 +16,7 @@
 package org.eclipse.glsp.integration.editor.di;
 
 import org.eclipse.glsp.api.action.Action;
+import org.eclipse.glsp.api.action.kind.RequestContextActions;
 import org.eclipse.glsp.api.action.kind.ServerMessageAction;
 import org.eclipse.glsp.api.action.kind.ServerStatusAction;
 import org.eclipse.glsp.api.action.kind.SetDirtyStateAction;
@@ -48,7 +49,14 @@ public class EclipseEditorActionDispatcher extends DefaultActionDispatcher {
          return handleServerStatusAction((ServerStatusAction) action, clientId);
       } else if (action instanceof SetDirtyStateAction) {
          return handleSetDirtyStateAction((SetDirtyStateAction) action, clientId);
+      } else if (action instanceof RequestContextActions) {
+         return handleRequestContextActions((RequestContextActions) action, clientId);
       }
+      return false;
+   }
+
+   private boolean handleRequestContextActions(final RequestContextActions action, final String clientId) {
+      getEditorPart(clientId).showContextMenu(action);
       return false;
    }
 
