@@ -140,6 +140,7 @@ public class GLSPDiagramEditorPart extends EditorPart {
       }
    }
 
+   @SuppressWarnings("deprecation")
    @Override
    public void createPartControl(final Composite parent) {
       comp = new Composite(parent, SWT.NO_SCROLL);
@@ -294,6 +295,9 @@ public class GLSPDiagramEditorPart extends EditorPart {
    }
 
    public void showContextMenu(final RequestContextActions action) {
+      if (!"context-menu".equals(action.getContextId())) {
+         return;
+      }
       IMenuListener menuListener = manager -> fillContextMenu(manager, action);
       final MenuManager menuMgr = new MenuManager();
       menuMgr.setRemoveAllWhenShown(true);
@@ -308,8 +312,10 @@ public class GLSPDiagramEditorPart extends EditorPart {
 
             @Override
             public void menuHidden(final MenuEvent e) {
-               // set back to null to avoid default trigger on next right click
+               /* set back to null to avoid default trigger on next right click */
                browser.setMenu(null);
+               // menu.dispose();
+               // menuMgr.dispose();
             }
          });
          menu.setVisible(true);
