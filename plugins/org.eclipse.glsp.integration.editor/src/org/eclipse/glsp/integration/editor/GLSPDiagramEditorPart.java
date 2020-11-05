@@ -30,26 +30,22 @@ import java.util.stream.Stream;
 
 import org.apache.commons.io.FilenameUtils;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.glsp.api.action.ActionDispatcher;
 import org.eclipse.glsp.api.action.kind.RequestContextActions;
 import org.eclipse.glsp.api.action.kind.SaveModelAction;
 import org.eclipse.glsp.api.action.kind.ServerStatusAction;
 import org.eclipse.glsp.api.action.kind.SetDirtyStateAction;
-import org.eclipse.glsp.api.model.GraphicalModelState;
-import org.eclipse.glsp.api.model.ModelStateProvider;
 import org.eclipse.glsp.api.protocol.GLSPServerException;
+import org.eclipse.glsp.api.types.EditorContext;
 import org.eclipse.glsp.integration.editor.actions.GLSPActionProvider;
 import org.eclipse.glsp.integration.editor.ui.GLSPEditorIntegrationPlugin;
 import org.eclipse.jetty.server.ServerConnector;
-import org.eclipse.jface.action.IMenuListener;
-import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.ControlEvent;
-import org.eclipse.swt.events.MenuEvent;
-import org.eclipse.swt.events.MenuListener;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseTrackAdapter;
 import org.eclipse.swt.graphics.Point;
@@ -72,6 +68,11 @@ import org.eclipse.ui.part.EditorPart;
 import com.google.gson.JsonObject;
 
 public class GLSPDiagramEditorPart extends EditorPart {
+   /**
+    * {@link IEclipseContext} key for the current client id.
+    * The associated value is a {@link String}.
+    */
+   public static final String GLSP_CLIENT_ID = "GLSP_CLIENT_ID";
    private static final AtomicInteger COUNT = new AtomicInteger(0);
    private Browser browser;
 
@@ -125,6 +126,24 @@ public class GLSPDiagramEditorPart extends EditorPart {
       setSite(site);
       setInput(input);
 
+      IEclipseContext context = site.getService(IEclipseContext.class);
+      configureContext(context);
+   }
+
+   /**
+    * Publish some of the GLSP-specific services to the {@link IEclipseContext}.
+    *
+    * @param context
+    */
+   private void configureContext(final IEclipseContext context) {
+      GLSPServerManager serverManager = getServerManager();
+      context.set(GLSPServerManager.class, serverManager);
+      context.set(GLSP_CLIENT_ID, clientId);
+      context.set(ActionDispatcher.class, serverManager.getInjector().getInstance(ActionDispatcher.class));
+      getActionProvider().ifPresent(provider -> context.set(GLSPActionProvider.class, provider));
+      // Editor context contains some info about the current client state. It can
+      // be updated when the client sends new actions
+      context.declareModifiable(EditorContext.class);
    }
 
    @Override
@@ -192,14 +211,11 @@ public class GLSPDiagramEditorPart extends EditorPart {
 
       });
       browser.refresh();
-   }
 
-   private void fillContextMenu(final IMenuManager manager, final RequestContextActions action) {
-      getActionProvider().ifPresent(p -> {
-         ModelStateProvider modelStateProvider = getServerManager().getInjector().getInstance(ModelStateProvider.class);
-         Optional<GraphicalModelState> modelState = modelStateProvider.getModelState(clientId);
-         modelState.ifPresent(s -> p.fillContextMenu(manager, s, action.getEditorContext()));
-      });
+      MenuManager menuManager = new MenuManager();
+      Menu menu = menuManager.createContextMenu(browser);
+      getSite().registerContextMenu(menuManager, getSite().getSelectionProvider());
+      browser.setMenu(menu);
    }
 
    @Override
@@ -249,7 +265,6 @@ public class GLSPDiagramEditorPart extends EditorPart {
    }
 
    public void connect(final String path) {
-
       try {
          GLSPServerManager manager = getServerManager();
          ServerConnector connector = Stream.of(manager.getServer().getConnectors()).findFirst()
@@ -298,28 +313,9 @@ public class GLSPDiagramEditorPart extends EditorPart {
       if (!"context-menu".equals(action.getContextId())) {
          return;
       }
-      IMenuListener menuListener = manager -> fillContextMenu(manager, action);
-      final MenuManager menuMgr = new MenuManager();
-      menuMgr.setRemoveAllWhenShown(true);
-      menuMgr.addMenuListener(menuListener);
-      browser.getDisplay().asyncExec(() -> {
-         final Menu menu = menuMgr.createContextMenu(browser);
-         browser.setMenu(menu);
-         menu.addMenuListener(new MenuListener() {
-
-            @Override
-            public void menuShown(final MenuEvent e) {}
-
-            @Override
-            public void menuHidden(final MenuEvent e) {
-               /* set back to null to avoid default trigger on next right click */
-               browser.setMenu(null);
-               // menu.dispose();
-               // menuMgr.dispose();
-            }
-         });
-         menu.setVisible(true);
-      });
-
+      // Update the EditorContext, as this is specific to each action.
+      getSite().getService(IEclipseContext.class).set(EditorContext.class, action.getEditorContext());
+      // Nothing more to do here; populating & opening the menu will be handled directly
+      // by the browser control.
    }
 }

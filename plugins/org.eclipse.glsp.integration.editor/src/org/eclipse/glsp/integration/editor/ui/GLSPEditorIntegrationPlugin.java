@@ -39,8 +39,8 @@ public class GLSPEditorIntegrationPlugin extends Plugin {
    @Override
    public void start(final BundleContext context) throws Exception {
       super.start(context);
-      glspEditorRegistry = new GLSPEditorRegistry();
       instance = this;
+      glspEditorRegistry = new GLSPEditorRegistry();
    }
 
    @Override

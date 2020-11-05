@@ -13,14 +13,16 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-package org.eclipse.glsp.integration.editor.actions;
+package org.eclipse.glsp.integration.editor.handlers;
 
-import org.eclipse.glsp.api.model.GraphicalModelState;
-import org.eclipse.glsp.api.types.EditorContext;
-import org.eclipse.swt.widgets.Menu;
+import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.glsp.api.action.kind.UndoAction;
 
-public interface GLSPActionProvider {
+public class UndoHandler extends EclipseActionHandler {
 
-   void fillContextMenu(Menu menu, GraphicalModelState modelState, EditorContext editorContext, int index);
+   @Override
+   protected void execute(final IEclipseContext context) {
+      dispatchMessage(context, new UndoAction());
+   }
 
 }

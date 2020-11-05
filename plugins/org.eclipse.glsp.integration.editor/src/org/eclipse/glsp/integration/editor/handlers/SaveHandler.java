@@ -13,14 +13,25 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-package org.eclipse.glsp.integration.editor.actions;
+package org.eclipse.glsp.integration.editor.handlers;
 
-import org.eclipse.glsp.api.model.GraphicalModelState;
-import org.eclipse.glsp.api.types.EditorContext;
-import org.eclipse.swt.widgets.Menu;
+import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.glsp.api.action.kind.SaveModelAction;
+import org.eclipse.ui.part.EditorPart;
 
-public interface GLSPActionProvider {
+/**
+ * Optional Eclipse Handler for saving the current editor.
+ * This handler is an alternative way to trigger the save,
+ * without relying on the Eclipse EditorPart integration.
+ *
+ * If this handler is not used, then the {@link EditorPart#doSave}
+ * API will be used instead.
+ */
+public class SaveHandler extends EclipseActionHandler {
 
-   void fillContextMenu(Menu menu, GraphicalModelState modelState, EditorContext editorContext, int index);
+   @Override
+   protected void execute(final IEclipseContext context) {
+      dispatchMessage(context, new SaveModelAction());
+   }
 
 }
