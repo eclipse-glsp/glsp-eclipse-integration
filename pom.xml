@@ -62,7 +62,6 @@
 
 	<modules>
 		<module>plugins/org.eclipse.glsp.integration.editor</module>
-		<module>example/org.eclipse.glsp.example.workflow</module>
 		<module>example/org.eclipse.glsp.integration.workflow.editor</module>
 		<module>releng</module>
 	</modules>
