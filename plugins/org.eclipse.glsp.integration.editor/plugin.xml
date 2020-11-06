@@ -10,7 +10,7 @@
          <menu
                label="Diagram">
             <command
-                  commandId="com.avl.mdml.glsp.diagram.export"
+                  commandId="org.eclipse.glsp.diagram.export"
                   icon="icons/export.gif"
                   label="SVG Export"
                   style="push">
@@ -22,15 +22,15 @@
     <extension
          point="org.eclipse.ui.commands">
       <command
-            categoryId="com.avl.mdml"
+            categoryId="org.eclipse.glsp"
             defaultHandler="org.eclipse.glsp.integration.editor.ExportDiagramHandler"
             description="Export this diagram to SVG"
-            id="com.avl.mdml.glsp.diagram.export"
+            id="org.eclipse.glsp.diagram.export"
             name="Export Diagram">
       </command>
       <category
-            id="com.avl.mdml"
-            name="MDMl">
+            id="org.eclipse.glsp"
+            name="GLSP">
       </category>
     
    </extension>

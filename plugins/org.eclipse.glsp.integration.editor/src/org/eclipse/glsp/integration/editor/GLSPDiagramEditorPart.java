@@ -159,13 +159,12 @@ public class GLSPDiagramEditorPart extends EditorPart {
       }
    }
 
-   @SuppressWarnings("deprecation")
    @Override
    public void createPartControl(final Composite parent) {
       comp = new Composite(parent, SWT.NO_SCROLL);
       comp.setLayout(new GridLayout(1, true));
 
-      browser = new Browser(comp, SWT.CHROMIUM | SWT.NO_SCROLL);
+      browser = createBrowser(comp);
       browser.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, true));
       Browser.clearSessions();
       browser.refresh();
@@ -216,6 +215,10 @@ public class GLSPDiagramEditorPart extends EditorPart {
       Menu menu = menuManager.createContextMenu(browser);
       getSite().registerContextMenu(menuManager, getSite().getSelectionProvider());
       browser.setMenu(menu);
+   }
+
+   protected Browser createBrowser(final Composite parent) {
+      return new Browser(comp, SWT.CHROMIUM | SWT.NO_SCROLL);
    }
 
    @Override
