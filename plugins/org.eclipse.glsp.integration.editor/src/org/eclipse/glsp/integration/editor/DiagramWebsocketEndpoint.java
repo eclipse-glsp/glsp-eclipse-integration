@@ -15,21 +15,58 @@
  ********************************************************************************/
 package org.eclipse.glsp.integration.editor;
 
+import java.util.Collection;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
+
+import javax.websocket.CloseReason;
 import javax.websocket.Session;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.glsp.api.action.Action;
+import org.eclipse.glsp.api.action.ActionMessage;
+import org.eclipse.glsp.api.jsonrpc.GLSPJsonrpcClient;
 import org.eclipse.glsp.integration.editor.ui.GLSPEditorIntegrationPlugin;
 import org.eclipse.glsp.server.websocket.GLSPServerEndpoint;
 import org.eclipse.ui.statushandlers.StatusManager;
 
 public class DiagramWebsocketEndpoint extends GLSPServerEndpoint {
 
+   private Timer timer;
+
    @Override
    public void onError(final Session session, final Throwable throwable) {
       StatusManager.getManager().handle(
          new Status(IStatus.ERROR, GLSPEditorIntegrationPlugin.PLUGIN_ID, "Error in diagram web socket", throwable));
       super.onError(session, throwable);
+   }
+
+   @Override
+   public void onClose(final Session session, final CloseReason closeReason) {
+      if (timer != null) {
+         timer.cancel();
+      }
+      super.onClose(session, closeReason);
+   }
+
+   @Override
+   protected void connect(final Collection<Object> localServices, final GLSPJsonrpcClient remoteProxy) {
+      super.connect(localServices, remoteProxy);
+      timer = new Timer();
+      timer.scheduleAtFixedRate(new TimerTask() {
+         @Override
+         public void run() {
+            remoteProxy.process(new ActionMessage("", new KeepAliveAction()));
+         }
+      }, 0, TimeUnit.MINUTES.toMillis(2));
+   }
+
+   public static final class KeepAliveAction extends Action {
+      private KeepAliveAction() {
+         super("keepAlive");
+      }
    }
 
 }

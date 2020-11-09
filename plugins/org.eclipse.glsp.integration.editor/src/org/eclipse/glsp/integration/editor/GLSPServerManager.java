@@ -21,6 +21,7 @@ import java.net.InetSocketAddress;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.ServletException;
 import javax.websocket.DeploymentException;
@@ -31,7 +32,6 @@ import org.apache.log4j.BasicConfigurator;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.glsp.server.di.GLSPModule;
 import org.eclipse.glsp.server.websocket.GLSPConfigurator;
-import org.eclipse.glsp.server.websocket.GLSPServerEndpoint;
 import org.eclipse.glsp.server.websocket.WebsocketModule;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.DefaultServlet;
@@ -86,7 +86,8 @@ public abstract class GLSPServerManager {
       context.addServlet(defaultServletHolder, "/");
 
       container = WebSocketServerContainerInitializer.configureContext(context);
-      ServerEndpointConfig.Builder builder = ServerEndpointConfig.Builder.create(GLSPServerEndpoint.class,
+      container.setDefaultMaxSessionIdleTimeout(TimeUnit.MINUTES.toMillis(10));
+      ServerEndpointConfig.Builder builder = ServerEndpointConfig.Builder.create(DiagramWebsocketEndpoint.class,
          "/" + getGlspId());
       builder.configurator(new GLSPConfigurator(injector));
       container.addEndpoint(builder.build());
