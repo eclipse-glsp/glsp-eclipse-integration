@@ -24,6 +24,24 @@
       <menuContribution
             allPopups="false"
             locationURI="popup:org.eclipse.glsp.workflow.editor">
+         <separator
+               name="org.eclipse.glsp.integration.workflow.editor.edit_start">
+         </separator>
+         <command
+               commandId="org.eclipse.ui.edit.copy"
+               style="push">
+         </command>
+         <command
+               commandId="org.eclipse.ui.edit.cut"
+               style="push">
+         </command>
+         <command
+               commandId="org.eclipse.ui.edit.paste"
+               style="push">
+         </command>
+         <separator
+               name="org.eclipse.glsp.integration.workflow.editor.edit_end">
+         </separator>
          <dynamic
                class="org.eclipse.glsp.integration.editor.ui.GLSPDynamicContribution"
                id="org.eclipse.glsp.integration.editor.actionprovider">
@@ -80,6 +98,42 @@
        <handler
              class="org.eclipse.glsp.integration.editor.handlers.RedoHandler"
              commandId="org.eclipse.ui.edit.redo">
+          <activeWhen>
+             <with
+                   variable="activePartId">
+                <equals
+                      value="org.eclipse.glsp.workflow.editor">
+                </equals>
+             </with>
+          </activeWhen>
+       </handler>
+       <handler
+             class="org.eclipse.glsp.integration.editor.handlers.CopyHandler"
+             commandId="org.eclipse.ui.edit.copy">
+          <activeWhen>
+             <with
+                   variable="activePartId">
+                <equals
+                      value="org.eclipse.glsp.workflow.editor">
+                </equals>
+             </with>
+          </activeWhen>
+       </handler>
+       <handler
+             class="org.eclipse.glsp.integration.editor.handlers.CutHandler"
+             commandId="org.eclipse.ui.edit.cut">
+          <activeWhen>
+             <with
+                   variable="activePartId">
+                <equals
+                      value="org.eclipse.glsp.workflow.editor">
+                </equals>
+             </with>
+          </activeWhen>
+       </handler>
+       <handler
+             class="org.eclipse.glsp.integration.editor.handlers.PasteHandler"
+             commandId="org.eclipse.ui.edit.paste">
           <activeWhen>
              <with
                    variable="activePartId">

@@ -13,25 +13,16 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-package org.eclipse.glsp.integration.editor.di;
+package org.eclipse.glsp.integration.editor.handlers;
 
-import javax.websocket.Endpoint;
+import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.glsp.integration.editor.actions.InvokePasteAction;
 
-import org.eclipse.glsp.server.DefaultGLSPModule;
-import org.eclipse.glsp.server.actions.ActionDispatcher;
-import org.eclipse.glsp.server.websocket.GLSPServerEndpoint;
-
-public abstract class EclipseEdtiorGLSPModule extends DefaultGLSPModule {
+public class PasteHandler extends EclipseActionHandler {
 
    @Override
-   public void configure() {
-      super.configure();
-      bind(Endpoint.class).to(GLSPServerEndpoint.class);
-   }
-
-   @Override
-   protected Class<? extends ActionDispatcher> bindActionDispatcher() {
-      return EclipseEditorActionDispatcher.class;
+   protected void execute(final IEclipseContext context) {
+      dispatchMessage(context, new InvokePasteAction());
    }
 
 }

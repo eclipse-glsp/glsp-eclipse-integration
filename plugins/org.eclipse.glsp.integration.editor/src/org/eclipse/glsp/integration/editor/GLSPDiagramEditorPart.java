@@ -219,7 +219,7 @@ public class GLSPDiagramEditorPart extends EditorPart {
    }
 
    protected Browser createBrowser(final Composite parent) {
-      return new Browser(comp, SWT.CHROMIUM | SWT.NO_SCROLL);
+      return new Browser(comp, SWT.NO_SCROLL);
    }
 
    @Override

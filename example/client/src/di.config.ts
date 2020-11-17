@@ -20,6 +20,7 @@ import { configureActionHandler, GLSPDiagramServer } from "@eclipse-glsp/client"
 import { Container, ContainerModule } from "inversify";
 import { ConsoleLogger, LogLevel, TYPES } from "sprotty";
 
+import { eclipseCopyPasteModule } from "./copy-paste";
 import { KeepAliveAction } from "./keep-alive-action";
 import { KeepAliveActionHandler } from "./keep-alive-action-handler";
 
@@ -29,6 +30,8 @@ export default function createContainer(): Container {
     container.rebind(TYPES.ILogger).to(ConsoleLogger).inSingletonScope();
     container.rebind(TYPES.LogLevel).toConstantValue(LogLevel.warn);
 
+    container.load(eclipseCopyPasteModule);
+    
     const keepAliveModule = new ContainerModule((bind, _unbind, isBound) => {
         configureActionHandler({ bind, isBound }, KeepAliveAction.KIND, KeepAliveActionHandler);
     });
