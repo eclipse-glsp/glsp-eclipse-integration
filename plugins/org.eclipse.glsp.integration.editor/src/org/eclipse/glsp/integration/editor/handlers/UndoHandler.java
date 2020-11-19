@@ -16,7 +16,7 @@
 package org.eclipse.glsp.integration.editor.handlers;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.glsp.api.action.kind.UndoAction;
+import org.eclipse.glsp.server.actions.UndoAction;
 
 public class UndoHandler extends EclipseActionHandler {
 

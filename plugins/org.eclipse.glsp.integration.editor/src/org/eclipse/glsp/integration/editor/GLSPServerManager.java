@@ -30,7 +30,7 @@ import javax.websocket.server.ServerEndpointConfig;
 
 import org.apache.log4j.BasicConfigurator;
 import org.eclipse.core.runtime.FileLocator;
-import org.eclipse.glsp.server.di.GLSPModule;
+import org.eclipse.glsp.server.GLSPModule;
 import org.eclipse.glsp.server.websocket.GLSPConfigurator;
 import org.eclipse.glsp.server.websocket.WebsocketModule;
 import org.eclipse.jetty.server.Server;

@@ -25,10 +25,10 @@ import javax.websocket.Session;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.glsp.api.action.Action;
-import org.eclipse.glsp.api.action.ActionMessage;
-import org.eclipse.glsp.api.jsonrpc.GLSPJsonrpcClient;
 import org.eclipse.glsp.integration.editor.ui.GLSPEditorIntegrationPlugin;
+import org.eclipse.glsp.server.actions.Action;
+import org.eclipse.glsp.server.actions.ActionMessage;
+import org.eclipse.glsp.server.jsonrpc.GLSPJsonrpcClient;
 import org.eclipse.glsp.server.websocket.GLSPServerEndpoint;
 import org.eclipse.ui.statushandlers.StatusManager;
 

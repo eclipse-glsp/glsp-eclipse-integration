@@ -25,7 +25,7 @@ import javax.websocket.DeploymentException;
 import org.eclipse.elk.alg.layered.options.LayeredMetaDataProvider;
 import org.eclipse.glsp.integration.editor.GLSPServerManager;
 import org.eclipse.glsp.layout.ElkLayoutEngine;
-import org.eclipse.glsp.server.di.GLSPModule;
+import org.eclipse.glsp.server.GLSPModule;
 import org.eclipse.jetty.server.Server;
 
 public class WorkflowServerManager extends GLSPServerManager {

@@ -17,9 +17,9 @@ package org.eclipse.glsp.integration.workflow.editor;
 
 import javax.websocket.Endpoint;
 
-import org.eclipse.glsp.api.action.ActionDispatcher;
 import org.eclipse.glsp.example.workflow.WorkflowGLSPModule;
 import org.eclipse.glsp.integration.editor.di.EclipseEditorActionDispatcher;
+import org.eclipse.glsp.server.actions.ActionDispatcher;
 import org.eclipse.glsp.server.websocket.GLSPServerEndpoint;
 
 class WorkflowGLSPEclipseModule extends WorkflowGLSPModule {

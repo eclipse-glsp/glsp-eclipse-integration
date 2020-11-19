@@ -31,15 +31,15 @@ import java.util.stream.Stream;
 import org.apache.commons.io.FilenameUtils;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.glsp.api.action.ActionDispatcher;
-import org.eclipse.glsp.api.action.kind.RequestContextActions;
-import org.eclipse.glsp.api.action.kind.SaveModelAction;
-import org.eclipse.glsp.api.action.kind.ServerStatusAction;
-import org.eclipse.glsp.api.action.kind.SetDirtyStateAction;
-import org.eclipse.glsp.api.protocol.GLSPServerException;
-import org.eclipse.glsp.api.types.EditorContext;
 import org.eclipse.glsp.integration.editor.actions.GLSPActionProvider;
 import org.eclipse.glsp.integration.editor.ui.GLSPEditorIntegrationPlugin;
+import org.eclipse.glsp.server.actions.ActionDispatcher;
+import org.eclipse.glsp.server.actions.SaveModelAction;
+import org.eclipse.glsp.server.actions.ServerStatusAction;
+import org.eclipse.glsp.server.actions.SetDirtyStateAction;
+import org.eclipse.glsp.server.features.contextactions.RequestContextActions;
+import org.eclipse.glsp.server.protocol.GLSPServerException;
+import org.eclipse.glsp.server.types.EditorContext;
 import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.SWT;
@@ -54,6 +54,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.IEditorInput;
@@ -232,34 +233,36 @@ public class GLSPDiagramEditorPart extends EditorPart {
    protected String getFileName() { return FilenameUtils.getName(filePath); }
 
    public void showServerState(final ServerStatusAction serverStatus) {
-      switch (serverStatus.getSeverity().toLowerCase()) {
-         case "ok": {
-            statusBar.setVisible(false);
-            ((GridData) statusBar.getLayoutData()).exclude = true;
-            break;
+      Display.getDefault().asyncExec(() -> {
+         switch (serverStatus.getSeverity().toLowerCase()) {
+            case "ok": {
+               statusBar.setVisible(false);
+               ((GridData) statusBar.getLayoutData()).exclude = true;
+               break;
+            }
+            case "error": {
+               statusBar.setVisible(true);
+               ((GridData) statusBar.getLayoutData()).exclude = false;
+               statusBarIcon.setImage(sharedImages.getImage(IMG_OBJS_ERROR_TSK));
+               break;
+            }
+            case "warning": {
+               statusBar.setVisible(true);
+               ((GridData) statusBar.getLayoutData()).exclude = false;
+               statusBarIcon.setImage(sharedImages.getImage(IMG_OBJS_WARN_TSK));
+               break;
+            }
+            case "info": {
+               statusBar.setVisible(true);
+               ((GridData) statusBar.getLayoutData()).exclude = false;
+               statusBarIcon.setImage(sharedImages.getImage(IMG_OBJS_INFO_TSK));
+               break;
+            }
+            default: {}
          }
-         case "error": {
-            statusBar.setVisible(true);
-            ((GridData) statusBar.getLayoutData()).exclude = false;
-            statusBarIcon.setImage(sharedImages.getImage(IMG_OBJS_ERROR_TSK));
-            break;
-         }
-         case "warning": {
-            statusBar.setVisible(true);
-            ((GridData) statusBar.getLayoutData()).exclude = false;
-            statusBarIcon.setImage(sharedImages.getImage(IMG_OBJS_WARN_TSK));
-            break;
-         }
-         case "info": {
-            statusBar.setVisible(true);
-            ((GridData) statusBar.getLayoutData()).exclude = false;
-            statusBarIcon.setImage(sharedImages.getImage(IMG_OBJS_INFO_TSK));
-            break;
-         }
-         default: {}
-      }
-      statusBarMessage.setText(serverStatus.getMessage());
-      comp.layout(true, true);
+         statusBarMessage.setText(serverStatus.getMessage());
+         comp.layout(true, true);
+      });
    }
 
    @Override

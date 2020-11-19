@@ -20,11 +20,11 @@ import java.util.Optional;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.glsp.api.action.ActionDispatcher;
-import org.eclipse.glsp.api.action.kind.ExportSVGAction;
-import org.eclipse.glsp.api.protocol.GLSPServerException;
 import org.eclipse.glsp.integration.editor.ui.GLSPEditorIntegrationPlugin;
 import org.eclipse.glsp.integration.editor.utils.UIUtil;
+import org.eclipse.glsp.server.actions.ActionDispatcher;
+import org.eclipse.glsp.server.actions.ExportSVGAction;
+import org.eclipse.glsp.server.protocol.GLSPServerException;
 
 import com.google.inject.Injector;
 
