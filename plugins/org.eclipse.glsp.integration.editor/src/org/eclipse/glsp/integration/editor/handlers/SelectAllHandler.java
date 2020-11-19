@@ -16,7 +16,7 @@
 package org.eclipse.glsp.integration.editor.handlers;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.glsp.api.action.kind.SelectAllAction;
+import org.eclipse.glsp.server.actions.SelectAllAction;
 
 public class SelectAllHandler extends EclipseActionHandler {
 

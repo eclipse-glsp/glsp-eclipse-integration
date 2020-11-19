@@ -15,12 +15,12 @@
  ********************************************************************************/
 package org.eclipse.glsp.integration.editor.actions;
 
-import org.eclipse.glsp.api.model.GraphicalModelState;
-import org.eclipse.glsp.api.types.EditorContext;
+import org.eclipse.glsp.server.model.GModelState;
+import org.eclipse.glsp.server.types.EditorContext;
 import org.eclipse.swt.widgets.Menu;
 
 public interface GLSPActionProvider {
 
-   void fillContextMenu(Menu menu, GraphicalModelState modelState, EditorContext editorContext, int index);
+   void fillContextMenu(Menu menu, GModelState modelState, EditorContext editorContext, int index);
 
 }

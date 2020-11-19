@@ -16,7 +16,7 @@
 package org.eclipse.glsp.integration.editor.handlers;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.glsp.api.action.kind.RedoAction;
+import org.eclipse.glsp.server.actions.RedoAction;
 
 public class RedoHandler extends EclipseActionHandler {
 

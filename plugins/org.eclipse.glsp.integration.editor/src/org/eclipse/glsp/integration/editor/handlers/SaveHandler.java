@@ -16,7 +16,7 @@
 package org.eclipse.glsp.integration.editor.handlers;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.glsp.api.action.kind.SaveModelAction;
+import org.eclipse.glsp.server.actions.SaveModelAction;
 import org.eclipse.ui.part.EditorPart;
 
 /**

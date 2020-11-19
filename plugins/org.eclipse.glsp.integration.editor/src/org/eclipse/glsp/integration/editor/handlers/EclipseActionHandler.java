@@ -15,7 +15,7 @@
  ********************************************************************************/
 package org.eclipse.glsp.integration.editor.handlers;
 
-import static org.eclipse.glsp.api.utils.ServerMessageUtil.error;
+import static org.eclipse.glsp.server.utils.ServerMessageUtil.error;
 
 import java.util.Optional;
 
@@ -24,11 +24,11 @@ import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.glsp.api.action.Action;
-import org.eclipse.glsp.api.action.ActionDispatcher;
-import org.eclipse.glsp.api.action.ActionMessage;
-import org.eclipse.glsp.api.protocol.GLSPClient;
 import org.eclipse.glsp.integration.editor.GLSPDiagramEditorPart;
+import org.eclipse.glsp.server.actions.Action;
+import org.eclipse.glsp.server.actions.ActionDispatcher;
+import org.eclipse.glsp.server.actions.ActionMessage;
+import org.eclipse.glsp.server.protocol.GLSPClient;
 import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.handlers.HandlerUtil;
 

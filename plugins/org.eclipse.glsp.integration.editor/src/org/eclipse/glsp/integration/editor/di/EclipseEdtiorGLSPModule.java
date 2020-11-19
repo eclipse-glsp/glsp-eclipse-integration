@@ -17,8 +17,8 @@ package org.eclipse.glsp.integration.editor.di;
 
 import javax.websocket.Endpoint;
 
-import org.eclipse.glsp.api.action.ActionDispatcher;
-import org.eclipse.glsp.server.di.DefaultGLSPModule;
+import org.eclipse.glsp.server.DefaultGLSPModule;
+import org.eclipse.glsp.server.actions.ActionDispatcher;
 import org.eclipse.glsp.server.websocket.GLSPServerEndpoint;
 
 public abstract class EclipseEdtiorGLSPModule extends DefaultGLSPModule {

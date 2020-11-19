@@ -15,16 +15,20 @@
  ********************************************************************************/
 package org.eclipse.glsp.integration.editor.di;
 
-import org.eclipse.glsp.api.action.Action;
-import org.eclipse.glsp.api.action.kind.RequestContextActions;
-import org.eclipse.glsp.api.action.kind.ServerMessageAction;
-import org.eclipse.glsp.api.action.kind.ServerStatusAction;
-import org.eclipse.glsp.api.action.kind.SetDirtyStateAction;
-import org.eclipse.glsp.api.protocol.ClientSessionManager;
-import org.eclipse.glsp.api.protocol.GLSPServerException;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+
 import org.eclipse.glsp.integration.editor.GLSPDiagramEditorPart;
 import org.eclipse.glsp.integration.editor.ui.GLSPEditorIntegrationPlugin;
-import org.eclipse.glsp.server.action.DefaultActionDispatcher;
+import org.eclipse.glsp.server.actions.Action;
+import org.eclipse.glsp.server.actions.ServerMessageAction;
+import org.eclipse.glsp.server.actions.ServerStatusAction;
+import org.eclipse.glsp.server.actions.SetDirtyStateAction;
+import org.eclipse.glsp.server.features.contextactions.RequestContextActions;
+import org.eclipse.glsp.server.internal.action.DefaultActionDispatcher;
+import org.eclipse.glsp.server.protocol.ClientSessionManager;
+import org.eclipse.glsp.server.protocol.GLSPServerException;
 
 import com.google.inject.Inject;
 
@@ -36,10 +40,11 @@ public class EclipseEditorActionDispatcher extends DefaultActionDispatcher {
    }
 
    @Override
-   protected void runAction(final Action action, final String clientId) {
+   protected List<CompletableFuture<Void>> runAction(final Action action, final String clientId) {
       if (!this.handleLocally(action, clientId)) {
-         super.runAction(action, clientId);
+         return super.runAction(action, clientId);
       }
+      return Collections.emptyList();
    }
 
    protected boolean handleLocally(final Action action, final String clientId) {
