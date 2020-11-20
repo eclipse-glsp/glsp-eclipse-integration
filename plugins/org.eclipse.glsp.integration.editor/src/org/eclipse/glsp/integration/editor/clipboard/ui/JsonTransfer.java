@@ -18,14 +18,14 @@ package org.eclipse.glsp.integration.editor.clipboard.ui;
 import org.eclipse.swt.dnd.ByteArrayTransfer;
 import org.eclipse.swt.dnd.TransferData;
 
-public class JsonTransfer extends ByteArrayTransfer {
+public final class JsonTransfer extends ByteArrayTransfer {
 
    public static final String APPLICATION_JSON = "application/json";
    public static final int JSON_TYPE_ID = registerType(APPLICATION_JSON);
 
-   private static final JsonTransfer instance = new JsonTransfer();
+   private static final JsonTransfer INSTANCE = new JsonTransfer();
 
-   public static JsonTransfer getInstance() { return instance; }
+   public static JsonTransfer getInstance() { return INSTANCE; }
 
    private JsonTransfer() {}
 

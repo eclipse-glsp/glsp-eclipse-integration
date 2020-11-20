@@ -35,7 +35,7 @@ import com.google.inject.Inject;
 /**
  * An {@link OperationHandler} similar to the GLSP {@link PasteOperationHandler},
  * except that it relies on the local clipboard (instead of relying on Data passed by the client
- * via the operation data)
+ * via the operation data).
  */
 public class EclipsePasteOperationHandler extends PasteOperationHandler {
 

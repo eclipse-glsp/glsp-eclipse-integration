@@ -28,13 +28,13 @@ import org.eclipse.glsp.server.protocol.ClientSessionListener;
 import com.google.inject.Inject;
 
 /**
- * Copy the text from the {@link SetClipboardDataAction} to the Eclipse/SWT Clipboard (System Clipboard)
+ * Copy the text from the {@link SetClipboardDataAction} to the Eclipse/SWT Clipboard (System Clipboard).
  */
 public class SetClipboardDataActionHandler extends BasicActionHandler<SetClipboardDataAction>
    implements ClientSessionListener {
 
    @Inject
-   ClipboardService clipboard;
+   protected ClipboardService clipboard;
 
    @Override
    protected List<Action> executeAction(final SetClipboardDataAction action,

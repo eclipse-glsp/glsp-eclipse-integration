@@ -34,13 +34,13 @@ import com.google.inject.Provider;
 import com.google.inject.Singleton;
 
 /**
- * A {@link ClipboardService} based on the SWT System {@link Clipboard}
+ * A {@link ClipboardService} based on the SWT System {@link Clipboard}.
  */
 @Singleton
 public class DisplayClipboardService implements ClipboardService, ClientSessionListener {
 
    @Inject
-   Provider<GLSPClient> client;
+   protected Provider<GLSPClient> client;
 
    private Clipboard clipboard;
 
