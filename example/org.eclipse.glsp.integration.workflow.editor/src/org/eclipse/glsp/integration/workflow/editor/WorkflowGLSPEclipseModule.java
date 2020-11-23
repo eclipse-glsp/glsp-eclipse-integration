@@ -25,10 +25,12 @@ import org.eclipse.glsp.integration.editor.actions.handlers.SetClipboardDataActi
 import org.eclipse.glsp.integration.editor.clipboard.ClipboardService;
 import org.eclipse.glsp.integration.editor.clipboard.ui.DisplayClipboardService;
 import org.eclipse.glsp.integration.editor.di.EclipseEditorActionDispatcher;
+import org.eclipse.glsp.integration.editor.handlers.IdeSetMarkersActionHandler;
 import org.eclipse.glsp.integration.editor.operations.handlers.EclipsePasteOperationHandler;
 import org.eclipse.glsp.server.actions.Action;
 import org.eclipse.glsp.server.actions.ActionDispatcher;
 import org.eclipse.glsp.server.actions.ActionHandler;
+import org.eclipse.glsp.server.features.validation.SetMarkersAction;
 import org.eclipse.glsp.server.operations.OperationHandler;
 import org.eclipse.glsp.server.operations.gmodel.PasteOperationHandler;
 import org.eclipse.glsp.server.utils.MultiBinding;
@@ -51,6 +53,7 @@ class WorkflowGLSPEclipseModule extends WorkflowGLSPModule {
    protected void configureActionHandlers(final MultiBinding<ActionHandler> bindings) {
       super.configureActionHandlers(bindings);
       bindings.add(SetClipboardDataActionHandler.class);
+      bindings.add(IdeSetMarkersActionHandler.class);
    }
 
    @Override
@@ -66,6 +69,8 @@ class WorkflowGLSPEclipseModule extends WorkflowGLSPModule {
       bindings.add(InvokeCopyAction.class);
       bindings.add(InvokeCutAction.class);
       bindings.add(InvokePasteAction.class);
+
+      bindings.remove(SetMarkersAction.class);
    }
 
 }
