@@ -3,13 +3,13 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.eclipse.glsp.integration</groupId>
-	<artifactId>org.eclipse.glsp.integration.parent</artifactId>
-	<description>GLSP Parent pom </description>
-	<version>0.8.0-SNAPSHOT</version>
+	<groupId>org.eclipse.glsp.ide</groupId>
+	<artifactId>org.eclipse.glsp.ide.parent</artifactId>
+	<description>GLSP Eclipse IDE Integration Parent pom </description>
+	<version>0.9.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-	<name>GLSP Eclipse Integration Parent</name>
+	<name>GLSP Eclipse IDE Integration Parent</name>
 
 	<url>https://www.eclipse.org/glsp</url>
 	<licenses>
@@ -42,27 +42,27 @@
 	</developers>
 
 	<scm>
-		<url>https://github.com/eclipsesource/glsp-eclipse-integration</url>
-		<connection>scm:git@github.com:eclipsesource/glsp-eclipse-integration.git</connection>
-		<developerConnection>scm:git@github.com:eclipsesource/glsp-eclipse-integration.git</developerConnection>
+		<url>https://github.com/eclipse-glsp/glsp-eclipse-integration</url>
+		<connection>scm:git@github.com:eclipse-glsp/glsp-eclipse-integration.git</connection>
+		<developerConnection>scm:git@github.com:eclipse-glsp/glsp-eclipse-integration.git</developerConnection>
 		<tag>HEAD</tag>
 	</scm>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java.source>1.8</java.source>
-		<java.target>1.8</java.target>
+		<java.source>11</java.source>
+		<java.target>11</java.target>
 		<project.build.java.target>1.8</project.build.java.target>
-		<target.version>0.8.0-SNAPSHOT</target.version>
-		<tycho-version>1.6.0</tycho-version>
-		<tychoExtrasVersion>1.6.0</tychoExtrasVersion>
-		<maven-antrun-plugin.version>1.8</maven-antrun-plugin.version>
+		<target.version>0.9.0-SNAPSHOT</target.version>
+		<tycho-version>2.1.0</tycho-version>
+		<tychoExtrasVersion>2.1.0</tychoExtrasVersion>
+		<maven-antrun-plugin.version>11</maven-antrun-plugin.version>
 
 	</properties>
 
 	<modules>
-		<module>plugins/org.eclipse.glsp.integration.editor</module>
-		<module>example/org.eclipse.glsp.integration.workflow.editor</module>
+		<module>plugins/org.eclipse.glsp.ide.editor</module>
+		<module>example/org.eclipse.glsp.ide.workflow.editor</module>
 		<module>releng</module>
 	</modules>
 
@@ -165,9 +165,9 @@
 					</environments>
 					<target>
 						<artifact>
-							<groupId>org.eclipse.glsp.integration</groupId>
-							<artifactId>org.eclipse.glsp.integration.parent</artifactId>
-							<classifier>targetplatforms/r2020-06</classifier>
+							<groupId>org.eclipse.glsp.ide</groupId>
+							<artifactId>org.eclipse.glsp.ide.parent</artifactId>
+							<classifier>releng/org.eclipse.glsp.ide.releng.target/r2020-09</classifier>
 							<version>${target.version}</version>
 						</artifact>
 					</target>
@@ -184,7 +184,7 @@
 			</activation>
 
 			<modules>
-				<module>plugins/org.eclipse.glsp.integration.editor</module>
+				<module>plugins/org.eclipse.glsp.ide.editor</module>
 				<module>releng</module>
 			</modules>
 		</profile>
