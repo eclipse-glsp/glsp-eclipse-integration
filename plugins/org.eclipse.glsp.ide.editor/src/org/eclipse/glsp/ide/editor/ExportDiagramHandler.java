@@ -15,43 +15,15 @@
  ********************************************************************************/
 package org.eclipse.glsp.ide.editor;
 
-import java.util.Optional;
-
-import org.eclipse.core.commands.AbstractHandler;
-import org.eclipse.core.commands.ExecutionEvent;
-import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.glsp.ide.editor.ui.GLSPEditorIntegrationPlugin;
-import org.eclipse.glsp.ide.editor.utils.UIUtil;
-import org.eclipse.glsp.server.actions.ActionDispatcher;
+import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.glsp.ide.editor.handlers.EclipseActionHandler;
 import org.eclipse.glsp.server.actions.ExportSVGAction;
-import org.eclipse.glsp.server.protocol.GLSPServerException;
 
-import com.google.inject.Injector;
-
-public class ExportDiagramHandler extends AbstractHandler {
+public class ExportDiagramHandler extends EclipseActionHandler {
 
    @Override
-   public Object execute(final ExecutionEvent event) throws ExecutionException {
-
-      UIUtil.getActiveEditor(GLSPDiagramEditorPart.class).ifPresent(editorPart -> {
-         String clientId = (editorPart).getClientId();
-         ActionDispatcher actionDispatcher = getInjector(editorPart).getInstance(ActionDispatcher.class);
-
-         actionDispatcher.dispatch(clientId, new ExportSVGAction());
-
-      });
-      return null;
-   }
-
-   protected Injector getInjector(final GLSPDiagramEditorPart editorPart) {
-      Optional<Injector> injector = GLSPEditorIntegrationPlugin.getDefault().getGLSPEditorRegistry()
-         .getInjector(editorPart);
-      if (!injector.isPresent()) {
-         throw new GLSPServerException(
-            "Could not retrieve GLSP injector. GLSP editor is not properly configured: "
-               + editorPart.getEditorSite().getId());
-      }
-      return injector.get();
+   protected void execute(final IEclipseContext context) {
+      dispatchMessage(context, new ExportSVGAction());
    }
 
 }
