@@ -6,7 +6,7 @@
    <bundle id="org.eclipse.glsp.example.workflow">
       <category name="org.eclipse.glsp.example"/>
    </bundle>
-   <bundle id="org.eclipse.glsp.integration.workflow.editor">
+   <bundle id="org.eclipse.glsp.ide.workflow.editor">
       <category name="org.eclipse.glsp.example"/>
    </bundle>
    <category-def name="org.eclipse.glsp" label="Eclipse GLSP"/>
