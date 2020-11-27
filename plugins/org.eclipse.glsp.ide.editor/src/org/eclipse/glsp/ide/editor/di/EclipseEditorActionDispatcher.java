@@ -17,8 +17,12 @@ package org.eclipse.glsp.ide.editor.di;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.glsp.ide.editor.GLSPDiagramEditorPart;
 import org.eclipse.glsp.ide.editor.ui.GLSPEditorIntegrationPlugin;
 import org.eclipse.glsp.server.actions.Action;
@@ -29,6 +33,9 @@ import org.eclipse.glsp.server.features.contextactions.RequestContextActions;
 import org.eclipse.glsp.server.internal.action.DefaultActionDispatcher;
 import org.eclipse.glsp.server.protocol.ClientSessionManager;
 import org.eclipse.glsp.server.protocol.GLSPServerException;
+import org.eclipse.glsp.server.types.Severity;
+import org.eclipse.jface.dialogs.ErrorDialog;
+import org.eclipse.swt.widgets.Display;
 
 import com.google.inject.Inject;
 
@@ -75,15 +82,62 @@ public class EclipseEditorActionDispatcher extends DefaultActionDispatcher {
       return true;
    }
 
-   protected boolean handleServerMessageAction(final ServerMessageAction action, final String clientId) {
-      // Do not process message notifications for now. Only rely on status actions
-      return true;
-   }
+	protected boolean handleServerMessageAction(final ServerMessageAction action, final String clientId) {
+		toStatus(action).ifPresent(s -> log(s, action, clientId));
+		return true;
+	}
+
+	private void log(IStatus status, ServerMessageAction action, String clientId) {
+		Platform.getLog(getClass()).log(status);
+		if (status.getSeverity() >= IStatus.ERROR) {
+			Display.getDefault().asyncExec(() -> {
+				ErrorDialog.openError(getEditorPart(clientId).getEditorSite().getShell(), "GLSP Server Error",
+						action.getMessage(), status);
+			});
+		}
+	}
 
    protected GLSPDiagramEditorPart getEditorPart(final String clientId) {
       return GLSPServerException.getOrThrow(GLSPEditorIntegrationPlugin.getDefault().getGLSPEditorRegistry()
          .getGLSPEditor(clientId),
          "Could not retrieve GLSP Editor. GLSP editor is not properly configured for clientId: " + clientId);
    }
+
+	private static Optional<IStatus> toStatus(ServerMessageAction action) {
+		int severity;
+		switch (Severity.valueOf(action.getSeverity())) {
+		case NONE:
+			severity = IStatus.OK;
+			break;
+		case OK:
+			severity = IStatus.OK;
+			break;
+		case INFO:
+			severity = IStatus.INFO;
+			break;
+		case WARNING:
+			severity = IStatus.WARNING;
+			break;
+		case ERROR:
+			severity = IStatus.ERROR;
+			break;
+		case FATAL:
+			severity = IStatus.CANCEL;
+			break;
+		default:
+			severity = IStatus.OK;
+			break;
+		}
+		String message = action.getMessage();
+		if (message == null || message.isEmpty()) {
+			message = action.getDetails();
+		} else if (action.getDetails() != null && !action.getDetails().isEmpty()) {
+			message = message + "\n" + action.getDetails();
+		}
+		if (message != null && !message.isEmpty()) {
+			return Optional.of(new Status(severity, EclipseEditorActionDispatcher.class, message));
+		}
+		return Optional.empty();
+	}
 
 }

@@ -16,22 +16,23 @@
 import "../css/diagram.css";
 
 import { createWorkflowDiagramContainer } from "@eclipse-glsp-examples/workflow-sprotty/lib";
-import { configureActionHandler, GLSPDiagramServer } from "@eclipse-glsp/client";
+import { configureActionHandler } from "@eclipse-glsp/client";
 import { Container, ContainerModule } from "inversify";
 import { ConsoleLogger, LogLevel, TYPES } from "sprotty";
 
 import { eclipseCopyPasteModule } from "./copy-paste";
+import { EclipseGLSPDiagramServer } from "./eclipse-glsp-diagram-server";
 import { KeepAliveAction } from "./keep-alive-action";
 import { KeepAliveActionHandler } from "./keep-alive-action-handler";
 
 export default function createContainer(): Container {
     const container = createWorkflowDiagramContainer('sprotty');
-    container.bind(TYPES.ModelSource).to(GLSPDiagramServer).inSingletonScope();
+    container.bind(TYPES.ModelSource).to(EclipseGLSPDiagramServer).inSingletonScope();
     container.rebind(TYPES.ILogger).to(ConsoleLogger).inSingletonScope();
     container.rebind(TYPES.LogLevel).toConstantValue(LogLevel.warn);
 
     container.load(eclipseCopyPasteModule);
-    
+
     const keepAliveModule = new ContainerModule((bind, _unbind, isBound) => {
         configureActionHandler({ bind, isBound }, KeepAliveAction.KIND, KeepAliveActionHandler);
     });
