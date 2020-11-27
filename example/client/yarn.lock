@@ -23,21 +23,28 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@eclipse-glsp-examples/workflow-sprotty@next":
-  version "0.8.0-next.ee25800d"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp-examples/workflow-sprotty/-/workflow-sprotty-0.8.0-next.ee25800d.tgz#fba6bbdf823a1d83de20895004db7708a905be23"
-  integrity sha512-Q+DyLRxmR+eqkB+s8c4LHzCZtrcmU8O3IZ09hZghfPylDhfCtRGz0KigJHtGqDpQnD+HMR2FK/Iztk2pfpu6Qw==
+"@eclipse-glsp-examples/workflow-glsp@0.8.0":
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp-examples/workflow-glsp/-/workflow-glsp-0.8.0.tgz#d1e87ccf662ab5ca6e0ab1edf62555d01c82590d"
+  integrity sha512-0Ws/WMjpQ5SK9wrmmLkoNHbFdlnuqRzPEjN7HNoJYwV7t6aDO1NSxw+YIxUYxMZTwG0pjwmBNX1EXiIEW3bpsw==
   dependencies:
-    "@eclipse-glsp/client" next
+    "@eclipse-glsp/client" "0.8.1"
     balloon-css "^0.5.0"
 
-"@eclipse-glsp/client@next":
-  version "0.8.0-next.461edec"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-0.8.0-next.461edec.tgz#0931b0bdfb0a4967c2552b80e49e18f8d16af096"
-  integrity sha512-r3skxyBs3CzJp5ayE+jQVN3I9UXM2t2ZzqSFk2VmOqFiCf11DkAJsywNBtNIyiDtWC2Pg38qVzXVD8Ie8RXdVw==
+"@eclipse-glsp/client@0.8.1":
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-0.8.1.tgz#9b40aa0d68a35963fe5d570f28761c2ea2d6afde"
+  integrity sha512-4O3E02Po7tFAz+SUe2E87GIckQrmUhC8MuXaUs/k0fNb8gW9vZ8pHswWpNbaghzN3SEV5v4wJY+tcTu1FL6agg==
   dependencies:
+    "@eclipse-glsp/protocol" "0.8.0"
     autocompleter "5.1.0"
     sprotty "0.9.0"
+
+"@eclipse-glsp/protocol@0.8.0":
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/protocol/-/protocol-0.8.0.tgz#28e60a277af5364c8e9071752b9dba08b6f047c1"
+  integrity sha512-nWYMTGtBCD2JQlPZN9b03BcZ4YPIMPCDmm+vpr3nyuPkBVbzf28uwIoVypL3NVJU9P1saMfBP2gzmJ0r5FcZCg==
+  dependencies:
     uuid "7.0.3"
     vscode-ws-jsonrpc "0.2.0"
 

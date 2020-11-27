@@ -4,8 +4,9 @@
   "version": "0.9.0",
   "description": "Standalone browser-app for the Workflow example",
   "dependencies": {
-    "@eclipse-glsp-examples/workflow-sprotty": "next",
-    "@eclipse-glsp/client": "next"
+    "@eclipse-glsp-examples/workflow-glsp": "0.8.0",
+    "@eclipse-glsp/client": "0.8.1",
+    "@eclipse-glsp/protocol": "0.8.0"
   },
   "devDependencies": {
     "@types/chai": "^4.0.1",

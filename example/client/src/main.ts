@@ -16,15 +16,13 @@
 import "reflect-metadata";
 
 import {
-    ApplicationIdProvider,
-    BaseJsonrpcGLSPClient,
     EnableToolPaletteAction,
     GLSPActionDispatcher,
     GLSPDiagramServer,
     InitializeClientSessionAction,
-    JsonrpcGLSPClient,
     RequestTypeHintsAction
 } from "@eclipse-glsp/client";
+import { ApplicationIdProvider, BaseJsonrpcGLSPClient, JsonrpcGLSPClient } from "@eclipse-glsp/protocol";
 import { CenterAction, RequestModelAction, TYPES } from "sprotty";
 
 import createContainer from "./di.config";
