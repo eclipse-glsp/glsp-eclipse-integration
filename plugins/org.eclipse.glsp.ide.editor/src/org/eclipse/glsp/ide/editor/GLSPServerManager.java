@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
@@ -34,6 +35,7 @@ import org.eclipse.glsp.server.di.GLSPModule;
 import org.eclipse.glsp.server.websocket.GLSPConfigurator;
 import org.eclipse.glsp.server.websocket.WebsocketModule;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.servlet.DefaultServlet;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -48,13 +50,19 @@ public abstract class GLSPServerManager {
    protected Server server;
    protected ServerContainer container;
    protected Injector injector;
+   private int localPort;
 
    public synchronized void start() throws Exception {
       if (server == null || !server.isRunning()) {
-         server = new Server(new InetSocketAddress("localhost", 8081));
+         server = new Server(new InetSocketAddress("localhost", 0));
 
          configure(server);
          server.start();
+
+         // Use any available port, as several Eclipse instances (Or several subclasses
+         // of GLSPServerManager) may be started at the same time.
+         this.localPort = Arrays.stream(server.getConnectors()).findFirst()
+            .map(ServerConnector.class::cast).map(ServerConnector::getLocalPort).orElse(-1);
       }
    }
 
@@ -64,15 +72,12 @@ public abstract class GLSPServerManager {
 
    public abstract GLSPModule getModule();
 
-   public Injector getInjector() { return injector; }
-
    public abstract URL getResourceURL();
 
    @SuppressWarnings("checkstyle:ThrowsCount")
    protected void configure(final Server server)
       throws URISyntaxException, IOException, ServletException, DeploymentException {
       BasicConfigurator.configure();
-      injector = Guice.createInjector(getModule(), new WebsocketModule());
 
       ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
       context.setContextPath("/");
@@ -89,7 +94,7 @@ public abstract class GLSPServerManager {
       container.setDefaultMaxSessionIdleTimeout(TimeUnit.MINUTES.toMillis(10));
       ServerEndpointConfig.Builder builder = ServerEndpointConfig.Builder.create(DiagramWebsocketEndpoint.class,
          "/" + getGlspId());
-      builder.configurator(new GLSPConfigurator(injector));
+      builder.configurator(new GLSPConfigurator(() -> Guice.createInjector(getModule(), new WebsocketModule())));
       container.addEndpoint(builder.build());
 
    }
@@ -111,4 +116,13 @@ public abstract class GLSPServerManager {
    }
 
    public Server getServer() { return server; }
+
+   /**
+    * Return the port used by this server. Ports are computed dynamically, as multiple Eclipse IDEs
+    * may be running in parallel, each with their own embedded server(s).
+    *
+    * @return
+    *         the port used by this server.
+    */
+   public int getLocalPort() { return this.localPort; }
 }

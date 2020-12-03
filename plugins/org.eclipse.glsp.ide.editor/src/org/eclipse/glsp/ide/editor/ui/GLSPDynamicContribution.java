@@ -19,7 +19,6 @@ import java.util.Optional;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.glsp.ide.editor.GLSPDiagramEditorPart;
-import org.eclipse.glsp.ide.editor.GLSPServerManager;
 import org.eclipse.glsp.ide.editor.actions.GLSPActionProvider;
 import org.eclipse.glsp.server.model.GModelState;
 import org.eclipse.glsp.server.model.ModelStateProvider;
@@ -51,12 +50,12 @@ public class GLSPDynamicContribution extends ContributionItem implements IWorkbe
       IEclipseContext context = serviceLocator.getService(IEclipseContext.class);
       GLSPActionProvider actionProvider = context.get(GLSPActionProvider.class);
       if (actionProvider != null) {
-         GLSPServerManager serverManager = context.get(GLSPServerManager.class);
+         GLSPDiagramEditorPart editor = context.get(GLSPDiagramEditorPart.class);
          String clientId = (String) context.get(GLSPDiagramEditorPart.GLSP_CLIENT_ID);
          // The model state will not be stored in the EclipseContext, as we (currently) have no way
          // to hook into new client connections. The Editor UI will be created and ready before the Browser
          // connects to the Backend server; so we may not have a ModelState yet.
-         Optional<GModelState> modelState = serverManager.getInjector().getInstance(ModelStateProvider.class)
+         Optional<GModelState> modelState = editor.getInjector().getInstance(ModelStateProvider.class)
             .getModelState(clientId);
          if (modelState.isPresent()) {
             EditorContext editorContext = serviceLocator.getService(EditorContext.class);

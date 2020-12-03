@@ -70,11 +70,12 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.EditorPart;
 
 import com.google.gson.JsonObject;
+import com.google.inject.Injector;
 
 public class GLSPDiagramEditorPart extends EditorPart {
    /**
-    * {@link IEclipseContext} key for the current client id.
-    * The associated value is a {@link String}.
+    * {@link IEclipseContext} key for the current client id. The associated value
+    * is a {@link String}.
     */
    public static final String GLSP_CLIENT_ID = "GLSP_CLIENT_ID";
    private static final AtomicInteger COUNT = new AtomicInteger(0);
@@ -94,6 +95,7 @@ public class GLSPDiagramEditorPart extends EditorPart {
    private boolean dirty;
 
    private boolean connected;
+   private Injector injector;
 
    private ServerStatusAction currentStatus;
 
@@ -104,7 +106,8 @@ public class GLSPDiagramEditorPart extends EditorPart {
          .getGLSPServerManager(this);
       if (!serverManager.isPresent()) {
          throw new GLSPServerException(
-            "Could not retrieve GLSPServerManager. GLSP editor is not properly configured: " + getEditorSite().getId());
+            "Could not retrieve GLSPServerManager. GLSP editor is not properly configured: "
+               + getEditorSite().getId());
       }
       return serverManager.get();
    }
@@ -115,7 +118,7 @@ public class GLSPDiagramEditorPart extends EditorPart {
 
    @Override
    public void doSave(final IProgressMonitor monitor) {
-      ActionDispatcher dispatcher = getServerManager().getInjector().getInstance(ActionDispatcher.class);
+      ActionDispatcher dispatcher = getInjector().getInstance(ActionDispatcher.class);
       dispatcher.dispatch(clientId, new SaveModelAction());
    }
 
@@ -148,7 +151,6 @@ public class GLSPDiagramEditorPart extends EditorPart {
       GLSPServerManager serverManager = getServerManager();
       context.set(GLSPServerManager.class, serverManager);
       context.set(GLSP_CLIENT_ID, clientId);
-      context.set(ActionDispatcher.class, serverManager.getInjector().getInstance(ActionDispatcher.class));
       getActionProvider().ifPresent(provider -> context.set(GLSPActionProvider.class, provider));
       // Editor context contains some info about the current client state. It can
       // be updated when the client sends new actions
@@ -186,7 +188,6 @@ public class GLSPDiagramEditorPart extends EditorPart {
 
       statusBarIcon = new Label(statusBar, SWT.NONE);
       statusBarIcon.setImage(sharedImages.getImage(IMG_OBJS_INFO_TSK));
-
       statusBarMessage = new Label(statusBar, SWT.NONE);
       statusBarMessage.setText("");
 
@@ -306,10 +307,10 @@ public class GLSPDiagramEditorPart extends EditorPart {
             .map(ServerConnector.class::cast).orElse(null);
 
          if (connector != null) {
-            String url = String.format("http://%s:%s/diagram.html?client=%s&path=%s", connector.getHost(),
-               connector.getPort(), encodeParameter(getClientId()), encodeParameter(path));
-            browser.setUrl(
-               url);
+            String url = String.format("http://%s:%s/diagram.html?client=%s&path=%s&port=%s", connector.getHost(),
+               manager.getLocalPort(), encodeParameter(getClientId()), encodeParameter(path),
+               manager.getLocalPort());
+            browser.setUrl(url);
             System.out.println(url);
             this.connected = true;
 
@@ -350,7 +351,28 @@ public class GLSPDiagramEditorPart extends EditorPart {
       }
       // Update the EditorContext, as this is specific to each action.
       getSite().getService(IEclipseContext.class).set(EditorContext.class, action.getEditorContext());
-      // Nothing more to do here; populating & opening the menu will be handled directly
+      // Nothing more to do here; populating & opening the menu will be handled
+      // directly
       // by the browser control.
    }
+
+   /**
+    * This method will be invoked once the client session is established, which
+    * will happen asynchronously.
+    *
+    * @param injector
+    */
+   public void setInjector(final Injector injector) {
+      this.injector = injector;
+      IEclipseContext context = getSite().getService(IEclipseContext.class);
+      context.set(ActionDispatcher.class, injector.getInstance(ActionDispatcher.class));
+   }
+
+   /**
+    * Return the GLSP Injector associated to this editor.
+    *
+    * @return
+    *         The GLSP Injector associated to this editor.
+    */
+   public Injector getInjector() { return injector; }
 }

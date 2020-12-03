@@ -31,7 +31,9 @@ import { getParameters } from "./url-parameters";
 const urlParameters = getParameters();
 const filePath = urlParameters.path;
 
-const port = 8081;
+// In the Eclipse Integration, port is dynamic, as multiple editors
+// and/or Eclipse Servers may be running in parallel (e.g. 1/Eclipse IDE)
+const port = parseInt(urlParameters.port);
 const id = "workflow";
 const name = "Workflow Diagram";
 const websocket = new WebSocket(`ws://localhost:${port}/${id}`);

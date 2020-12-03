@@ -26,8 +26,6 @@ import org.eclipse.glsp.ide.editor.utils.UIUtil;
 import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IWorkbenchPart;
 
-import com.google.inject.Injector;
-
 public class GLSPEditorRegistry {
    private static String EDITOR_INTEGRATION_EXTENSION_POINT = "org.eclipse.glsp.editor.integration";
    private static String SERVER_MANAGER_CLASS_ATTRIBUTE = "serverManagerClass";
@@ -72,14 +70,6 @@ public class GLSPEditorRegistry {
 
    public Optional<GLSPServerManager> getGLSPServerManager(final String editorId) {
       return Optional.of(editorIdToServerManager.get(editorId));
-   }
-
-   public Optional<Injector> getInjector(final GLSPDiagramEditorPart diagramEditorPart) {
-      return getGLSPServerManager(diagramEditorPart.getEditorId()).map(GLSPServerManager::getInjector);
-   }
-
-   public Optional<Injector> getInjector(final String clientId) {
-      return getGLSPEditor(clientId).flatMap(this::getInjector);
    }
 
    public Optional<GLSPDiagramEditorPart> getGLSPEditor(final String clientId) {
