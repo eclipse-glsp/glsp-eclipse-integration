@@ -20,10 +20,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
+import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.glsp.ide.editor.GLSPDiagramEditorPart;
+import org.eclipse.glsp.ide.editor.initialization.ModelInitializationConstraint;
+import org.eclipse.glsp.ide.editor.ui.GLSPDiagramEditorPart;
 import org.eclipse.glsp.ide.editor.ui.GLSPEditorIntegrationPlugin;
 import org.eclipse.glsp.server.actions.Action;
 import org.eclipse.glsp.server.actions.InitializeClientSessionAction;
@@ -41,20 +43,36 @@ import org.eclipse.swt.widgets.Display;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
+@SuppressWarnings("restriction")
 public class EclipseEditorActionDispatcher extends DefaultActionDispatcher {
+   private static final Logger LOGGER = Logger.getLogger(EclipseEditorActionDispatcher.class);
 
    @Inject
    private Injector injector;
 
+   private final CompletableFuture<Void> onModelInitialized;
+
+   private final ModelInitializationConstraint initializationConstraint;
+
    @Inject
-   public EclipseEditorActionDispatcher(final ClientSessionManager clientSessionManager) {
+   public EclipseEditorActionDispatcher(final ClientSessionManager clientSessionManager,
+      final ModelInitializationConstraint initializationConstraint) {
       super(clientSessionManager);
+      this.initializationConstraint = initializationConstraint;
+      this.onModelInitialized = initializationConstraint.onInitialized();
+      this.onModelInitialized.thenRun(() -> LOGGER.info("Model Initialized."));
+   }
+
+   public CompletableFuture<Void> onceModelInitialized() {
+      return this.onModelInitialized;
    }
 
    @Override
    protected List<CompletableFuture<Void>> runAction(final Action action, final String clientId) {
       if (!this.handleLocally(action, clientId)) {
-         return super.runAction(action, clientId);
+         List<CompletableFuture<Void>> actions = super.runAction(action, clientId);
+         this.initializationConstraint.notifyDispatched(action);
+         return actions;
       }
       return Collections.emptyList();
    }
@@ -96,20 +114,20 @@ public class EclipseEditorActionDispatcher extends DefaultActionDispatcher {
       return true;
    }
 
-	protected boolean handleServerMessageAction(final ServerMessageAction action, final String clientId) {
-		toStatus(action).ifPresent(s -> log(s, action, clientId));
-		return true;
-	}
+   protected boolean handleServerMessageAction(final ServerMessageAction action, final String clientId) {
+      toStatus(action).ifPresent(s -> log(s, action, clientId));
+      return true;
+   }
 
-	private void log(IStatus status, ServerMessageAction action, String clientId) {
-		Platform.getLog(getClass()).log(status);
-		if (status.getSeverity() >= IStatus.ERROR) {
-			Display.getDefault().asyncExec(() -> {
-				ErrorDialog.openError(getEditorPart(clientId).getEditorSite().getShell(), "GLSP Server Error",
-						action.getMessage(), status);
-			});
-		}
-	}
+   private void log(final IStatus status, final ServerMessageAction action, final String clientId) {
+      Platform.getLog(getClass()).log(status);
+      if (status.getSeverity() >= IStatus.ERROR) {
+         Display.getDefault().asyncExec(() -> {
+            ErrorDialog.openError(getEditorPart(clientId).getEditorSite().getShell(), "GLSP Server Error",
+               action.getMessage(), status);
+         });
+      }
+   }
 
    protected GLSPDiagramEditorPart getEditorPart(final String clientId) {
       return GLSPServerException.getOrThrow(
@@ -117,41 +135,37 @@ public class EclipseEditorActionDispatcher extends DefaultActionDispatcher {
          "Could not retrieve GLSP Editor. GLSP editor is not properly configured for clientId: " + clientId);
    }
 
-	private static Optional<IStatus> toStatus(ServerMessageAction action) {
-		int severity;
-		switch (Severity.valueOf(action.getSeverity())) {
-		case NONE:
-			severity = IStatus.OK;
-			break;
-		case OK:
-			severity = IStatus.OK;
-			break;
-		case INFO:
-			severity = IStatus.INFO;
-			break;
-		case WARNING:
-			severity = IStatus.WARNING;
-			break;
-		case ERROR:
-			severity = IStatus.ERROR;
-			break;
-		case FATAL:
-			severity = IStatus.CANCEL;
-			break;
-		default:
-			severity = IStatus.OK;
-			break;
-		}
-		String message = action.getMessage();
-		if (message == null || message.isEmpty()) {
-			message = action.getDetails();
-		} else if (action.getDetails() != null && !action.getDetails().isEmpty()) {
-			message = message + "\n" + action.getDetails();
-		}
-		if (message != null && !message.isEmpty()) {
-			return Optional.of(new Status(severity, EclipseEditorActionDispatcher.class, message));
-		}
-		return Optional.empty();
-	}
+   private static Optional<IStatus> toStatus(final ServerMessageAction action) {
+      int severity = toSeverity(action.getSeverity());
+      String message = action.getMessage();
+      if (message == null || message.isEmpty()) {
+         message = action.getDetails();
+      } else if (action.getDetails() != null && !action.getDetails().isEmpty()) {
+         message = message + "\n" + action.getDetails();
+      }
+      if (message != null && !message.isEmpty()) {
+         return Optional.of(new Status(severity, EclipseEditorActionDispatcher.class, message));
+      }
+      return Optional.empty();
+   }
+
+   private static int toSeverity(final String glspSeverity) {
+      switch (Severity.valueOf(glspSeverity)) {
+         case NONE:
+            return IStatus.OK;
+         case OK:
+            return IStatus.OK;
+         case INFO:
+            return IStatus.INFO;
+         case WARNING:
+            return IStatus.WARNING;
+         case ERROR:
+            return IStatus.ERROR;
+         case FATAL:
+            return IStatus.CANCEL;
+         default:
+            return IStatus.OK;
+      }
+   }
 
 }

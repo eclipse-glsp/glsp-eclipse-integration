@@ -13,19 +13,25 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-package org.eclipse.glsp.ide.editor;
+package org.eclipse.glsp.ide.editor.actions;
 
-import java.util.List;
+import org.eclipse.glsp.graph.GBounds;
+import org.eclipse.glsp.server.actions.Action;
 
-public class GLSPEditorData {
-   private final String glspId;
-   private final String editorId;
-   private final GLSPServerManager serverManager;
-   private List<GLSPDiagramEditorPart> openEditors;
+/**
+ * Sprotty's InitializeCanvasBoundsAction that is sent after the canvas bounds have been initialized.
+ */
+public class InitializeCanvasBoundsAction extends Action {
+   public static final String ID = "initializeCanvasBounds";
 
-   public GLSPEditorData(final String editorId, final GLSPServerManager serverManager) {
-      this.editorId = editorId;
-      this.serverManager = serverManager;
-      this.glspId = serverManager.getGlspId();
+   private GBounds newCanvasBounds;
+
+   public InitializeCanvasBoundsAction() {
+      super(ID);
    }
+
+   public GBounds getNewCanvasBounds() { return newCanvasBounds; }
+
+   public void setNewCanvasBounds(final GBounds newCanvasBounds) { this.newCanvasBounds = newCanvasBounds; }
+
 }

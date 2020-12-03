@@ -13,17 +13,14 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-package org.eclipse.glsp.ide.editor;
+package org.eclipse.glsp.ide.editor.actions;
 
-import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.glsp.ide.editor.handlers.EclipseActionHandler;
-import org.eclipse.glsp.server.actions.ExportSVGAction;
+import org.eclipse.glsp.server.actions.Action;
 
-public class ExportDiagramHandler extends EclipseActionHandler {
+public class ModelInitializedAction extends Action {
+   public static final String ID = "modelInitialized";
 
-   @Override
-   protected void execute(final IEclipseContext context) {
-      dispatchMessage(context, new ExportSVGAction());
+   public ModelInitializedAction() {
+      super(ID);
    }
-
 }

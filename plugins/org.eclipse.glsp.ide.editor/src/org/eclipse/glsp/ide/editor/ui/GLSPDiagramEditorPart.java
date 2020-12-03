@@ -13,7 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-package org.eclipse.glsp.ide.editor;
+package org.eclipse.glsp.ide.editor.ui;
 
 import static org.eclipse.ui.ISharedImages.IMG_OBJS_ERROR_TSK;
 import static org.eclipse.ui.ISharedImages.IMG_OBJS_INFO_TSK;
@@ -27,20 +27,28 @@ import java.net.URLEncoder;
 import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
 import org.apache.commons.io.FilenameUtils;
+import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.glsp.ide.editor.GLSPServerManager;
 import org.eclipse.glsp.ide.editor.actions.GLSPActionProvider;
-import org.eclipse.glsp.ide.editor.ui.GLSPEditorIntegrationPlugin;
+import org.eclipse.glsp.ide.editor.di.EclipseEditorActionDispatcher;
+import org.eclipse.glsp.ide.editor.utils.GLSPDiagramEditorMarkerUtil;
+import org.eclipse.glsp.server.actions.Action;
 import org.eclipse.glsp.server.actions.ActionDispatcher;
 import org.eclipse.glsp.server.actions.GLSPServerStatusAction;
 import org.eclipse.glsp.server.actions.SaveModelAction;
 import org.eclipse.glsp.server.actions.ServerStatusAction;
 import org.eclipse.glsp.server.actions.SetDirtyStateAction;
 import org.eclipse.glsp.server.features.contextactions.RequestContextActions;
+import org.eclipse.glsp.server.features.navigation.NavigateToTargetAction;
+import org.eclipse.glsp.server.model.GModelState;
+import org.eclipse.glsp.server.model.ModelStateProvider;
 import org.eclipse.glsp.server.protocol.GLSPServerException;
 import org.eclipse.glsp.server.types.EditorContext;
 import org.eclipse.jetty.server.ServerConnector;
@@ -51,12 +59,10 @@ import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseTrackAdapter;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Menu;
@@ -67,12 +73,13 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IWorkbenchPartConstants;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.ide.IGotoMarker;
 import org.eclipse.ui.part.EditorPart;
 
 import com.google.gson.JsonObject;
 import com.google.inject.Injector;
 
-public class GLSPDiagramEditorPart extends EditorPart {
+public class GLSPDiagramEditorPart extends EditorPart implements IGotoMarker {
    /**
     * {@link IEclipseContext} key for the current client id. The associated value
     * is a {@link String}.
@@ -95,7 +102,7 @@ public class GLSPDiagramEditorPart extends EditorPart {
    private boolean dirty;
 
    private boolean connected;
-   private Injector injector;
+   private final CompletableFuture<Injector> injector = new CompletableFuture<>();
 
    private ServerStatusAction currentStatus;
 
@@ -118,8 +125,7 @@ public class GLSPDiagramEditorPart extends EditorPart {
 
    @Override
    public void doSave(final IProgressMonitor monitor) {
-      ActionDispatcher dispatcher = getInjector().getInstance(ActionDispatcher.class);
-      dispatcher.dispatch(clientId, new SaveModelAction());
+      dispatch(new SaveModelAction());
    }
 
    @Override
@@ -211,7 +217,7 @@ public class GLSPDiagramEditorPart extends EditorPart {
          public void controlResized(final ControlEvent e) {
             super.controlResized(e);
             if (connected) {
-               Point size = ((Control) e.widget).getSize();
+               // Point size = ((Control) e.widget).getSize();
                // JsonObject newCanvasBoundsAction = actionGenerator
                // .initializeCanvasBoundsAction(GraphUtil.bounds(0, 0, size.x, size.y));
                // sendAction(newCanvasBoundsAction);
@@ -363,7 +369,7 @@ public class GLSPDiagramEditorPart extends EditorPart {
     * @param injector
     */
    public void setInjector(final Injector injector) {
-      this.injector = injector;
+      this.injector.complete(injector);
       IEclipseContext context = getSite().getService(IEclipseContext.class);
       context.set(ActionDispatcher.class, injector.getInstance(ActionDispatcher.class));
    }
@@ -374,5 +380,40 @@ public class GLSPDiagramEditorPart extends EditorPart {
     * @return
     *         The GLSP Injector associated to this editor.
     */
-   public Injector getInjector() { return injector; }
+   public Injector getInjector() { return injector.getNow(null); }
+
+   protected <T> CompletableFuture<T> getInstance(final Class<T> type) {
+      return this.injector.thenApply(injector -> injector.getInstance(type));
+   }
+
+   protected CompletableFuture<ActionDispatcher> getActionDispatcher() { return getInstance(ActionDispatcher.class); }
+
+   protected CompletableFuture<Optional<GModelState>> getModelState() {
+      return getInstance(ModelStateProvider.class)
+         .thenApply(modelStateProvider -> modelStateProvider.getModelState(this.clientId));
+   }
+
+   protected CompletableFuture<Void> dispatch(final Action action) {
+      return getActionDispatcher().thenCompose(actionDispatcher -> actionDispatcher.dispatch(clientId, action));
+   }
+
+   protected CompletableFuture<Void> onceModelInitialized() {
+      return getActionDispatcher().thenCompose(this::onceModelInitialized);
+   }
+
+   protected CompletableFuture<Void> onceModelInitialized(final ActionDispatcher actionDispatcher) {
+      if (actionDispatcher instanceof EclipseEditorActionDispatcher) {
+         return ((EclipseEditorActionDispatcher) actionDispatcher).onceModelInitialized();
+      }
+      return CompletableFuture.completedFuture(null);
+   }
+
+   @Override
+   public void gotoMarker(final IMarker marker) {
+      onceModelInitialized().thenCompose(initialized -> getModelState().thenAccept(modelState -> {
+         GLSPDiagramEditorMarkerUtil.asNavigationTarget(marker, modelState)
+            .map(NavigateToTargetAction::new)
+            .ifPresent(this::dispatch);
+      }));
+   }
 }

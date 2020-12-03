@@ -8,6 +8,7 @@
             allPopups="false"
             locationURI="menu:org.eclipse.ui.main.menu?after=additions">
          <menu
+               id="org.eclipse.glsp.ide.diagram"
                label="Diagram">
             <command
                   commandId="org.eclipse.glsp.diagram.export"
@@ -23,7 +24,7 @@
          point="org.eclipse.ui.commands">
       <command
             categoryId="org.eclipse.glsp"
-            defaultHandler="org.eclipse.glsp.ide.editor.ExportDiagramHandler"
+            defaultHandler="org.eclipse.glsp.ide.editor.handlers.ExportDiagramHandler"
             description="Export this diagram to SVG"
             id="org.eclipse.glsp.diagram.export"
             name="Export Diagram">

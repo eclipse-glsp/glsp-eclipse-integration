@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde?>
 <!-- generated with https://github.com/eclipse-cbi/targetplatform-dsl -->
-<target name="2020-09 - Release" sequenceNumber="1606476382">
+<target name="2020-09 - Release" sequenceNumber="1606894680">
   <locations>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.platform.feature.group" version="4.17.0.v20200902-1800"/>
@@ -20,11 +20,11 @@
       <repository location="https://download.eclipse.org/tools/orbit/downloads/drops/R20200831200620/repository/"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
-      <unit id="org.eclipse.glsp.feature.feature.group" version="0.9.0.202011261324"/>
+      <unit id="org.eclipse.glsp.feature.feature.group" version="0.9.0.202012012209"/>
       <unit id="org.eclipse.glsp.server.websocket" version="0.0.0"/>
       <unit id="org.eclipse.glsp.layout" version="0.0.0"/>
       <unit id="org.eclipse.glsp.example.workflow" version="0.0.0"/>
-      <repository location="https://download.eclipse.org/glsp/server/p2/nightly/0.9/0.9.0.202011261324/"/>
+      <repository location="https://download.eclipse.org/glsp/server/p2/nightly/0.9/0.9.0.202012012209/"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.jetty.bundles.f.feature.group" version="9.4.14.v20181113"/>

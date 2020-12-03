@@ -27,7 +27,8 @@ Require-Bundle: org.eclipse.ui.ide;bundle-version="3.13.1",
  org.eclipse.elk.alg.layered,
  org.eclipse.glsp.server.websocket;bundle-version="0.9.0",
  org.eclipse.glsp.server;bundle-version="0.8.0",
- org.eclipse.e4.core.contexts;bundle-version="1.8.400"
+ org.eclipse.e4.core.contexts;bundle-version="1.8.400",
+ org.eclipse.text;bundle-version="3.10.300"
 Bundle-ClassPath: .
 Export-Package: org.eclipse.glsp.ide.editor,
  org.eclipse.glsp.ide.editor.actions,
@@ -36,7 +37,7 @@ Export-Package: org.eclipse.glsp.ide.editor,
  org.eclipse.glsp.ide.editor.clipboard.ui,
  org.eclipse.glsp.ide.editor.di,
  org.eclipse.glsp.ide.editor.handlers,
+ org.eclipse.glsp.ide.editor.initialization,
  org.eclipse.glsp.ide.editor.operations.handlers,
  org.eclipse.glsp.ide.editor.ui,
- org.eclipse.glsp.ide.editor.utils,
- org.eclipse.glsp.ide.editor.view
+ org.eclipse.glsp.ide.editor.utils

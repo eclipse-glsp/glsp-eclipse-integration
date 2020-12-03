@@ -4,7 +4,7 @@
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            class="org.eclipse.glsp.ide.editor.GLSPDiagramEditorPart"
+            class="org.eclipse.glsp.ide.editor.ui.GLSPDiagramEditorPart"
             default="true"
             extensions="wf"
             id="org.eclipse.glsp.workflow.editor"
@@ -46,6 +46,38 @@
                class="org.eclipse.glsp.ide.editor.ui.GLSPDynamicContribution"
                id="org.eclipse.glsp.ide.editor.actionprovider">
          </dynamic>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:org.eclipse.glsp.ide.diagram">
+         <menu
+               label="Navigate">
+            <command
+                  commandId="org.eclipse.glsp.ide.workflow.editor.navigate.next-node"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.glsp.ide.workflow.editor.navigate.previous-node"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.glsp.ide.workflow.editor.navigate.documentation"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.glsp.ide.workflow.editor.navigate.by-name"
+                  style="push">
+            </command>
+            <visibleWhen
+                  checkEnabled="false">
+             <with
+                   variable="activePartId">
+                <equals
+                      value="org.eclipse.glsp.workflow.editor">
+                </equals>
+             </with>
+            </visibleWhen>
+         </menu>
       </menuContribution>
    </extension>
 	<extension
@@ -143,5 +175,36 @@
              </with>
           </activeWhen>
        </handler>
+    </extension>
+    <extension
+          point="org.eclipse.ui.commands">
+       <command
+             categoryId="org.eclipse.glsp"
+             defaultHandler="org.eclipse.glsp.ide.workflow.editor.NavigateToNextNodeHandler"
+             description="Navigates to the next Task node"
+             id="org.eclipse.glsp.ide.workflow.editor.navigate.next-node"
+             name="Go to Next Node">
+       </command>
+       <command
+             categoryId="org.eclipse.glsp"
+             defaultHandler="org.eclipse.glsp.ide.workflow.editor.NavigateToPreviousNodeHandler"
+             description="Navigates to the previous Task node"
+             id="org.eclipse.glsp.ide.workflow.editor.navigate.previous-node"
+             name="Go to Previous Node">
+       </command>
+       <command
+             categoryId="org.eclipse.glsp"
+             defaultHandler="org.eclipse.glsp.ide.workflow.editor.NavigateToNodeDocumentationHandler"
+             description="Navigates to the documentation"
+             id="org.eclipse.glsp.ide.workflow.editor.navigate.documentation"
+             name="Go to Documentation">
+       </command>
+       <command
+             categoryId="org.eclipse.glsp"
+             defaultHandler="org.eclipse.glsp.ide.workflow.editor.NavigateToNodeByNameHandler"
+             description="Navigates to the task with the given name"
+             id="org.eclipse.glsp.ide.workflow.editor.navigate.by-name"
+             name="Go to Task by Name">
+       </command>
     </extension>
 </plugin>

@@ -21,20 +21,28 @@ import org.eclipse.glsp.example.workflow.WorkflowGLSPModule;
 import org.eclipse.glsp.ide.editor.actions.InvokeCopyAction;
 import org.eclipse.glsp.ide.editor.actions.InvokeCutAction;
 import org.eclipse.glsp.ide.editor.actions.InvokePasteAction;
+import org.eclipse.glsp.ide.editor.actions.NavigateAction;
+import org.eclipse.glsp.ide.editor.actions.handlers.IdeNavigateToExternalTargetActionHandler;
+import org.eclipse.glsp.ide.editor.actions.handlers.IdeSetMarkersActionHandler;
+import org.eclipse.glsp.ide.editor.actions.handlers.InitializeCanvasBoundsActionHandler;
 import org.eclipse.glsp.ide.editor.actions.handlers.SetClipboardDataActionHandler;
 import org.eclipse.glsp.ide.editor.clipboard.ClipboardService;
 import org.eclipse.glsp.ide.editor.clipboard.ui.DisplayClipboardService;
 import org.eclipse.glsp.ide.editor.di.EclipseEditorActionDispatcher;
-import org.eclipse.glsp.ide.editor.handlers.IdeSetMarkersActionHandler;
+import org.eclipse.glsp.ide.editor.initialization.DefaultModelInitializationConstraint;
+import org.eclipse.glsp.ide.editor.initialization.ModelInitializationConstraint;
 import org.eclipse.glsp.ide.editor.operations.handlers.EclipsePasteOperationHandler;
 import org.eclipse.glsp.server.actions.Action;
 import org.eclipse.glsp.server.actions.ActionDispatcher;
 import org.eclipse.glsp.server.actions.ActionHandler;
+import org.eclipse.glsp.server.features.navigation.NavigateToExternalTargetAction;
 import org.eclipse.glsp.server.features.validation.SetMarkersAction;
 import org.eclipse.glsp.server.operations.OperationHandler;
 import org.eclipse.glsp.server.operations.gmodel.PasteOperationHandler;
 import org.eclipse.glsp.server.utils.MultiBinding;
 import org.eclipse.glsp.server.websocket.GLSPServerEndpoint;
+
+import com.google.inject.Scopes;
 
 class WorkflowGLSPEclipseModule extends WorkflowGLSPModule {
    @Override
@@ -42,6 +50,7 @@ class WorkflowGLSPEclipseModule extends WorkflowGLSPModule {
       super.configure();
       bind(Endpoint.class).to(GLSPServerEndpoint.class);
       bind(ClipboardService.class).to(DisplayClipboardService.class);
+      bind(ModelInitializationConstraint.class).to(DefaultModelInitializationConstraint.class).in(Scopes.SINGLETON);
    }
 
    @Override
@@ -54,6 +63,8 @@ class WorkflowGLSPEclipseModule extends WorkflowGLSPModule {
       super.configureActionHandlers(bindings);
       bindings.add(SetClipboardDataActionHandler.class);
       bindings.add(IdeSetMarkersActionHandler.class);
+      bindings.add(IdeNavigateToExternalTargetActionHandler.class);
+      bindings.add(InitializeCanvasBoundsActionHandler.class);
    }
 
    @Override
@@ -70,7 +81,10 @@ class WorkflowGLSPEclipseModule extends WorkflowGLSPModule {
       bindings.add(InvokeCutAction.class);
       bindings.add(InvokePasteAction.class);
 
+      bindings.add(NavigateAction.class);
+
       bindings.remove(SetMarkersAction.class);
+      bindings.remove(NavigateToExternalTargetAction.class);
    }
 
 }
