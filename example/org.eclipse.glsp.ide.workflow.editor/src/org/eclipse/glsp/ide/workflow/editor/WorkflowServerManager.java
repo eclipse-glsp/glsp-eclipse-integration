@@ -23,7 +23,6 @@ import javax.servlet.ServletException;
 import javax.websocket.DeploymentException;
 
 import org.eclipse.elk.alg.layered.options.LayeredMetaDataProvider;
-import org.eclipse.glsp.example.workflow.WorkflowGLSPModule;
 import org.eclipse.glsp.ide.editor.GLSPServerManager;
 import org.eclipse.glsp.layout.ElkLayoutEngine;
 import org.eclipse.glsp.server.di.GLSPModule;
