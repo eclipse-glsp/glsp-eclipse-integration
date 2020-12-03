@@ -41,7 +41,7 @@
     "prepare": "yarn run clean && yarn build",
     "clean": "rimraf lib app/bundle.js app/bundle.js.map app/css",
     "build": "tsc && webpack && yarn copyClient",
-    "copyClient": "copyfiles -f app/* ../org.eclipse.glsp.integration.workflow.editor/diagram",
+    "copyClient": "copyfiles -f app/* ../org.eclipse.glsp.ide.workflow.editor/diagram",
     "watch": "tsc -w -p ./tsconfig.json"
   }
 }
