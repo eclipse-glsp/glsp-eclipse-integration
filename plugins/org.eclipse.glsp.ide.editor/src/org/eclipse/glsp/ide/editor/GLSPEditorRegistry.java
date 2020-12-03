@@ -28,7 +28,7 @@ import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IWorkbenchPart;
 
 public class GLSPEditorRegistry {
-   private static String EDITOR_INTEGRATION_EXTENSION_POINT = "org.eclipse.glsp.editor.integration";
+   private static String EDITOR_INTEGRATION_EXTENSION_POINT = "org.eclipse.glsp.ide.editor";
    private static String SERVER_MANAGER_CLASS_ATTRIBUTE = "serverManagerClass";
    private static String GLSP_EDITOR_ID_ATTRIBUTE = "editorId";
    private final Map<String, GLSPServerManager> editorIdToServerManager;

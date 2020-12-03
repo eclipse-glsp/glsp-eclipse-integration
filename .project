@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>glsp-eclipse-integration-parent</name>
+	<name>org.eclipse.glsp.ide.parent</name>
 	<comment></comment>
 	<projects>
 	</projects>

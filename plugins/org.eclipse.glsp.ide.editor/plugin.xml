@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-   <extension-point id="org.eclipse.glsp.editor.integration" name="Eclipse GLSP edtior integration" schema="schema/com.eclipse.glsp.editor.integration.exsd"/>
+   <extension-point id="org.eclipse.glsp.ide.editor" name="Eclipse GLSP editor configuration" schema="schema/com.eclipse.glsp.ide.editor.exsd"/>
 <extension
          point="org.eclipse.ui.menus">
       <menuContribution

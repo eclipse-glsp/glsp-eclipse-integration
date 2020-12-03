@@ -2,6 +2,14 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
+         point="org.eclipse.glsp.ide.editor">
+      <configuration
+            editorId="org.eclipse.glsp.workflow.editor"
+            glspId="workflow"
+            serverManagerClass="org.eclipse.glsp.ide.workflow.editor.WorkflowServerManager">
+      </configuration>
+   </extension>
+   <extension
          point="org.eclipse.ui.editors">
       <editor
             class="org.eclipse.glsp.ide.editor.ui.GLSPDiagramEditorPart"
@@ -10,14 +18,6 @@
             id="org.eclipse.glsp.workflow.editor"
             name="Workflow Diagram Editor">
       </editor>
-   </extension>
-   <extension
-         point="org.eclipse.glsp.editor.integration">
-      <configuration
-            editorId="org.eclipse.glsp.workflow.editor"
-            glspId="workflow"
-            serverManagerClass="org.eclipse.glsp.ide.workflow.editor.WorkflowServerManager">
-      </configuration>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
@@ -176,7 +176,7 @@
           </activeWhen>
        </handler>
     </extension>
-    <extension
+      <extension
           point="org.eclipse.ui.commands">
        <command
              categoryId="org.eclipse.glsp"
@@ -206,5 +206,5 @@
              id="org.eclipse.glsp.ide.workflow.editor.navigate.by-name"
              name="Go to Task by Name">
        </command>
-    </extension>
+	</extension>
 </plugin>
