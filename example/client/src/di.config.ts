@@ -16,14 +16,13 @@
 import "../css/diagram.css";
 
 import { createWorkflowDiagramContainer } from "@eclipse-glsp-examples/workflow-glsp/lib";
-import { configureActionHandler } from "@eclipse-glsp/client";
-import { Container, ContainerModule } from "inversify";
+import { Container } from "inversify";
 import { ConsoleLogger, LogLevel, TYPES } from "sprotty";
 
 import { eclipseCopyPasteModule } from "./copy-paste";
 import { EclipseGLSPDiagramServer } from "./eclipse-glsp-diagram-server";
-import { KeepAliveAction } from "./keep-alive-action";
-import { KeepAliveActionHandler } from "./keep-alive-action-handler";
+import { eclipseDeleteModule } from "./invoke-delete";
+import { keepAliveModule } from "./keep-alive";
 
 export default function createContainer(): Container {
     const container = createWorkflowDiagramContainer('sprotty');
@@ -31,12 +30,9 @@ export default function createContainer(): Container {
     container.rebind(TYPES.ILogger).to(ConsoleLogger).inSingletonScope();
     container.rebind(TYPES.LogLevel).toConstantValue(LogLevel.warn);
 
-    container.load(eclipseCopyPasteModule);
-
-    const keepAliveModule = new ContainerModule((bind, _unbind, isBound) => {
-        configureActionHandler({ bind, isBound }, KeepAliveAction.KIND, KeepAliveActionHandler);
-    });
     container.load(keepAliveModule)
+    container.load(eclipseCopyPasteModule);
+    container.load(eclipseDeleteModule);
 
     return container;
 }

@@ -54,7 +54,9 @@ websocket.onopen = () => {
         client.initializeServer({ applicationId: ApplicationIdProvider.get() });
         actionDispatcher.dispatch(new InitializeClientSessionAction(diagramServer.clientId));
         actionDispatcher.dispatch(new RequestModelAction({
-            sourceUri: 'file://' + filePath,
+            // Java's URLEncoder.encode encodes spaces as plus sign but decodeURI expects spaces to be encoded as %20.
+            // See also https://en.wikipedia.org/wiki/Query_string#URL_encoding for URL encoding in forms vs generic URL encoding.
+            sourceUri: 'file://' + decodeURI(filePath.replace(/\+/g, '%20')),
             diagramType: "workflow-diagram",
         }));
         actionDispatcher.dispatch(new RequestTypeHintsAction("workflow-diagram"));

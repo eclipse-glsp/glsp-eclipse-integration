@@ -17,6 +17,10 @@ package org.eclipse.glsp.ide.editor.utils;
 
 import java.util.Optional;
 
+import org.apache.log4j.Logger;
+import org.eclipse.glsp.ide.editor.ui.GLSPIdeEditorPlugin;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
@@ -24,11 +28,14 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 
 public final class UIUtil {
+   private static final Logger LOGGER = Logger.getLogger(UIUtil.class);
 
    private UIUtil() {}
 
+   public static Optional<IWorkbench> getWorkbench() { return Optional.ofNullable(PlatformUI.getWorkbench()); }
+
    public static Optional<IWorkbenchWindow> getActiveWorkbenchWindow() {
-      return Optional.ofNullable(PlatformUI.getWorkbench()).map(IWorkbench::getActiveWorkbenchWindow);
+      return getWorkbench().map(IWorkbench::getActiveWorkbenchWindow);
    }
 
    public static Optional<IWorkbenchPage> getActivePage() {
@@ -41,5 +48,36 @@ public final class UIUtil {
 
    public static <T extends IEditorPart> Optional<T> getActiveEditor(final Class<T> clazz) {
       return getActiveEditor().filter(clazz::isInstance).map(clazz::cast);
+   }
+
+   public static Optional<Display> findDisplay() {
+      Display currentDisplay = Display.getCurrent();
+      if (currentDisplay != null) {
+         return Optional.of(currentDisplay);
+      }
+      Optional<Display> workbenchDisplay = getWorkbench().map(IWorkbench::getDisplay);
+      return workbenchDisplay.isPresent()
+         ? workbenchDisplay
+         : Optional.ofNullable(Display.getDefault());
+   }
+
+   public static void asyncExec(final Runnable runnable) {
+      Optional<Display> display = findDisplay();
+      if (display.isPresent()) {
+         display.get().asyncExec(runnable);
+      } else {
+         LOGGER.warn("Could not detect display, try running on current thread.");
+         runnable.run();
+      }
+   }
+
+   public static Optional<Shell> findShell() {
+      return findDisplay().flatMap(display -> Optional.ofNullable(display.getActiveShell()));
+   }
+
+   public static Optional<Shell> findShell(final String clientId) {
+      return GLSPIdeEditorPlugin.getDefault().getGLSPEditorRegistry().getGLSPEditor(clientId)
+         .map(editor -> editor.getEditorSite().getShell())
+         .or(UIUtil::findShell);
    }
 }

@@ -3,7 +3,7 @@
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
- * http://www.eclipse.org/legal/epl-2.0.
+ * https://www.eclipse.org/legal/epl-2.0.
  *
  * This Source Code may also be made available under the following Secondary
  * Licenses when the conditions for such availability set forth in the Eclipse
@@ -13,21 +13,18 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { Action, IActionHandler, ILogger, TYPES } from "@eclipse-glsp/client";
-import { inject, injectable } from "inversify";
+package org.eclipse.glsp.ide.editor.actions;
 
-import { isKeepAliveAction } from "./keep-alive-action";
+import org.eclipse.glsp.server.actions.Action;
 
-@injectable()
-export class KeepAliveActionHandler implements IActionHandler {
+/**
+ * An action to invoke client-side delete from the server.
+ */
+public class InvokeDeleteAction extends Action {
 
-    @inject(TYPES.ILogger) protected logger: ILogger;
+   public static final String ID = "invoke-delete";
 
-    handle(action: Action): void {
-        if (isKeepAliveAction(action)) {
-            /* no op */
-            this.logger.info(this, "Keep Alive Action received")
-        }
-    }
-
+   public InvokeDeleteAction() {
+      super(ID);
+   }
 }

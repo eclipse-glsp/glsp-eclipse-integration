@@ -3,7 +3,7 @@
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
- * http://www.eclipse.org/legal/epl-2.0.
+ * https://www.eclipse.org/legal/epl-2.0.
  *
  * This Source Code may also be made available under the following Secondary
  * Licenses when the conditions for such availability set forth in the Eclipse
@@ -13,15 +13,23 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { Action } from "@eclipse-glsp/client";
+package org.eclipse.glsp.ide.editor.actions.handlers;
 
-export class KeepAliveAction implements Action {
-    static KIND = 'keepAlive';
-    readonly kind = KeepAliveAction.KIND;
+import java.util.List;
 
-    constructor() { }
-}
+import org.eclipse.glsp.ide.editor.ui.GLSPIdeEditorPlugin;
+import org.eclipse.glsp.server.actions.Action;
+import org.eclipse.glsp.server.actions.BasicActionHandler;
+import org.eclipse.glsp.server.actions.SetDirtyStateAction;
+import org.eclipse.glsp.server.model.GModelState;
 
-export function isKeepAliveAction(action: Action): action is KeepAliveAction {
-    return action.kind === KeepAliveAction.KIND;
+public class IdeSetDirtyStateActionHandler extends BasicActionHandler<SetDirtyStateAction> {
+
+   @Override
+   protected List<Action> executeAction(final SetDirtyStateAction action, final GModelState modelState) {
+      GLSPIdeEditorPlugin.getDefaultGLSPEditorRegistry().getGLSPEditorOrThrow(modelState.getClientId())
+         .setDirty(action.isDirty());
+      return none();
+   }
+
 }

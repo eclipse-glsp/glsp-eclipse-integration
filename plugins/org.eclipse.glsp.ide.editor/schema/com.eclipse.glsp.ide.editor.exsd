@@ -73,7 +73,7 @@ In addition, a GLSPEditorPart for this  GLSP id needs to be provided via the &qu
          <attribute name="editorId" type="string" use="required">
             <annotation>
                <documentation>
-                  Id of the Editor(part) that should be connected with the defined serverManager. This edtior should be provided via the &quot;org.eclipse.ui.editor&quot; extension point and inherit from the GLSPDiagramEditorPart
+                  Id of the Editor(part) that should be connected with the defined serverManager. This edtior should be provided via the &quot;org.eclipse.ui.editor&quot; extension point and inherit from the GLSPDiagramEditor
                </documentation>
             </annotation>
          </attribute>

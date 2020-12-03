@@ -15,6 +15,15 @@
                   icon="icons/export.gif"
                   label="SVG Export"
                   style="push">
+               <visibleWhen
+                     checkEnabled="false">
+                  <with
+                        variable="activeEditor">
+                     <instanceof
+                           value="org.eclipse.glsp.ide.editor.ui.GLSPDiagramEditor">
+                     </instanceof>
+                  </with>
+               </visibleWhen>
             </command>
          </menu>
       </menuContribution>

@@ -21,6 +21,7 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
 import org.eclipse.glsp.ide.editor.clipboard.ClipboardService;
+import org.eclipse.glsp.ide.editor.utils.UIUtil;
 import org.eclipse.glsp.server.protocol.ClientSessionListener;
 import org.eclipse.glsp.server.protocol.ClientSessionManager;
 import org.eclipse.glsp.server.protocol.GLSPClient;
@@ -46,7 +47,7 @@ public class DisplayClipboardService implements ClipboardService, ClientSessionL
 
    @Inject
    public DisplayClipboardService(final ClientSessionManager sessionManager) {
-      Display.getDefault().asyncExec(() -> {
+      UIUtil.asyncExec(() -> {
          this.clipboard = new Clipboard(Display.getCurrent());
       });
    }
@@ -99,7 +100,7 @@ public class DisplayClipboardService implements ClipboardService, ClientSessionL
          types[i++] = JsonTransfer.APPLICATION_JSON.equals(type) ? json : plainText;
       }
 
-      Display.getDefault().asyncExec(() -> clipboard.setContents(data, types));
+      UIUtil.asyncExec(() -> clipboard.setContents(data, types));
    }
 
 }
