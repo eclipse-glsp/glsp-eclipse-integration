@@ -21,6 +21,7 @@ import java.util.Optional;
 
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.glsp.ide.editor.ui.GLSPDiagramEditorPart;
 import org.eclipse.glsp.ide.editor.ui.GLSPEditorIntegrationPlugin;
 import org.eclipse.glsp.ide.editor.utils.UIUtil;
 import org.eclipse.ui.IPartListener;

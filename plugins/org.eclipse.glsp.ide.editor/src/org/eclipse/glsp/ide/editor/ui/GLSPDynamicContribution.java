@@ -18,7 +18,6 @@ package org.eclipse.glsp.ide.editor.ui;
 import java.util.Optional;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.glsp.ide.editor.GLSPDiagramEditorPart;
 import org.eclipse.glsp.ide.editor.actions.GLSPActionProvider;
 import org.eclipse.glsp.server.model.GModelState;
 import org.eclipse.glsp.server.model.ModelStateProvider;

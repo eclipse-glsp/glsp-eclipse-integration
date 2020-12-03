@@ -16,7 +16,7 @@ location "https://download.eclipse.org/tools/orbit/downloads/drops/R202008312006
 	org.apache.commons.cli
 }
 
-location "https://download.eclipse.org/glsp/server/p2/nightly/0.9/0.9.0.202011261324/" {
+location "https://download.eclipse.org/glsp/server/p2/nightly/0.9/0.9.0.202012012209/" {
 	org.eclipse.glsp.feature.feature.group
 	org.eclipse.glsp.server.websocket lazy
 	org.eclipse.glsp.layout lazy
