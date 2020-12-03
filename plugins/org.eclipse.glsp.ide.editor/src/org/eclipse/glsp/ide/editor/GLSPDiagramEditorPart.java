@@ -25,6 +25,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.util.Optional;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
@@ -34,6 +36,7 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.glsp.ide.editor.actions.GLSPActionProvider;
 import org.eclipse.glsp.ide.editor.ui.GLSPEditorIntegrationPlugin;
 import org.eclipse.glsp.server.actions.ActionDispatcher;
+import org.eclipse.glsp.server.actions.GLSPServerStatusAction;
 import org.eclipse.glsp.server.actions.SaveModelAction;
 import org.eclipse.glsp.server.actions.ServerStatusAction;
 import org.eclipse.glsp.server.actions.SetDirtyStateAction;
@@ -75,6 +78,9 @@ public class GLSPDiagramEditorPart extends EditorPart {
     */
    public static final String GLSP_CLIENT_ID = "GLSP_CLIENT_ID";
    private static final AtomicInteger COUNT = new AtomicInteger(0);
+
+   private final Timer statusTimer = new Timer();
+
    private Browser browser;
 
    private String filePath;
@@ -88,6 +94,8 @@ public class GLSPDiagramEditorPart extends EditorPart {
    private boolean dirty;
 
    private boolean connected;
+
+   private ServerStatusAction currentStatus;
 
    public GLSPDiagramEditorPart() {}
 
@@ -232,9 +240,30 @@ public class GLSPDiagramEditorPart extends EditorPart {
 
    protected String getFileName() { return FilenameUtils.getName(filePath); }
 
-   public void showServerState(final ServerStatusAction serverStatus) {
+   public synchronized void showServerState(final ServerStatusAction serverStatus) {
+      this.currentStatus = serverStatus;
+      if (serverStatus instanceof GLSPServerStatusAction
+         && ((GLSPServerStatusAction) serverStatus).getTimeout() > 0) {
+         int timeout = ((GLSPServerStatusAction) serverStatus).getTimeout();
+         statusTimer.schedule(new TimerTask() {
+
+            @Override
+            public void run() {
+               if (currentStatus != serverStatus) {
+                  /* different status is showing in the meantime */
+                  return;
+               }
+               updateServerStatusUI("ok", "");
+
+            }
+         }, timeout);
+      }
+      updateServerStatusUI(serverStatus.getSeverity(), serverStatus.getMessage());
+   }
+
+   private synchronized void updateServerStatusUI(final String severity, final String message) {
       Display.getDefault().asyncExec(() -> {
-         switch (serverStatus.getSeverity().toLowerCase()) {
+         switch (severity.toLowerCase()) {
             case "ok": {
                statusBar.setVisible(false);
                ((GridData) statusBar.getLayoutData()).exclude = true;
@@ -260,7 +289,7 @@ public class GLSPDiagramEditorPart extends EditorPart {
             }
             default: {}
          }
-         statusBarMessage.setText(serverStatus.getMessage());
+         statusBarMessage.setText(message);
          comp.layout(true, true);
       });
    }

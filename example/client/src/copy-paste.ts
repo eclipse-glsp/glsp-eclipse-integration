@@ -10,8 +10,8 @@ import {
     ViewerOptions
 } from "@eclipse-glsp/client";
 import {
-    CutOperationAction,
-    PasteOperationAction,
+    CutOperation,
+    PasteOperation,
     RequestClipboardDataAction
 } from "@eclipse-glsp/client/lib/features/copy-paste/copy-paste-actions";
 import { ContainerModule, inject, injectable } from "inversify";
@@ -54,7 +54,7 @@ export class EclipseCopyPasteActionHandler implements IActionHandler {
     handleCut(): void {
         if (this.shouldCopy()) {
             this.handleCopy();
-            this.actionDispatcher.dispatch(new CutOperationAction(this.editorContext.get()));
+            this.actionDispatcher.dispatch(new CutOperation(this.editorContext.get()));
         }
     }
 
@@ -62,7 +62,7 @@ export class EclipseCopyPasteActionHandler implements IActionHandler {
         // In the Eclipse Integration case, the server manages its own clipboard.
         // Just pass an empty clipboard data to remain compliant with the API.
         const clipboardData = {};
-        this.actionDispatcher.dispatch(new PasteOperationAction(clipboardData, this.editorContext.get()));
+        this.actionDispatcher.dispatch(new PasteOperation(clipboardData, this.editorContext.get()));
     }
 
     protected shouldCopy() {
@@ -72,7 +72,7 @@ export class EclipseCopyPasteActionHandler implements IActionHandler {
 }
 
 export const eclipseCopyPasteModule = new ContainerModule((bind, _unbind, isBound) => {
-    configureActionHandler({bind, isBound }, "invoke-copy", EclipseCopyPasteActionHandler);
-    configureActionHandler({bind, isBound }, "invoke-cut", EclipseCopyPasteActionHandler);
-    configureActionHandler({bind, isBound }, "invoke-paste", EclipseCopyPasteActionHandler);
+    configureActionHandler({ bind, isBound }, "invoke-copy", EclipseCopyPasteActionHandler);
+    configureActionHandler({ bind, isBound }, "invoke-cut", EclipseCopyPasteActionHandler);
+    configureActionHandler({ bind, isBound }, "invoke-paste", EclipseCopyPasteActionHandler);
 });
