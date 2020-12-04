@@ -26,7 +26,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.glsp.ide.editor.initialization.ModelInitializationConstraint;
 import org.eclipse.glsp.ide.editor.ui.GLSPDiagramEditorPart;
-import org.eclipse.glsp.ide.editor.ui.GLSPEditorIntegrationPlugin;
+import org.eclipse.glsp.ide.editor.ui.GLSPIdeEditorPlugin;
 import org.eclipse.glsp.server.actions.Action;
 import org.eclipse.glsp.server.actions.InitializeClientSessionAction;
 import org.eclipse.glsp.server.actions.ServerMessageAction;
@@ -131,7 +131,7 @@ public class EclipseEditorActionDispatcher extends DefaultActionDispatcher {
 
    protected GLSPDiagramEditorPart getEditorPart(final String clientId) {
       return GLSPServerException.getOrThrow(
-         GLSPEditorIntegrationPlugin.getDefault().getGLSPEditorRegistry().getGLSPEditor(clientId),
+         GLSPIdeEditorPlugin.getDefault().getGLSPEditorRegistry().getGLSPEditor(clientId),
          "Could not retrieve GLSP Editor. GLSP editor is not properly configured for clientId: " + clientId);
    }
 

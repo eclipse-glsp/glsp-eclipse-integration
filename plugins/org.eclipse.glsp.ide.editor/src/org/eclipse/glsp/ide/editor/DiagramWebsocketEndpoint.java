@@ -25,7 +25,7 @@ import javax.websocket.Session;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.glsp.ide.editor.ui.GLSPEditorIntegrationPlugin;
+import org.eclipse.glsp.ide.editor.ui.GLSPIdeEditorPlugin;
 import org.eclipse.glsp.server.actions.Action;
 import org.eclipse.glsp.server.actions.ActionMessage;
 import org.eclipse.glsp.server.jsonrpc.GLSPJsonrpcClient;
@@ -39,7 +39,7 @@ public class DiagramWebsocketEndpoint extends GLSPServerEndpoint {
    @Override
    public void onError(final Session session, final Throwable throwable) {
       StatusManager.getManager().handle(
-         new Status(IStatus.ERROR, GLSPEditorIntegrationPlugin.PLUGIN_ID, "Error in diagram web socket", throwable));
+         new Status(IStatus.ERROR, GLSPIdeEditorPlugin.PLUGIN_ID, "Error in diagram web socket", throwable));
       super.onError(session, throwable);
    }
 
