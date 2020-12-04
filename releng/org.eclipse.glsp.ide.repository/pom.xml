@@ -24,10 +24,10 @@
 			</plugin>
 		</plugins>
 	</build>
-	
+
 	<profiles>
 		<profile>
-			<id>p2-release</id>
+			<id>release</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
 			</activation>
@@ -36,7 +36,7 @@
 				<p2.repository.dest>${project.basedir}/../target/repository</p2.repository.dest>
 				<local.p2.root>${user.home}</local.p2.root>
 				<remote.p2.root>genie.glsp@projects-storage.eclipse.org:/home/data/httpd/download.eclipse.org/glsp</remote.p2.root>
-				<repository.path>server/p2/</repository.path>
+				<repository.path>ide/p2/</repository.path>
 				<!-- local source directory for rsync (read from this directory) -->
 				<rsync.local.dir>${local.p2.root}/${repository.path}</rsync.local.dir>
 				<!-- remote rsync host -->
@@ -86,9 +86,8 @@
 						<artifactId>tycho-eclipserun-plugin</artifactId>
 						<version>${tycho-version}</version>
 						<configuration>
-							<executionEnvironment>JavaSE-1.8</executionEnvironment>
 							<!-- IMPORTANT: DO NOT split the arg line -->
-							<appArgLine>-application org.eclipse.ant.core.antRunner -buildfile packaging-p2composite.ant p2.composite.add -Dsite.label="Eclipse GLSP Nightly Updatesite" -Dproject.build.directory=${project.build.directory} -DunqualifiedVersion=${unqualifiedVersion} -DbuildQualifier=${buildQualifier} -Dsoftware.download.area=${rsync.local.dir}</appArgLine>
+							<appArgLine>-application org.eclipse.ant.core.antRunner -buildfile packaging-p2composite.ant p2.composite.add -Dsite.label="Eclipse GLSP IDE Integration Nightly Updatesite" -Dproject.build.directory=${project.build.directory} -DunqualifiedVersion=${unqualifiedVersion} -DbuildQualifier=${buildQualifier} -Dsoftware.download.area=${rsync.local.dir}</appArgLine>
 							<repositories>
 								<repository>
 									<id>2020-09</id>

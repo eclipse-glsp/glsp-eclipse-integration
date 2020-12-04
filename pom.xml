@@ -56,7 +56,7 @@
 		<target.version>0.9.0-SNAPSHOT</target.version>
 		<tycho-version>2.1.0</tycho-version>
 		<tychoExtrasVersion>2.1.0</tychoExtrasVersion>
-		<maven-antrun-plugin.version>11</maven-antrun-plugin.version>
+		<maven-antrun-plugin.version>3.0.0</maven-antrun-plugin.version>
 
 	</properties>
 
