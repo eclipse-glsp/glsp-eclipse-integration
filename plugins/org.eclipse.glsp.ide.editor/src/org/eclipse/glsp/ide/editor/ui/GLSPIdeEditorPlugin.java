@@ -21,18 +21,18 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.glsp.ide.editor.GLSPEditorRegistry;
 import org.osgi.framework.BundleContext;
 
-public class GLSPEditorIntegrationPlugin extends Plugin {
+public class GLSPIdeEditorPlugin extends Plugin {
    // The plug-in ID
    public static final String PLUGIN_ID = "org.eclipse.glsp.ide.editor"; //$NON-NLS-1$
 
    // The shared instance
-   private static GLSPEditorIntegrationPlugin instance;
+   private static GLSPIdeEditorPlugin instance;
    private GLSPEditorRegistry glspEditorRegistry;
 
    /**
     * The constructor.
     */
-   public GLSPEditorIntegrationPlugin() {
+   public GLSPIdeEditorPlugin() {
 
    }
 
@@ -50,7 +50,7 @@ public class GLSPEditorIntegrationPlugin extends Plugin {
    }
 
    public static void error(final String msg, final Throwable e) {
-      GLSPEditorIntegrationPlugin.getDefault().getLog().log(new Status(IStatus.ERROR, PLUGIN_ID, IStatus.OK, msg, e));
+      GLSPIdeEditorPlugin.getDefault().getLog().log(new Status(IStatus.ERROR, PLUGIN_ID, IStatus.OK, msg, e));
 
    }
 
@@ -59,7 +59,7 @@ public class GLSPEditorIntegrationPlugin extends Plugin {
     *
     * @return the shared instance
     */
-   public static GLSPEditorIntegrationPlugin getDefault() { return instance; }
+   public static GLSPIdeEditorPlugin getDefault() { return instance; }
 
    public GLSPEditorRegistry getGLSPEditorRegistry() { return glspEditorRegistry; }
 

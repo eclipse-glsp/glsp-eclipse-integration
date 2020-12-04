@@ -76,7 +76,6 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IGotoMarker;
 import org.eclipse.ui.part.EditorPart;
 
-import com.google.gson.JsonObject;
 import com.google.inject.Injector;
 
 public class GLSPDiagramEditorPart extends EditorPart implements IGotoMarker {
@@ -109,7 +108,7 @@ public class GLSPDiagramEditorPart extends EditorPart implements IGotoMarker {
    public GLSPDiagramEditorPart() {}
 
    public GLSPServerManager getServerManager() {
-      Optional<GLSPServerManager> serverManager = GLSPEditorIntegrationPlugin.getDefault().getGLSPEditorRegistry()
+      Optional<GLSPServerManager> serverManager = GLSPIdeEditorPlugin.getDefault().getGLSPEditorRegistry()
          .getGLSPServerManager(this);
       if (!serverManager.isPresent()) {
          throw new GLSPServerException(
@@ -178,7 +177,7 @@ public class GLSPDiagramEditorPart extends EditorPart implements IGotoMarker {
 
    @Override
    public void createPartControl(final Composite parent) {
-      comp = new Composite(parent, SWT.NO_SCROLL);
+      comp = new Composite(parent, SWT.NO_SCROLL | SWT.CHROMIUM);
       comp.setLayout(new GridLayout(1, true));
 
       browser = createBrowser(comp);
@@ -217,7 +216,8 @@ public class GLSPDiagramEditorPart extends EditorPart implements IGotoMarker {
          public void controlResized(final ControlEvent e) {
             super.controlResized(e);
             if (connected) {
-               // Point size = ((Control) e.widget).getSize();
+               // Point size = ((Control) e.widget).getSize();itor.Lc3TransactionalEditingDomain;
+
                // JsonObject newCanvasBoundsAction = actionGenerator
                // .initializeCanvasBoundsAction(GraphUtil.bounds(0, 0, size.x, size.y));
                // sendAction(newCanvasBoundsAction);
@@ -333,11 +333,6 @@ public class GLSPDiagramEditorPart extends EditorPart implements IGotoMarker {
    }
 
    public void disconnect() {
-      // TODO Auto-generated method stub
-
-   }
-
-   public void sendAction(final JsonObject action) {
       // TODO Auto-generated method stub
 
    }

@@ -22,7 +22,7 @@ import java.util.Optional;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.glsp.ide.editor.ui.GLSPDiagramEditorPart;
-import org.eclipse.glsp.ide.editor.ui.GLSPEditorIntegrationPlugin;
+import org.eclipse.glsp.ide.editor.ui.GLSPIdeEditorPlugin;
 import org.eclipse.glsp.ide.editor.utils.UIUtil;
 import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IWorkbenchPart;
@@ -59,7 +59,7 @@ public class GLSPEditorRegistry {
             }
 
          } catch (Exception e) {
-            GLSPEditorIntegrationPlugin.error("Exception while obtaining registered converters", e);
+            GLSPIdeEditorPlugin.error("Exception while obtaining registered converters", e);
          }
       }
 
