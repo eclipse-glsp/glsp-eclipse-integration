@@ -21,7 +21,6 @@ import org.apache.log4j.Logger;
 import org.eclipse.glsp.ide.editor.ui.GLSPIdeEditorPlugin;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -40,14 +39,6 @@ public final class UIUtil {
 
    public static Optional<IWorkbenchPage> getActivePage() {
       return getActiveWorkbenchWindow().map(IWorkbenchWindow::getActivePage);
-   }
-
-   public static Optional<IEditorPart> getActiveEditor() {
-      return getActivePage().flatMap(page -> Optional.ofNullable(page.getActiveEditor()));
-   }
-
-   public static <T extends IEditorPart> Optional<T> getActiveEditor(final Class<T> clazz) {
-      return getActiveEditor().filter(clazz::isInstance).map(clazz::cast);
    }
 
    public static Optional<Display> findDisplay() {
@@ -71,13 +62,13 @@ public final class UIUtil {
       }
    }
 
-   public static Optional<Shell> findShell() {
-      return findDisplay().flatMap(display -> Optional.ofNullable(display.getActiveShell()));
-   }
-
    public static Optional<Shell> findShell(final String clientId) {
       return GLSPIdeEditorPlugin.getDefault().getGLSPEditorRegistry().getGLSPEditor(clientId)
          .map(editor -> editor.getEditorSite().getShell())
          .or(UIUtil::findShell);
+   }
+
+   private static Optional<Shell> findShell() {
+      return findDisplay().flatMap(display -> Optional.ofNullable(display.getActiveShell()));
    }
 }

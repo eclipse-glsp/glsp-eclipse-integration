@@ -25,7 +25,6 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.glsp.ide.editor.ui.GLSPDiagramEditor;
-import org.eclipse.glsp.ide.editor.utils.UIUtil;
 import org.eclipse.glsp.server.actions.Action;
 import org.eclipse.glsp.server.actions.ActionDispatcher;
 import org.eclipse.glsp.server.actions.ActionMessage;
@@ -75,11 +74,6 @@ public abstract class EclipseActionHandler extends AbstractHandler {
       String clientId = (String) context.get(GLSPDiagramEditor.GLSP_CLIENT_ID);
       return getInstance(context, ModelStateProvider.class)
          .flatMap(stateProvider -> stateProvider.getModelState(clientId));
-   }
-
-   protected Optional<IEclipseContext> findContext() {
-      return UIUtil.getActiveEditor(GLSPDiagramEditor.class)
-         .map(editor -> editor.getSite().getService(IEclipseContext.class));
    }
 
    protected Void handleError(final Throwable ex, final Optional<GLSPClient> client, final String clientId,
