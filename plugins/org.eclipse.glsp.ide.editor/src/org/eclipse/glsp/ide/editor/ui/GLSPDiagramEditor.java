@@ -58,6 +58,8 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
+import org.eclipse.swt.browser.ProgressAdapter;
+import org.eclipse.swt.browser.ProgressEvent;
 import org.eclipse.swt.events.MouseTrackListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -307,13 +309,17 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker {
    protected void setupBrowser(final Browser browser, final String path) {
       Browser.clearSessions();
       browser.refresh();
-
       browser.addMouseTrackListener(MouseTrackListener.mouseEnterAdapter(
          event -> browser.execute(DISPATCH_MOUSE_UP_FUNCTION)));
 
-      browser.setUrl(createBrowserUrl(path));
       browser.setMenu(createBrowserMenu());
-
+      browser.addProgressListener(new ProgressAdapter() {
+         @Override
+         public void completed(final ProgressEvent event) {
+            toDispose.add(ChromiumKeyBindingFunction.install(GLSPDiagramEditor.this, browser));
+         }
+      });
+      browser.setUrl(createBrowserUrl(path));
       browser.refresh();
    }
 
