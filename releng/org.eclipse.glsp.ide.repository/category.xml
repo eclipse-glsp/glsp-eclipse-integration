@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <bundle id="org.eclipse.glsp.ide.editor">
+   <feature id="org.eclipse.glsp.ide.feature">
       <category name="org.eclipse.glsp"/>
-   </bundle>
+   </feature>
    <bundle id="org.eclipse.glsp.example.workflow">
       <category name="org.eclipse.glsp.example"/>
    </bundle>
@@ -10,7 +10,7 @@
       <category name="org.eclipse.glsp.example"/>
    </bundle>
    <category-def name="org.eclipse.glsp" label="Eclipse GLSP"/>
-   <category-def name="org.eclipse.glsp.example" label="Example integration">
+   <category-def name="org.eclipse.glsp.example" label="Workflow Example integration">
       <category name="org.eclipse.glsp"/>
    </category-def>
 </site>

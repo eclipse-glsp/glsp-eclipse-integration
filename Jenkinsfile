@@ -12,6 +12,13 @@ pipeline {
                 }
             }
         }
+
+          stage('Deploy (master only)') {
+            when { branch 'master'}
+            steps {
+                build job: 'deploy-p2-ide-integration', wait: false
+            }
+        }
     }
 
 }
