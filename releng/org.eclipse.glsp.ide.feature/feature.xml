@@ -311,12 +311,6 @@ version(s), and exceptions or additional permissions here}.&quot;
       <discovery label="GLSP Github Repository" url="https://github.com/eclipsesource/graphical-lsp"/>
    </url>
 
-   <includes
-         id="org.eclipse.glsp.feature"
-         version="0.0.0"
-         optional="true"
-         search-location="both"/>
-
    <requires>
       <import plugin="com.google.gson"/>
       <import plugin="org.eclipse.lsp4j"/>
@@ -350,13 +344,6 @@ version(s), and exceptions or additional permissions here}.&quot;
       <import plugin="org.eclipse.text" version="3.10.300" match="greaterOrEqual"/>
       <import plugin="org.eclipse.e4.core.contexts" version="1.8.400" match="greaterOrEqual"/>
    </requires>
-
-   <plugin
-         id="org.eclipse.glsp.server.websocket"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
 
    <plugin
          id="org.eclipse.glsp.ide.editor"
