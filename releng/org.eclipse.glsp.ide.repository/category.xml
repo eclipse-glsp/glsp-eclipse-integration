@@ -3,6 +3,9 @@
    <feature id="org.eclipse.glsp.ide.feature">
       <category name="org.eclipse.glsp"/>
    </feature>
+   <feature id="org.eclipse.glsp.ide.feature.source">
+      <category name="org.eclipse.glsp"/>
+   </feature>
    <bundle id="org.eclipse.glsp.example.workflow">
       <category name="org.eclipse.glsp.example"/>
    </bundle>
