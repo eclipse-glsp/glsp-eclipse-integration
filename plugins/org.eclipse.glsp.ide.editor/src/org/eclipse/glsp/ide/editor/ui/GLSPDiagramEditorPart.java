@@ -177,7 +177,7 @@ public class GLSPDiagramEditorPart extends EditorPart implements IGotoMarker {
 
    @Override
    public void createPartControl(final Composite parent) {
-      comp = new Composite(parent, SWT.NO_SCROLL | SWT.CHROMIUM);
+      comp = new Composite(parent, SWT.NO_SCROLL);
       comp.setLayout(new GridLayout(1, true));
 
       browser = createBrowser(comp);
@@ -234,7 +234,7 @@ public class GLSPDiagramEditorPart extends EditorPart implements IGotoMarker {
    }
 
    protected Browser createBrowser(final Composite parent) {
-      return new Browser(comp, SWT.NO_SCROLL);
+      return new Browser(comp, SWT.NO_SCROLL | SWT.CHROMIUM);
    }
 
    @Override
