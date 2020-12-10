@@ -29,13 +29,6 @@ public class GLSPIdeEditorPlugin extends Plugin {
    private static GLSPIdeEditorPlugin instance;
    private GLSPEditorRegistry glspEditorRegistry;
 
-   /**
-    * The constructor.
-    */
-   public GLSPIdeEditorPlugin() {
-
-   }
-
    @Override
    public void start(final BundleContext context) throws Exception {
       super.start(context);
@@ -49,9 +42,10 @@ public class GLSPIdeEditorPlugin extends Plugin {
       super.stop(context);
    }
 
-   public static void error(final String msg, final Throwable e) {
-      GLSPIdeEditorPlugin.getDefault().getLog().log(new Status(IStatus.ERROR, PLUGIN_ID, IStatus.OK, msg, e));
+   public GLSPEditorRegistry getGLSPEditorRegistry() { return glspEditorRegistry; }
 
+   public static void error(final String msg, final Throwable e) {
+      getDefault().getLog().log(new Status(IStatus.ERROR, PLUGIN_ID, IStatus.OK, msg, e));
    }
 
    /**
@@ -61,6 +55,5 @@ public class GLSPIdeEditorPlugin extends Plugin {
     */
    public static GLSPIdeEditorPlugin getDefault() { return instance; }
 
-   public GLSPEditorRegistry getGLSPEditorRegistry() { return glspEditorRegistry; }
-
+   public static GLSPEditorRegistry getDefaultGLSPEditorRegistry() { return getDefault().getGLSPEditorRegistry(); }
 }

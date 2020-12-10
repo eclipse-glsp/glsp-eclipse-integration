@@ -13,16 +13,19 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-package org.eclipse.glsp.ide.editor.handlers;
+package org.eclipse.glsp.ide.editor.ui;
 
-import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.glsp.server.actions.SelectAllAction;
+import org.eclipse.ui.IActionBars;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.part.EditorActionBarContributor;
 
-public class SelectAllHandler extends EclipseActionHandler {
-
+public class GLSPDiagramEditorActionContributor extends EditorActionBarContributor {
    @Override
-   protected void execute(final IEclipseContext context) {
-      dispatchMessage(context, new SelectAllAction(true));
+   public void setActiveEditor(final IEditorPart targetEditor) {
+      super.setActiveEditor(targetEditor);
+      if (targetEditor instanceof GLSPDiagramEditor) {
+         IActionBars actionBars = targetEditor.getEditorSite().getActionBars();
+         ((GLSPDiagramEditor) targetEditor).getGlobalActions().forEach(actionBars::setGlobalActionHandler);
+      }
    }
-
 }

@@ -13,16 +13,18 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-package org.eclipse.glsp.ide.editor.handlers;
+package org.eclipse.glsp.ide.editor.actions.handlers;
 
-import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.glsp.ide.editor.actions.InvokePasteAction;
+import java.io.File;
+import java.util.Optional;
 
-public class PasteHandler extends EclipseActionHandler {
+import org.eclipse.glsp.server.actions.SaveModelActionHandler;
+import org.eclipse.glsp.server.model.GModelState;
+import org.eclipse.glsp.server.utils.ClientOptions;
 
+public class IdeSaveModelActionHandler extends SaveModelActionHandler {
    @Override
-   protected void execute(final IEclipseContext context) {
-      dispatchMessage(context, new InvokePasteAction());
+   protected Optional<File> convertToFile(final GModelState modelState) {
+      return ClientOptions.getSourceUriAsFile(modelState.getClientOptions());
    }
-
 }

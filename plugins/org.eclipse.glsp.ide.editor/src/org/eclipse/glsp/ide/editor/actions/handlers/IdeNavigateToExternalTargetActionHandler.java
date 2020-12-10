@@ -15,14 +15,13 @@
  ********************************************************************************/
 package org.eclipse.glsp.ide.editor.actions.handlers;
 
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.Path;
+import org.eclipse.glsp.ide.editor.utils.IdeClientOptions;
+import org.eclipse.glsp.ide.editor.utils.UIUtil;
 import org.eclipse.glsp.server.actions.Action;
 import org.eclipse.glsp.server.actions.BasicActionHandler;
 import org.eclipse.glsp.server.features.navigation.JsonOpenerOptions;
@@ -36,9 +35,8 @@ import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.Region;
 import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.texteditor.ITextEditor;
 
@@ -59,25 +57,23 @@ public class IdeNavigateToExternalTargetActionHandler extends BasicActionHandler
          return none();
       }
 
-      URI targetURI = URI.create(target.getUri());
-      Path location = new Path(targetURI.getPath());
-      IFile workspaceFile = ResourcesPlugin.getWorkspace().getRoot().getFileForLocation(location);
-      if (workspaceFile != null && workspaceFile.exists()) {
-         PlatformUI.getWorkbench().getDisplay().asyncExec(() -> openFile(workspaceFile, options.get()));
+      Optional<IFile> workspaceFile = IdeClientOptions.getUriAsIFile(target.getUri());
+      if (workspaceFile.isPresent()) {
+         UIUtil.asyncExec(() -> openFile(workspaceFile.get(), options.get()));
       } else {
-         LOGGER.warn("Could not find workspace file for " + location);
+         LOGGER.warn("Could not find workspace file for " + target.getUri());
       }
       return none();
    }
 
    protected void openFile(final IFile file, final JsonOpenerOptions options) {
-      IWorkbenchWindow activeWorkbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-      if (activeWorkbenchWindow == null || activeWorkbenchWindow.getActivePage() == null) {
+      Optional<IWorkbenchPage> activePage = UIUtil.getActivePage();
+      if (activePage.isEmpty()) {
          LOGGER.warn("Could not find activate page to open file " + file);
          return;
       }
       try {
-         IEditorPart editor = IDE.openEditor(activeWorkbenchWindow.getActivePage(), file);
+         IEditorPart editor = IDE.openEditor(activePage.get(), file);
          if (editor instanceof ITextEditor) {
             ITextEditor textEditor = (ITextEditor) editor;
             IRegion selection = translateSelection(textEditor, options.getSelection());

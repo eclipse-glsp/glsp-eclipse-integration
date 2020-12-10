@@ -24,7 +24,7 @@ import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.glsp.ide.editor.ui.GLSPDiagramEditorPart;
+import org.eclipse.glsp.ide.editor.ui.GLSPDiagramEditor;
 import org.eclipse.glsp.server.actions.Action;
 import org.eclipse.glsp.server.actions.ActionDispatcher;
 import org.eclipse.glsp.server.actions.ActionMessage;
@@ -33,7 +33,6 @@ import org.eclipse.glsp.server.model.ModelStateProvider;
 import org.eclipse.glsp.server.protocol.GLSPClient;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPartSite;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 
 /**
@@ -56,7 +55,7 @@ public abstract class EclipseActionHandler extends AbstractHandler {
 
    protected void dispatchMessage(final IEclipseContext context, final Action action) {
       ActionDispatcher dispatcher = context.get(ActionDispatcher.class);
-      String clientId = (String) context.get(GLSPDiagramEditorPart.GLSP_CLIENT_ID);
+      String clientId = (String) context.get(GLSPDiagramEditor.GLSP_CLIENT_ID);
       // Note: GLSPClient is not available at the moment, as we don't have a way to track the
       // client connection lifecycle in the Eclipse Integration yet.
       Optional<GLSPClient> client = Optional.ofNullable(context.get(GLSPClient.class));
@@ -66,23 +65,15 @@ public abstract class EclipseActionHandler extends AbstractHandler {
 
    protected <T> Optional<T> getInstance(final IEclipseContext context, final Class<T> type) {
       IEditorPart editor = context.get(IEditorPart.class);
-      return editor instanceof GLSPDiagramEditorPart
-         ? Optional.ofNullable(((GLSPDiagramEditorPart) editor).getInjector().getInstance(type))
+      return editor instanceof GLSPDiagramEditor
+         ? Optional.ofNullable(((GLSPDiagramEditor) editor).getInjector().getInstance(type))
          : Optional.empty();
    }
 
    protected Optional<GModelState> getModelState(final IEclipseContext context) {
-      String clientId = (String) context.get(GLSPDiagramEditorPart.GLSP_CLIENT_ID);
+      String clientId = (String) context.get(GLSPDiagramEditor.GLSP_CLIENT_ID);
       return getInstance(context, ModelStateProvider.class)
          .flatMap(stateProvider -> stateProvider.getModelState(clientId));
-   }
-
-   protected Optional<IEclipseContext> findContext() {
-      IEditorPart activeEditor = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
-      if (activeEditor instanceof GLSPDiagramEditorPart) {
-         return Optional.ofNullable(activeEditor.getSite().getService(IEclipseContext.class));
-      }
-      return Optional.empty();
    }
 
    protected Void handleError(final Throwable ex, final Optional<GLSPClient> client, final String clientId,

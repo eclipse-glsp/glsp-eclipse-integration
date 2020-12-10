@@ -15,27 +15,26 @@
  ********************************************************************************/
 package org.eclipse.glsp.ide.editor.actions.handlers;
 
-import static org.eclipse.glsp.server.protocol.GLSPServerException.getOrThrow;
-
 import java.util.List;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.glsp.ide.editor.utils.GLSPDiagramEditorMarkerUtil;
-import org.eclipse.glsp.ide.editor.utils.IdeClientOptions;
+import org.eclipse.glsp.ide.editor.ui.GLSPIdeEditorPlugin;
 import org.eclipse.glsp.server.actions.Action;
 import org.eclipse.glsp.server.actions.BasicActionHandler;
-import org.eclipse.glsp.server.features.validation.SetMarkersAction;
+import org.eclipse.glsp.server.actions.GLSPServerStatusAction;
+import org.eclipse.glsp.server.actions.ServerStatusAction;
 import org.eclipse.glsp.server.model.GModelState;
 
-public class IdeSetMarkersActionHandler extends BasicActionHandler<SetMarkersAction> {
+public class IdeServerStatusActionHandler extends BasicActionHandler<ServerStatusAction> {
 
    @Override
-   protected List<Action> executeAction(final SetMarkersAction action, final GModelState modelState) {
-      final IFile workspaceFile = getOrThrow(IdeClientOptions.getSourceUriAsIFile(modelState.getClientOptions()),
-         "Could not retrieve model source URL for: " + modelState.getClientId());
-      GLSPDiagramEditorMarkerUtil.clearMarkers(workspaceFile, false);
-      action.getMarkers().forEach(glspMarker -> GLSPDiagramEditorMarkerUtil.createMarker(workspaceFile, glspMarker));
+   protected List<Action> executeAction(final ServerStatusAction action, final GModelState modelState) {
+      GLSPIdeEditorPlugin.getDefaultGLSPEditorRegistry().getGLSPEditorOrThrow(modelState.getClientId())
+         .showServerStatus(action);
       return none();
    }
 
+   @Override
+   public List<Class<? extends Action>> getHandledActionTypes() {
+      return List.of(GLSPServerStatusAction.class, ServerStatusAction.class);
+   }
 }

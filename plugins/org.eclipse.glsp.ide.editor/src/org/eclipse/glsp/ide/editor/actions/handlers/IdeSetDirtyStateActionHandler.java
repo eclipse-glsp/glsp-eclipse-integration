@@ -13,16 +13,23 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-package org.eclipse.glsp.ide.editor.handlers;
+package org.eclipse.glsp.ide.editor.actions.handlers;
 
-import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.glsp.ide.editor.actions.InvokeCutAction;
+import java.util.List;
 
-public class CutHandler extends EclipseActionHandler {
+import org.eclipse.glsp.ide.editor.ui.GLSPIdeEditorPlugin;
+import org.eclipse.glsp.server.actions.Action;
+import org.eclipse.glsp.server.actions.BasicActionHandler;
+import org.eclipse.glsp.server.actions.SetDirtyStateAction;
+import org.eclipse.glsp.server.model.GModelState;
+
+public class IdeSetDirtyStateActionHandler extends BasicActionHandler<SetDirtyStateAction> {
 
    @Override
-   protected void execute(final IEclipseContext context) {
-      dispatchMessage(context, new InvokeCutAction());
+   protected List<Action> executeAction(final SetDirtyStateAction action, final GModelState modelState) {
+      GLSPIdeEditorPlugin.getDefaultGLSPEditorRegistry().getGLSPEditorOrThrow(modelState.getClientId())
+         .setDirty(action.isDirty());
+      return none();
    }
 
 }

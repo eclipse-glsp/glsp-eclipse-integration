@@ -30,12 +30,12 @@ export class EclipseGLSPDiagramServer extends GLSPDiagramServer {
         return super.handleLocally(action);
     }
 
-    protected handleServerStatusAction(action: ServerStatusAction): boolean {
+    protected handleServerStatusAction(_action: ServerStatusAction): boolean {
         /* send to server */
         return true;
     }
 
-    protected handleServerMessageAction(action: ServerMessageAction): boolean {
+    protected handleServerMessageAction(_action: ServerMessageAction): boolean {
         /* send to server */
         return true;
     }
