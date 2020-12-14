@@ -1,0 +1,26 @@
+{
+  "private": true,
+  "name": "@eclipse-glsp-examples/workflow-webapp",
+  "version": "0.9.0",
+  "description": "GLSP-based webapp for the Workflow example",
+  "dependencies": {
+    "@eclipse-glsp-examples/workflow-glsp": "next",
+    "@eclipse-glsp/client": "next",
+    "@eclipse-glsp/protocol": "next",
+    "@eclipse-glsp/ide": "0.9.0"
+  },
+  "devDependencies": {
+    "copyfiles": "latest",
+    "rimraf": "^2.6.1",
+    "tslint": "^5.5.0",
+    "typescript": "^3.9.2"
+  },
+  "scripts": {
+    "prepare": "yarn run clean && yarn build",
+    "clean": "rimraf lib app/bundle.js app/bundle.js.map app/css",
+    "build": "tsc && yarn run lint && yarn copyClient",
+    "lint": "tslint -c ../../configs/tslint.json --project ./tsconfig.json",
+    "copyClient": "copyfiles -f app/* ../org.eclipse.glsp.ide.workflow.editor/diagram",
+    "watch": "tsc -w"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "private": true,
+  "name": "parent",
+  "version": "0.9.0",
+  "engines": {
+    "yarn": "1.0.x || >=1.2.1",
+    "node": ">=10.11.0 <13"
+  },
+  "devDependencies": {
+    "copyfiles": "latest",
+    "lerna": "^2.11.0",
+    "rimraf": "^2.6.1",
+    "tslint": "^5.5.0",
+    "typescript": "^3.9.2"
+  },
+  "scripts": {
+    "prepare": "lerna run prepare",
+    "watch": "lerna run --parallel watch",
+    "clean": "rimraf lib app/bundle.js app/bundle.js.map app/css",
+    "build": "tsc && yarn copyClient",
+    "copyClient": "copyfiles -f app/* ../org.eclipse.glsp.ide.workflow.editor/diagram"
+  },
+  "resolutions": {
+    "**/@eclipse-glsp/client": "0.9.0-next.83b3785f",
+    "**/@eclipse-glsp/protocol": "0.9.0-next.83b3785f",
+    "**/@eclipse-glsp-examples/workflow-glsp": "0.9.0-next.83b3785f"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/*/",
+      "examples/*/",
+      "configs"
+    ]
+  }
+}

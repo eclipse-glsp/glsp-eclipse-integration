@@ -1,0 +1,47 @@
+{
+  "name": "@eclipse-glsp/ide",
+  "version": "0.9.0",
+  "description": "Glue code to integrate GLSP clients into Eclipse via a webapp",
+  "license": "(EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0)",
+  "engines": {
+    "yarn": "1.0.x || >=1.2.1",
+    "node": ">=10.11.0 <13"
+  },
+  "homepage": "https://www.eclipse.org/glsp",
+  "bugs": "https://github.com/eclipse-glsp/glsp-eclipse-integration/issues",
+  "author": {
+    "name": "EclipseSource"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eclipse-glsp/glsp-eclipse-integration.git"
+  },
+  "files": [
+    "lib",
+    "src",
+    "css"
+  ],
+  "dependencies": {
+    "@eclipse-glsp/client": "next",
+    "@eclipse-glsp/protocol": "next"
+  },
+  "devDependencies": {
+    "copyfiles": "latest",
+    "rimraf": "^2.6.1",
+    "tslint": "^5.5.0",
+    "typescript": "^3.9.2"
+  },
+  "scripts": {
+    "prepare": "yarn run clean && yarn build",
+    "clean": "rimraf lib app/bundle.js app/bundle.js.map app/css",
+    "build": "tsc && yarn run lint && yarn copyClient",
+    "lint": "tslint -c ../../configs/tslint.json --project ./tsconfig.json",
+    "copyClient": "copyfiles -f app/* ../org.eclipse.glsp.ide.workflow.editor/diagram",
+    "watch": "tsc -w"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "lib/index",
+  "types": "lib/index"
+}
