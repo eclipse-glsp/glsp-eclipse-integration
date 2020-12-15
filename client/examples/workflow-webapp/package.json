@@ -10,17 +10,23 @@
     "@eclipse-glsp/ide": "0.9.0"
   },
   "devDependencies": {
-    "copyfiles": "latest",
+    "circular-dependency-plugin": "^2.0.0",
+    "core-js": "^2.5.1",
+    "css-loader": "^2.1.0",
+    "reflect-metadata": "^0.1.10",
     "rimraf": "^2.6.1",
+    "style-loader": "^0.23.1",
+    "ts-loader": "^4.4.2",
     "tslint": "^5.5.0",
-    "typescript": "^3.9.2"
+    "typescript": "^3.9.2",
+    "webpack": "^4.15.1",
+    "webpack-cli": "^3.0.8"
   },
   "scripts": {
     "prepare": "yarn run clean && yarn build",
-    "clean": "rimraf lib app/bundle.js app/bundle.js.map app/css",
-    "build": "tsc && yarn run lint && yarn copyClient",
+    "clean": "rimraf lib app/bundle.js app/bundle.js.map",
+    "build": "tsc && webpack && yarn run lint",
     "lint": "tslint -c ../../configs/tslint.json --project ./tsconfig.json",
-    "copyClient": "copyfiles -f app/* ../org.eclipse.glsp.ide.workflow.editor/diagram",
     "watch": "tsc -w"
   }
 }
