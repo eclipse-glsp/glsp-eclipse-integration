@@ -25,7 +25,6 @@
 			<modules>
 				<module>org.eclipse.glsp.codestyle</module>
 				<module>org.eclipse.glsp.ide.feature</module>
-				<module>org.eclipse.glsp.ide.releng.target</module>
 				<module>org.eclipse.glsp.ide.repository</module>
 			</modules>
 			<build>
