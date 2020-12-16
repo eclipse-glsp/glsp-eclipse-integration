@@ -16,6 +16,7 @@
     "prepare": "lerna run prepare && yarn copyClient",
     "watch": "lerna run --parallel watch",
     "copyClient": "copyfiles -f ./examples/workflow-webapp/app/* ../server/example/org.eclipse.glsp.ide.workflow.editor/diagram",
+    "publish:next": "lerna publish --exact --canary=next --npm-tag=next --yes",
     "update:next": "yarn upgrade -p \"sprotty|@eclipse-glsp/.*|@eclipse-glsp-examples\" --next "
   },
   "workspaces": {
