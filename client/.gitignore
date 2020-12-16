@@ -1,0 +1,7 @@
+node_modules
+lib
+
+**/app/bundle.js
+**/app/bundle.js.map
+
+*.log
