@@ -14,7 +14,7 @@ See [our project website](https://www.eclipse.org/glsp/documentation/#workflowov
 ![Workflow Diagram](/documentation/glsp-eclipse-integration-animated.gif)
 
 ## How to start the Workflow Diagram example?
-First, you need to build both the client and the server (See the Building section below). Then, start an Eclipse Application containing the org.eclipse.glsp.ide.workflow.editor plug-in (e.g. using the `WorkflowEditor.launch` launch configuration provided in that project). The Workflow Diagram Editor is registered for *.wf files. You can use the provided example project: `server/example/runtime/test`
+First, you need to build both the client and the server (see the [Building section](#building) below). Then, import the Eclipse plug-in project `server/example/org.eclipse.glsp.ide.workflow.editor` and `server/releng/org.eclipse.glsp.ide.releng.target` into your Eclipse IDE, open the `server/releng/org.eclipse.glsp.ide.releng.target/r2020-09.target` and set it as your target platform. Now, you can start an Eclipse Application containing the plug-in project `org.eclipse.glsp.ide.workflow.editor`, e.g. using the `WorkflowEditor.launch` launch configuration provided in that project. The Workflow Diagram Editor is registered for any *.wf files. You can use the provided example *.wf file from: `server/example/runtime/test`
 
 ## Where to find the sources?
 In addition to this repository, the related source code can be found here:
