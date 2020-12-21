@@ -16,7 +16,7 @@ See [our project website](https://www.eclipse.org/glsp/documentation/#workflowov
 ![Workflow Diagram](/documentation/glsp-eclipse-integration-animated.gif)
 
 ### How to start the Workflow Diagram example?
-First, you need to build both the client and the server (see the [Building section](#building) below). Then, import the following Eclipse plug-in projects into your Eclipse IDE workspace:
+First, you need to build both the client and the server (see instructions on [building the client](client/README.md#building) and [building the server](server/README.md#building)). Then, import the following Eclipse plug-in projects into your Eclipse IDE workspace:
 
   * `server/plugins/org.eclipse.glsp.ide.editor`
   * `server/example/org.eclipse.glsp.ide.workflow.editor`
