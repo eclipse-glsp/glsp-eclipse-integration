@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
@@ -60,6 +61,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.browser.ProgressAdapter;
 import org.eclipse.swt.browser.ProgressEvent;
+import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.MouseTrackListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -95,6 +98,7 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker {
 
    private String clientId;
 
+   private final AtomicBoolean browserIsFocusControl = new AtomicBoolean(false);
    private final CompletableFuture<Injector> injector = new CompletableFuture<>();
    private boolean dirty;
 
@@ -300,7 +304,35 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker {
    }
 
    protected Browser createBrowser(final Composite parent) {
-      Browser browser = new Browser(parent, SWT.NO_SCROLL | SWT.CHROMIUM);
+      /*
+       * Browser subclassed because of https://bugs.eclipse.org/bugs/show_bug.cgi?id=567629
+       * This is not required on Linux but on Windows.
+       * Once this is fixed on Eclipse side, the subclass and the focus listener may be removed.
+       */
+      Browser browser = new Browser(parent, SWT.NO_SCROLL | SWT.CHROMIUM) {
+         @Override
+         public boolean isFocusControl() {
+            if (!browserIsFocusControl.get()) {
+               return false;
+            }
+            return super.isFocusControl();
+         }
+
+         @Override
+         protected void checkSubclass() {}
+      };
+      browser.addFocusListener(new FocusListener() {
+
+         @Override
+         public void focusLost(final FocusEvent e) {
+            browserIsFocusControl.set(false);
+         }
+
+         @Override
+         public void focusGained(final FocusEvent e) {
+            browserIsFocusControl.set(true);
+         }
+      });
       browser.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, true));
       toDispose.add(browser::dispose);
       return browser;
@@ -317,6 +349,7 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker {
          @Override
          public void completed(final ProgressEvent event) {
             toDispose.add(ChromiumKeyBindingFunction.install(GLSPDiagramEditor.this, browser));
+            toDispose.add(ChromiumSelectionFunction.install(GLSPDiagramEditor.this, browser));
          }
       });
       browser.setUrl(createBrowserUrl(path));
