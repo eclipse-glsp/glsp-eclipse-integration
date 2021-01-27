@@ -23,8 +23,6 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.NotEnabledException;
 import org.eclipse.core.commands.NotHandledException;
 import org.eclipse.core.commands.common.NotDefinedException;
-import org.eclipse.glsp.server.disposable.Disposable;
-import org.eclipse.glsp.server.disposable.IDisposable;
 import org.eclipse.jface.bindings.Binding;
 import org.eclipse.jface.bindings.keys.IKeyLookup;
 import org.eclipse.jface.bindings.keys.KeySequence;
@@ -42,7 +40,7 @@ import com.google.gson.Gson;
  * binding service of the editor. Inspired by
  * https://github.com/maketechnology/chromium.swt/issues/70.
  */
-public class ChromiumKeyBindingFunction extends Disposable {
+public class ChromiumKeyBindingFunction {
    private static final Logger LOGGER = Logger.getLogger(ChromiumKeyBindingFunction.class);
 
    private static final String FUNCTION_NAME = "$notifyKeybinding";
@@ -126,18 +124,15 @@ public class ChromiumKeyBindingFunction extends Disposable {
       }
    }
 
-   @Override
-   public void dispose() {
-      this.browserFunction.dispose();
-   }
+   public BrowserFunction getBrowserFunction() { return browserFunction; }
 
-   public static IDisposable install(final GLSPDiagramEditor editor, final Browser browser) {
+   public static Optional<BrowserFunction> install(final GLSPDiagramEditor editor, final Browser browser) {
       if ((browser.getStyle() & SWT.CHROMIUM) == 0) {
-         return new Disposable();
+         return Optional.empty();
       }
       ChromiumKeyBindingFunction function = new ChromiumKeyBindingFunction(editor, browser);
       browser.execute(INSTALL_FUNCTION);
-      return function;
+      return Optional.of(function.getBrowserFunction());
    }
 
    private static class SerializableEvent {
