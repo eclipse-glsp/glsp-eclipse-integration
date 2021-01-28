@@ -59,8 +59,7 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
-import org.eclipse.swt.browser.ProgressAdapter;
-import org.eclipse.swt.browser.ProgressEvent;
+import org.eclipse.swt.browser.ProgressListener;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.MouseTrackListener;
@@ -345,22 +344,22 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker {
          event -> browser.execute(DISPATCH_MOUSE_UP_FUNCTION)));
 
       browser.setMenu(createBrowserMenu());
-      browser.addProgressListener(new ProgressAdapter() {
-         @Override
-         public void completed(final ProgressEvent event) {
-            toDispose.add(ChromiumKeyBindingFunction.install(GLSPDiagramEditor.this, browser));
-            toDispose.add(ChromiumSelectionFunction.install(GLSPDiagramEditor.this, browser));
-         }
-      });
+      browser.addProgressListener(ProgressListener.completedAdapter(event -> installBrowserFunctions()));
       browser.setUrl(createBrowserUrl(path));
       browser.refresh();
    }
 
-   private Menu createBrowserMenu() {
+   protected Menu createBrowserMenu() {
       MenuManager menuManager = new MenuManager();
       Menu menu = menuManager.createContextMenu(browser);
       getSite().registerContextMenu(menuManager, getSite().getSelectionProvider());
       return menu;
+   }
+
+   protected void installBrowserFunctions() {
+      // browser functions are automatically disposed with the browser
+      ChromiumKeyBindingFunction.install(GLSPDiagramEditor.this, browser);
+      ChromiumSelectionFunction.install(GLSPDiagramEditor.this, browser);
    }
 
    protected String createBrowserUrl(final String path) {

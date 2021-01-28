@@ -15,33 +15,24 @@
  ********************************************************************************/
 package org.eclipse.glsp.ide.editor.ui;
 
-import org.eclipse.glsp.server.disposable.Disposable;
-import org.eclipse.glsp.server.disposable.IDisposable;
+import java.util.Objects;
+import java.util.Optional;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.browser.BrowserFunction;
 import org.eclipse.swt.widgets.Control;
 
-public class ChromiumSelectionFunction extends Disposable {
+public class ChromiumSelectionFunction {
 
    private static final String FUNCTION_NAME = "mouseDownHappened";
 
    private static final String INSTALL_FUNCTION = "document.onmousedown = function(e) {if (!e) {e = window.event;} if (e) {mouseDownHappened();}}";
 
-   private final BrowserFunction browserFunction;
-
-   public static IDisposable install(final GLSPDiagramEditor editor, final Browser browser) {
-      if ((browser.getStyle() & SWT.CHROMIUM) == 0) {
-         return new Disposable();
-      }
-      ChromiumSelectionFunction function = new ChromiumSelectionFunction(editor, browser);
-      browser.execute(INSTALL_FUNCTION);
-      return function;
-   }
+   private BrowserFunction browserFunction;
 
    public ChromiumSelectionFunction(final GLSPDiagramEditor editor, final Browser browser) {
       browserFunction = new BrowserFunction(browser, FUNCTION_NAME) {
-
          @Override
          public Object function(final Object[] arguments) {
             browser.getDisplay().asyncExec(() -> {
@@ -51,11 +42,10 @@ public class ChromiumSelectionFunction extends Disposable {
                   browser.forceFocus();
                } else {
                   Control focusControl = browser.getDisplay().getFocusControl();
-                  if (focusControl != browser) {
-                     browser.setFocus();
-                  } else {
+                  if (Objects.equals(focusControl, browser)) {
                      return;
                   }
+                  browser.setFocus();
                   focusControl = browser.getDisplay().getFocusControl();
                   if (focusControl != browser) {
                      browser.forceFocus();
@@ -67,8 +57,14 @@ public class ChromiumSelectionFunction extends Disposable {
       };
    }
 
-   @Override
-   public void dispose() {
-      this.browserFunction.dispose();
+   public BrowserFunction getBrowserFunction() { return browserFunction; }
+
+   public static Optional<BrowserFunction> install(final GLSPDiagramEditor editor, final Browser browser) {
+      if ((browser.getStyle() & SWT.CHROMIUM) == 0) {
+         return Optional.empty();
+      }
+      ChromiumSelectionFunction function = new ChromiumSelectionFunction(editor, browser);
+      browser.execute(INSTALL_FUNCTION);
+      return Optional.of(function.getBrowserFunction());
    }
 }
