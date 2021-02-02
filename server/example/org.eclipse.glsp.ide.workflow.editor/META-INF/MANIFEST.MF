@@ -24,3 +24,4 @@ Eclipse-BundleShape: dir
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: org.eclipse.glsp.ide.workflow.editor.Activator
 Bundle-Vendor: Eclipse GLSP
+Import-Package: javax.servlet
