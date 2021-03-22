@@ -33,17 +33,19 @@ const filePath = urlParameters.path;
 
 // In the Eclipse Integration, port is dynamic, as multiple editors
 // and/or Eclipse Servers may be running in parallel (e.g. 1/Eclipse IDE)
-const port = parseInt(urlParameters.port);
+const port = parseInt(urlParameters.port, 10);
 const id = "workflow";
 const name = "Workflow Diagram";
 const websocket = new WebSocket(`ws://localhost:${port}/${id}`);
 
-const container = createContainer();
+const clientId = urlParameters.client ? urlParameters.client : ApplicationIdProvider.get();
+console.log("ApplicationId", ApplicationIdProvider.get());
+const widgetId = urlParameters.widget ? urlParameters.widget : clientId;
+setWidgetId(widgetId);
+const container = createContainer(widgetId);
 
 const diagramServer = container.get<GLSPDiagramServer>(TYPES.ModelSource);
-if (urlParameters.client) {
-    diagramServer.clientId = urlParameters.client;
-}
+diagramServer.clientId = clientId;
 
 const actionDispatcher = container.get<GLSPActionDispatcher>(TYPES.IActionDispatcher);
 
@@ -65,3 +67,9 @@ websocket.onopen = () => {
     });
 };
 
+function setWidgetId(mainWidgetId: string): void {
+    const mainWidget = document.getElementById("sprotty");
+    if (mainWidget) {
+        mainWidget.id = mainWidgetId;
+    }
+}

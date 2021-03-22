@@ -21,7 +21,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
@@ -60,8 +59,7 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.browser.ProgressListener;
-import org.eclipse.swt.events.FocusEvent;
-import org.eclipse.swt.events.FocusListener;
+import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseTrackListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -86,24 +84,23 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker {
     */
    public static final String GLSP_CLIENT_ID = "GLSP_CLIENT_ID";
 
-   private static final Logger LOGGER = Logger.getLogger(GLSPDiagramEditor.class);
-   private static final String GLSP_CONTEXT_MENU_ID = "context-menu";
-   private static final String DISPATCH_MOUSE_UP_FUNCTION = "var event = new MouseEvent('mouseup', {}); document.getElementById(\"sprotty\").children[0].dispatchEvent(event);";
-   private static final AtomicInteger COUNT = new AtomicInteger(0);
+   protected static final Logger LOGGER = Logger.getLogger(GLSPDiagramEditor.class);
+   protected static final String GLSP_CONTEXT_MENU_ID = "context-menu";
+   protected static final AtomicInteger COUNT = new AtomicInteger(0);
 
-   private Composite root;
-   private Browser browser;
-   private GSLPDiagramEditorStatusBar statusBar;
+   protected Composite root;
+   protected Browser browser;
+   protected GSLPDiagramEditorStatusBar statusBar;
 
-   private String clientId;
+   protected String widgetId;
+   protected String clientId;
 
-   private final AtomicBoolean browserIsFocusControl = new AtomicBoolean(false);
-   private final CompletableFuture<Injector> injector = new CompletableFuture<>();
-   private boolean dirty;
+   protected final CompletableFuture<Injector> injector = new CompletableFuture<>();
+   protected boolean dirty;
 
-   private final DisposableCollection toDispose = new DisposableCollection();
+   protected final DisposableCollection toDispose = new DisposableCollection();
 
-   private final Map<String, IAction> globalActions = new HashMap<>(Map.of(
+   protected final Map<String, IAction> globalActions = new HashMap<>(Map.of(
       ActionFactory.UNDO.getId(), actionFor(this::undo),
       ActionFactory.REDO.getId(), actionFor(this::redo),
       ActionFactory.CUT.getId(), actionFor(this::cut),
@@ -134,6 +131,10 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker {
    public String getClientId() { return clientId; }
 
    protected void setClientId(final String clientId) { this.clientId = clientId; }
+
+   public String getWidgetId() { return widgetId; }
+
+   protected void setWidgetId(final String widgetId) { this.widgetId = widgetId; }
 
    protected String getFilePath() { return ((IFileEditorInput) getEditorInput()).getFile().getLocationURI().getPath(); }
 
@@ -256,6 +257,7 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker {
       setSite(site);
       setInput(input);
       setClientId(getServerManager().getGlspId() + "_Editor_" + COUNT.incrementAndGet());
+      setWidgetId(getClientId());
 
       IEclipseContext context = site.getService(IEclipseContext.class);
       configureContext(context);
@@ -303,35 +305,7 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker {
    }
 
    protected Browser createBrowser(final Composite parent) {
-      /*
-       * Browser subclassed because of https://bugs.eclipse.org/bugs/show_bug.cgi?id=567629
-       * This is not required on Linux but on Windows.
-       * Once this is fixed on Eclipse side, the subclass and the focus listener may be removed.
-       */
-      Browser browser = new Browser(parent, SWT.NO_SCROLL | SWT.CHROMIUM) {
-         @Override
-         public boolean isFocusControl() {
-            if (!browserIsFocusControl.get()) {
-               return false;
-            }
-            return super.isFocusControl();
-         }
-
-         @Override
-         protected void checkSubclass() {}
-      };
-      browser.addFocusListener(new FocusListener() {
-
-         @Override
-         public void focusLost(final FocusEvent e) {
-            browserIsFocusControl.set(false);
-         }
-
-         @Override
-         public void focusGained(final FocusEvent e) {
-            browserIsFocusControl.set(true);
-         }
-      });
+      Browser browser = new FocusAwareBrowser(parent, SWT.NO_SCROLL | SWT.CHROMIUM);
       browser.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, true));
       toDispose.add(browser::dispose);
       return browser;
@@ -340,13 +314,23 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker {
    protected void setupBrowser(final Browser browser, final String path) {
       Browser.clearSessions();
       browser.refresh();
-      browser.addMouseTrackListener(MouseTrackListener.mouseEnterAdapter(
-         event -> browser.execute(DISPATCH_MOUSE_UP_FUNCTION)));
-
+      browser.addMouseTrackListener(MouseTrackListener.mouseEnterAdapter(this::mouseEnteredBrowser));
       browser.setMenu(createBrowserMenu());
       browser.addProgressListener(ProgressListener.completedAdapter(event -> installBrowserFunctions()));
       browser.setUrl(createBrowserUrl(path));
       browser.refresh();
+   }
+
+   protected void mouseEnteredBrowser(final MouseEvent event) {
+      if (getWidgetId() != null) {
+         // we dispatch a mouse up event to ensure the client has proper focus
+         String dispatchMouseUp = "var element = document.getElementById(\"" + getWidgetId() + "\");"
+            + "if(element) { "
+            + "   const event = new MouseEvent('mouseup', {});"
+            + "   element.children[0].dispatchEvent(event);"
+            + "}";
+         browser.execute(dispatchMouseUp);
+      }
    }
 
    protected Menu createBrowserMenu() {
@@ -370,12 +354,13 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker {
             .orElse(null);
 
          if (connector != null) {
-            String url = String.format("http://%s:%s/diagram.html?client=%s&path=%s&port=%s",
+            String url = String.format("http://%s:%s/diagram.html?client=%s&path=%s&port=%s&widget=%s",
                connector.getHost(),
                manager.getLocalPort(),
                encodeParameter(getClientId()),
                encodeParameter(path),
-               manager.getLocalPort());
+               manager.getLocalPort(),
+               encodeParameter(getWidgetId()));
             System.out.println(url);
             return url;
          }
