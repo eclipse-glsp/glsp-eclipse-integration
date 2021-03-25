@@ -16,21 +16,22 @@
 package org.eclipse.glsp.ide.editor.internal.actions;
 
 import java.util.List;
+import java.util.Optional;
 
-import org.eclipse.glsp.server.operations.Operation;
+import org.eclipse.glsp.server.actions.Action;
 
-public class ModifyCSSFeedbackOperation extends Operation {
+public class ModifyCSSFeedbackAction extends Action {
    public static final String ID = "modifyCSSFeedback";
 
    private List<String> elementsIDs;
    private List<String> addClasses;
    private List<String> removeClasses;
 
-   public ModifyCSSFeedbackOperation() {
+   public ModifyCSSFeedbackAction() {
       super(ID);
    }
 
-   public ModifyCSSFeedbackOperation(final List<String> elementsIDs, final List<String> addClasses,
+   public ModifyCSSFeedbackAction(final List<String> elementsIDs, final List<String> addClasses,
       final List<String> removeClasses) {
       super(ID);
       this.elementsIDs = elementsIDs;
@@ -38,15 +39,15 @@ public class ModifyCSSFeedbackOperation extends Operation {
       this.removeClasses = removeClasses;
    }
 
-   public List<String> getElementsIDs() { return elementsIDs; }
+   public Optional<List<String>> getElementsIDs() { return Optional.ofNullable(elementsIDs); }
 
    public void setElementsIDs(final List<String> elementsIDs) { this.elementsIDs = elementsIDs; }
 
-   public List<String> getAddClasses() { return addClasses; }
+   public Optional<List<String>> getAddClasses() { return Optional.ofNullable(addClasses); }
 
    public void setAddClasses(final List<String> addClasses) { this.addClasses = addClasses; }
 
-   public List<String> getRemoveClasses() { return removeClasses; }
+   public Optional<List<String>> getRemoveClasses() { return Optional.ofNullable(removeClasses); }
 
    public void setRemoveClasses(final List<String> removeClasses) { this.removeClasses = removeClasses; }
 }

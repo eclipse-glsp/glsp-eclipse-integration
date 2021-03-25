@@ -15,6 +15,8 @@
  ********************************************************************************/
 package org.eclipse.glsp.ide.editor.internal.actions;
 
+import java.util.Optional;
+
 import org.eclipse.glsp.server.actions.ResponseAction;
 
 public class RejectAction extends ResponseAction {
@@ -41,7 +43,7 @@ public class RejectAction extends ResponseAction {
 
    public void setMessage(final String message) { this.message = message; }
 
-   public Object getDetail() { return detail; }
+   public Optional<Object> getDetail() { return Optional.ofNullable(detail); }
 
    public void setDetail(final Object detail) { this.detail = detail; }
 }

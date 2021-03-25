@@ -16,6 +16,7 @@
 package org.eclipse.glsp.ide.editor.internal.actions;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.eclipse.glsp.graph.GSeverity;
@@ -59,7 +60,7 @@ public class NavigateToMarkerAction extends ResponseAction {
 
    public void setDirection(final String direction) { this.direction = direction; }
 
-   public List<String> getSelectedElementIds() { return selectedElementIds; }
+   public Optional<List<String>> getSelectedElementIds() { return Optional.ofNullable(selectedElementIds); }
 
    public void setSelectedElementIds(final List<String> selectedElementIds) {
       this.selectedElementIds = selectedElementIds;

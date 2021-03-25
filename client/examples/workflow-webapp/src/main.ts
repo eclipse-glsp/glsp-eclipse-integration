@@ -38,9 +38,8 @@ const id = "workflow";
 const name = "Workflow Diagram";
 const websocket = new WebSocket(`ws://localhost:${port}/${id}`);
 
-const clientId = urlParameters.client ? urlParameters.client : ApplicationIdProvider.get();
-console.log("ApplicationId", ApplicationIdProvider.get());
-const widgetId = urlParameters.widget ? urlParameters.widget : clientId;
+const clientId = urlParameters.client || ApplicationIdProvider.get();
+const widgetId = urlParameters.widget || clientId;
 setWidgetId(widgetId);
 const container = createContainer(widgetId);
 
