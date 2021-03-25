@@ -20,8 +20,8 @@ import { eclipseCopyPasteModule, eclipseDeleteModule, EclipseGLSPDiagramServer, 
 import { Container } from "inversify";
 import { ConsoleLogger, LogLevel, TYPES } from "sprotty";
 
-export default function createContainer(): Container {
-    const container = createWorkflowDiagramContainer('sprotty');
+export default function createContainer(widgetId: string): Container {
+    const container = createWorkflowDiagramContainer(widgetId);
     container.bind(TYPES.ModelSource).to(EclipseGLSPDiagramServer).inSingletonScope();
     container.rebind(TYPES.ILogger).to(ConsoleLogger).inSingletonScope();
     container.rebind(TYPES.LogLevel).toConstantValue(LogLevel.warn);
