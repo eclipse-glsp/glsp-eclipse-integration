@@ -36,6 +36,7 @@ Export-Package: org.eclipse.glsp.ide.editor,
  org.eclipse.glsp.ide.editor.di,
  org.eclipse.glsp.ide.editor.handlers,
  org.eclipse.glsp.ide.editor.initialization,
+ org.eclipse.glsp.ide.editor.internal.actions,
  org.eclipse.glsp.ide.editor.operations.handlers,
  org.eclipse.glsp.ide.editor.ui,
  org.eclipse.glsp.ide.editor.utils
