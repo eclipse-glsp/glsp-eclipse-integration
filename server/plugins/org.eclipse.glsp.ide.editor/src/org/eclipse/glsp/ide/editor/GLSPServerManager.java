@@ -15,7 +15,6 @@
  ********************************************************************************/
 package org.eclipse.glsp.ide.editor;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.URISyntaxException;
@@ -85,7 +84,7 @@ public abstract class GLSPServerManager {
 
       ServletHolder defaultServletHolder = new ServletHolder("default", new DefaultServlet());
 
-      String resourceBase = new File(FileLocator.resolve(getResourceURL()).toURI()).getAbsolutePath();
+      String resourceBase = FileLocator.resolve(getResourceURL()).getFile();
       defaultServletHolder.setInitParameter("resourceBase", resourceBase);
       defaultServletHolder.setInitParameter("dirAllowed", "false");
       context.addServlet(defaultServletHolder, "/");
