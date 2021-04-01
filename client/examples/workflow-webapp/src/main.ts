@@ -13,7 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import "reflect-metadata";
+import 'reflect-metadata';
 
 import {
     EnableToolPaletteAction,
@@ -21,12 +21,12 @@ import {
     GLSPDiagramServer,
     InitializeClientSessionAction,
     RequestTypeHintsAction
-} from "@eclipse-glsp/client";
-import { getParameters } from "@eclipse-glsp/ide";
-import { ApplicationIdProvider, BaseJsonrpcGLSPClient, JsonrpcGLSPClient } from "@eclipse-glsp/protocol";
-import { CenterAction, RequestModelAction, TYPES } from "sprotty";
+} from '@eclipse-glsp/client';
+import { getParameters } from '@eclipse-glsp/ide';
+import { ApplicationIdProvider, BaseJsonrpcGLSPClient, JsonrpcGLSPClient } from '@eclipse-glsp/protocol';
+import { CenterAction, RequestModelAction, TYPES } from 'sprotty';
 
-import createContainer from "./di.config";
+import createContainer from './di.config';
 
 const urlParameters = getParameters();
 const filePath = urlParameters.path;
@@ -34,8 +34,8 @@ const filePath = urlParameters.path;
 // In the Eclipse Integration, port is dynamic, as multiple editors
 // and/or Eclipse Servers may be running in parallel (e.g. 1/Eclipse IDE)
 const port = parseInt(urlParameters.port, 10);
-const id = "workflow";
-const name = "Workflow Diagram";
+const id = 'workflow';
+const name = 'Workflow Diagram';
 const websocket = new WebSocket(`ws://localhost:${port}/${id}`);
 
 const clientId = urlParameters.client || ApplicationIdProvider.get();
@@ -58,16 +58,16 @@ websocket.onopen = () => {
             // Java's URLEncoder.encode encodes spaces as plus sign but decodeURI expects spaces to be encoded as %20.
             // See also https://en.wikipedia.org/wiki/Query_string#URL_encoding for URL encoding in forms vs generic URL encoding.
             sourceUri: 'file://' + decodeURI(filePath.replace(/\+/g, '%20')),
-            diagramType: "workflow-diagram",
+            diagramType: 'workflow-diagram'
         }));
-        actionDispatcher.dispatch(new RequestTypeHintsAction("workflow-diagram"));
+        actionDispatcher.dispatch(new RequestTypeHintsAction('workflow-diagram'));
         actionDispatcher.dispatch(new EnableToolPaletteAction());
         actionDispatcher.onceModelInitialized().then(() => actionDispatcher.dispatch(new CenterAction([])));
     });
 };
 
 function setWidgetId(mainWidgetId: string): void {
-    const mainWidget = document.getElementById("sprotty");
+    const mainWidget = document.getElementById('sprotty');
     if (mainWidget) {
         mainWidget.id = mainWidgetId;
     }

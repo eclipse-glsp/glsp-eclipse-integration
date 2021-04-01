@@ -20,13 +20,12 @@ import {
     IActionDispatcher,
     IActionHandler,
     TYPES
-} from "@eclipse-glsp/client";
-import { inject, injectable } from "inversify";
+} from '@eclipse-glsp/client';
+import { inject, injectable } from 'inversify';
 
 export class InvokeDeleteAction implements Action {
     static KIND = 'invoke-delete';
     readonly kind = InvokeDeleteAction.KIND;
-    constructor() { }
 }
 
 export function isInvokeDeleteAction(action: Action): action is InvokeDeleteAction {
@@ -38,13 +37,13 @@ export class InvokeDeleteActionHandler implements IActionHandler {
     @inject(TYPES.IActionDispatcher) protected actionDispatcher: IActionDispatcher;
     @inject(EditorContextService) protected editorContext: EditorContextService;
 
-    handle(action: Action) {
+    handle(action: Action): void {
         if (isInvokeDeleteAction(action)) {
             this.handleDelete();
         }
     }
 
-    handleDelete() {
+    handleDelete(): void {
         this.actionDispatcher.dispatch(new DeleteElementOperation(this.editorContext.get().selectedElementIds));
     }
 }

@@ -22,13 +22,13 @@ import {
     IAsyncClipboardService,
     TYPES,
     ViewerOptions
-} from "@eclipse-glsp/client";
+} from '@eclipse-glsp/client';
 import {
     CutOperation,
     PasteOperation,
     RequestClipboardDataAction
-} from "@eclipse-glsp/client/lib/features/copy-paste/copy-paste-actions";
-import { inject, injectable } from "inversify";
+} from '@eclipse-glsp/client/lib/features/copy-paste/copy-paste-actions';
+import { inject, injectable } from 'inversify';
 
 // Eclipse-specific integration: in Eclipse, we trigger the Copy/Paste actions from
 // the IDE Keybindings. We don't use the browser events. This is fine, because we
@@ -42,21 +42,21 @@ export class EclipseCopyPasteActionHandler implements IActionHandler {
     @inject(GLSP_TYPES.IAsyncClipboardService) protected clipboadService: IAsyncClipboardService;
     @inject(EditorContextService) protected editorContext: EditorContextService;
 
-    handle(action: Action) {
+    handle(action: Action): void {
         switch (action.kind) {
-            case "invoke-copy":
+            case 'invoke-copy':
                 this.handleCopy();
                 break;
-            case "invoke-paste":
+            case 'invoke-paste':
                 this.handlePaste();
                 break;
-            case "invoke-cut":
+            case 'invoke-cut':
                 this.handleCut();
                 break;
         }
     }
 
-    handleCopy() {
+    handleCopy(): void {
         if (this.shouldCopy()) {
             this.actionDispatcher
                 .request(RequestClipboardDataAction.create(this.editorContext.get()));
@@ -79,7 +79,7 @@ export class EclipseCopyPasteActionHandler implements IActionHandler {
         this.actionDispatcher.dispatch(new PasteOperation(clipboardData, this.editorContext.get()));
     }
 
-    protected shouldCopy() {
+    protected shouldCopy(): boolean | null {
         return this.editorContext.get().selectedElementIds.length > 0 && document.activeElement instanceof SVGElement
             && document.activeElement.parentElement && document.activeElement.parentElement.id === this.viewerOptions.baseDiv;
     }
