@@ -14,7 +14,6 @@ location "https://download.eclipse.org/tools/orbit/downloads/drops/R202008312006
 	com.google.guava
 	com.google.inject
 	org.apache.commons.cli
-	org.apache.commons.lang3
 	javax.xml.stream
 }
 
