@@ -28,6 +28,7 @@ import javax.websocket.DeploymentException;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpointConfig;
 
+import org.apache.commons.lang3.SystemUtils;
 import org.apache.log4j.BasicConfigurator;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.glsp.server.di.GLSPModule;
@@ -84,7 +85,8 @@ public abstract class GLSPServerManager {
 
       ServletHolder defaultServletHolder = new ServletHolder("default", new DefaultServlet());
 
-      String resourceBase = FileLocator.resolve(getResourceURL()).getFile();
+      String resourceBase = resolveResourceBase();
+
       defaultServletHolder.setInitParameter("resourceBase", resourceBase);
       defaultServletHolder.setInitParameter("dirAllowed", "false");
       context.addServlet(defaultServletHolder, "/");
@@ -96,6 +98,15 @@ public abstract class GLSPServerManager {
       builder.configurator(new GLSPConfigurator(() -> Guice.createInjector(getModule(), new WebsocketModule())));
       container.addEndpoint(builder.build());
 
+   }
+
+   protected String resolveResourceBase() throws IOException {
+      String resourceBase = FileLocator.resolve(getResourceURL()).getFile();
+      if (SystemUtils.IS_OS_WINDOWS && resourceBase.startsWith("/")) {
+         // for some reason paths may start with '/' on Windows, e.g., '/C:/...'
+         resourceBase = resourceBase.substring(1);
+      }
+      return resourceBase;
    }
 
    @SuppressWarnings("checkstyle:illegalCatch")

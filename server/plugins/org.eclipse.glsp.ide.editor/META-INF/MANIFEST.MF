@@ -26,7 +26,8 @@ Require-Bundle: org.eclipse.ui.ide;bundle-version="3.13.1",
  org.eclipse.glsp.server.websocket;bundle-version="0.9.0",
  org.eclipse.glsp.server;bundle-version="0.9.0",
  org.eclipse.text;bundle-version="3.10.300",
- org.eclipse.e4.core.contexts;bundle-version="1.8.400"
+ org.eclipse.e4.core.contexts;bundle-version="1.8.400",
+ org.apache.commons.lang3;bundle-version="3.1.0"
 Bundle-ClassPath: .
 Export-Package: org.eclipse.glsp.ide.editor,
  org.eclipse.glsp.ide.editor.actions,
