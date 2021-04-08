@@ -13,15 +13,15 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { configureActionHandler } from "@eclipse-glsp/client";
-import { ContainerModule } from "inversify";
+import { configureActionHandler } from '@eclipse-glsp/client';
+import { ContainerModule } from 'inversify';
 
-import { EclipseCopyPasteActionHandler } from "./copy-paste";
+import { EclipseCopyPasteActionHandler } from './copy-paste';
 
 const eclipseCopyPasteModule = new ContainerModule((bind, _unbind, isBound) => {
-    configureActionHandler({ bind, isBound }, "invoke-copy", EclipseCopyPasteActionHandler);
-    configureActionHandler({ bind, isBound }, "invoke-cut", EclipseCopyPasteActionHandler);
-    configureActionHandler({ bind, isBound }, "invoke-paste", EclipseCopyPasteActionHandler);
+    configureActionHandler({ bind, isBound }, 'invoke-copy', EclipseCopyPasteActionHandler);
+    configureActionHandler({ bind, isBound }, 'invoke-cut', EclipseCopyPasteActionHandler);
+    configureActionHandler({ bind, isBound }, 'invoke-paste', EclipseCopyPasteActionHandler);
 });
 
 export default eclipseCopyPasteModule;

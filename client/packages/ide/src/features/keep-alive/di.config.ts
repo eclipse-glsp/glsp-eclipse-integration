@@ -13,10 +13,10 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { configureActionHandler } from "@eclipse-glsp/client";
-import { ContainerModule } from "inversify";
+import { configureActionHandler } from '@eclipse-glsp/client';
+import { ContainerModule } from 'inversify';
 
-import { KeepAliveAction, KeepAliveActionHandler } from "./keep-alive";
+import { KeepAliveAction, KeepAliveActionHandler } from './keep-alive';
 
 const keepAliveModule = new ContainerModule((bind, _unbind, isBound) => {
     configureActionHandler({ bind, isBound }, KeepAliveAction.KIND, KeepAliveActionHandler);

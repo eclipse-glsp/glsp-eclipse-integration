@@ -10,12 +10,7 @@
       "@eclipse-glsp/ide": [
         "packages/ide/src/*"
       ]
-    },
-    "plugins": [
-      {
-        "name": "tslint-language-service"
-      }
-    ]
+    }
   },
   "include": [
     "packages/*/src",

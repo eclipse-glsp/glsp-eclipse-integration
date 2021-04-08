@@ -13,8 +13,8 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { Action, GLSPDiagramServer, ServerMessageAction, ServerStatusAction } from "@eclipse-glsp/client";
-import { injectable } from "inversify";
+import { Action, GLSPDiagramServer, ServerMessageAction, ServerStatusAction } from '@eclipse-glsp/client';
+import { injectable } from 'inversify';
 
 @injectable()
 export class EclipseGLSPDiagramServer extends GLSPDiagramServer {
