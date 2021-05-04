@@ -23,27 +23,27 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@eclipse-glsp-examples/workflow-glsp@next":
-  version "0.9.0-next.3d174f20"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp-examples/workflow-glsp/-/workflow-glsp-0.9.0-next.3d174f20.tgz#806690342bd7bab551db813d1c2607db6b20ff4b"
-  integrity sha512-FF7BtpCRb+bdnf9STz268OpgtObro6fnwVoBaUTpB8V394RGO48chq7FPG1oMQPZ/g0CB76oiHapFc9DxmzYdA==
+"@eclipse-glsp-examples/workflow-glsp@^0.9.0-next.a088c7ff":
+  version "0.9.0-next.a088c7ff"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp-examples/workflow-glsp/-/workflow-glsp-0.9.0-next.a088c7ff.tgz#623af1b19be9d311a84db70fcf035256e1d075ce"
+  integrity sha512-1mDdBBEWUhIM9CQvVBtifWa81PFYJhj5YFXdh2hmH5Rj+8kyWpoIDAP/MGpUvUpdRyR3FcAQemc6m6rtw3+FfQ==
   dependencies:
-    "@eclipse-glsp/client" "0.9.0-next.3d174f20"
+    "@eclipse-glsp/client" "0.9.0-next.a088c7ff"
     balloon-css "^0.5.0"
 
-"@eclipse-glsp/client@0.9.0-next.3d174f20", "@eclipse-glsp/client@next":
-  version "0.9.0-next.3d174f20"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-0.9.0-next.3d174f20.tgz#2cc75d79d3433d1a935a28b4176116bf7bed8ab8"
-  integrity sha512-FtwdMZvcPOyoOJnIPe3+4LHEw2btial5HC/gS9FkA4UMwavmPjpivzeMdJn2+Ynj7uTCMXJFV10ImWMIk4/h2g==
+"@eclipse-glsp/client@0.9.0-next.a088c7ff", "@eclipse-glsp/client@^0.9.0-next.a088c7ff":
+  version "0.9.0-next.a088c7ff"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-0.9.0-next.a088c7ff.tgz#386dd2c923ed726941342df09a67fc78bb13c825"
+  integrity sha512-bD/Gm9ipzijo2hxgdvpwKa8JvbuGngHWjhPXJdajCb+uRn/yl4rqn30vg5Nxh1eyWnl1MxtolcZhB7Ybz6LZHQ==
   dependencies:
-    "@eclipse-glsp/protocol" "0.9.0-next.3d174f20"
+    "@eclipse-glsp/protocol" "0.9.0-next.a088c7ff"
     autocompleter "5.1.0"
     sprotty next
 
-"@eclipse-glsp/protocol@0.9.0-next.3d174f20", "@eclipse-glsp/protocol@next":
-  version "0.9.0-next.3d174f20"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/protocol/-/protocol-0.9.0-next.3d174f20.tgz#5a0c3f4930d42030bb53cee9a16c3a4ecce75b4e"
-  integrity sha512-K0XFZcEIkbRD6m+T4i1h9rQAgE9UiI9nLXgRb/iMwOwxWn5UGek6VKA5LRocFqGXbgjGxtMS7JmdQ2ce5EuRYQ==
+"@eclipse-glsp/protocol@0.9.0-next.a088c7ff", "@eclipse-glsp/protocol@^0.9.0-next.a088c7ff":
+  version "0.9.0-next.a088c7ff"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/protocol/-/protocol-0.9.0-next.a088c7ff.tgz#f132e722fbf39652f6fa7d7cfd30d27981ff5134"
+  integrity sha512-JocTijTMGJToVIk8LsnjD2Fw7+3Lz34rSPdxrWR0tUhEFV+waGt0XyiKO1WG7no8rgyJaK75INFRvm3xUgeT2g==
   dependencies:
     uuid "7.0.3"
     vscode-ws-jsonrpc "0.2.0"
@@ -2604,10 +2604,10 @@ interpret@^1.4.0:
   resolved "https://registry.yarnpkg.com/interpret/-/interpret-1.4.0.tgz#665ab8bc4da27a774a40584e812e3e0fa45b1a1e"
   integrity sha512-agE4QfB2Lkp9uICn7BAqoscw4SZP9kTE2hxiFI3jBPmXJfdqiahTbUuKGsMoN2GtqL9AxhYioAcVvgsb1HvRbA==
 
-inversify@5.0.1:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/inversify/-/inversify-5.0.1.tgz#500d709b1434896ce5a0d58915c4a4210e34fb6e"
-  integrity sha512-Ieh06s48WnEYGcqHepdsJUIJUXpwH5o5vodAX+DK2JA/gjy4EbEcQZxw+uFfzysmKjiLXGYwNG3qDZsKVMcINQ==
+inversify@^5.0.1:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/inversify/-/inversify-5.1.1.tgz#6fbd668c591337404e005a1946bfe0d802c08730"
+  integrity sha512-j8grHGDzv1v+8T1sAQ+3boTCntFPfvxLCkNcxB1J8qA0lUN+fAlSyYd+RXKvaPRL4AGyPxViutBEJHNXOyUdFQ==
 
 invert-kv@^1.0.0:
   version "1.0.0"
@@ -4655,13 +4655,13 @@ sprintf-js@~1.0.2:
   integrity sha1-BOaSb2YolTVPPdAVIDYzuFcpfiw=
 
 sprotty@next:
-  version "0.10.0-next.ae671b5"
-  resolved "https://registry.yarnpkg.com/sprotty/-/sprotty-0.10.0-next.ae671b5.tgz#51f0dc05ea6d4e1d4c4094f602293e7f4f74b169"
-  integrity sha512-uJN+CItV79ULX8zS8RoycAf5nO86hTxy1IatpVX/th1F9kynRUEb8jKbSe3y1+uo6+0YWRVx/sbVzY3OvTvLtw==
+  version "0.10.0-next.0bb1094"
+  resolved "https://registry.yarnpkg.com/sprotty/-/sprotty-0.10.0-next.0bb1094.tgz#01189a1d956bdcbb3b9ffaa9db943af779a3b21c"
+  integrity sha512-YFsh6UvKAmf8HjnuknHUNX9Jh/PXzr78VmhuimcL+2dnE75Lp7jY2Xa5F2Cwm4TVT7XSIMsh+GmZazLTpzMDhw==
   dependencies:
     autocompleter "5.1.0"
     file-saver "2.0.2"
-    inversify "5.0.1"
+    inversify "^5.0.1"
     snabbdom "0.7.3"
     snabbdom-jsx "0.4.2"
     snabbdom-virtualize "0.7.0"
