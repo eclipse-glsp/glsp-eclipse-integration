@@ -62,7 +62,7 @@ pipeline {
                 container('ci'){
                     timeout(30){
                         dir('server'){
-                            sh "mvn clean verify -Dmaven.repo.local=${env.WORKSPACE}/.m2"
+                            sh "mvn clean verify -B -Dmaven.repo.local=${env.WORKSPACE}/.m2"
                         }
                     }
                 }

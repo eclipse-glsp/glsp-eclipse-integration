@@ -4,10 +4,10 @@
   "version": "0.9.0",
   "description": "GLSP-based webapp for the Workflow example",
   "dependencies": {
-    "@eclipse-glsp-examples/workflow-glsp": "^0.9.0-next.a088c7ff",
-    "@eclipse-glsp/client": "^0.9.0-next.a088c7ff",
+    "@eclipse-glsp-examples/workflow-glsp": "next",
+    "@eclipse-glsp/client": "next",
     "@eclipse-glsp/ide": "0.9.0",
-    "@eclipse-glsp/protocol": "^0.9.0-next.a088c7ff"
+    "@eclipse-glsp/protocol": "next"
   },
   "devDependencies": {
     "circular-dependency-plugin": "^2.0.0",
@@ -26,7 +26,6 @@
     "clean": "rimraf lib app/bundle.js app/bundle.js.map",
     "build": "tsc && webpack && yarn run lint",
     "lint": "eslint -c ./.eslintrc.js --ext .ts ./src",
-    "watch": "tsc -w",
-    "upgrade:next": "yarn upgrade @eclipse-glsp/client@next @eclipse-glsp/protocol@next @eclipse-glsp-examples/workflow-glsp@next"
+    "watch": "tsc -w"
   }
 }
