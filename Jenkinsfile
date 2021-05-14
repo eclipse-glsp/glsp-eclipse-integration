@@ -15,6 +15,9 @@ spec:
         cpu: "2"
     command:
     - cat
+    env:
+    - name: "MAVEN_OPTS"
+      value: "-Duser.home=/home/jenkins"
     volumeMounts:
     - mountPath: "/home/jenkins"
       name: "jenkins-home"
@@ -22,10 +25,24 @@ spec:
     - mountPath: "/.yarn"
       name: "yarn-global"
       readOnly: false
+    - name: settings-xml
+      mountPath: /home/jenkins/.m2/settings.xml
+      subPath: settings.xml
+      readOnly: true
+    - name: m2-repo
+      mountPath: /home/jenkins/.m2/repository
   volumes:
   - name: "jenkins-home"
     emptyDir: {}
   - name: "yarn-global"
+    emptyDir: {}
+  - name: settings-xml
+    secret:
+      secretName: m2-secret-dir
+      items:
+      - key: settings.xml
+        path: settings.xml
+  - name: m2-repo
     emptyDir: {}
 """
 pipeline {
@@ -70,7 +87,16 @@ pipeline {
         }
 
         stage('Deploy (master only)') {
-            when { branch 'master'}
+             when { 
+                allOf {
+                    branch 'master';
+                    expression {  
+                      /* Only trigger the deployment job if the changeset contains changes in 
+                      the `server` or `client/packages/` directory */
+                      sh(returnStatus: true, script: 'git diff --name-only HEAD^ | grep --quiet "^server\\|client/packages/"') == 0
+                    }
+                }
+            }
             steps {
                 build job: 'deploy-p2-ide-integration', wait: false
                 build job: 'deploy-npm-ide-integration', wait: false
