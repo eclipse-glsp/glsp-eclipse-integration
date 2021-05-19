@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020 EclipseSource and others.
+ * Copyright (c) 2020-2021 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -25,7 +25,6 @@ import org.eclipse.glsp.ide.editor.actions.InvokePasteAction;
 import org.eclipse.glsp.ide.editor.actions.NavigateAction;
 import org.eclipse.glsp.ide.editor.actions.handlers.IdeInitializeClientSessionActionHandler;
 import org.eclipse.glsp.ide.editor.actions.handlers.IdeNavigateToExternalTargetActionHandler;
-import org.eclipse.glsp.ide.editor.actions.handlers.IdeSaveModelActionHandler;
 import org.eclipse.glsp.ide.editor.actions.handlers.IdeServerMessageActionHandler;
 import org.eclipse.glsp.ide.editor.actions.handlers.IdeServerStatusActionHandler;
 import org.eclipse.glsp.ide.editor.actions.handlers.IdeSetDirtyStateActionHandler;
@@ -43,7 +42,6 @@ import org.eclipse.glsp.server.actions.ActionDispatcher;
 import org.eclipse.glsp.server.actions.ActionHandler;
 import org.eclipse.glsp.server.actions.GLSPServerStatusAction;
 import org.eclipse.glsp.server.actions.InitializeClientSessionActionHandler;
-import org.eclipse.glsp.server.actions.SaveModelActionHandler;
 import org.eclipse.glsp.server.actions.ServerMessageAction;
 import org.eclipse.glsp.server.actions.ServerStatusAction;
 import org.eclipse.glsp.server.actions.SetDirtyStateAction;
@@ -79,7 +77,6 @@ class WorkflowGLSPEclipseModule extends WorkflowGLSPModule {
       bindings.add(IdeSetDirtyStateActionHandler.class);
       bindings.add(IdeServerStatusActionHandler.class);
       bindings.add(InitializeCanvasBoundsActionHandler.class);
-      bindings.rebind(SaveModelActionHandler.class, IdeSaveModelActionHandler.class);
       bindings.rebind(InitializeClientSessionActionHandler.class, IdeInitializeClientSessionActionHandler.class);
    }
 

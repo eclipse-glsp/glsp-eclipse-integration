@@ -22,9 +22,9 @@
     "webpack-cli": "^3.0.8"
   },
   "scripts": {
-    "prepare": "yarn run clean && yarn build",
+    "prepare": "yarn clean && yarn build && yarn lint",
     "clean": "rimraf lib app/bundle.js app/bundle.js.map",
-    "build": "tsc && webpack && yarn run lint",
+    "build": "tsc",
     "lint": "eslint -c ./.eslintrc.js --ext .ts ./src",
     "watch": "tsc -w"
   }

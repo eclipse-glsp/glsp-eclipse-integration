@@ -1,6 +1,5 @@
 .sprotty-graph {
     background: white;
-    /* rgb(179, 196, 202); */
 }
 
 .sprotty-node {
@@ -29,11 +28,11 @@
     stroke: black;
 }
 
-.sprotty-node.forkOrJoin {
+.forkOrJoin>.sprotty-node {
     fill: black;
 }
 
-.sprotty-node.forkOrJoin.selected {
+.forkOrJoin>.sprotty-node.selected {
     stroke: rgb(87, 87, 214);
 }
 
