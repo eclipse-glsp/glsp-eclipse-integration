@@ -6,15 +6,22 @@
   "engines": {
     "yarn": "1.0.x || >=1.2.1"
   },
-  "homepage": "https://www.eclipse.org/glsp",
-  "bugs": "https://github.com/eclipse-glsp/glsp-eclipse-integration/issues",
   "author": {
-    "name": "EclipseSource"
+    "name": "Eclipse GLSP"
   },
+  "homepage": "https://www.eclipse.org/glsp/",
   "repository": {
     "type": "git",
     "url": "https://github.com/eclipse-glsp/glsp-eclipse-integration.git"
   },
+  "bugs": "https://github.com/eclipse-glsp/glsp/issues",
+  "contributors": [
+    {
+      "name": "Nina Doschek",
+      "email": "ndoschek@eclipsesource.com",
+      "url": "https://www.eclipsesource.com"
+    }
+  ],
   "files": [
     "lib",
     "src",
@@ -29,9 +36,9 @@
     "typescript": "^3.9.2"
   },
   "scripts": {
-    "prepare": "yarn run clean && yarn build",
+    "prepare": "yarn  clean && yarn build && yarn lint",
     "clean": "rimraf lib",
-    "build": "tsc && yarn run lint",
+    "build": "tsc",
     "lint": "eslint -c ./.eslintrc.js --ext .ts ./src",
     "watch": "tsc -w"
   },

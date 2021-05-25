@@ -4,15 +4,15 @@ kind: Pod
 spec:
   containers:
   - name: ci
-    image: eclipseglsp/ci:0.0.4
+    image: eclipseglsp/ci:alpine
     tty: true
     resources:
       limits:
-        memory: "4Gi"
-        cpu: "2"
+        memory: "4096Mi"
+        cpu: "2000m"
       requests:
-        memory: "4Gi"
-        cpu: "2"
+        memory: "4096Mi"
+        cpu: "2000m"
     command:
     - cat
     env:
@@ -67,19 +67,36 @@ pipeline {
                 container('ci') {
                     timeout(30){
                         dir('client') {
-                            sh 'yarn  install --ignore-engines'
+                            sh 'yarn  build --ignore-engines'
                         }
                     }
                 }
             }
         }
 
-        stage('Build Server'){
+        stage('Build Server') {
             steps{
                 container('ci'){
                     timeout(30){
                         dir('server'){
-                            sh "mvn clean verify -B -Dmaven.repo.local=${env.WORKSPACE}/.m2"
+                            sh "mvn clean verify -B -Dmaven.repo.local=${env.WORKSPACE}/.m2 -DskipTests -Dcheckstyle.skip"
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Codestyle') {
+            steps{
+                timeout(30){
+                    container('ci') {
+                        // Execute checkstyle checks
+                        dir('server') {
+                            sh 'mvn checkstyle:check -B'
+                        }
+                        // Execute eslint checks 
+                        dir('client') {
+                            sh 'yarn lint -o eslint.xml -f checkstyle'
                         }
                     }
                 }
@@ -100,6 +117,26 @@ pipeline {
             steps {
                 build job: 'deploy-p2-ide-integration', wait: false
                 build job: 'deploy-npm-ide-integration', wait: false
+            }
+        }
+    }
+
+    post{
+        always{
+            container('ci') {
+               
+                // Record & publish checkstyle issues
+                recordIssues  enabledForFailure: true, publishAllIssues: true, aggregatingResults: true, 
+                tool: checkStyle(reportEncoding: 'UTF-8'),
+                qualityGates: [[threshold: 1, type: 'TOTAL', unstable: true]]
+
+                // Record maven,java warnings
+                recordIssues enabledForFailure: true, skipPublishingChecks:true, tools: [mavenConsole(), java()]    
+               
+                // Record & publish esLint issues
+                recordIssues enabledForFailure: true, publishAllIssues: true, aggregatingResults: true, 
+                tools: [esLint(pattern: 'client/node_modules/**/*/eslint.xml')], 
+                qualityGates: [[threshold: 1, type: 'TOTAL', unstable: true]]
             }
         }
     }

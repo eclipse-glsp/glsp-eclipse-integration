@@ -20,6 +20,8 @@
   "scripts": {
     "prepare": "lerna run prepare && yarn copyClient",
     "watch": "lerna run --parallel watch",
+    "build": "yarn install --ignore-scripts && lerna run build",
+    "lint": "lerna run lint --",
     "copyClient": "copyfiles -f ./examples/workflow-webapp/app/* ../server/example/org.eclipse.glsp.ide.workflow.editor/diagram",
     "publish:next": "lerna publish --exact --canary=next --npm-tag=next --yes",
     "upgrade:next": "yarn upgrade -p \"@eclipse-glsp.*\" --next "

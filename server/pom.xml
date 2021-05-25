@@ -54,9 +54,10 @@
 		<java.target>11</java.target>
 		<project.build.java.target>1.8</project.build.java.target>
 		<target.version>0.9.0-SNAPSHOT</target.version>
-		<tycho-version>2.2.0</tycho-version>
-		<tychoExtrasVersion>2.2.0</tychoExtrasVersion>
+		<tycho-version>2.3.0</tycho-version>
 		<maven-antrun-plugin.version>3.0.0</maven-antrun-plugin.version>
+		<checkstyle.plugin>3.1.2</checkstyle.plugin>
+		<checkstyle>8.39</checkstyle>
 	</properties>
 
 	<modules>
@@ -176,18 +177,18 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>3.1.0</version>
+				<version>${checkstyle.plugin}</version>
 				<configuration>
 					<configLocation>emfcloud-checkstyle.xml</configLocation>
 					<consoleOutput>true</consoleOutput>
-					<sourceDirectories>src</sourceDirectories>
+					<excludes>**/src-gen/**/*.java</excludes>
 				</configuration>
 				<executions>
 					<execution>
+						<phase>validate</phase>
 						<goals>
 							<goal>check</goal>
 						</goals>
-						<phase>verify</phase>
 					</execution>
 				</executions>
 				<dependencies>
@@ -199,7 +200,7 @@
 					<dependency>
 						<groupId>com.puppycrawl.tools</groupId>
 						<artifactId>checkstyle</artifactId>
-						<version>8.29</version>
+						<version>${checkstyle}</version>
 					</dependency>
 				</dependencies>
 			</plugin>
