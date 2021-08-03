@@ -10,7 +10,9 @@
 # supported CodeQL languages.
 #
 name: "CodeQL"
-
+defaults:
+  run:
+    working-directory: ./client
 on:
   push:
     branches: [ master ]
@@ -50,11 +52,18 @@ jobs:
         # By default, queries listed here will override any specified in a config file.
         # Prefix the list here with "+" to use these queries and those in the config file.
         # queries: ./path/to/local/query, your-org/your-repo/queries@main
+      
 
-    # Autobuild attempts to build any compiled languages  (C/C++, C#, or Java).
-    # If this step fails, then you should remove it and run the build manually (see below)
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v1
+    - name: Build with Maven
+      run: mvn -B -Pm2 clean verify --file pom.xml
+      working-directory: server
+      
+    - name: Build Client with yarn
+      uses: actions/setup-node@v2
+      with:
+          node-version: '12'
+    - run: yarn install
+
 
     # ℹ️ Command-line programs to run using the OS shell.
     # 📚 https://git.io/JvXDl
