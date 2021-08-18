@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020 EclipseSource and others.
+ * Copyright (c) 2020-2021 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -128,17 +128,19 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker {
 
    public Map<String, IAction> getGlobalActions() { return globalActions; }
 
-   public String getClientId() { return clientId; }
+   public String getClientId() {
+      if (clientId == null) {
+         clientId = generateClientId();
+      }
+
+      return clientId;
+   }
 
    protected void setClientId(final String clientId) { this.clientId = clientId; }
 
    public String getWidgetId() { return widgetId; }
 
    protected void setWidgetId(final String widgetId) { this.widgetId = widgetId; }
-
-   protected String getFilePath() { return ((IFileEditorInput) getEditorInput()).getFile().getLocationURI().getPath(); }
-
-   protected String getFileName() { return FilenameUtils.getName(getFilePath()); }
 
    @Override
    public void doSave(final IProgressMonitor monitor) {
@@ -251,13 +253,11 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker {
 
    @Override
    public void init(final IEditorSite site, final IEditorInput input) throws PartInitException {
-      if (!(input instanceof IFileEditorInput)) {
-         throw new PartInitException("Invalid Input: Must be IFileEditorInput");
-      }
+      validateEditorInput(input);
       setSite(site);
       setInput(input);
-      setClientId(getServerManager().getGlspId() + "_Editor_" + COUNT.incrementAndGet());
-      setWidgetId(getClientId());
+      setClientId(generateClientId());
+      setWidgetId(generateWidgetId());
 
       IEclipseContext context = site.getService(IEclipseContext.class);
       configureContext(context);
@@ -265,17 +265,43 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker {
       getModelStateOnceInitialized().thenAccept(this::syncMarkers);
    }
 
+   protected void validateEditorInput(final IEditorInput editorInput) throws PartInitException {
+      if (!(editorInput instanceof IFileEditorInput)) {
+         throw new PartInitException("Invalid editor input: Must be IFileEditorInput");
+      }
+   }
+
+   protected String getFilePath() {
+      IEditorInput editorInput = getEditorInput();
+      if (editorInput instanceof IFileEditorInput) {
+         return ((IFileEditorInput) editorInput).getFile().getLocationURI().getPath();
+      }
+      return "";
+   }
+
+   protected String generateClientId() {
+      return getServerManager().getGlspId() + "_Editor_" + COUNT.incrementAndGet();
+   }
+
+   protected String generateWidgetId() {
+      return getClientId();
+   }
+
    @Override
    public void createPartControl(final Composite parent) {
       root = new Composite(parent, SWT.NO_SCROLL);
       root.setLayout(new GridLayout(1, true));
 
-      setPartName(getFileName());
+      setPartName(generatePartName());
 
       this.browser = createBrowser(root);
-      setupBrowser(this.browser, getFilePath());
+      setupBrowser(this.browser);
 
       this.statusBar = createStatusBar(root);
+   }
+
+   protected String generatePartName() {
+      return FilenameUtils.getName(getFilePath());
    }
 
    /**
@@ -311,13 +337,13 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker {
       return browser;
    }
 
-   protected void setupBrowser(final Browser browser, final String path) {
+   protected void setupBrowser(final Browser browser) {
       Browser.clearSessions();
       browser.refresh();
       browser.addMouseTrackListener(MouseTrackListener.mouseEnterAdapter(this::mouseEnteredBrowser));
       browser.setMenu(createBrowserMenu());
       browser.addProgressListener(ProgressListener.completedAdapter(event -> installBrowserFunctions()));
-      browser.setUrl(createBrowserUrl(path));
+      browser.setUrl(createBrowserUrl());
       browser.refresh();
    }
 
@@ -346,8 +372,9 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker {
       ChromiumSelectionFunction.install(GLSPDiagramEditor.this, browser);
    }
 
-   protected String createBrowserUrl(final String path) {
+   protected String createBrowserUrl() {
       try {
+         String path = getFilePath();
          GLSPServerManager manager = getServerManager();
          ServerConnector connector = Stream.of(manager.getServer().getConnectors()).findFirst()
             .map(ServerConnector.class::cast)
