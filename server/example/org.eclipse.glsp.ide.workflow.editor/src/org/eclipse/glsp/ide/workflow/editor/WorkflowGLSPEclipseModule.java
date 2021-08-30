@@ -23,7 +23,6 @@ import org.eclipse.glsp.ide.editor.actions.InvokeCutAction;
 import org.eclipse.glsp.ide.editor.actions.InvokeDeleteAction;
 import org.eclipse.glsp.ide.editor.actions.InvokePasteAction;
 import org.eclipse.glsp.ide.editor.actions.NavigateAction;
-import org.eclipse.glsp.ide.editor.actions.handlers.IdeInitializeClientSessionActionHandler;
 import org.eclipse.glsp.ide.editor.actions.handlers.IdeNavigateToExternalTargetActionHandler;
 import org.eclipse.glsp.ide.editor.actions.handlers.IdeServerMessageActionHandler;
 import org.eclipse.glsp.ide.editor.actions.handlers.IdeServerStatusActionHandler;
@@ -41,7 +40,6 @@ import org.eclipse.glsp.server.actions.Action;
 import org.eclipse.glsp.server.actions.ActionDispatcher;
 import org.eclipse.glsp.server.actions.ActionHandler;
 import org.eclipse.glsp.server.actions.GLSPServerStatusAction;
-import org.eclipse.glsp.server.actions.InitializeClientSessionActionHandler;
 import org.eclipse.glsp.server.actions.ServerMessageAction;
 import org.eclipse.glsp.server.actions.ServerStatusAction;
 import org.eclipse.glsp.server.actions.SetDirtyStateAction;
@@ -77,7 +75,6 @@ class WorkflowGLSPEclipseModule extends WorkflowGLSPModule {
       bindings.add(IdeSetDirtyStateActionHandler.class);
       bindings.add(IdeServerStatusActionHandler.class);
       bindings.add(InitializeCanvasBoundsActionHandler.class);
-      bindings.rebind(InitializeClientSessionActionHandler.class, IdeInitializeClientSessionActionHandler.class);
    }
 
    @Override
@@ -103,5 +100,4 @@ class WorkflowGLSPEclipseModule extends WorkflowGLSPModule {
       bindings.remove(ServerStatusAction.class);
       bindings.remove(GLSPServerStatusAction.class);
    }
-
 }

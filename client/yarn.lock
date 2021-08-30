@@ -31,19 +31,19 @@
     "@eclipse-glsp/client" "0.9.0-next.a7a9a2e5"
     balloon-css "^0.5.0"
 
-"@eclipse-glsp/client@0.9.0-next.a7a9a2e5", "@eclipse-glsp/client@next":
-  version "0.9.0-next.a7a9a2e5"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-0.9.0-next.a7a9a2e5.tgz#2fbafdfcc7fd097dea36ef89206d3a10a608ee88"
-  integrity sha512-6iDfLITL18ZMt0hU7nkvFyw3gXpK68WRsRXh5iRyQuh8QzgPb+3l0+waO1o2kQA8OYqWjlbZCIV/chMZviGJDw==
+"@eclipse-glsp/client@0.9.0-next.3f2a7f35", "@eclipse-glsp/client@0.9.0-next.a7a9a2e5", "@eclipse-glsp/client@next":
+  version "0.9.0-next.3f2a7f35"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-0.9.0-next.3f2a7f35.tgz#4700576949a5ce89d6c52b83e67f054a7aa8e77c"
+  integrity sha512-gB8zpn57T8n9/eqc14h+tDtJL7dZaiv8ZaCXAJ2V5X2HB3lAwUK538q7M2uLADtPTxu0HnEPTbSHlyEiwTpKpA==
   dependencies:
-    "@eclipse-glsp/protocol" "0.9.0-next.a7a9a2e5"
+    "@eclipse-glsp/protocol" "0.9.0-next.3f2a7f35"
     autocompleter "5.1.0"
     sprotty next
 
-"@eclipse-glsp/protocol@0.9.0-next.a7a9a2e5", "@eclipse-glsp/protocol@next":
-  version "0.9.0-next.a7a9a2e5"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/protocol/-/protocol-0.9.0-next.a7a9a2e5.tgz#615ee7c0372506d40218827121b7fbc25cc6dc87"
-  integrity sha512-OLkldEHMXv1Jmd4+/K8Zi797qQRlwKX8hYmf/ydESwAQEbsHlOnKHmDo6prP7aD5sAcDTo/6DsQeW2OV2c0vow==
+"@eclipse-glsp/protocol@0.9.0-next.3f2a7f35", "@eclipse-glsp/protocol@next":
+  version "0.9.0-next.3f2a7f35"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/protocol/-/protocol-0.9.0-next.3f2a7f35.tgz#8e89da1293b05d9df6e22694eb1e7ea9142cae1b"
+  integrity sha512-P10p9Dlki/qDqNf/roDQPL+6CR6/KeOpDmhWtBdAw7FiVmRKURGEBH0D0zDBCC7LiHFNCexnFIiB7rpzpIeEGw==
   dependencies:
     uuid "7.0.3"
     vscode-ws-jsonrpc "0.2.0"
@@ -4656,10 +4656,10 @@ sprintf-js@~1.0.2:
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
   integrity sha1-BOaSb2YolTVPPdAVIDYzuFcpfiw=
 
-sprotty@next:
-  version "0.10.0-next.0e06051"
-  resolved "https://registry.yarnpkg.com/sprotty/-/sprotty-0.10.0-next.0e06051.tgz#ca76ca2f2056b5df88b47def776825bf36e0cdf6"
-  integrity sha512-iUK9z2IA+aYIakaiYgELEh6vrPBGchy16MiP/RegV1pW3qUPEsTJRf6o3cUuTSWyOc7yL10KkN+iKb04jmD0/g==
+sprotty@0.10.0-next.69a773d, sprotty@next:
+  version "0.10.0-next.69a773d"
+  resolved "https://registry.yarnpkg.com/sprotty/-/sprotty-0.10.0-next.69a773d.tgz#0018aefeacaaa592958bf421ca5b4bc733c0d05b"
+  integrity sha512-a91mjEa7y+ITHPX9UmfzLluLQES4njOw36+dAY8p2i+2GITWpVhJAXrqJksRkhqaX1oYm/4lP8/vfnld1KCFQA==
   dependencies:
     autocompleter "5.1.0"
     file-saver "2.0.2"
