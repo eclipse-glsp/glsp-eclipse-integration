@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020 EclipseSource and others.
+ * Copyright (c) 2020-2021 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -75,7 +75,7 @@ public final class GLSPDiagramEditorMarkerUtil {
          return Optional.empty();
       }
       NavigationTarget target = new NavigationTarget(
-         ClientOptions.getValue(modelState.get().getClientOptions(), ClientOptions.SOURCE_URI).orElseThrow(),
+         ClientOptions.getSourceUri(modelState.get().getClientOptions()).orElseThrow(),
          MarkerUtilities.getMessage(marker),
          new HashMap<String, String>());
       target.setElementIds(Collections.singletonList(elementId));

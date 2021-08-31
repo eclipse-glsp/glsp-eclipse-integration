@@ -24,7 +24,7 @@
   "scripts": {
     "prepare": "yarn clean && yarn build && yarn lint",
     "clean": "rimraf lib app/bundle.js app/bundle.js.map",
-    "build": "tsc",
+    "build": "tsc && webpack",
     "lint": "eslint -c ./.eslintrc.js --ext .ts ./src",
     "watch": "tsc -w"
   }

@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020 EclipseSource and others.
+ * Copyright (c) 2020-2021 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -40,7 +40,7 @@ public class NavigateToNodeByNameHandler extends EclipseActionHandler {
             "Specify Task Name (may not be the same as the label):", "", allOk -> null);
          if (dialog.open() == Window.OK) {
             Map<String, String> clientOptions = modelState.get().getClientOptions();
-            String uri = ClientOptions.getValue(clientOptions, ClientOptions.SOURCE_URI).orElseThrow();
+            String uri = ClientOptions.getSourceUri(clientOptions).orElseThrow();
             NavigationTarget target = new NavigationTarget(uri, Collections.singletonMap("name", dialog.getValue()));
             NavigateToTargetAction action = new NavigateToTargetAction(target);
             dispatchMessage(context, action);

@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020 EclipseSource and others.
+ * Copyright (c) 2020-2021 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -26,16 +26,20 @@ import org.eclipse.glsp.server.actions.Action;
 import org.eclipse.glsp.server.features.contextactions.RequestContextActions;
 import org.eclipse.glsp.server.internal.action.DefaultActionDispatcher;
 import org.eclipse.glsp.server.protocol.ClientSessionManager;
+import org.eclipse.glsp.server.protocol.GLSPClient;
 
 import com.google.inject.Inject;
+import com.google.inject.Injector;
 
 @SuppressWarnings("restriction")
 public class EclipseEditorActionDispatcher extends DefaultActionDispatcher {
    private static final Logger LOGGER = Logger.getLogger(EclipseEditorActionDispatcher.class);
 
-   private final CompletableFuture<Void> onModelInitialized;
+   protected final CompletableFuture<Void> onModelInitialized;
 
-   private final ModelInitializationConstraint initializationConstraint;
+   protected final ModelInitializationConstraint initializationConstraint;
+   @Inject()
+   protected Injector injector;
 
    @Inject
    public EclipseEditorActionDispatcher(final ClientSessionManager clientSessionManager,
@@ -73,4 +77,9 @@ public class EclipseEditorActionDispatcher extends DefaultActionDispatcher {
       return false;
    }
 
+   @Override
+   public void sessionCreated(final String clientId, final GLSPClient client) {
+      GLSPIdeEditorPlugin.getDefaultGLSPEditorRegistry().getGLSPEditorOrThrow(clientId)
+         .setInjector(injector);
+   }
 }

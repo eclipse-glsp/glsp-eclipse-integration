@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020 EclipseSource and others.
+ * Copyright (c) 2020-2021 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -28,7 +28,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.glsp.ide.editor.ui.GLSPIdeEditorPlugin;
 import org.eclipse.glsp.server.actions.Action;
 import org.eclipse.glsp.server.actions.ActionMessage;
-import org.eclipse.glsp.server.jsonrpc.GLSPJsonrpcClient;
+import org.eclipse.glsp.server.protocol.GLSPClient;
 import org.eclipse.glsp.server.websocket.GLSPServerEndpoint;
 import org.eclipse.ui.statushandlers.StatusManager;
 
@@ -52,7 +52,7 @@ public class DiagramWebsocketEndpoint extends GLSPServerEndpoint {
    }
 
    @Override
-   protected void connect(final Collection<Object> localServices, final GLSPJsonrpcClient remoteProxy) {
+   protected void connect(final Collection<Object> localServices, final GLSPClient remoteProxy) {
       super.connect(localServices, remoteProxy);
       timer = new Timer();
       timer.scheduleAtFixedRate(new TimerTask() {
