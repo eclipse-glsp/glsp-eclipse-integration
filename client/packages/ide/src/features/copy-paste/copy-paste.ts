@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020 EclipseSource and others.
+ * Copyright (c) 2020-2021 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -23,11 +23,7 @@ import {
     TYPES,
     ViewerOptions
 } from '@eclipse-glsp/client';
-import {
-    CutOperation,
-    PasteOperation,
-    RequestClipboardDataAction
-} from '@eclipse-glsp/client/lib/features/copy-paste/copy-paste-actions';
+import { CutOperation, PasteOperation, RequestClipboardDataAction } from '@eclipse-glsp/client/lib/features/copy-paste/copy-paste-actions';
 import { inject, injectable } from 'inversify';
 
 // Eclipse-specific integration: in Eclipse, we trigger the Copy/Paste actions from
@@ -58,8 +54,7 @@ export class EclipseCopyPasteActionHandler implements IActionHandler {
 
     handleCopy(): void {
         if (this.shouldCopy()) {
-            this.actionDispatcher
-                .request(RequestClipboardDataAction.create(this.editorContext.get()));
+            this.actionDispatcher.request(RequestClipboardDataAction.create(this.editorContext.get()));
         } else {
             this.clipboadService.clear();
         }
@@ -80,7 +75,11 @@ export class EclipseCopyPasteActionHandler implements IActionHandler {
     }
 
     protected shouldCopy(): boolean | null {
-        return this.editorContext.get().selectedElementIds.length > 0 && document.activeElement instanceof SVGElement
-            && document.activeElement.parentElement && document.activeElement.parentElement.id === this.viewerOptions.baseDiv;
+        return (
+            this.editorContext.get().selectedElementIds.length > 0 &&
+            document.activeElement instanceof SVGElement &&
+            document.activeElement.parentElement &&
+            document.activeElement.parentElement.id === this.viewerOptions.baseDiv
+        );
     }
 }
