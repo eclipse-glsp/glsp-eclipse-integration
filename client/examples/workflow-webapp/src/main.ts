@@ -54,17 +54,22 @@ websocket.onopen = () => {
 
 async function initialize(client: GLSPClient): Promise<void> {
     await diagramServer.connect(client);
-    const result = await client.initializeServer({ applicationId: ApplicationIdProvider.get(), protocolVersion: GLSPClient.protocolVersion });
+    const result = await client.initializeServer({
+        applicationId: ApplicationIdProvider.get(),
+        protocolVersion: GLSPClient.protocolVersion
+    });
     await configureServerActions(result, diagramType, container);
 
     await client.initializeClientSession({ clientSessionId: diagramServer.clientId, diagramType });
     const actionDispatcher = container.get<GLSPActionDispatcher>(TYPES.IActionDispatcher);
-    actionDispatcher.dispatch(new RequestModelAction({
-        // Java's URLEncoder.encode encodes spaces as plus sign but decodeURI expects spaces to be encoded as %20.
-        // See also https://en.wikipedia.org/wiki/Query_string#URL_encoding for URL encoding in forms vs generic URL encoding.
-        sourceUri: 'file://' + decodeURI(filePath.replace(/\+/g, '%20')),
-        diagramType: 'workflow-diagram'
-    }));
+    actionDispatcher.dispatch(
+        new RequestModelAction({
+            // Java's URLEncoder.encode encodes spaces as plus sign but decodeURI expects spaces to be encoded as %20.
+            // See also https://en.wikipedia.org/wiki/Query_string#URL_encoding for URL encoding in forms vs generic URL encoding.
+            sourceUri: 'file://' + decodeURI(filePath.replace(/\+/g, '%20')),
+            diagramType: 'workflow-diagram'
+        })
+    );
     actionDispatcher.dispatch(new RequestTypeHintsAction('workflow-diagram'));
     actionDispatcher.dispatch(new EnableToolPaletteAction());
     actionDispatcher.onceModelInitialized().then(() => actionDispatcher.dispatch(new CenterAction([])));

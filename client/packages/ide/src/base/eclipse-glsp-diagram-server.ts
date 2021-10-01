@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2019-2020 EclipseSource and others.
+ * Copyright (c) 2019-2021 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -18,7 +18,6 @@ import { injectable } from 'inversify';
 
 @injectable()
 export class EclipseGLSPDiagramServer extends GLSPDiagramServer {
-
     private isServerStatusAction(action: Action): action is ServerStatusAction {
         return ServerStatusAction.KIND === action.kind && 'severity' in action && 'message' in action;
     }
@@ -39,5 +38,4 @@ export class EclipseGLSPDiagramServer extends GLSPDiagramServer {
         /* send to server */
         return true;
     }
-
 }
