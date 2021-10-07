@@ -6,7 +6,7 @@
     "yarn": ">=1.7.0 <2.x.x"
   },
   "devDependencies": {
-    "@eclipse-glsp/config": "0.9.0-next.0e05932b",
+    "@eclipse-glsp/config": "0.9.0-next.a3910f6a",
     "copyfiles": "^2.4.1",
     "lerna": "^2.11.0",
     "rimraf": "^2.6.1",

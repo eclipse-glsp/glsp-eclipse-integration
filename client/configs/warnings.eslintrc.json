@@ -1,10 +1,7 @@
 {
   "rules": {
     // https://eslint.org/docs/rules/
-    "brace-style": [
-      "warn",
-      "1tbs"
-    ],
+    "brace-style": ["warn", "1tbs"],
     "comma-dangle": "warn",
     "indent": [
       "warn",
@@ -36,13 +33,7 @@
       "warn",
       "always",
       {
-        "exceptions": [
-          "*",
-          "+",
-          "-",
-          "/",
-          "!"
-        ]
+        "exceptions": ["*", "+", "-", "/", "!"]
       }
     ],
     "use-isnan": "warn",

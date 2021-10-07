@@ -16,10 +16,7 @@
     "moduleResolution": "node",
     "target": "es5",
     "jsx": "react",
-    "lib": [
-      "es6",
-      "dom"
-    ],
+    "lib": ["es6", "dom"],
     "sourceMap": true
   }
 }

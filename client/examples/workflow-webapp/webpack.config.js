@@ -20,15 +20,8 @@ const buildRoot = path.resolve(__dirname, 'lib');
 const appRoot = path.resolve(__dirname, 'app');
 var CircularDependencyPlugin = require('circular-dependency-plugin');
 
-
 module.exports = {
-    entry: [
-        'core-js/es6/map',
-        'core-js/es6/promise',
-        'core-js/es6/string',
-        'core-js/es6/symbol',
-        path.resolve(buildRoot, 'main')
-    ],
+    entry: ['core-js/es6/map', 'core-js/es6/promise', 'core-js/es6/string', 'core-js/es6/symbol', path.resolve(buildRoot, 'index')],
     output: {
         filename: 'bundle.js',
         path: appRoot
@@ -44,12 +37,14 @@ module.exports = {
             // all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`
             {
                 test: /\.tsx?$/,
-                use: [{
-                    loader: 'ts-loader',
-                    options: {
-                        configFile: path.resolve(__dirname, 'examples.tsconfig.json')
+                use: [
+                    {
+                        loader: 'ts-loader',
+                        options: {
+                            configFile: path.resolve(__dirname, 'examples.tsconfig.json')
+                        }
                     }
-                }]
+                ]
             },
             {
                 test: /\.css$/,
@@ -64,9 +59,6 @@ module.exports = {
             exclude: /(node_modules|examples)\/./,
             failOnError: false
         }),
-        new webpack.WatchIgnorePlugin([
-            /\.js$/,
-            /\.d\.ts$/
-        ])
+        new webpack.WatchIgnorePlugin([/\.js$/, /\.d\.ts$/])
     ]
 };
