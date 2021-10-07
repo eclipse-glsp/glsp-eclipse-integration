@@ -6,10 +6,7 @@
     // Best Practices
     "curly": "error",
     "eol-last": "error",
-    "eqeqeq": [
-      "error",
-      "smart"
-    ],
+    "eqeqeq": ["error", "smart"],
     "guard-for-in": "error",
     "no-caller": "error",
     "no-eval": "error",
@@ -19,13 +16,7 @@
         "builtinGlobals": false
       }
     ],
-    "no-restricted-imports": [
-      "error",
-      "..",
-      "../index",
-      "../..",
-      "../../index"
-    ],
+    "no-restricted-imports": ["error", "..", "../index", "../..", "../../index"],
     "no-sequences": "error",
     "no-throw-literal": "error",
     "no-unused-expressions": [
@@ -61,19 +52,10 @@
         "asyncArrow": "always"
       }
     ],
-    "one-var": [
-      "error",
-      "never"
-    ],
+    "one-var": ["error", "never"],
     // ECMAScript6
-    "arrow-body-style": [
-      "error",
-      "as-needed"
-    ],
-    "arrow-parens": [
-      "error",
-      "as-needed"
-    ],
+    "arrow-body-style": ["error", "as-needed"],
+    "arrow-parens": ["error", "as-needed"],
     "no-var": "error",
     "prefer-const": [
       "error",
@@ -101,10 +83,7 @@
         "avoidEscape": true
       }
     ],
-    "@typescript-eslint/semi": [
-      "error",
-      "always"
-    ],
+    "@typescript-eslint/semi": ["error", "always"],
     // eslint-plugin-header
     "header/header": [
       2,

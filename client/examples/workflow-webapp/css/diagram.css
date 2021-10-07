@@ -19,7 +19,7 @@
     stroke: #844;
 }
 
-.sprotty-edge.selected>.arrow {
+.sprotty-edge.selected > .arrow {
     fill: #844;
     stroke: #844;
 }
@@ -28,11 +28,11 @@
     stroke: black;
 }
 
-.forkOrJoin>.sprotty-node {
+.forkOrJoin > .sprotty-node {
     fill: black;
 }
 
-.forkOrJoin>.sprotty-node.selected {
+.forkOrJoin > .sprotty-node.selected {
     stroke: rgb(87, 87, 214);
 }
 

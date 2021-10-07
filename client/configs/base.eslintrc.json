@@ -7,12 +7,7 @@
       "jsx": true
     }
   },
-  "plugins": [
-    "@typescript-eslint",
-    "header",
-    "import",
-    "no-null"
-  ],
+  "plugins": ["@typescript-eslint", "header", "import", "no-null"],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
@@ -26,8 +21,5 @@
     "mocha": true,
     "es6": true
   },
-  "ignorePatterns": [
-    "node_modules",
-    "*.d.ts"
-  ]
+  "ignorePatterns": ["node_modules", "*.d.ts"]
 }
