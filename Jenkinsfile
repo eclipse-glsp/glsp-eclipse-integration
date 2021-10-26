@@ -3,7 +3,7 @@ apiVersion: v1
 kind: Pod
 spec:
   containers:
-  - name: glsp-ci
+  - name: ci
     image: eclipseglsp/ci:alpine
     tty: true
     resources:
@@ -64,7 +64,7 @@ pipeline {
     stages {
         stage('Build client') {
             steps {
-                container('glsp-ci') {
+                container('ci') {
                     timeout(30){
                         dir('client') {
                             sh 'yarn  build --ignore-engines'
@@ -76,7 +76,7 @@ pipeline {
 
         stage('Build Server') {
             steps{
-                container('glsp-ci'){
+                container('ci'){
                     timeout(30){
                         dir('server'){
                             sh "mvn clean verify -B -Dmaven.repo.local=${env.WORKSPACE}/.m2 -DskipTests -Dcheckstyle.skip"
@@ -89,7 +89,7 @@ pipeline {
         stage('Codestyle') {
             steps{
                 timeout(30){
-                    container('glsp-ci') {
+                    container('ci') {
                         // Execute checkstyle checks
                         dir('server') {
                             sh 'mvn checkstyle:check -B'
@@ -123,7 +123,7 @@ pipeline {
 
     post{
         always{
-            container('glsp-ci') {
+            container('ci') {
                
                 // Record & publish checkstyle issues
                 recordIssues  enabledForFailure: true, publishAllIssues: true, aggregatingResults: true, 
