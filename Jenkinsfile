@@ -48,7 +48,7 @@ spec:
 pipeline {
     agent {
         kubernetes {
-            label 'glsp-agent-pod'
+            label 'glsp-eclipse-agent-pod'
             yaml kubernetes_config
         }
     }
