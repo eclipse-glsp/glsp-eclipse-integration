@@ -19,6 +19,7 @@ import java.util.Collection;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 
 import javax.websocket.CloseReason;
 import javax.websocket.Session;
@@ -30,11 +31,18 @@ import org.eclipse.glsp.server.actions.Action;
 import org.eclipse.glsp.server.actions.ActionMessage;
 import org.eclipse.glsp.server.protocol.GLSPClient;
 import org.eclipse.glsp.server.websocket.GLSPServerEndpoint;
+import org.eclipse.lsp4j.jsonrpc.MessageConsumer;
 import org.eclipse.ui.statushandlers.StatusManager;
+
+import com.google.inject.Inject;
 
 public class DiagramWebsocketEndpoint extends GLSPServerEndpoint {
 
-   private Timer timer;
+   protected Timer timer;
+   protected GLSPClient glspClient;
+
+   @Inject
+   protected IdeGLSPClient ideGLSPClient;
 
    @Override
    public void onError(final Session session, final Throwable throwable) {
@@ -44,16 +52,22 @@ public class DiagramWebsocketEndpoint extends GLSPServerEndpoint {
    }
 
    @Override
+   protected Function<MessageConsumer, MessageConsumer> messageWrapper() {
+      return (msg) -> new IdeMessageConsumer(ideGLSPClient, () -> glspClient, msg);
+   }
+
+   @Override
    public void onClose(final Session session, final CloseReason closeReason) {
       if (timer != null) {
          timer.cancel();
       }
-      super.onClose(session, closeReason);
+      ideGLSPClient.disconnect(glspClient);
    }
 
    @Override
    protected void connect(final Collection<Object> localServices, final GLSPClient remoteProxy) {
-      super.connect(localServices, remoteProxy);
+      this.glspClient = remoteProxy;
+      glspServer.connect(ideGLSPClient);
       timer = new Timer();
       timer.scheduleAtFixedRate(new TimerTask() {
          @Override

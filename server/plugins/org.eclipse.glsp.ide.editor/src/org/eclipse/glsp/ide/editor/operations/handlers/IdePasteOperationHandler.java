@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020 EclipseSource and others.
+ * Copyright (c) 2020-2021 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -15,7 +15,7 @@
  ********************************************************************************/
 package org.eclipse.glsp.ide.editor.operations.handlers;
 
-import static org.eclipse.glsp.server.utils.GModelUtil.shift;
+import static org.eclipse.glsp.server.utils.GeometryUtil.shift;
 
 import java.util.List;
 import java.util.Map;
@@ -24,8 +24,7 @@ import java.util.Optional;
 import org.eclipse.glsp.graph.GModelElement;
 import org.eclipse.glsp.ide.editor.clipboard.ClipboardService;
 import org.eclipse.glsp.ide.editor.clipboard.ui.JsonTransfer;
-import org.eclipse.glsp.server.jsonrpc.GraphGsonConfiguratorFactory;
-import org.eclipse.glsp.server.model.GModelState;
+import org.eclipse.glsp.server.gson.GraphGsonConfigurationFactory;
 import org.eclipse.glsp.server.operations.OperationHandler;
 import org.eclipse.glsp.server.operations.PasteOperation;
 import org.eclipse.glsp.server.operations.gmodel.PasteOperationHandler;
@@ -37,18 +36,18 @@ import com.google.inject.Inject;
  * except that it relies on the local clipboard (instead of relying on Data passed by the client
  * via the operation data).
  */
-public class EclipsePasteOperationHandler extends PasteOperationHandler {
+public class IdePasteOperationHandler extends PasteOperationHandler {
 
    @Inject
    protected ClipboardService clipboard;
 
    @Inject
-   public EclipsePasteOperationHandler(final GraphGsonConfiguratorFactory gsonFactory) {
+   public IdePasteOperationHandler(final GraphGsonConfigurationFactory gsonFactory) {
       super(gsonFactory);
    }
 
    @Override
-   public void executeOperation(final PasteOperation operation, final GModelState modelState) {
+   public void executeOperation(final PasteOperation operation) {
 
       Optional<String> content = clipboard.getClipboardContents(JsonTransfer.APPLICATION_JSON);
 

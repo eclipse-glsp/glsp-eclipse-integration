@@ -19,12 +19,7 @@
     "lint": "lerna run lint --",
     "copyClient": "copyfiles -f ./examples/workflow-webapp/app/* ../server/example/org.eclipse.glsp.ide.workflow.editor/diagram",
     "publish:next": "lerna publish --exact --canary=next --npm-tag=next --yes",
-    "upgrade:next": "yarn upgrade -p \"@eclipse-glsp.*\" --next "
-  },
-  "resolutions": {
-    "**/@eclipse-glsp/client": "0.9.0-next.3f2a7f35",
-    "**/@eclipse-glsp/protocol": "0.9.0-next.3f2a7f35",
-    "**/sprotty": "0.10.0-next.69a773d"
+    "upgrade:next": "yarn upgrade -p \"@eclipse-glsp.*|sprotty\" --next "
   },
   "workspaces": [
     "packages/*",

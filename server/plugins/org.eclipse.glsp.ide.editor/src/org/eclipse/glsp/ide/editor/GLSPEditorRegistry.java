@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020 EclipseSource and others.
+ * Copyright (c) 2020-2021 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -24,7 +24,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.glsp.ide.editor.ui.GLSPDiagramEditor;
 import org.eclipse.glsp.ide.editor.ui.GLSPIdeEditorPlugin;
 import org.eclipse.glsp.ide.editor.utils.UIUtil;
-import org.eclipse.glsp.server.protocol.GLSPServerException;
+import org.eclipse.glsp.server.types.GLSPServerException;
 import org.eclipse.ui.IPartListener2;
 import org.eclipse.ui.IWorkbenchPartReference;
 

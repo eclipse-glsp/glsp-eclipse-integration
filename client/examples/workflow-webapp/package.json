@@ -10,16 +10,17 @@
     "@eclipse-glsp/protocol": "next"
   },
   "devDependencies": {
-    "circular-dependency-plugin": "^2.0.0",
-    "core-js": "^2.5.1",
-    "css-loader": "^2.1.0",
-    "reflect-metadata": "^0.1.10",
-    "rimraf": "^2.6.1",
-    "style-loader": "^0.23.1",
-    "ts-loader": "^4.4.2",
+    "circular-dependency-plugin": "^5.2.2",
+    "css-loader": "^4.3.0",
+    "reflect-metadata": "^0.1.13",
+    "file-loader": "^6.2.0",
+    "rimraf": "^3.0.2",
+    "style-loader": "^2.0.0",
+    "ts-loader": "^9.2.6",
     "typescript": "^3.9.2",
-    "webpack": "^4.15.1",
-    "webpack-cli": "^3.0.8"
+    "webpack": "^4.46.0",
+    "source-map-loader": "^1.0.2",
+    "webpack-cli": "^4.9.1"
   },
   "scripts": {
     "prepare": "yarn clean && yarn build && yarn lint",

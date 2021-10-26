@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020 EclipseSource and others.
+ * Copyright (c) 2020-2021 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -29,7 +29,6 @@ import org.eclipse.glsp.server.actions.Action;
 import org.eclipse.glsp.server.actions.ActionDispatcher;
 import org.eclipse.glsp.server.actions.ActionMessage;
 import org.eclipse.glsp.server.model.GModelState;
-import org.eclipse.glsp.server.model.ModelStateProvider;
 import org.eclipse.glsp.server.protocol.GLSPClient;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPartSite;
@@ -39,7 +38,7 @@ import org.eclipse.ui.handlers.HandlerUtil;
  * An abstract Handler to delegate the execution of Eclipse Commands to GLSP Actions,
  * via the ActionDispatcher of the current GLSP diagram.
  */
-public abstract class EclipseActionHandler extends AbstractHandler {
+public abstract class IdeActionHandler extends AbstractHandler {
 
    private final Logger log = Logger.getLogger(getClass());
 
@@ -71,9 +70,7 @@ public abstract class EclipseActionHandler extends AbstractHandler {
    }
 
    protected Optional<GModelState> getModelState(final IEclipseContext context) {
-      String clientId = (String) context.get(GLSPDiagramEditor.GLSP_CLIENT_ID);
-      return getInstance(context, ModelStateProvider.class)
-         .flatMap(stateProvider -> stateProvider.getModelState(clientId));
+      return getInstance(context, GModelState.class);
    }
 
    protected Void handleError(final Throwable ex, final Optional<GLSPClient> client, final String clientId,

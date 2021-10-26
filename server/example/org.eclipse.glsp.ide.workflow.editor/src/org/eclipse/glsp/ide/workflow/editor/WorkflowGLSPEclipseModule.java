@@ -15,9 +15,7 @@
  ********************************************************************************/
 package org.eclipse.glsp.ide.workflow.editor;
 
-import javax.websocket.Endpoint;
-
-import org.eclipse.glsp.example.workflow.WorkflowGLSPModule;
+import org.eclipse.glsp.example.workflow.WorkflowDiagramModule;
 import org.eclipse.glsp.ide.editor.actions.InvokeCopyAction;
 import org.eclipse.glsp.ide.editor.actions.InvokeCutAction;
 import org.eclipse.glsp.ide.editor.actions.InvokeDeleteAction;
@@ -30,39 +28,33 @@ import org.eclipse.glsp.ide.editor.actions.handlers.IdeSetDirtyStateActionHandle
 import org.eclipse.glsp.ide.editor.actions.handlers.IdeSetMarkersActionHandler;
 import org.eclipse.glsp.ide.editor.actions.handlers.InitializeCanvasBoundsActionHandler;
 import org.eclipse.glsp.ide.editor.actions.handlers.SetClipboardDataActionHandler;
-import org.eclipse.glsp.ide.editor.clipboard.ClipboardService;
-import org.eclipse.glsp.ide.editor.clipboard.ui.DisplayClipboardService;
-import org.eclipse.glsp.ide.editor.di.EclipseEditorActionDispatcher;
+import org.eclipse.glsp.ide.editor.di.IdeActionDispatcher;
 import org.eclipse.glsp.ide.editor.initialization.DefaultModelInitializationConstraint;
 import org.eclipse.glsp.ide.editor.initialization.ModelInitializationConstraint;
-import org.eclipse.glsp.ide.editor.operations.handlers.EclipsePasteOperationHandler;
+import org.eclipse.glsp.ide.editor.operations.handlers.IdePasteOperationHandler;
 import org.eclipse.glsp.server.actions.Action;
 import org.eclipse.glsp.server.actions.ActionDispatcher;
 import org.eclipse.glsp.server.actions.ActionHandler;
-import org.eclipse.glsp.server.actions.GLSPServerStatusAction;
 import org.eclipse.glsp.server.actions.ServerMessageAction;
 import org.eclipse.glsp.server.actions.ServerStatusAction;
 import org.eclipse.glsp.server.actions.SetDirtyStateAction;
+import org.eclipse.glsp.server.di.MultiBinding;
 import org.eclipse.glsp.server.features.navigation.NavigateToExternalTargetAction;
 import org.eclipse.glsp.server.operations.OperationHandler;
 import org.eclipse.glsp.server.operations.gmodel.PasteOperationHandler;
-import org.eclipse.glsp.server.utils.MultiBinding;
-import org.eclipse.glsp.server.websocket.GLSPServerEndpoint;
 
 import com.google.inject.Scopes;
 
-class WorkflowGLSPEclipseModule extends WorkflowGLSPModule {
+class WorkflowGLSPEclipseModule extends WorkflowDiagramModule {
    @Override
    public void configure() {
       super.configure();
-      bind(Endpoint.class).to(GLSPServerEndpoint.class);
-      bind(ClipboardService.class).to(DisplayClipboardService.class);
       bind(ModelInitializationConstraint.class).to(DefaultModelInitializationConstraint.class).in(Scopes.SINGLETON);
    }
 
    @Override
    protected Class<? extends ActionDispatcher> bindActionDispatcher() {
-      return EclipseEditorActionDispatcher.class;
+      return IdeActionDispatcher.class;
    }
 
    @Override
@@ -81,7 +73,7 @@ class WorkflowGLSPEclipseModule extends WorkflowGLSPModule {
    protected void configureOperationHandlers(final MultiBinding<OperationHandler> bindings) {
       super.configureOperationHandlers(bindings);
       bindings.remove(PasteOperationHandler.class);
-      bindings.add(EclipsePasteOperationHandler.class);
+      bindings.add(IdePasteOperationHandler.class);
    }
 
    @Override
@@ -98,6 +90,5 @@ class WorkflowGLSPEclipseModule extends WorkflowGLSPModule {
       bindings.remove(ServerMessageAction.class);
       bindings.remove(SetDirtyStateAction.class);
       bindings.remove(ServerStatusAction.class);
-      bindings.remove(GLSPServerStatusAction.class);
    }
 }

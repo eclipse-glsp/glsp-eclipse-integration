@@ -20,7 +20,7 @@ import java.util.Optional;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.glsp.ide.editor.di.EclipseEditorActionDispatcher;
+import org.eclipse.glsp.ide.editor.di.IdeActionDispatcher;
 import org.eclipse.glsp.server.actions.ServerMessageAction;
 import org.eclipse.glsp.server.types.Severity;
 import org.eclipse.jface.dialogs.ErrorDialog;
@@ -51,7 +51,7 @@ public final class IdeServerMessageUtil {
          message = message + "\n" + action.getDetails();
       }
       if (message != null && !message.isEmpty()) {
-         return Optional.of(new Status(severity, EclipseEditorActionDispatcher.class, message));
+         return Optional.of(new Status(severity, IdeActionDispatcher.class, message));
       }
       return Optional.empty();
    }

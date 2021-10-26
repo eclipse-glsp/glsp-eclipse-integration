@@ -18,15 +18,20 @@ package org.eclipse.glsp.ide.editor.actions.handlers;
 import java.util.List;
 
 import org.eclipse.glsp.ide.editor.ui.GLSPIdeEditorPlugin;
+import org.eclipse.glsp.server.actions.AbstractActionHandler;
 import org.eclipse.glsp.server.actions.Action;
-import org.eclipse.glsp.server.actions.BasicActionHandler;
 import org.eclipse.glsp.server.actions.SetDirtyStateAction;
 import org.eclipse.glsp.server.model.GModelState;
 
-public class IdeSetDirtyStateActionHandler extends BasicActionHandler<SetDirtyStateAction> {
+import com.google.inject.Inject;
+
+public class IdeSetDirtyStateActionHandler extends AbstractActionHandler<SetDirtyStateAction> {
+
+   @Inject
+   protected GModelState modelState;
 
    @Override
-   protected List<Action> executeAction(final SetDirtyStateAction action, final GModelState modelState) {
+   protected List<Action> executeAction(final SetDirtyStateAction action) {
       GLSPIdeEditorPlugin.getDefaultGLSPEditorRegistry().getGLSPEditorOrThrow(modelState.getClientId())
          .setDirty(action.isDirty());
       return none();

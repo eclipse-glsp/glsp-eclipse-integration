@@ -20,6 +20,7 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
@@ -35,7 +36,8 @@ import org.eclipse.glsp.ide.editor.actions.InvokeCopyAction;
 import org.eclipse.glsp.ide.editor.actions.InvokeCutAction;
 import org.eclipse.glsp.ide.editor.actions.InvokeDeleteAction;
 import org.eclipse.glsp.ide.editor.actions.InvokePasteAction;
-import org.eclipse.glsp.ide.editor.di.EclipseEditorActionDispatcher;
+import org.eclipse.glsp.ide.editor.di.IdeActionDispatcher;
+import org.eclipse.glsp.ide.editor.internal.utils.UrlUtils;
 import org.eclipse.glsp.ide.editor.utils.GLSPDiagramEditorMarkerUtil;
 import org.eclipse.glsp.ide.editor.utils.IdeClientOptions;
 import org.eclipse.glsp.ide.editor.utils.UIUtil;
@@ -50,9 +52,8 @@ import org.eclipse.glsp.server.features.navigation.NavigateToTargetAction;
 import org.eclipse.glsp.server.features.undoredo.RedoAction;
 import org.eclipse.glsp.server.features.undoredo.UndoAction;
 import org.eclipse.glsp.server.model.GModelState;
-import org.eclipse.glsp.server.model.ModelStateProvider;
-import org.eclipse.glsp.server.protocol.GLSPServerException;
 import org.eclipse.glsp.server.types.EditorContext;
+import org.eclipse.glsp.server.types.GLSPServerException;
 import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.MenuManager;
@@ -83,7 +84,7 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker {
     * is a {@link String}.
     */
    public static final String GLSP_CLIENT_ID = "GLSP_CLIENT_ID";
-
+   public static final String APPLICATION_ID = UUID.randomUUID().toString();
    protected static final Logger LOGGER = Logger.getLogger(GLSPDiagramEditor.class);
    protected static final String GLSP_CONTEXT_MENU_ID = "context-menu";
    protected static final AtomicInteger COUNT = new AtomicInteger(0);
@@ -94,6 +95,7 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker {
 
    protected String widgetId;
    protected String clientId;
+   protected String browserUrl;
 
    protected final CompletableFuture<Injector> injector = new CompletableFuture<>();
    protected boolean dirty;
@@ -207,7 +209,7 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker {
    @Override
    public void gotoMarker(final IMarker marker) {
       getModelStateOnceInitialized().thenAccept(modelState -> {
-         GLSPDiagramEditorMarkerUtil.asNavigationTarget(marker, modelState)
+         GLSPDiagramEditorMarkerUtil.asNavigationTarget(marker, Optional.of(modelState))
             .map(NavigateToTargetAction::new)
             .ifPresent(this::dispatch);
       });
@@ -227,17 +229,14 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker {
 
    protected CompletableFuture<ActionDispatcher> getActionDispatcher() { return getInstance(ActionDispatcher.class); }
 
-   protected CompletableFuture<Optional<GModelState>> getModelState() {
-      return getInstance(ModelStateProvider.class)
-         .thenApply(modelStateProvider -> modelStateProvider.getModelState(getClientId()));
-   }
+   protected CompletableFuture<GModelState> getModelState() { return getInstance(GModelState.class); }
 
-   protected CompletableFuture<Optional<GModelState>> getModelStateOnceInitialized() {
+   protected CompletableFuture<GModelState> getModelStateOnceInitialized() {
       return onceModelInitialized().thenCompose(initialized -> getModelState());
    }
 
    protected CompletableFuture<Void> dispatch(final Action action) {
-      return getActionDispatcher().thenCompose(actionDispatcher -> actionDispatcher.dispatch(getClientId(), action));
+      return getActionDispatcher().thenCompose(actionDispatcher -> actionDispatcher.dispatch(action));
    }
 
    protected CompletableFuture<Void> onceModelInitialized() {
@@ -245,8 +244,8 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker {
    }
 
    protected CompletableFuture<Void> onceModelInitialized(final ActionDispatcher actionDispatcher) {
-      if (actionDispatcher instanceof EclipseEditorActionDispatcher) {
-         return ((EclipseEditorActionDispatcher) actionDispatcher).onceModelInitialized();
+      if (actionDispatcher instanceof IdeActionDispatcher) {
+         return ((IdeActionDispatcher) actionDispatcher).onceModelInitialized();
       }
       return CompletableFuture.completedFuture(null);
    }
@@ -319,15 +318,13 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker {
       context.declareModifiable(EditorContext.class);
    }
 
-   protected void syncMarkers(final Optional<GModelState> modelState) {
-      if (modelState.isPresent()) {
-         IdeClientOptions.getSourceUriAsIFile(modelState.get().getClientOptions())
-            .map(workspaceFile -> GLSPDiagramEditorMarkerUtil.syncMarkers(
-               workspaceFile,
-               modelState.get().getClientId(),
-               getActionDispatcher().getNow(null)))
-            .ifPresent(toDispose::add);
-      }
+   protected void syncMarkers(final GModelState modelState) {
+      IdeClientOptions.getSourceUriAsIFile(modelState.getClientOptions())
+         .map(workspaceFile -> GLSPDiagramEditorMarkerUtil.syncMarkers(
+            workspaceFile,
+            modelState.getClientId(),
+            getActionDispatcher().getNow(null)))
+         .ifPresent(toDispose::add);
    }
 
    protected Browser createBrowser(final Composite parent) {
@@ -343,9 +340,12 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker {
       browser.addMouseTrackListener(MouseTrackListener.mouseEnterAdapter(this::mouseEnteredBrowser));
       browser.setMenu(createBrowserMenu());
       browser.addProgressListener(ProgressListener.completedAdapter(event -> installBrowserFunctions()));
-      browser.setUrl(createBrowserUrl());
+      this.browserUrl = createBrowserUrl();
+      browser.setUrl(browserUrl);
       browser.refresh();
    }
+
+   public String getBrowserUrl() { return browserUrl; }
 
    protected void mouseEnteredBrowser(final MouseEvent event) {
       if (getWidgetId() != null) {
@@ -372,28 +372,26 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker {
       ChromiumSelectionFunction.install(GLSPDiagramEditor.this, browser);
    }
 
-   protected String createBrowserUrl() {
-      try {
-         String path = getFilePath();
-         GLSPServerManager manager = getServerManager();
-         ServerConnector connector = Stream.of(manager.getServer().getConnectors()).findFirst()
-            .map(ServerConnector.class::cast)
-            .orElse(null);
+   protected String getBaseUrl() { return "diagram.html"; }
 
-         if (connector != null) {
-            String url = String.format("http://%s:%s/diagram.html?client=%s&path=%s&port=%s&widget=%s",
-               connector.getHost(),
-               manager.getLocalPort(),
-               encodeParameter(getClientId()),
-               encodeParameter(path),
-               manager.getLocalPort(),
-               encodeParameter(getWidgetId()));
-            System.out.println(url);
-            return url;
-         }
-      } catch (UnsupportedEncodingException exception) {
-         LOGGER.error(exception);
+   protected String createBrowserUrl() {
+      String path = getFilePath();
+      GLSPServerManager manager = getServerManager();
+      ServerConnector connector = Stream.of(manager.getServer().getConnectors()).findFirst()
+         .map(ServerConnector.class::cast)
+         .orElse(null);
+
+      if (connector != null) {
+         Map<String, String> queryParams = new HashMap<>();
+         queryParams.put("client", clientId);
+         queryParams.put("path", path);
+         queryParams.put("port", "" + manager.getLocalPort());
+         queryParams.put("widget", getWidgetId());
+         queryParams.put("application", APPLICATION_ID);
+         String url = UrlUtils.createUrl(connector.getHost(), manager.getLocalPort(), getBaseUrl(), queryParams);
+         return url;
       }
+
       return null;
    }
 

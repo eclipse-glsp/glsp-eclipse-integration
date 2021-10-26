@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020 EclipseSource and others.
+ * Copyright (c) 2020-2021 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -13,16 +13,22 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-package org.eclipse.glsp.ide.editor.handlers;
+package org.eclipse.glsp.ide.editor.di;
 
-import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.glsp.server.actions.ExportSVGAction;
+import org.eclipse.glsp.ide.editor.IdeGLSPClient;
+import org.eclipse.glsp.ide.editor.clipboard.ClipboardService;
+import org.eclipse.glsp.ide.editor.clipboard.ui.DisplayClipboardService;
+import org.eclipse.glsp.server.di.ServerModule;
+import org.eclipse.glsp.server.websocket.WebsocketModule;
 
-public class ExportDiagramHandler extends IdeActionHandler {
+import com.google.inject.Singleton;
 
+public class IdeServerModule extends ServerModule {
    @Override
-   protected void execute(final IEclipseContext context) {
-      dispatchMessage(context, new ExportSVGAction());
+   protected void configureAdditionals() {
+      super.configureAdditionals();
+      bind(ClipboardService.class).to(DisplayClipboardService.class);
+      bind(IdeGLSPClient.class).in(Singleton.class);
+      install(new WebsocketModule());
    }
-
 }

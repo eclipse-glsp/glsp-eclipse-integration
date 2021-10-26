@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020 EclipseSource and others.
+ * Copyright (c) 2020-2021 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -19,26 +19,22 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.glsp.ide.editor.clipboard.ClipboardService;
+import org.eclipse.glsp.server.actions.AbstractActionHandler;
 import org.eclipse.glsp.server.actions.Action;
-import org.eclipse.glsp.server.actions.BasicActionHandler;
 import org.eclipse.glsp.server.features.clipboard.SetClipboardDataAction;
-import org.eclipse.glsp.server.model.GModelState;
-import org.eclipse.glsp.server.protocol.ClientSessionListener;
 
 import com.google.inject.Inject;
 
 /**
  * Copy the text from the {@link SetClipboardDataAction} to the Eclipse/SWT Clipboard (System Clipboard).
  */
-public class SetClipboardDataActionHandler extends BasicActionHandler<SetClipboardDataAction>
-   implements ClientSessionListener {
+public class SetClipboardDataActionHandler extends AbstractActionHandler<SetClipboardDataAction> {
 
    @Inject
    protected ClipboardService clipboard;
 
    @Override
-   protected List<Action> executeAction(final SetClipboardDataAction action,
-      final GModelState modelState) {
+   protected List<Action> executeAction(final SetClipboardDataAction action) {
       Map<String, String> clipboardData = action.getClipboardData();
       clipboard.setClipboardContents(clipboardData);
       return none();

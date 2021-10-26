@@ -23,31 +23,31 @@ import org.apache.log4j.Logger;
 import org.eclipse.glsp.ide.editor.initialization.ModelInitializationConstraint;
 import org.eclipse.glsp.ide.editor.ui.GLSPIdeEditorPlugin;
 import org.eclipse.glsp.server.actions.Action;
+import org.eclipse.glsp.server.di.ClientId;
 import org.eclipse.glsp.server.features.contextactions.RequestContextActions;
-import org.eclipse.glsp.server.internal.action.DefaultActionDispatcher;
-import org.eclipse.glsp.server.protocol.ClientSessionManager;
-import org.eclipse.glsp.server.protocol.GLSPClient;
+import org.eclipse.glsp.server.internal.actions.DefaultActionDispatcher;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
 @SuppressWarnings("restriction")
-public class EclipseEditorActionDispatcher extends DefaultActionDispatcher {
-   private static final Logger LOGGER = Logger.getLogger(EclipseEditorActionDispatcher.class);
+public class IdeActionDispatcher extends DefaultActionDispatcher {
+   private static final Logger LOGGER = Logger.getLogger(IdeActionDispatcher.class);
 
    protected final CompletableFuture<Void> onModelInitialized;
 
    protected final ModelInitializationConstraint initializationConstraint;
-   @Inject()
-   protected Injector injector;
 
    @Inject
-   public EclipseEditorActionDispatcher(final ClientSessionManager clientSessionManager,
+   public IdeActionDispatcher(final Injector injector, @ClientId() final String clientId,
       final ModelInitializationConstraint initializationConstraint) {
-      super(clientSessionManager);
+      super();
+      this.clientId = clientId;
       this.initializationConstraint = initializationConstraint;
       this.onModelInitialized = initializationConstraint.onInitialized();
       this.onModelInitialized.thenRun(() -> LOGGER.info("Model Initialized."));
+      GLSPIdeEditorPlugin.getDefaultGLSPEditorRegistry().getGLSPEditor(clientId)
+         .ifPresent(editor -> editor.setInjector(injector));
    }
 
    public CompletableFuture<Void> onceModelInitialized() {
@@ -55,9 +55,9 @@ public class EclipseEditorActionDispatcher extends DefaultActionDispatcher {
    }
 
    @Override
-   protected List<CompletableFuture<Void>> runAction(final Action action, final String clientId) {
+   protected List<CompletableFuture<Void>> runAction(final Action action) {
       if (!this.handleLocally(action, clientId)) {
-         List<CompletableFuture<Void>> actions = super.runAction(action, clientId);
+         List<CompletableFuture<Void>> actions = super.runAction(action);
          this.initializationConstraint.notifyDispatched(action);
          return actions;
       }
@@ -75,11 +75,5 @@ public class EclipseEditorActionDispatcher extends DefaultActionDispatcher {
       GLSPIdeEditorPlugin.getDefaultGLSPEditorRegistry().getGLSPEditorOrThrow(clientId)
          .handleRequestContext(action);
       return false;
-   }
-
-   @Override
-   public void sessionCreated(final String clientId, final GLSPClient client) {
-      GLSPIdeEditorPlugin.getDefaultGLSPEditorRegistry().getGLSPEditorOrThrow(clientId)
-         .setInjector(injector);
    }
 }

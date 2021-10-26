@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020 EclipseSource and others.
+ * Copyright (c) 2020-2021 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -18,23 +18,25 @@ package org.eclipse.glsp.ide.editor.actions.handlers;
 import java.util.List;
 
 import org.eclipse.glsp.ide.editor.ui.GLSPIdeEditorPlugin;
+import org.eclipse.glsp.server.actions.AbstractActionHandler;
 import org.eclipse.glsp.server.actions.Action;
-import org.eclipse.glsp.server.actions.BasicActionHandler;
-import org.eclipse.glsp.server.actions.GLSPServerStatusAction;
 import org.eclipse.glsp.server.actions.ServerStatusAction;
 import org.eclipse.glsp.server.model.GModelState;
 
-public class IdeServerStatusActionHandler extends BasicActionHandler<ServerStatusAction> {
+import com.google.inject.Inject;
+
+public class IdeServerStatusActionHandler extends AbstractActionHandler<ServerStatusAction> {
+
+   @Inject
+   protected GModelState modelState;
 
    @Override
-   protected List<Action> executeAction(final ServerStatusAction action, final GModelState modelState) {
+   protected List<Action> executeAction(final ServerStatusAction action) {
       GLSPIdeEditorPlugin.getDefaultGLSPEditorRegistry().getGLSPEditorOrThrow(modelState.getClientId())
          .showServerStatus(action);
       return none();
    }
 
    @Override
-   public List<Class<? extends Action>> getHandledActionTypes() {
-      return List.of(GLSPServerStatusAction.class, ServerStatusAction.class);
-   }
+   public List<Class<? extends Action>> getHandledActionTypes() { return List.of(ServerStatusAction.class); }
 }

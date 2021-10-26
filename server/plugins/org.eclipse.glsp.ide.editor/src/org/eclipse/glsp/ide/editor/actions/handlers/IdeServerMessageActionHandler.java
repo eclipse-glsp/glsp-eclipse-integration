@@ -18,15 +18,20 @@ package org.eclipse.glsp.ide.editor.actions.handlers;
 import java.util.List;
 
 import org.eclipse.glsp.ide.editor.utils.IdeServerMessageUtil;
+import org.eclipse.glsp.server.actions.AbstractActionHandler;
 import org.eclipse.glsp.server.actions.Action;
-import org.eclipse.glsp.server.actions.BasicActionHandler;
 import org.eclipse.glsp.server.actions.ServerMessageAction;
 import org.eclipse.glsp.server.model.GModelState;
 
-public class IdeServerMessageActionHandler extends BasicActionHandler<ServerMessageAction> {
+import com.google.inject.Inject;
+
+public class IdeServerMessageActionHandler extends AbstractActionHandler<ServerMessageAction> {
+
+   @Inject
+   protected GModelState modelState;
 
    @Override
-   protected List<Action> executeAction(final ServerMessageAction action, final GModelState modelState) {
+   protected List<Action> executeAction(final ServerMessageAction action) {
       IdeServerMessageUtil.log(action, modelState.getClientId());
       return none();
    }
