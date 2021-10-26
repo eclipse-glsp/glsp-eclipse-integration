@@ -89,7 +89,7 @@ pipeline {
         stage('Codestyle') {
             steps{
                 timeout(30){
-                    container('glsp-ci) {
+                    container('glsp-ci') {
                         // Execute checkstyle checks
                         dir('server') {
                             sh 'mvn checkstyle:check -B'
