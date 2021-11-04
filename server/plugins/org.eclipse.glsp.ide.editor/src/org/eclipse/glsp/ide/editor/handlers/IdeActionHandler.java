@@ -58,7 +58,7 @@ public abstract class IdeActionHandler extends AbstractHandler {
       // Note: GLSPClient is not available at the moment, as we don't have a way to track the
       // client connection lifecycle in the Eclipse Integration yet.
       Optional<GLSPClient> client = Optional.ofNullable(context.get(GLSPClient.class));
-      dispatcher.dispatch(new ActionMessage(clientId, action))
+      dispatcher.dispatch(action)
          .exceptionally(ex -> handleError(ex, client, clientId, action));
    }
 
