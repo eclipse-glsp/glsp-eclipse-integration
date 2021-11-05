@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020 EclipseSource and others.
+ * Copyright (c) 2020-2021 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -19,7 +19,10 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
@@ -31,9 +34,8 @@ import javax.websocket.server.ServerEndpointConfig;
 import org.apache.log4j.BasicConfigurator;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.glsp.ide.editor.internal.utils.SystemUtils;
-import org.eclipse.glsp.server.di.GLSPModule;
+import org.eclipse.glsp.server.di.ServerModule;
 import org.eclipse.glsp.server.websocket.GLSPConfigurator;
-import org.eclipse.glsp.server.websocket.WebsocketModule;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.servlet.DefaultServlet;
@@ -44,13 +46,14 @@ import org.eclipse.jetty.websocket.jsr356.server.deploy.WebSocketServerContainer
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.google.inject.Module;
 
 public abstract class GLSPServerManager {
 
    protected Server server;
    protected ServerContainer container;
    protected Injector injector;
-   private int localPort;
+   protected int localPort;
 
    public synchronized void start() throws Exception {
       if (server == null || !server.isRunning()) {
@@ -67,10 +70,6 @@ public abstract class GLSPServerManager {
    }
 
    public abstract String getGlspId();
-
-   public GLSPServerManager() {}
-
-   public abstract GLSPModule getModule();
 
    public abstract URL getResourceURL();
 
@@ -95,9 +94,23 @@ public abstract class GLSPServerManager {
       container.setDefaultMaxSessionIdleTimeout(TimeUnit.MINUTES.toMillis(10));
       ServerEndpointConfig.Builder builder = ServerEndpointConfig.Builder.create(DiagramWebsocketEndpoint.class,
          "/" + getGlspId());
-      builder.configurator(new GLSPConfigurator(() -> Guice.createInjector(getModule(), new WebsocketModule())));
+      Injector injector = createInjector();
+      builder.configurator(new GLSPConfigurator(() -> injector));
       container.addEndpoint(builder.build());
 
+   }
+
+   protected abstract ServerModule configureServerModule();
+
+   protected List<Module> configureAdditionalModules() {
+      return Collections.emptyList();
+   }
+
+   protected Injector createInjector() {
+      List<Module> modules = new ArrayList<>();
+      modules.add(configureServerModule());
+      configureAdditionalModules().forEach(modules::add);
+      return Guice.createInjector(modules);
    }
 
    protected String resolveResourceBase() throws IOException {

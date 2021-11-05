@@ -18,14 +18,13 @@ package org.eclipse.glsp.ide.editor.actions.handlers;
 import java.util.List;
 
 import org.eclipse.glsp.ide.editor.actions.InitializeCanvasBoundsAction;
+import org.eclipse.glsp.server.actions.AbstractActionHandler;
 import org.eclipse.glsp.server.actions.Action;
-import org.eclipse.glsp.server.actions.BasicActionHandler;
-import org.eclipse.glsp.server.model.GModelState;
 
-public class InitializeCanvasBoundsActionHandler extends BasicActionHandler<InitializeCanvasBoundsAction> {
+public class InitializeCanvasBoundsActionHandler extends AbstractActionHandler<InitializeCanvasBoundsAction> {
 
    @Override
-   protected List<Action> executeAction(final InitializeCanvasBoundsAction action, final GModelState modelState) {
+   protected List<Action> executeAction(final InitializeCanvasBoundsAction action) {
       // we do not actually want to handle the InitializeCanvasBoundsAction but we need it for our default model
       // initialization constraint
       return none();

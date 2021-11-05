@@ -15,15 +15,17 @@
  ********************************************************************************/
 import {
     Action,
+    CutOperation,
     EditorContextService,
     GLSP_TYPES,
     IActionDispatcher,
     IActionHandler,
     IAsyncClipboardService,
+    PasteOperation,
+    RequestClipboardDataAction,
     TYPES,
     ViewerOptions
 } from '@eclipse-glsp/client';
-import { CutOperation, PasteOperation, RequestClipboardDataAction } from '@eclipse-glsp/client/lib/features/copy-paste/copy-paste-actions';
 import { inject, injectable } from 'inversify';
 
 // Eclipse-specific integration: in Eclipse, we trigger the Copy/Paste actions from

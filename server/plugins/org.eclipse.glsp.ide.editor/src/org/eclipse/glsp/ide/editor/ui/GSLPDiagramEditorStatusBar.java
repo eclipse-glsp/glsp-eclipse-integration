@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020 EclipseSource and others.
+ * Copyright (c) 2020-2021 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -23,7 +23,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import org.eclipse.glsp.ide.editor.utils.UIUtil;
-import org.eclipse.glsp.server.actions.GLSPServerStatusAction;
 import org.eclipse.glsp.server.actions.ServerStatusAction;
 import org.eclipse.glsp.server.types.Severity;
 import org.eclipse.glsp.server.utils.ServerStatusUtil;
@@ -61,9 +60,8 @@ public class GSLPDiagramEditorStatusBar extends Composite {
    public synchronized void showServerStatus(final ServerStatusAction serverStatus) {
       this.currentStatus = serverStatus;
       UIUtil.asyncExec(() -> updateStatusBar(serverStatus));
-      if (serverStatus instanceof GLSPServerStatusAction
-         && ((GLSPServerStatusAction) serverStatus).getTimeout() > 0) {
-         int timeout = ((GLSPServerStatusAction) serverStatus).getTimeout();
+      if (serverStatus.getTimeout() > 0) {
+         int timeout = serverStatus.getTimeout();
          statusTimer.schedule(new ClearStatusBarTask(serverStatus), timeout);
       }
    }

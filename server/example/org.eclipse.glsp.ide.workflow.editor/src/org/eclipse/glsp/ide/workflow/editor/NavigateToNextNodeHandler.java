@@ -17,9 +17,9 @@ package org.eclipse.glsp.ide.workflow.editor;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.glsp.ide.editor.actions.NavigateAction;
-import org.eclipse.glsp.ide.editor.handlers.EclipseActionHandler;
+import org.eclipse.glsp.ide.editor.handlers.IdeActionHandler;
 
-public class NavigateToNextNodeHandler extends EclipseActionHandler {
+public class NavigateToNextNodeHandler extends IdeActionHandler {
 
    @Override
    protected void execute(final IEclipseContext context) {

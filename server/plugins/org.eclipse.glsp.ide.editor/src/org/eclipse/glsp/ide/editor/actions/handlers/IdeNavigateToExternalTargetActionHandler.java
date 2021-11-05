@@ -22,14 +22,13 @@ import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.glsp.ide.editor.utils.IdeClientOptions;
 import org.eclipse.glsp.ide.editor.utils.UIUtil;
+import org.eclipse.glsp.server.actions.AbstractActionHandler;
 import org.eclipse.glsp.server.actions.Action;
-import org.eclipse.glsp.server.actions.BasicActionHandler;
 import org.eclipse.glsp.server.features.navigation.JsonOpenerOptions;
 import org.eclipse.glsp.server.features.navigation.JsonOpenerOptions.TextSelection;
 import org.eclipse.glsp.server.features.navigation.NavigateToExternalTargetAction;
 import org.eclipse.glsp.server.features.navigation.NavigationTarget;
 import org.eclipse.glsp.server.features.navigation.NavigationTargetProvider;
-import org.eclipse.glsp.server.model.GModelState;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IRegion;
@@ -40,11 +39,11 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.texteditor.ITextEditor;
 
-public class IdeNavigateToExternalTargetActionHandler extends BasicActionHandler<NavigateToExternalTargetAction> {
+public class IdeNavigateToExternalTargetActionHandler extends AbstractActionHandler<NavigateToExternalTargetAction> {
    private static final Logger LOGGER = Logger.getLogger(IdeNavigateToExternalTargetActionHandler.class);
 
    @Override
-   protected List<Action> executeAction(final NavigateToExternalTargetAction action, final GModelState modelState) {
+   protected List<Action> executeAction(final NavigateToExternalTargetAction action) {
       NavigationTarget target = action.getTarget();
       if (!target.getArgs().containsKey(NavigationTargetProvider.JSON_OPENER_OPTIONS)) {
          return none();

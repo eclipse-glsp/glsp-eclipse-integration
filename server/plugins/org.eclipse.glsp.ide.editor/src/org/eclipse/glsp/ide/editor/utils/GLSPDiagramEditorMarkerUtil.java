@@ -37,8 +37,8 @@ import org.eclipse.glsp.server.features.validation.DeleteMarkersAction;
 import org.eclipse.glsp.server.features.validation.Marker;
 import org.eclipse.glsp.server.features.validation.MarkerKind;
 import org.eclipse.glsp.server.model.GModelState;
-import org.eclipse.glsp.server.protocol.GLSPServerException;
-import org.eclipse.glsp.server.utils.ClientOptions;
+import org.eclipse.glsp.server.types.GLSPServerException;
+import org.eclipse.glsp.server.utils.ClientOptionsUtil;
 import org.eclipse.ui.texteditor.MarkerUtilities;
 
 public final class GLSPDiagramEditorMarkerUtil {
@@ -75,7 +75,7 @@ public final class GLSPDiagramEditorMarkerUtil {
          return Optional.empty();
       }
       NavigationTarget target = new NavigationTarget(
-         ClientOptions.getSourceUri(modelState.get().getClientOptions()).orElseThrow(),
+         ClientOptionsUtil.getSourceUri(modelState.get().getClientOptions()).orElseThrow(),
          MarkerUtilities.getMessage(marker),
          new HashMap<String, String>());
       target.setElementIds(Collections.singletonList(elementId));
@@ -119,7 +119,7 @@ public final class GLSPDiagramEditorMarkerUtil {
 
    public static IDisposable syncMarkers(final IResource resource, final String clientId,
       final ActionDispatcher actionDispatcher) {
-      MarkerDeletionListener listener = new MarkerDeletionListener(resource, clientId, actionDispatcher);
+      MarkerDeletionListener listener = new MarkerDeletionListener(resource, actionDispatcher);
       ResourcesPlugin.getWorkspace().addResourceChangeListener(listener);
       return IDisposable.create(() -> ResourcesPlugin.getWorkspace().removeResourceChangeListener(listener));
    }
@@ -127,19 +127,17 @@ public final class GLSPDiagramEditorMarkerUtil {
    private static class MarkerDeletionListener implements IResourceChangeListener {
 
       private final IResource resource;
-      private final String clientId;
       private final ActionDispatcher actionDispatcher;
 
-      MarkerDeletionListener(final IResource resource, final String clientId, final ActionDispatcher actionDispatcher) {
+      MarkerDeletionListener(final IResource resource, final ActionDispatcher actionDispatcher) {
          this.resource = resource;
-         this.clientId = clientId;
          this.actionDispatcher = actionDispatcher;
       }
 
       @Override
       public void resourceChanged(final IResourceChangeEvent event) {
          try {
-            event.getDelta().accept(new MarkerDeletionVisitor(this.resource, this.clientId, this.actionDispatcher));
+            event.getDelta().accept(new MarkerDeletionVisitor(this.resource, this.actionDispatcher));
          } catch (CoreException exception) {
             LOGGER.error(exception);
          }
@@ -148,12 +146,10 @@ public final class GLSPDiagramEditorMarkerUtil {
 
    private static class MarkerDeletionVisitor implements IResourceDeltaVisitor {
       private final IResource resource;
-      private final String clientId;
       private final ActionDispatcher actionDispatcher;
 
-      MarkerDeletionVisitor(final IResource resource, final String clientId, final ActionDispatcher actionDispatcher) {
+      MarkerDeletionVisitor(final IResource resource, final ActionDispatcher actionDispatcher) {
          this.resource = resource;
-         this.clientId = clientId;
          this.actionDispatcher = actionDispatcher;
       }
 
@@ -178,8 +174,7 @@ public final class GLSPDiagramEditorMarkerUtil {
          }
          Object glspMarker = markerDelta.getAttribute(ATTRIBUTE_GLSP_MARKER);
          if (glspMarker instanceof Marker) {
-            this.actionDispatcher.dispatch(this.clientId,
-               new DeleteMarkersAction(Collections.singletonList((Marker) glspMarker)));
+            this.actionDispatcher.dispatch(new DeleteMarkersAction(Collections.singletonList((Marker) glspMarker)));
          }
       }
 

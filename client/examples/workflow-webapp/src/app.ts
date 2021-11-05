@@ -31,6 +31,7 @@ const filePath = urlParameters.path;
 // In the Eclipse Integration, port is dynamic, as multiple editors
 // and/or Eclipse Servers may be running in parallel (e.g. 1/Eclipse IDE)
 const port = parseInt(urlParameters.port, 10);
+const applicationId = urlParameters.application;
 const id = 'workflow';
 const diagramType = 'workflow-diagram';
 const websocket = new WebSocket(`ws://localhost:${port}/${id}`);
@@ -52,7 +53,7 @@ websocket.onopen = () => {
 async function initialize(client: GLSPClient): Promise<void> {
     await diagramServer.connect(client);
     const result = await client.initializeServer({
-        applicationId: ApplicationIdProvider.get(),
+        applicationId,
         protocolVersion: GLSPClient.protocolVersion
     });
     await configureServerActions(result, diagramType, container);

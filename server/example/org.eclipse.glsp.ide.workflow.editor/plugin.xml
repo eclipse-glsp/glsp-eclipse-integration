@@ -79,6 +79,19 @@
              </with>
             </visibleWhen>
          </menu>
+         <command
+               commandId="org.eclipse.glsp.ide.workflow.editor.external.debug"
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activePartId">
+                  <equals
+                        value="org.eclipse.glsp.workflow.editor">
+                  </equals>
+               </with>
+            </visibleWhen>
+         </command>
       </menuContribution>
    </extension>
 	<extension
@@ -119,6 +132,13 @@
              description="Navigates to the task with the given name"
              id="org.eclipse.glsp.ide.workflow.editor.navigate.by-name"
              name="Go to Task by Name">
+       </command>
+       <command
+             categoryId="org.eclipse.glsp"
+             defaultHandler="org.eclipse.glsp.ide.editor.handlers.ExternalBrowserDebugHandler"
+             description="Debug Diagram in external browser"
+             id="org.eclipse.glsp.ide.workflow.editor.external.debug"
+             name="Debug (External Browser)">
        </command>
 	</extension>
 </plugin>

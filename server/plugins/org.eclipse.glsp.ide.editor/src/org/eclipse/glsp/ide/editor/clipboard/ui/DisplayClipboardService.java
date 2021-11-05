@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020 EclipseSource and others.
+ * Copyright (c) 2020-2021 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -22,9 +22,9 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import org.eclipse.glsp.ide.editor.clipboard.ClipboardService;
 import org.eclipse.glsp.ide.editor.utils.UIUtil;
-import org.eclipse.glsp.server.protocol.ClientSessionListener;
-import org.eclipse.glsp.server.protocol.ClientSessionManager;
 import org.eclipse.glsp.server.protocol.GLSPClient;
+import org.eclipse.glsp.server.protocol.GLSPServer;
+import org.eclipse.glsp.server.protocol.GLSPServerListener;
 import org.eclipse.swt.dnd.Clipboard;
 import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.dnd.Transfer;
@@ -38,7 +38,7 @@ import com.google.inject.Singleton;
  * A {@link ClipboardService} based on the SWT System {@link Clipboard}.
  */
 @Singleton
-public class DisplayClipboardService implements ClipboardService, ClientSessionListener {
+public class DisplayClipboardService implements ClipboardService, GLSPServerListener {
 
    @Inject
    protected Provider<GLSPClient> client;
@@ -46,10 +46,12 @@ public class DisplayClipboardService implements ClipboardService, ClientSessionL
    private Clipboard clipboard;
 
    @Inject
-   public DisplayClipboardService(final ClientSessionManager sessionManager) {
+   public DisplayClipboardService(final GLSPServer server) {
       UIUtil.asyncExec(() -> {
          this.clipboard = new Clipboard(Display.getCurrent());
       });
+      server.addListener(this);
+
    }
 
    @Override
@@ -79,10 +81,8 @@ public class DisplayClipboardService implements ClipboardService, ClientSessionL
    }
 
    @Override
-   public void clientDisconnected(final GLSPClient client) {
-      if (client == this.client.get()) {
-         this.clipboard.dispose();
-      }
+   public void serverShutDown(final GLSPServer glspServer) {
+      this.clipboard.dispose();
    }
 
    @Override

@@ -18,10 +18,10 @@ const path = require('path');
 
 const buildRoot = path.resolve(__dirname, 'lib');
 const appRoot = path.resolve(__dirname, 'app');
-var CircularDependencyPlugin = require('circular-dependency-plugin');
+const CircularDependencyPlugin = require('circular-dependency-plugin');
 
 module.exports = {
-    entry: ['core-js/es6/map', 'core-js/es6/promise', 'core-js/es6/string', 'core-js/es6/symbol', path.resolve(buildRoot, 'index')],
+    entry: [path.resolve(buildRoot, 'index')],
     output: {
         filename: 'bundle.js',
         path: appRoot
@@ -30,7 +30,7 @@ module.exports = {
     devtool: 'source-map',
     resolve: {
         // Add `.ts` and `.tsx` as a resolvable extension.
-        extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js']
+        extensions: ['.ts', '.tsx', '.js']
     },
     module: {
         rules: [
@@ -47,9 +47,22 @@ module.exports = {
                 ]
             },
             {
+                test: /\.js$/,
+                use: ['source-map-loader'],
+                enforce: 'pre'
+            },
+            {
                 test: /\.css$/,
                 exclude: /\.useable\.css$/,
-                loader: 'style-loader!css-loader'
+                use: ['style-loader', 'css-loader']
+            },
+            {
+                test: /\.(ttf)$/,
+                loader: 'file-loader',
+                options: {
+                    name: '[name].[ext]',
+                    esModule: false
+                }
             }
         ]
     },
@@ -60,5 +73,8 @@ module.exports = {
             failOnError: false
         }),
         new webpack.WatchIgnorePlugin([/\.js$/, /\.d\.ts$/])
-    ]
+    ],
+    stats: {
+        warningsFilter: [/Failed to parse source map/]
+    }
 };

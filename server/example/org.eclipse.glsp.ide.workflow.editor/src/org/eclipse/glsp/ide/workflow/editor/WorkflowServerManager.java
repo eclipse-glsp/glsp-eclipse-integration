@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020 EclipseSource and others.
+ * Copyright (c) 2020-2021 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -24,8 +24,9 @@ import javax.websocket.DeploymentException;
 
 import org.eclipse.elk.alg.layered.options.LayeredMetaDataProvider;
 import org.eclipse.glsp.ide.editor.GLSPServerManager;
+import org.eclipse.glsp.ide.editor.di.IdeServerModule;
 import org.eclipse.glsp.layout.ElkLayoutEngine;
-import org.eclipse.glsp.server.di.GLSPModule;
+import org.eclipse.glsp.server.di.ServerModule;
 import org.eclipse.jetty.server.Server;
 
 public class WorkflowServerManager extends GLSPServerManager {
@@ -33,7 +34,9 @@ public class WorkflowServerManager extends GLSPServerManager {
    public WorkflowServerManager() {}
 
    @Override
-   public GLSPModule getModule() { return new WorkflowGLSPEclipseModule(); }
+   public ServerModule configureServerModule() {
+      return new IdeServerModule().configureDiagramModule(new WorkflowGLSPEclipseModule());
+   }
 
    @Override
    public URL getResourceURL() { return Activator.getDefault().getBundle().getResource("diagram"); }

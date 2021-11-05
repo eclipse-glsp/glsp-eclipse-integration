@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020 EclipseSource and others.
+ * Copyright (c) 2020-2021 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -52,7 +52,7 @@ public class GLSPDynamicContribution extends ContributionItem implements IWorkbe
          // The model state will not be stored in the EclipseContext, as we (currently) have no way
          // to hook into new client connections. The Editor UI will be created and ready before the Browser
          // connects to the Backend server; so we may not have a ModelState yet.
-         Optional<GModelState> modelState = editor.getModelState().getNow(Optional.empty());
+         Optional<GModelState> modelState = Optional.ofNullable(editor.getModelState().getNow(null));
          if (modelState.isPresent()) {
             EditorContext editorContext = serviceLocator.getService(EditorContext.class);
             actionProvider.fillContextMenu(menu, modelState.get(), editorContext, index);
