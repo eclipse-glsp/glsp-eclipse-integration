@@ -4341,9 +4341,9 @@ randomfill@^1.0.3:
     safe-buffer "^5.1.0"
 
 rc@^1.0.1, rc@^1.1.6:
-  version "1.3.9"
-  resolved "https://registry.yarnpkg.com/rc/-/rc-1.3.9.tgz#e59af47fc44a766bbb7c6536df7adce2722e9421"
-  integrity sha512-OKTtWChpYeqwXfODZnepCjrB7Cfpx1AyAGqx3VxfJIYYvqtgbe/9NOJzDmPE9WaSARNgm77mZLE72CuR4TRQ5Q==
+  version "1.2.8"
+  resolved "https://registry.yarnpkg.com/rc/-/rc-1.2.8.tgz#cd924bf5200a075b83c188cd6b9e211b7fc0d3ed"
+  integrity sha512-y3bGgqKj3QBdxLbLkomlohkvsA8gdAiUQlSBJnBhfn+BPxg4bc62d8TcBW15wavDfgexCgccckhcZvywyQYPOw==
   dependencies:
     deep-extend "^0.6.0"
     ini "~1.3.0"

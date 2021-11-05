@@ -388,11 +388,15 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker {
          queryParams.put("port", "" + manager.getLocalPort());
          queryParams.put("widget", getWidgetId());
          queryParams.put("application", APPLICATION_ID);
-         String url = UrlUtils.createUrl(connector.getHost(), manager.getLocalPort(), getBaseUrl(), queryParams);
-         return url;
+         return createBrowserUrl(connector.getHost(), manager.getLocalPort(), getBaseUrl(), queryParams);
       }
 
       return null;
+   }
+
+   protected String createBrowserUrl(final String host, final int port, final String baseUrl,
+      final Map<String, String> queryParams) {
+      return UrlUtils.createUrl(host, port, baseUrl, queryParams);
    }
 
    protected String encodeParameter(final String parameter) throws UnsupportedEncodingException {
