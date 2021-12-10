@@ -6,7 +6,7 @@
 	<groupId>org.eclipse.glsp.ide</groupId>
 	<artifactId>org.eclipse.glsp.ide.parent</artifactId>
 	<description>GLSP Eclipse IDE Integration Parent pom </description>
-	<version>0.9.0-SNAPSHOT</version>
+	<version>0.9.0</version>
 	<packaging>pom</packaging>
 
 	<name>GLSP Eclipse IDE Integration Parent</name>
@@ -89,6 +89,12 @@
 					<artifactId>target-platform-configuration</artifactId>
 					<version>${tycho-version}</version>
 				</plugin>
+				<plugin>
+					<!-- enable automated version updates -->
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-versions-plugin</artifactId>
+					<version>${tycho-version}</version>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 		<plugins>
@@ -122,6 +128,11 @@
 					<optimize>true</optimize>
 					<showWarnings>true</showWarnings>
 				</configuration>
+			</plugin>
+			<plugin>
+				<!-- enable automated version updates -->
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-versions-plugin</artifactId>
 			</plugin>
 			<plugin>
 				<!-- enable source bundle generation -->

@@ -73,7 +73,7 @@ public abstract class GLSPServerManager {
 
    public abstract URL getResourceURL();
 
-   @SuppressWarnings("checkstyle:ThrowsCount")
+   @SuppressWarnings({ "checkstyle:ThrowsCount", "deprecation" })
    protected void configure(final Server server)
       throws URISyntaxException, IOException, ServletException, DeploymentException {
       BasicConfigurator.configure();

@@ -46,7 +46,7 @@ public final class IdeServerMessageUtil {
       int severity = toSeverity(action.getSeverity());
       String message = action.getMessage();
       if (message == null || message.isEmpty()) {
-         message = action.getDetails();
+         message = action.getDetails().orElse("");
       } else if (action.getDetails() != null && !action.getDetails().isEmpty()) {
          message = message + "\n" + action.getDetails();
       }

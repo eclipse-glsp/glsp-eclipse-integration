@@ -1,25 +1,23 @@
 {
   "private": true,
   "name": "@eclipse-glsp-examples/workflow-webapp",
-  "version": "0.9.0",
+  "version": "0.8.0",
   "description": "GLSP-based webapp for the Workflow example",
   "dependencies": {
-    "@eclipse-glsp-examples/workflow-glsp": "next",
-    "@eclipse-glsp/client": "next",
-    "@eclipse-glsp/ide": "0.9.0",
-    "@eclipse-glsp/protocol": "next"
+    "@eclipse-glsp-examples/workflow-glsp": "0.9.0",
+    "@eclipse-glsp/ide": "0.8.0"
   },
   "devDependencies": {
     "circular-dependency-plugin": "^5.2.2",
     "css-loader": "^4.3.0",
-    "reflect-metadata": "^0.1.13",
     "file-loader": "^6.2.0",
+    "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
+    "source-map-loader": "^1.0.2",
     "style-loader": "^2.0.0",
     "ts-loader": "^9.2.6",
     "typescript": "^3.9.2",
     "webpack": "^4.46.0",
-    "source-map-loader": "^1.0.2",
     "webpack-cli": "^4.9.1"
   },
   "scripts": {

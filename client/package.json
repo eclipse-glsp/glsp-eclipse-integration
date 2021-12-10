@@ -1,14 +1,14 @@
 {
   "private": true,
   "name": "parent",
-  "version": "0.9.0",
+  "version": "0.8.0",
   "engines": {
     "yarn": ">=1.7.0 <2.x.x"
   },
   "devDependencies": {
-    "@eclipse-glsp/config": "0.9.0-next.a3910f6a",
+    "@eclipse-glsp/config": "0.9.0",
     "copyfiles": "^2.4.1",
-    "lerna": "^2.11.0",
+    "lerna": "^4.0.0",
     "rimraf": "^2.6.1",
     "typescript": "^3.9.2"
   },
@@ -18,7 +18,9 @@
     "build": "yarn install --ignore-scripts && lerna run build",
     "lint": "lerna run lint --",
     "copyClient": "copyfiles -f ./examples/workflow-webapp/app/* ../server/example/org.eclipse.glsp.ide.workflow.editor/diagram",
-    "publish:next": "lerna publish --exact --canary=next --npm-tag=next --yes",
+    "publish:prepare": "lerna version minor --exact --ignore-scripts --yes --no-push",
+    "publish:latest": "lerna publish from-git --no-git-reset --no-verify-access --no-push",
+    "publish:next": "SHA=$(git rev-parse --short HEAD) && lerna publish preminor --exact --canary --preid next.${SHA} --dist-tag next --no-git-reset --no-git-tag-version --no-push --ignore-scripts --yes --no-verify-access",
     "upgrade:next": "yarn upgrade -p \"@eclipse-glsp.*|sprotty\" --next "
   },
   "workspaces": [
