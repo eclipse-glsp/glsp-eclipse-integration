@@ -67,7 +67,8 @@ pipeline {
                 container('ci') {
                     timeout(30){
                         dir('client') {
-                            sh 'yarn  build --ignore-engines'
+                            sh 'yarn install --ignore-scripts'
+                            sh 'yarn  build'
                         }
                     }
                 }
