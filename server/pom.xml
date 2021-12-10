@@ -45,8 +45,16 @@
 		<tycho-version>2.3.0</tycho-version>
 		<maven-antrun-plugin.version>3.0.0</maven-antrun-plugin.version>
 		<checkstyle.plugin>3.1.2</checkstyle.plugin>
-		<checkstyle>8.39</checkstyle>
+		<checkstyle>8.44</checkstyle>
 	</properties>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>sonatype</id>
+			<name>Sonatype</name>
+			<url>https://oss.sonatype.org/content/groups/public</url>
+		</pluginRepository>
+	</pluginRepositories>
 
 	<modules>
 		<module>plugins/org.eclipse.glsp.ide.editor</module>
@@ -167,7 +175,7 @@
 				<artifactId>maven-checkstyle-plugin</artifactId>
 				<version>${checkstyle.plugin}</version>
 				<configuration>
-					<configLocation>emfcloud-checkstyle.xml</configLocation>
+					<configLocation>emfcloud-checkstyle-8.44.xml</configLocation>
 					<consoleOutput>true</consoleOutput>
 					<excludes>**/src-gen/**/*.java</excludes>
 				</configuration>
@@ -183,7 +191,7 @@
 					<dependency>
 						<groupId>org.eclipse.emfcloud</groupId>
 						<artifactId>org.eclipse.emfcloud.checkstyle</artifactId>
-						<version>0.1.0-RC1</version>
+						<version>0.1.0-SNAPSHOT</version>
 					</dependency>
 					<dependency>
 						<groupId>com.puppycrawl.tools</groupId>
