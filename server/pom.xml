@@ -41,7 +41,6 @@
 		<java.source>11</java.source>
 		<java.target>11</java.target>
 		<project.build.java.target>1.8</project.build.java.target>
-		<target.version>0.9.0-SNAPSHOT</target.version>
 		<tycho-version>2.3.0</tycho-version>
 		<maven-antrun-plugin.version>3.0.0</maven-antrun-plugin.version>
 		<checkstyle.plugin>3.1.2</checkstyle.plugin>
@@ -175,7 +174,7 @@
 							<groupId>org.eclipse.glsp.ide</groupId>
 							<artifactId>org.eclipse.glsp.ide.parent</artifactId>
 							<classifier>releng/org.eclipse.glsp.ide.releng.target/r2021-03</classifier>
-							<version>${target.version}</version>
+							<version>${project.version}</version>
 						</artifact>
 					</target>
 				</configuration>
