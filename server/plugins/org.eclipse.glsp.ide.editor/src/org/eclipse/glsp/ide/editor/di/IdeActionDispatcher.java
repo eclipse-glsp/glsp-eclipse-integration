@@ -39,13 +39,17 @@ public class IdeActionDispatcher extends DefaultActionDispatcher {
    protected final ModelInitializationConstraint initializationConstraint;
 
    @Inject
-   public IdeActionDispatcher(final Injector injector, @ClientId() final String clientId,
+   public IdeActionDispatcher(@ClientId() final String clientId,
       final ModelInitializationConstraint initializationConstraint) {
       super();
       this.clientId = clientId;
       this.initializationConstraint = initializationConstraint;
       this.onModelInitialized = initializationConstraint.onInitialized();
       this.onModelInitialized.thenRun(() -> LOGGER.info("Model Initialized."));
+   }
+
+   @Inject
+   public void initInjector(final Injector injector) {
       GLSPIdeEditorPlugin.getDefaultGLSPEditorRegistry().getGLSPEditor(clientId)
          .ifPresent(editor -> editor.setInjector(injector));
    }
