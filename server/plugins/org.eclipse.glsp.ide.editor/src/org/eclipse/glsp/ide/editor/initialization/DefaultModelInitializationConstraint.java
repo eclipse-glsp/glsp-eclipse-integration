@@ -19,7 +19,7 @@ import java.util.Objects;
 
 import org.eclipse.glsp.ide.editor.actions.InitializeCanvasBoundsAction;
 import org.eclipse.glsp.server.actions.Action;
-import org.eclipse.glsp.server.features.core.model.UpdateModelAction;
+import org.eclipse.glsp.server.features.core.model.SetModelAction;
 
 /**
  * Default initialization constraint triggers after a non-empty UpdateModelAction and a subsequent
@@ -27,18 +27,18 @@ import org.eclipse.glsp.server.features.core.model.UpdateModelAction;
  */
 public class DefaultModelInitializationConstraint extends AbstractModelInitializationConstraint {
 
-   private boolean nonEmptyUpdateModelActionDispatched;
+   private boolean nonEmptySetModelActionDispatched;
 
    @Override
    protected boolean isInitializedAfter(final Action action) {
-      nonEmptyUpdateModelActionDispatched = nonEmptyUpdateModelActionDispatched || isNonEmptyUpdateModelAction(action);
-      return nonEmptyUpdateModelActionDispatched && isInitializeCanvasBoundsAction(action);
+      nonEmptySetModelActionDispatched = nonEmptySetModelActionDispatched || isNotEmptySetModelAction(action);
+      return nonEmptySetModelActionDispatched && isInitializeCanvasBoundsAction(action);
    }
 
-   private static boolean isNonEmptyUpdateModelAction(final Action action) {
-      return action instanceof UpdateModelAction
-         && ((UpdateModelAction) action).getNewRoot() != null
-         && !Objects.equals(((UpdateModelAction) action).getNewRoot().getType(), "NONE");
+   private static boolean isNotEmptySetModelAction(final Action action) {
+      return action instanceof SetModelAction
+         && ((SetModelAction) action).getNewRoot() != null
+         && !Objects.equals(((SetModelAction) action).getNewRoot().getType(), "NONE");
    }
 
    private static boolean isInitializeCanvasBoundsAction(final Action action) {
