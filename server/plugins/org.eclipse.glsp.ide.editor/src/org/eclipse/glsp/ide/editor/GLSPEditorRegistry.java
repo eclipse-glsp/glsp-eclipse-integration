@@ -73,7 +73,7 @@ public class GLSPEditorRegistry {
       return Optional.of(editorIdToServerManager.get(editorId));
    }
 
-   public Optional<GLSPDiagramEditor> getGLSPEditor(final String clientId) {
+   public synchronized Optional<GLSPDiagramEditor> getGLSPEditor(final String clientId) {
       return Optional.ofNullable(clientIdtoDiagramEditor.get(clientId));
    }
 
@@ -82,21 +82,30 @@ public class GLSPEditorRegistry {
          "Could not retrieve GLSP Editor. GLSP editor is not properly configured for clientId: " + clientId);
    }
 
+   private synchronized void partClosed(final IWorkbenchPartReference part) {
+      if (part.getPart(false) instanceof GLSPDiagramEditor) {
+         GLSPDiagramEditor editor = (GLSPDiagramEditor) part.getPart(false);
+         editor.notifyAboutToBeDisposed();
+         clientIdtoDiagramEditor.remove(editor.getClientId());
+      }
+   }
+
+   private synchronized void partOpened(final IWorkbenchPartReference part) {
+      if (part.getPart(false) instanceof GLSPDiagramEditor) {
+         GLSPDiagramEditor editor = (GLSPDiagramEditor) part.getPart(false);
+         clientIdtoDiagramEditor.put(editor.getClientId(), editor);
+      }
+   }
+
    class GLSPDiagramEditorPartListener implements IPartListener2 {
       @Override
       public void partClosed(final IWorkbenchPartReference part) {
-         if (part.getPart(false) instanceof GLSPDiagramEditor) {
-            GLSPDiagramEditor editor = (GLSPDiagramEditor) part.getPart(false);
-            clientIdtoDiagramEditor.remove(editor.getClientId());
-         }
+         GLSPEditorRegistry.this.partClosed(part);
       }
 
       @Override
       public void partOpened(final IWorkbenchPartReference part) {
-         if (part.getPart(false) instanceof GLSPDiagramEditor) {
-            GLSPDiagramEditor editor = (GLSPDiagramEditor) part.getPart(false);
-            clientIdtoDiagramEditor.put(editor.getClientId(), editor);
-         }
+         GLSPEditorRegistry.this.partOpened(part);
       }
    }
 }

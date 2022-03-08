@@ -52,6 +52,7 @@ import org.eclipse.glsp.server.features.navigation.NavigateToTargetAction;
 import org.eclipse.glsp.server.features.undoredo.RedoAction;
 import org.eclipse.glsp.server.features.undoredo.UndoAction;
 import org.eclipse.glsp.server.model.GModelState;
+import org.eclipse.glsp.server.session.ClientSessionManager;
 import org.eclipse.glsp.server.types.EditorContext;
 import org.eclipse.glsp.server.types.GLSPServerException;
 import org.eclipse.jetty.server.ServerConnector;
@@ -412,6 +413,15 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker {
    @Override
    public void setFocus() {
       browser.setFocus();
+   }
+
+   public void notifyAboutToBeDisposed() {
+      // we are about to be disposed. don't send and accept actions anymore
+      getClientSessionManager().thenAccept(sessionManager -> sessionManager.disposeClientSession(getClientId()));
+   }
+
+   protected CompletableFuture<ClientSessionManager> getClientSessionManager() {
+      return getInstance(ClientSessionManager.class);
    }
 
    @Override
