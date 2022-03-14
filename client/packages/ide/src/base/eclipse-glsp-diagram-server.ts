@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2019-2021 EclipseSource and others.
+ * Copyright (c) 2019-2022 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -22,7 +22,7 @@ export class EclipseGLSPDiagramServer extends GLSPDiagramServer {
         return ServerStatusAction.KIND === action.kind && 'severity' in action && 'message' in action;
     }
 
-    handleLocally(action: Action): boolean {
+    override handleLocally(action: Action): boolean {
         if (this.isServerStatusAction(action)) {
             return this.handleServerStatusAction(action);
         }
@@ -34,7 +34,7 @@ export class EclipseGLSPDiagramServer extends GLSPDiagramServer {
         return true;
     }
 
-    protected handleServerMessageAction(_action: ServerMessageAction): boolean {
+    protected override handleServerMessageAction(_action: ServerMessageAction): boolean {
         /* send to server */
         return true;
     }
