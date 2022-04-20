@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020 EclipseSource and others.
+ * Copyright (c) 2020-2022 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -16,23 +16,22 @@
 package org.eclipse.glsp.ide.editor.utils;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
-import org.apache.commons.io.FileUtils;
 
 public final class ResourceUtil {
    private static final ResourceUtil INSTANCE = new ResourceUtil();
 
    public static boolean copyFromResource(final String resourcePath, final File destFile) {
       final ClassLoader classLoader = INSTANCE.getClass().getClassLoader();
-      try {
+      try (InputStream stream = classLoader.getResourceAsStream(resourcePath);
+         FileOutputStream fileOutputStream = new FileOutputStream(destFile)) {
 
-         final InputStream stream = classLoader.getResourceAsStream(resourcePath);
          if (stream == null) {
             return false;
          }
-         FileUtils.copyInputStreamToFile(stream, destFile);
+         stream.transferTo(fileOutputStream);
       } catch (final IOException e) {
          return false;
       }

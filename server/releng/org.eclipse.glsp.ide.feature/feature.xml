@@ -11,7 +11,7 @@
 
    <copyright url="http://www.example.com/copyright">
       /********************************************************************************
- * Copyright (c) 2020 EclipseSource and others.
+ * Copyright (c) 2020-2022 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -321,7 +321,6 @@ version(s), and exceptions or additional permissions here}.&quot;
       <import plugin="org.eclipse.core.resources" version="3.12.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.ui.editors" version="3.11.0" match="greaterOrEqual"/>
       <import plugin="javax.websocket" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.apache.commons.io" version="2.2.0" match="greaterOrEqual"/>
       <import plugin="com.google.inject"/>
       <import plugin="org.eclipse.lsp4j" version="0.8.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.lsp4j.websocket" version="0.8.0" match="greaterOrEqual"/>

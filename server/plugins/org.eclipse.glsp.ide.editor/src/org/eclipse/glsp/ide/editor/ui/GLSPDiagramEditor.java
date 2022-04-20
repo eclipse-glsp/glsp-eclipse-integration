@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020-2021 EclipseSource and others.
+ * Copyright (c) 2020-2022 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -25,8 +25,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
-import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.e4.core.contexts.IEclipseContext;
@@ -272,11 +272,27 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker {
    }
 
    protected String getFilePath() {
-      IEditorInput editorInput = getEditorInput();
-      if (editorInput instanceof IFileEditorInput) {
-         return ((IFileEditorInput) editorInput).getFile().getLocationURI().getPath();
+      IFile file = getFile();
+      if (file != null) {
+         return file.getLocationURI().getPath();
       }
       return "";
+   }
+
+   protected String getFileName() {
+      IFile file = getFile();
+      if (file != null) {
+         return file.getName();
+      }
+      return "";
+   }
+
+   protected IFile getFile() {
+      IEditorInput editorInput = getEditorInput();
+      if (editorInput instanceof IFileEditorInput) {
+         return ((IFileEditorInput) editorInput).getFile();
+      }
+      return null;
    }
 
    protected String generateClientId() {
@@ -301,7 +317,7 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker {
    }
 
    protected String generatePartName() {
-      return FilenameUtils.getName(getFilePath());
+      return getFileName();
    }
 
    /**
