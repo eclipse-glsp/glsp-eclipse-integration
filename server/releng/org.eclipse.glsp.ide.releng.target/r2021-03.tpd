@@ -16,7 +16,11 @@ location "https://download.eclipse.org/tools/orbit/downloads/drops/R202108252228
 	javax.xml.stream
 }
 
-location "https://download.eclipse.org/glsp/server/p2/nightly/0.10/0.10.0.202203070850/" {
+location "https://download.eclipse.org/tools/orbit/downloads/drops/R20220302172233/repository/" {
+	org.apache.logging.log4j
+}
+
+location "https://download.eclipse.org/glsp/server/p2/nightly/0.10/0.10.0.202205231314/" {
 	org.eclipse.glsp.feature.feature.group
 	org.eclipse.glsp.feature.source.feature.group
 	org.eclipse.glsp.server.websocket lazy
