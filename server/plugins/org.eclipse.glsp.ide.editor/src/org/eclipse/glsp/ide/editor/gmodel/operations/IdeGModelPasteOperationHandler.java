@@ -13,7 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-package org.eclipse.glsp.ide.editor.operations.handlers;
+package org.eclipse.glsp.ide.editor.gmodel.operations;
 
 import static org.eclipse.glsp.server.utils.GeometryUtil.shift;
 
@@ -24,25 +24,25 @@ import java.util.Optional;
 import org.eclipse.glsp.graph.GModelElement;
 import org.eclipse.glsp.ide.editor.clipboard.ClipboardService;
 import org.eclipse.glsp.ide.editor.clipboard.ui.JsonTransfer;
+import org.eclipse.glsp.server.gmodel.GModelPasteOperationHandler;
 import org.eclipse.glsp.server.gson.GraphGsonConfigurationFactory;
 import org.eclipse.glsp.server.operations.OperationHandler;
 import org.eclipse.glsp.server.operations.PasteOperation;
-import org.eclipse.glsp.server.operations.gmodel.PasteOperationHandler;
 
 import com.google.inject.Inject;
 
 /**
- * An {@link OperationHandler} similar to the GLSP {@link PasteOperationHandler},
+ * An {@link OperationHandler} similar to the GLSP {@link GModelPasteOperationHandler},
  * except that it relies on the local clipboard (instead of relying on Data passed by the client
  * via the operation data).
  */
-public class IdePasteOperationHandler extends PasteOperationHandler {
+public class IdeGModelPasteOperationHandler extends GModelPasteOperationHandler {
 
    @Inject
    protected ClipboardService clipboard;
 
    @Inject
-   public IdePasteOperationHandler(final GraphGsonConfigurationFactory gsonFactory) {
+   public IdeGModelPasteOperationHandler(final GraphGsonConfigurationFactory gsonFactory) {
       super(gsonFactory);
    }
 
