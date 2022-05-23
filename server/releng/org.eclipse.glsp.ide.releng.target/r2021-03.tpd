@@ -9,7 +9,6 @@ location "http://download.eclipse.org/releases/2021-03" {
 }
 
 location "https://download.eclipse.org/tools/orbit/downloads/drops/R20210825222808/repository/" {
-	org.apache.commons.io
 	com.google.gson
 	com.google.guava
 	com.google.inject
