@@ -127,7 +127,7 @@ public class ChromiumKeyBindingFunction {
    public BrowserFunction getBrowserFunction() { return browserFunction; }
 
    public static Optional<BrowserFunction> install(final GLSPDiagramEditor editor, final Browser browser) {
-      if ((browser.getStyle() & SWT.CHROMIUM) == 0) {
+      if ((browser.getStyle() & SWT.CHROMIUM) == 0 && (browser.getStyle() & SWT.EDGE) == 0) {
          return Optional.empty();
       }
       ChromiumKeyBindingFunction function = new ChromiumKeyBindingFunction(editor, browser);
