@@ -16,6 +16,7 @@
 package org.eclipse.glsp.ide.editor.ui;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URI;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
@@ -272,19 +273,16 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker {
    }
 
    protected String getFilePath() {
-      IFile file = getFile();
-      if (file != null) {
-         return file.getLocationURI().getPath();
-      }
-      return "";
+      return Optional.ofNullable(getFile())
+         .map(IFile::getLocationURI)
+         .map(URI::getPath)
+         .orElse("");
    }
 
-   protected String getFileName() {
-      IFile file = getFile();
-      if (file != null) {
-         return file.getName();
-      }
-      return "";
+   protected String getFileName() { 
+      return Optional.ofNullable(getFile())
+         .map(IFile::getName)
+         .orElse(""); 
    }
 
    protected IFile getFile() {
