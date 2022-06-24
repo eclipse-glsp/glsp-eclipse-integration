@@ -17,7 +17,6 @@ import {
     Action,
     CutOperation,
     EditorContextService,
-    GLSP_TYPES,
     IActionDispatcher,
     IActionHandler,
     IAsyncClipboardService,
@@ -37,7 +36,7 @@ import { inject, injectable } from 'inversify';
 export class EclipseCopyPasteActionHandler implements IActionHandler {
     @inject(TYPES.IActionDispatcher) protected actionDispatcher: IActionDispatcher;
     @inject(TYPES.ViewerOptions) protected viewerOptions: ViewerOptions;
-    @inject(GLSP_TYPES.IAsyncClipboardService) protected clipboadService: IAsyncClipboardService;
+    @inject(TYPES.IAsyncClipboardService) protected clipboadService: IAsyncClipboardService;
     @inject(EditorContextService) protected editorContext: EditorContextService;
 
     handle(action: Action): void {
@@ -65,7 +64,7 @@ export class EclipseCopyPasteActionHandler implements IActionHandler {
     handleCut(): void {
         if (this.shouldCopy()) {
             this.handleCopy();
-            this.actionDispatcher.dispatch(new CutOperation(this.editorContext.get()));
+            this.actionDispatcher.dispatch(CutOperation.create(this.editorContext.get()));
         }
     }
 
@@ -73,7 +72,7 @@ export class EclipseCopyPasteActionHandler implements IActionHandler {
         // In the Eclipse Integration case, the server manages its own clipboard.
         // Just pass an empty clipboard data to remain compliant with the API.
         const clipboardData = {};
-        this.actionDispatcher.dispatch(new PasteOperation(clipboardData, this.editorContext.get()));
+        this.actionDispatcher.dispatch(PasteOperation.create({ clipboardData: clipboardData, editorContext: this.editorContext.get() }));
     }
 
     protected shouldCopy(): boolean | null {

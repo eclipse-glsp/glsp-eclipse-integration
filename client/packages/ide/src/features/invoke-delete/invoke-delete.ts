@@ -37,6 +37,6 @@ export class InvokeDeleteActionHandler implements IActionHandler {
     }
 
     handleDelete(): void {
-        this.actionDispatcher.dispatch(new DeleteElementOperation(this.editorContext.get().selectedElementIds));
+        this.actionDispatcher.dispatch(DeleteElementOperation.create(this.editorContext.get().selectedElementIds));
     }
 }
