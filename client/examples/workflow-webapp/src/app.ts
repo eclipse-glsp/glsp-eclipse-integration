@@ -72,7 +72,7 @@ async function initialize(client: GLSPClient): Promise<void> {
             }
         })
     );
-    actionDispatcher.dispatch(RequestTypeHintsAction.create({ requestId: 'workflow-diagram' }));
+    actionDispatcher.dispatch(RequestTypeHintsAction.create());
     actionDispatcher.dispatch(EnableToolPaletteAction.create());
     actionDispatcher.onceModelInitialized().then(() => actionDispatcher.dispatch(CenterAction.create([])));
 }
