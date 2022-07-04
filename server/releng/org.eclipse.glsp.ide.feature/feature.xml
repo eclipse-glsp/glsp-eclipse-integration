@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.glsp.ide.feature"
       label="GLSP Eclipse IDE Integration"
-      version="0.10.0.qualifier"
+      version="1.0.0"
       provider-name="Eclipse GLSP">
 
    <description url="http://www.example.com/description">
