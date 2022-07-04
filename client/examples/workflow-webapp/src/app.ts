@@ -14,15 +14,17 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import {
+    CenterAction,
     configureServerActions,
     EnableToolPaletteAction,
     GLSPActionDispatcher,
     GLSPDiagramServer,
-    RequestTypeHintsAction
+    RequestModelAction,
+    RequestTypeHintsAction,
+    TYPES
 } from '@eclipse-glsp/client';
 import { getParameters } from '@eclipse-glsp/ide';
 import { ApplicationIdProvider, BaseJsonrpcGLSPClient, GLSPClient, JsonrpcGLSPClient } from '@eclipse-glsp/protocol';
-import { CenterAction, RequestModelAction, TYPES } from 'sprotty';
 import createContainer from './di.config';
 
 const urlParameters = getParameters();
@@ -61,16 +63,18 @@ async function initialize(client: GLSPClient): Promise<void> {
     await client.initializeClientSession({ clientSessionId: diagramServer.clientId, diagramType });
     const actionDispatcher = container.get<GLSPActionDispatcher>(TYPES.IActionDispatcher);
     actionDispatcher.dispatch(
-        new RequestModelAction({
+        RequestModelAction.create({
             // Java's URLEncoder.encode encodes spaces as plus sign but decodeURI expects spaces to be encoded as %20.
             // See also https://en.wikipedia.org/wiki/Query_string#URL_encoding for URL encoding in forms vs generic URL encoding.
-            sourceUri: 'file://' + decodeURI(filePath.replace(/\+/g, '%20')),
-            diagramType: 'workflow-diagram'
+            options: {
+                sourceUri: 'file://' + decodeURI(filePath.replace(/\+/g, '%20')),
+                diagramType: 'workflow-diagram'
+            }
         })
     );
-    actionDispatcher.dispatch(new RequestTypeHintsAction('workflow-diagram'));
-    actionDispatcher.dispatch(new EnableToolPaletteAction());
-    actionDispatcher.onceModelInitialized().then(() => actionDispatcher.dispatch(new CenterAction([])));
+    actionDispatcher.dispatch(RequestTypeHintsAction.create());
+    actionDispatcher.dispatch(EnableToolPaletteAction.create());
+    actionDispatcher.onceModelInitialized().then(() => actionDispatcher.dispatch(CenterAction.create([])));
 }
 
 function setWidgetId(mainWidgetId: string): void {

@@ -14,9 +14,9 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { createWorkflowDiagramContainer } from '@eclipse-glsp-examples/workflow-glsp/lib';
+import { ConsoleLogger, LogLevel, TYPES } from '@eclipse-glsp/client';
 import { eclipseCopyPasteModule, eclipseDeleteModule, EclipseGLSPDiagramServer, keepAliveModule } from '@eclipse-glsp/ide';
 import { Container } from 'inversify';
-import { ConsoleLogger, LogLevel, TYPES } from 'sprotty';
 import '../css/diagram.css';
 
 export default function createContainer(widgetId: string): Container {
