@@ -31,6 +31,7 @@ import org.eclipse.jface.bindings.keys.ParseException;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.browser.BrowserFunction;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.keys.IBindingService;
 
 import com.google.gson.Gson;
@@ -97,11 +98,14 @@ public class ChromiumKeyBindingFunction {
 
    protected void executeBinding(final Binding binding) {
       if (binding != null && binding.getParameterizedCommand().getCommand().isEnabled()) {
-         try {
-            binding.getParameterizedCommand().executeWithChecks(null, null);
-         } catch (ExecutionException | NotDefinedException | NotEnabledException | NotHandledException exception) {
-            LOGGER.error(exception);
-         }
+         Runnable runnable = () -> {
+            try {
+               binding.getParameterizedCommand().executeWithChecks(null, null);
+            } catch (ExecutionException | NotDefinedException | NotEnabledException | NotHandledException exception) {
+               LOGGER.error(exception);
+            }
+         };
+         Display.getDefault().asyncExec(runnable);
       }
    }
 
