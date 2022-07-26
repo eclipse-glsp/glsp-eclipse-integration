@@ -23,6 +23,7 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.NotEnabledException;
 import org.eclipse.core.commands.NotHandledException;
 import org.eclipse.core.commands.common.NotDefinedException;
+import org.eclipse.glsp.ide.editor.utils.UIUtil;
 import org.eclipse.jface.bindings.Binding;
 import org.eclipse.jface.bindings.keys.IKeyLookup;
 import org.eclipse.jface.bindings.keys.KeySequence;
@@ -31,7 +32,6 @@ import org.eclipse.jface.bindings.keys.ParseException;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.browser.BrowserFunction;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.keys.IBindingService;
 
 import com.google.gson.Gson;
@@ -105,7 +105,7 @@ public class ChromiumKeyBindingFunction {
                LOGGER.error(exception);
             }
          };
-         Display.getDefault().asyncExec(runnable);
+         UIUtil.asyncExec(runnable);
       }
    }
 
