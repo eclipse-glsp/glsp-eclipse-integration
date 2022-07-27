@@ -23,6 +23,7 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.NotEnabledException;
 import org.eclipse.core.commands.NotHandledException;
 import org.eclipse.core.commands.common.NotDefinedException;
+import org.eclipse.glsp.ide.editor.utils.UIUtil;
 import org.eclipse.jface.bindings.Binding;
 import org.eclipse.jface.bindings.keys.IKeyLookup;
 import org.eclipse.jface.bindings.keys.KeySequence;
@@ -97,11 +98,14 @@ public class ChromiumKeyBindingFunction {
 
    protected void executeBinding(final Binding binding) {
       if (binding != null && binding.getParameterizedCommand().getCommand().isEnabled()) {
-         try {
-            binding.getParameterizedCommand().executeWithChecks(null, null);
-         } catch (ExecutionException | NotDefinedException | NotEnabledException | NotHandledException exception) {
-            LOGGER.error(exception);
-         }
+         Runnable runnable = () -> {
+            try {
+               binding.getParameterizedCommand().executeWithChecks(null, null);
+            } catch (ExecutionException | NotDefinedException | NotEnabledException | NotHandledException exception) {
+               LOGGER.error(exception);
+            }
+         };
+         UIUtil.asyncExec(runnable);
       }
    }
 
