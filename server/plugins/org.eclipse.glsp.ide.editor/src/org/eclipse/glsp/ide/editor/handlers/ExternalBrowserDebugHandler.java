@@ -15,16 +15,16 @@
  ********************************************************************************/
 package org.eclipse.glsp.ide.editor.handlers;
 
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.glsp.ide.editor.ui.GLSPDiagramEditor;
 import org.eclipse.glsp.ide.editor.ui.GLSPIdeEditorPlugin;
-import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.PlatformUI;
 
 public class ExternalBrowserDebugHandler extends IdeActionHandler {
    private static Logger LOG = Logger.getLogger(ExternalBrowserDebugHandler.class);
@@ -43,10 +43,16 @@ public class ExternalBrowserDebugHandler extends IdeActionHandler {
    }
 
    protected void openInExternalBrowser(final String url) {
-      try {
-         PlatformUI.getWorkbench().getBrowserSupport().getExternalBrowser().openURL(new URL(url));
-      } catch (PartInitException | MalformedURLException e) {
-         LOG.error("Could not open url in external browser. Url: " + url, e);
+      // Attempt to use the system browser
+      if (Desktop.isDesktopSupported() && Desktop.getDesktop()
+         .isSupported(Desktop.Action.BROWSE)) {
+         try {
+            Desktop.getDesktop().browse(new URI(url));
+         } catch (final IOException | URISyntaxException e) {
+            LOG.error("Could not open url in external browser. Url: " + url, e);
+         }
+      } else {
+         LOG.error("Could not open url in external browser. Desktop is not supported.");
       }
    }
 
