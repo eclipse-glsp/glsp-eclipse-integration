@@ -16,9 +16,7 @@
 package org.eclipse.glsp.ide.editor;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Map.Entry;
-import java.util.stream.Collectors;
 
 import org.eclipse.glsp.server.actions.ActionMessage;
 import org.eclipse.glsp.server.protocol.GLSPClient;
