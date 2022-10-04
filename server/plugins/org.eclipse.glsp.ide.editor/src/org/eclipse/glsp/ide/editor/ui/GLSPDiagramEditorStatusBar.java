@@ -34,7 +34,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 
-public class GSLPDiagramEditorStatusBar extends Composite {
+public class GLSPDiagramEditorStatusBar extends Composite {
    private static final ISharedImages SHARED_IMAGES = PlatformUI.getWorkbench().getSharedImages();
 
    private final Label statusBarIcon;
@@ -43,7 +43,7 @@ public class GSLPDiagramEditorStatusBar extends Composite {
    private ServerStatusAction currentStatus;
    private final Timer statusTimer = new Timer();
 
-   public GSLPDiagramEditorStatusBar(final Composite parent) {
+   public GLSPDiagramEditorStatusBar(final Composite parent) {
       super(parent, SWT.NO_SCROLL);
 
       GridData gridData = new GridData();
@@ -99,6 +99,12 @@ public class GSLPDiagramEditorStatusBar extends Composite {
          default:
             return null;
       }
+   }
+
+   @Override
+   public void dispose() {
+      statusTimer.cancel();
+      super.dispose();
    }
 
    private class ClearStatusBarTask extends TimerTask {

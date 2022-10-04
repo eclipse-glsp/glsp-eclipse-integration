@@ -93,7 +93,7 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker {
 
    protected Composite root;
    protected Browser browser;
-   protected GSLPDiagramEditorStatusBar statusBar;
+   protected GLSPDiagramEditorStatusBar statusBar;
 
    protected String widgetId;
    protected String clientId;
@@ -418,8 +418,8 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker {
       return URLEncoder.encode(parameter, "UTF-8");
    }
 
-   protected GSLPDiagramEditorStatusBar createStatusBar(final Composite parent) {
-      GSLPDiagramEditorStatusBar statusBar = new GSLPDiagramEditorStatusBar(parent);
+   protected GLSPDiagramEditorStatusBar createStatusBar(final Composite parent) {
+      GLSPDiagramEditorStatusBar statusBar = new GLSPDiagramEditorStatusBar(parent);
       statusBar.setLayout(new RowLayout());
       return statusBar;
    }
@@ -440,6 +440,7 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker {
 
    @Override
    public void dispose() {
+      statusBar.dispose();
       super.dispose();
       this.toDispose.dispose();
    }
