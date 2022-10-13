@@ -17,6 +17,7 @@ package org.eclipse.glsp.ide.editor;
 
 import java.util.Collection;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 import org.eclipse.glsp.server.actions.ActionMessage;
 import org.eclipse.glsp.server.protocol.GLSPClient;
@@ -87,6 +88,7 @@ public class IdeGLSPClient implements GLSPClient {
       clientProxies.entries().stream()
          .filter(entry -> entry.getValue() == glspClient)
          .map(Entry::getKey)
+         .collect(Collectors.toList())
          .forEach(id -> disconnect(id, glspClient));
    }
 
