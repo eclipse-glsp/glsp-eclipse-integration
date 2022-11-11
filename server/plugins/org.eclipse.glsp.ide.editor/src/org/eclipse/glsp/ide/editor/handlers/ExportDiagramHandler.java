@@ -16,13 +16,13 @@
 package org.eclipse.glsp.ide.editor.handlers;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.glsp.server.actions.ExportSVGAction;
+import org.eclipse.glsp.server.actions.RequestExportSvgAction;
 
 public class ExportDiagramHandler extends IdeActionHandler {
 
    @Override
    protected void execute(final IEclipseContext context) {
-      dispatchMessage(context, new ExportSVGAction());
+      dispatchMessage(context, new RequestExportSvgAction());
    }
 
 }
