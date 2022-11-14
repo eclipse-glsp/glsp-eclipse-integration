@@ -1,49 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-   <extension-point id="org.eclipse.glsp.ide.editor" name="Eclipse GLSP editor configuration" schema="schema/com.eclipse.glsp.ide.editor.exsd"/>
-<extension
-         point="org.eclipse.ui.menus">
-      <menuContribution
-            allPopups="false"
-            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
-         <menu
-               id="org.eclipse.glsp.ide.diagram"
-               label="Diagram">
-            <command
-                  commandId="org.eclipse.glsp.diagram.export"
-                  icon="icons/export.gif"
-                  label="SVG Export"
-                  style="push">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="activeEditor">
-                     <instanceof
-                           value="org.eclipse.glsp.ide.editor.ui.GLSPDiagramEditor">
-                     </instanceof>
-                  </with>
-               </visibleWhen>
-            </command>
-         </menu>
-      </menuContribution>
-   </extension>
-   
-    <extension
-         point="org.eclipse.ui.commands">
-      <command
-            categoryId="org.eclipse.glsp"
-            defaultHandler="org.eclipse.glsp.ide.editor.handlers.ExportDiagramHandler"
-            description="Export this diagram to SVG"
-            id="org.eclipse.glsp.diagram.export"
-            name="Export Diagram">
-      </command>
-      <category
+    <extension-point id="org.eclipse.glsp.ide.editor" name="Eclipse GLSP editor configuration" schema="schema/com.eclipse.glsp.ide.editor.exsd"/>
+    <extension point="org.eclipse.ui.commands">
+        <category
             id="org.eclipse.glsp"
             name="GLSP">
-      </category>
-    
-   </extension>
+        </category>
+    </extension>
     <extension
           id="org.eclipse.glsp.ide.marker.problem"
           name="GLSP Diagram Problem"

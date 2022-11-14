@@ -93,6 +93,29 @@
             </visibleWhen>
          </command>
       </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+         <menu
+               id="org.eclipse.glsp.ide.diagram"
+               label="Diagram">
+            <command
+                  commandId="org.eclipse.glsp.diagram.export"
+                  icon="icons/export.gif"
+                  label="SVG Export"
+                  style="push">
+               <visibleWhen
+                     checkEnabled="false">
+                  <with
+                        variable="activeEditor">
+                     <instanceof
+                           value="org.eclipse.glsp.ide.editor.ui.GLSPDiagramEditor">
+                     </instanceof>
+                  </with>
+               </visibleWhen>
+            </command>
+         </menu>
+      </menuContribution>
    </extension>
 	<extension
           point="org.eclipse.ui.bindings">
@@ -140,5 +163,12 @@
              id="org.eclipse.glsp.ide.workflow.editor.external.debug"
              name="Debug (External Browser)">
        </command>
+       <command
+            categoryId="org.eclipse.glsp"
+            defaultHandler="org.eclipse.glsp.ide.editor.handlers.ExportDiagramHandler"
+            description="Export this diagram to SVG"
+            id="org.eclipse.glsp.diagram.export"
+            name="Export Diagram">
+      </command>
 	</extension>
 </plugin>
