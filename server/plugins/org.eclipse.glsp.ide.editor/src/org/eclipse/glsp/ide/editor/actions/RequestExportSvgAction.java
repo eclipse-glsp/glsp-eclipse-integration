@@ -13,16 +13,28 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-package org.eclipse.glsp.ide.editor.handlers;
+package org.eclipse.glsp.ide.editor.actions;
 
-import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.glsp.ide.editor.actions.RequestExportSvgAction;
+import org.eclipse.glsp.server.actions.Action;
 
-public class ExportDiagramHandler extends IdeActionHandler {
+/**
+ * Request the client to export an SVG from the current diagram.
+ */
+public class RequestExportSvgAction extends Action {
 
-   @Override
-   protected void execute(final IEclipseContext context) {
-      dispatchMessage(context, new RequestExportSvgAction());
+   public static final String KIND = "requestExportSvg";
+
+   private String requestId;
+
+   public RequestExportSvgAction() {
+      super(KIND);
    }
+
+   public RequestExportSvgAction(final String requestId) {
+      this();
+      this.requestId = requestId;
+   }
+
+   public String getRequestId() { return requestId; }
 
 }

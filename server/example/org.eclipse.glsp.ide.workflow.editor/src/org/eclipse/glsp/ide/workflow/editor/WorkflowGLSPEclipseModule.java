@@ -21,6 +21,7 @@ import org.eclipse.glsp.ide.editor.actions.InvokeCutAction;
 import org.eclipse.glsp.ide.editor.actions.InvokeDeleteAction;
 import org.eclipse.glsp.ide.editor.actions.InvokePasteAction;
 import org.eclipse.glsp.ide.editor.actions.NavigateAction;
+import org.eclipse.glsp.ide.editor.actions.RequestExportSvgAction;
 import org.eclipse.glsp.ide.editor.actions.handlers.IdeNavigateToExternalTargetActionHandler;
 import org.eclipse.glsp.ide.editor.actions.handlers.IdeServerMessageActionHandler;
 import org.eclipse.glsp.ide.editor.actions.handlers.IdeServerStatusActionHandler;
@@ -83,6 +84,7 @@ class WorkflowGLSPEclipseModule extends WorkflowDiagramModule {
       bindings.add(InvokeCutAction.class);
       bindings.add(InvokePasteAction.class);
       bindings.add(InvokeDeleteAction.class);
+      bindings.add(RequestExportSvgAction.class);
 
       bindings.add(NavigateAction.class);
 
