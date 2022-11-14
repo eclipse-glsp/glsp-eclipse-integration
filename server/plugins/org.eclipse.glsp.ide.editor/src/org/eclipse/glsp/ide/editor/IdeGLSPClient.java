@@ -16,7 +16,6 @@
 package org.eclipse.glsp.ide.editor;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
@@ -66,16 +65,17 @@ public class IdeGLSPClient implements GLSPClient {
     * Disconnects the registered {@link GLSPClient} proxy for the given client session id.
     *
     * @param clientSessionId The client session id of the proxy that should disconnected.
+    * @param glspClient The glsp client proxy that should be disconnected.
     * @return `true` if a proxy for the given id was connected and has been successfully disconnected. `false`
     *         otherwise.
     */
-   public boolean disconnect(final String clientSessionId) {
-      Collection<GLSPClient> result = clientProxies.removeAll(clientSessionId);
-      if (!result.isEmpty()) {
-         clientSessionManager.disposeClientSession(clientSessionId);
-         return true;
+   public boolean disconnect(final String clientSessionId, final GLSPClient glspClient) {
+      var result = clientProxies.remove(clientSessionId, glspClient);
+      if (clientProxies.containsKey(clientSessionId)) {
+         return false;
       }
-      return false;
+      clientSessionManager.disposeClientSession(clientSessionId);
+      return result;
    }
 
    /**
@@ -85,9 +85,11 @@ public class IdeGLSPClient implements GLSPClient {
     * @param glspClient The glsp client proxy that should be disconnected.
     */
    public void disconnect(final GLSPClient glspClient) {
-      List<String> toDisconnect = clientProxies.entries().stream()
-         .filter(entry -> entry.getValue() == glspClient).map(Entry::getKey).collect(Collectors.toList());
-      toDisconnect.forEach(this::disconnect);
+      clientProxies.entries().stream()
+         .filter(entry -> entry.getValue() == glspClient)
+         .map(Entry::getKey)
+         .collect(Collectors.toList())
+         .forEach(id -> disconnect(id, glspClient));
    }
 
    @Override
