@@ -8,11 +8,11 @@ spec:
     tty: true
     resources:
       limits:
-        memory: "4096Mi"
-        cpu: "2000m"
+        memory: "2Gi"
+        cpu: "1"
       requests:
-        memory: "4096Mi"
-        cpu: "2000m"
+        memory: "2Gi"
+        cpu: "1"
     command:
     - cat
     env:
@@ -116,8 +116,8 @@ pipeline {
                 }
             }
             steps {
-                build job: 'deploy-p2-ide-integration', wait: false
-                build job: 'deploy-npm-ide-integration', wait: false
+                build job: 'deploy-p2-ide-integration', wait: true
+                build job: 'deploy-npm-ide-integration', wait: true
             }
         }
     }
