@@ -29,7 +29,7 @@
       <unit id="org.eclipse.glsp.server.websocket" version="0.0.0"/>
       <unit id="org.eclipse.glsp.layout" version="0.0.0"/>
       <unit id="org.eclipse.glsp.example.workflow" version="0.0.0"/>
-      <repository location="https://download.eclipse.org/glsp/server/p2/nightly/1.1/1.1.0.202207140749/"/>
+      <repository location="https://download.eclipse.org/glsp/server/p2/staging/1.1.0.RC03/"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.jetty.bundles.f.feature.group" version="9.4.44.v20210927"/>

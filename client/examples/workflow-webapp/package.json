@@ -1,11 +1,11 @@
 {
   "private": true,
   "name": "@eclipse-glsp-examples/workflow-webapp",
-  "version": "1.1.0-next",
+  "version": "1.1.0-RC03",
   "description": "GLSP-based webapp for the Workflow example",
   "dependencies": {
-    "@eclipse-glsp-examples/workflow-glsp": "next",
-    "@eclipse-glsp/ide": "^1.1.0-next"
+    "@eclipse-glsp-examples/workflow-glsp": "1.1.0-RC03",
+    "@eclipse-glsp/ide": "1.1.0-RC03"
   },
   "devDependencies": {
     "circular-dependency-plugin": "^5.2.2",

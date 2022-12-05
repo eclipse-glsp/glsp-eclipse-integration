@@ -35,22 +35,22 @@
   resolved "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.5.7.tgz#1d572bfbbe14b7704e0ba0f39b74815b84870d70"
   integrity sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==
 
-"@eclipse-glsp-examples/workflow-glsp@next":
-  version "1.1.0-next.282a632.186"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp-examples/workflow-glsp/-/workflow-glsp-1.1.0-next.282a632.186.tgz#7faf1c4d07b74bb55223e39b311b0fdd51c9feab"
-  integrity sha512-Fx5WxC1L6OW9CkDkJgG7fsZAMf69Jy4m4NEAMpldLuLTFEpQR3nKtDLQCBzFDIWL07BhnTMnW+O8j7g1yUuTcQ==
+"@eclipse-glsp-examples/workflow-glsp@1.1.0-RC03":
+  version "1.1.0-RC03"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp-examples/workflow-glsp/-/workflow-glsp-1.1.0-RC03.tgz#ac5941562d8f6f86052749f048f0111cac504b0f"
+  integrity sha512-qozAD0J5zO1tjoLjrW0NJuXq92OO4TE47PmMBWlETmqa0HmoLioUq/EwI4KQUCDQBJjiv+LLzM1mOPRTjWoDgA==
   dependencies:
-    "@eclipse-glsp/client" "1.1.0-next.282a632.186+282a632"
+    "@eclipse-glsp/client" "1.1.0-RC03"
     balloon-css "^0.5.0"
 
-"@eclipse-glsp/client@1.1.0-next.282a632.186+282a632", "@eclipse-glsp/client@next":
-  version "1.1.0-next.282a632.186"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-1.1.0-next.282a632.186.tgz#31ff15851a91b829e091c278d5b8e0139e894051"
-  integrity sha512-vzvvuY/sqos2YeRqY/SreBhelp/LjsF4RibdoE0u2qz8TrQ0Ceq5TN+p8xzLQ29aEyySXkFwhzTSfmSuM16VbQ==
+"@eclipse-glsp/client@1.1.0-RC03":
+  version "1.1.0-RC03"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-1.1.0-RC03.tgz#566f229570742f659ed077852fdbd8f686aab61e"
+  integrity sha512-T0Az6EjzohNe2LTp5hZmVCOGwjo/D3pg5FehvjnRwA7iL+qeYY0Lt6rQQlv9B58gld9IcnyV01BgY1KMLQC73w==
   dependencies:
-    "@eclipse-glsp/protocol" "1.1.0-next.282a632.186+282a632"
+    "@eclipse-glsp/protocol" "1.1.0-RC03"
     autocompleter "5.1.0"
-    sprotty "0.12.0"
+    sprotty "0.13.0-next.1c4343c.328"
 
 "@eclipse-glsp/config@next":
   version "1.1.0-next.fe535db.107"
@@ -98,10 +98,10 @@
   resolved "https://registry.yarnpkg.com/@eclipse-glsp/prettier-config/-/prettier-config-1.1.0-next.fe535db.107.tgz#c16f87c9dbc72c2f137b981f26982db19f247596"
   integrity sha512-LCuhba/G2S2eaDOGp9kO8x8ZB34vsWgaAEKeOOxCxFmIC5nUXJin7t1uaEtHfrm9NU7tewoId9+c8VMpi/ustg==
 
-"@eclipse-glsp/protocol@1.1.0-next.282a632.186+282a632":
-  version "1.1.0-next.282a632.186"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/protocol/-/protocol-1.1.0-next.282a632.186.tgz#ea5c158e6e259c570c98ccbe492d7d408301cf8e"
-  integrity sha512-FDKlPkpcXGL7sxHNNR5aglQQ8k1dMjHKKDD1efrwIJmrgsIvBaDC5ZemQURSOeOG1USln0sfGhieHdIDHulDdg==
+"@eclipse-glsp/protocol@1.1.0-RC03":
+  version "1.1.0-RC03"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/protocol/-/protocol-1.1.0-RC03.tgz#710cebd16db6e8212650dbf854a5fd068725c7ba"
+  integrity sha512-ZE0DkkbODBJGV7SwwNOlr7q6FupfRLi1EiY77Hkjkvi0HBNFUP4PyRzveYr+iuEljsVkoMRON6ZygxQup/nXSg==
   dependencies:
     sprotty-protocol "0.12.0"
     uuid "7.0.3"
@@ -6846,22 +6846,27 @@ split@^1.0.0:
   dependencies:
     through "2"
 
-sprotty-protocol@0.12.0, sprotty-protocol@~0.12.0:
+sprotty-protocol@0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/sprotty-protocol/-/sprotty-protocol-0.12.0.tgz#542eb6396a645f85f8cfc2e7ef1d9b90c7b1980b"
   integrity sha512-vbov+XfbmSeMYb46vm6dJvK3q7YKUvg0q7JnM6H7Ca5qY8TaZCEZ5Vc8zHKFZGWchcwnQYKqLTzwDItsMikD0A==
 
-sprotty@0.12.0:
-  version "0.12.0"
-  resolved "https://registry.yarnpkg.com/sprotty/-/sprotty-0.12.0.tgz#693432346d9321bb19f368c6806641539962db99"
-  integrity sha512-0RjRn3iR9McDt+LZ+cyySfdBdWyzR4kPbg4xESumvoSPziHphs6TdM7CvJ9ywTMmG131nKUF6GgbzhQZ+L6cGg==
+sprotty-protocol@0.13.0-next.1c4343c.328+1c4343c:
+  version "0.13.0-next.1c4343c.328"
+  resolved "https://registry.yarnpkg.com/sprotty-protocol/-/sprotty-protocol-0.13.0-next.1c4343c.328.tgz#3354fbf5eb405b289f0784f70c508cc99d6ef131"
+  integrity sha512-sprFlSDmNBHlgAgAq2vM7hllfvb8GTVAM6u0Ws7tPAnicTAA/ulmiYbeYfvJZH5uuAasSW2B7ieWzg1+kgF/xg==
+
+sprotty@0.13.0-next.1c4343c.328:
+  version "0.13.0-next.1c4343c.328"
+  resolved "https://registry.yarnpkg.com/sprotty/-/sprotty-0.13.0-next.1c4343c.328.tgz#ab943696ebae2be75dedc33e751b2792ec6914c8"
+  integrity sha512-6+//jO+c3ix5Sj2JG6lkHlp81PSY1/7ZGIw5DLipLwmZ/VSgFyU4JbOlXdk2FCMqUCgA77QZnU8mMmMwrDDm9A==
   dependencies:
     "@vscode/codicons" "^0.0.25"
     autocompleter "^5.1.0"
     file-saver "^2.0.2"
     inversify "^5.1.1"
     snabbdom "^3.0.3"
-    sprotty-protocol "~0.12.0"
+    sprotty-protocol "0.13.0-next.1c4343c.328+1c4343c"
     tinyqueue "^2.0.3"
 
 sshpk@^1.7.0:
