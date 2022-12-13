@@ -1,8 +1,4 @@
-# Eclipse GLSP Eclipse IDE Integration
-
-[![build-status](https://img.shields.io/jenkins/build?jobUrl=https%3A%2F%2Fci.eclipse.org%2Fglsp%2Fjob%2Feclipse-glsp%2Fjob%2Fglsp-eclipse-integration%2Fjob%2Fmaster%2F)](https://ci.eclipse.org/glsp/job/eclipse-glsp/job/glsp-eclipse-integration/)
-[![publish-status-npm](https://img.shields.io/jenkins/build?jobUrl=https://ci.eclipse.org/glsp/job/deploy-npm-ide-integration/&label=npm)](https://ci.eclipse.org/glsp/job/deploy-npm-ide-integration/)
-[![publish-status-p2](https://img.shields.io/jenkins/build?jobUrl=https://ci.eclipse.org/glsp/job/deploy-p2-ide-integration/&label=p2)](https://ci.eclipse.org/glsp/job/deploy-p2-ide-integration/)
+# Eclipse GLSP Eclipse IDE Integration [![build-status](https://img.shields.io/jenkins/build?jobUrl=https%3A%2F%2Fci.eclipse.org%2Fglsp%2Fjob%2Feclipse-glsp%2Fjob%2Fglsp-eclipse-integration%2Fjob%2Fmaster%2F)](https://ci.eclipse.org/glsp/job/eclipse-glsp/job/glsp-eclipse-integration/) [![publish-status-p2](https://img.shields.io/jenkins/build?jobUrl=https://ci.eclipse.org/glsp/job/deploy-p2-ide-integration/&label=p2)](https://ci.eclipse.org/glsp/job/deploy-p2-ide-integration/)
 
 Contains the glue code for opening browser-based GLSP diagrams in an Eclipse IDE Editor
 
