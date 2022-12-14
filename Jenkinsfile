@@ -4,7 +4,7 @@ kind: Pod
 spec:
   containers:
   - name: ci
-    image: eclipseglsp/ci:alpine
+    image: eclipseglsp/ci:alpine-v3.2
     tty: true
     resources:
       limits:
@@ -15,6 +15,7 @@ spec:
         cpu: "1"
     command:
     - cat
+    tty: true
     env:
     - name: "MAVEN_OPTS"
       value: "-Duser.home=/home/jenkins"
@@ -31,6 +32,8 @@ spec:
       readOnly: true
     - name: m2-repo
       mountPath: /home/jenkins/.m2/repository
+    - name: volume-known-hosts
+      mountPath: /home/jenkins/.ssh
   volumes:
   - name: "jenkins-home"
     emptyDir: {}
@@ -44,6 +47,9 @@ spec:
         path: settings.xml
   - name: m2-repo
     emptyDir: {}
+  - name: volume-known-hosts
+    configMap:
+      name: known-hosts
 """
 pipeline {
     agent {
@@ -59,6 +65,7 @@ pipeline {
     environment {
         YARN_CACHE_FOLDER = "${env.WORKSPACE}/yarn-cache"
         SPAWN_WRAP_SHIM_ROOT = "${env.WORKSPACE}"
+        EMAIL_TO= "glsp-build@eclipse.org"
     }
     
     stages {
@@ -67,8 +74,14 @@ pipeline {
                 container('ci') {
                     timeout(30){
                         dir('client') {
-                            sh 'yarn install --ignore-scripts'
-                            sh 'yarn  build'
+                            sh "yarn install"
+                            script {
+                                // Fail the step if there are uncommited changes to the yarn.lock file
+                                if (sh(returnStatus: true, script: 'git diff --name-only | grep -q "^yarn.lock"') == 0) {
+                                    echo 'The yarn.lock file has uncommited changes!'
+                                    error 'The yarn.lock file has uncommited changes!'
+                                } 
+                            }
                         }
                     }
                 }
@@ -97,47 +110,119 @@ pipeline {
                         }
                         // Execute eslint checks 
                         dir('client') {
-                            sh 'yarn lint -o eslint.xml -f checkstyle'
+                            sh 'yarn lint:ci'
                         }
                     }
+                }
+            }
+
+            post{
+                success{
+                    // Record & publish checkstyle issues
+                    recordIssues  enabledForFailure: true, publishAllIssues: true, aggregatingResults: true, 
+                    tool: checkStyle(reportEncoding: 'UTF-8'),
+                    qualityGates: [[threshold: 1, type: 'TOTAL', unstable: true]]
+
+                    // Record maven,java warnings
+                    recordIssues enabledForFailure: true, skipPublishingChecks:true, tools: [mavenConsole(), java()]    
+                
+                    // Record & publish esLint issues
+                    recordIssues enabledForFailure: true, publishAllIssues: true, aggregatingResults: true, 
+                    tools: [esLint(pattern: 'client/node_modules/**/*/eslint.xml')], 
+                    qualityGates: [[threshold: 1, type: 'TOTAL', unstable: true]] 
                 }
             }
         }
 
         stage('Deploy (master only)') {
-             when { 
+            when { 
                 allOf {
                     branch 'master';
                     expression {  
                       /* Only trigger the deployment job if the changeset contains changes in 
                       the `server` or `client/packages/` directory */
-                      sh(returnStatus: true, script: 'git diff --name-only HEAD^ | grep --quiet "^server\\|client/packages/"') == 0
+                      sh(returnStatus: true, script: 'git diff --name-only HEAD^ | grep -q "^server\\|client/packages/"') == 0
                     }
                 }
             }
-            steps {
-                build job: 'deploy-p2-ide-integration', wait: true
-                build job: 'deploy-npm-ide-integration', wait: true
+            stages {
+                stage('Deploy client (NPM)') {
+                    steps { 
+                        container('ci') {
+                            timeout(30) {
+                                dir('client') {
+                                    withCredentials([string(credentialsId: 'npmjs-token', variable: 'NPM_AUTH_TOKEN')]) {
+                                                sh 'printf "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}\n" >> $WORKSPACE/client/.npmrc'
+                                    }
+                                    sh 'git config  user.email "eclipse-glsp-bot@eclipse.org"'
+                                    sh 'git config  user.name "eclipse-glsp-bot"'
+                                    sh 'yarn publish:next'  
+                                }
+                            }
+                        }
+                    }
+                }
+                stage('Deploy server (P2)') {
+                    steps {
+                        container('ci') {
+                            timeout(30) {
+                                dir('server') {
+                                    sh "rm -rf ${WORKSPACE}/p2-update-site/ide/p2"
+                                    sh "mkdir -p ${WORKSPACE}/p2-update-site/ide/p2/nightly"
+                                    sshagent ( ['projects-storage.eclipse.org-bot-ssh']) {
+                                        sh "mvn clean install -Prelease -B -Dlocal.p2.root=${WORKSPACE}/p2-update-site"
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    post {
+                        success{
+                            script {
+                                if (env.BRANCH_NAME == 'master') {
+                                    archiveArtifacts artifacts: 'p2-update-site/**', followSymlinks: false 
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }
 
     post{
-        always{
-            container('ci') {
-               
-                // Record & publish checkstyle issues
-                recordIssues  enabledForFailure: true, publishAllIssues: true, aggregatingResults: true, 
-                tool: checkStyle(reportEncoding: 'UTF-8'),
-                qualityGates: [[threshold: 1, type: 'TOTAL', unstable: true]]
-
-                // Record maven,java warnings
-                recordIssues enabledForFailure: true, skipPublishingChecks:true, tools: [mavenConsole(), java()]    
-               
-                // Record & publish esLint issues
-                recordIssues enabledForFailure: true, publishAllIssues: true, aggregatingResults: true, 
-                tools: [esLint(pattern: 'client/node_modules/**/*/eslint.xml')], 
-                qualityGates: [[threshold: 1, type: 'TOTAL', unstable: true]]
+        failure {
+            script {
+                if (env.BRANCH_NAME == 'master') {
+                    echo "Build result FAILURE: Send email notification to ${EMAIL_TO}"
+                    emailext attachLog: true,
+                    from: 'glsp-bot@eclipse.org',
+                    body: 'Job: ${JOB_NAME}<br>Build Number: ${BUILD_NUMBER}<br>Build URL: ${BUILD_URL}',
+                    mimeType: 'text/html', subject: 'Build ${JOB_NAME} (#${BUILD_NUMBER}) FAILURE', to: "${EMAIL_TO}"
+                }
+            }
+        }
+        unstable {
+            script {
+                if (env.BRANCH_NAME == 'master') {
+                    echo "Build result UNSTABLE: Send email notification to ${EMAIL_TO}"
+                    emailext attachLog: true,
+                    from: 'glsp-bot@eclipse.org',
+                    body: 'Job: ${JOB_NAME}<br>Build Number: ${BUILD_NUMBER}<br>Build URL: ${BUILD_URL}',
+                    mimeType: 'text/html', subject: 'Build ${JOB_NAME} (#${BUILD_NUMBER}) UNSTABLE', to: "${EMAIL_TO}"
+                }
+            }
+        }
+        fixed {
+            script {
+                if (env.BRANCH_NAME == 'master') {
+                    echo "Build back to normal: Send email notification to ${EMAIL_TO}"
+                    emailext attachLog: false,
+                    from: 'glsp-bot@eclipse.org',
+                    body: 'Job: ${JOB_NAME}<br>Build Number: ${BUILD_NUMBER}<br>Build URL: ${BUILD_URL}',
+                    mimeType: 'text/html', subject: 'Build ${JOB_NAME} back to normal (#${BUILD_NUMBER})', to: "${EMAIL_TO}"
+                }
             }
         }
     }

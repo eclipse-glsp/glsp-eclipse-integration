@@ -3,28 +3,31 @@
   "name": "parent",
   "version": "1.1.0-next",
   "engines": {
-    "yarn": ">=1.7.0 <2.x.x"
+    "yarn": ">=1.7.0 <2.x.x",
+    "node": ">=14.18.0"
   },
   "devDependencies": {
-    "@eclipse-glsp/config": "next",
-    "@types/node": "12.x",
+    "@eclipse-glsp/config": "1.1.0-next.d03ad9f.112",
+    "@types/node": "14",
     "copyfiles": "^2.4.1",
     "lerna": "^4.0.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "typescript": "^4.4.5"
+    "typescript": "^4.9.3"
   },
   "scripts": {
-    "prepare": "lerna run prepare && yarn copyClient",
-    "install:only": "yarn install --ignore-scripts",
-    "watch": "lerna run --parallel watch",
-    "build": "lerna run build",
-    "lint": "lerna run lint --",
-    "copyClient": "copyfiles -f ./examples/workflow-webapp/app/* ../server/example/org.eclipse.glsp.ide.workflow.editor/diagram",
+    "all": "yarn install && yarn lint",
+    "build": "lerna run build && yarn copy:client",
+    "clean": "lerna run clean",
+    "copy:client": "copyfiles -f ./examples/workflow-webapp/app/* ../server/example/org.eclipse.glsp.ide.workflow.editor/diagram",
+    "lint": "lerna run lint",
+    "lint:ci": "lerna run lint:ci",
+    "prepare": "lerna run prepare && yarn copy:client",
     "publish:prepare": "lerna version --ignore-scripts --yes --no-push",
     "publish:latest": "lerna publish from-git --no-git-reset --no-git-tag-version --no-verify-access --no-push",
     "publish:next": "SHA=$(git rev-parse --short HEAD) && lerna publish preminor --exact --canary --preid next.${SHA} --dist-tag next --no-git-reset --no-git-tag-version --no-push --ignore-scripts --yes --no-verify-access",
-    "upgrade:next": "yarn upgrade -p \"@eclipse-glsp.*|sprotty\" --next "
+    "upgrade:next": "yarn upgrade -p \"@eclipse-glsp.*|sprotty.*\" --next ",
+    "watch": "lerna run --parallel watch"
   },
   "workspaces": [
     "packages/*",
