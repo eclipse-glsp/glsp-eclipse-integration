@@ -14,6 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import {
+    BaseJsonrpcGLSPClient,
     CenterAction,
     configureServerActions,
     EnableToolPaletteAction,
@@ -24,7 +25,8 @@ import {
     TYPES
 } from '@eclipse-glsp/client';
 import { getParameters } from '@eclipse-glsp/ide';
-import { ApplicationIdProvider, BaseJsonrpcGLSPClient, GLSPClient, JsonrpcGLSPClient } from '@eclipse-glsp/protocol';
+import { ApplicationIdProvider, GLSPClient } from '@eclipse-glsp/protocol';
+import { listen, MessageConnection } from 'vscode-ws-jsonrpc';
 import createContainer from './di.config';
 
 const urlParameters = getParameters();
@@ -46,13 +48,10 @@ const container = createContainer(widgetId);
 const diagramServer = container.get<GLSPDiagramServer>(TYPES.ModelSource);
 diagramServer.clientId = clientId;
 
-websocket.onopen = () => {
-    const connectionProvider = JsonrpcGLSPClient.createWebsocketConnectionProvider(websocket);
-    const glspClient = new BaseJsonrpcGLSPClient({ id, connectionProvider });
-    initialize(glspClient);
-};
+listen({ webSocket: websocket, onConnection: connection => initialize(connection) });
 
-async function initialize(client: GLSPClient): Promise<void> {
+async function initialize(connectionProvider: MessageConnection): Promise<void> {
+    const client = new BaseJsonrpcGLSPClient({ id, connectionProvider });
     await diagramServer.connect(client);
     const result = await client.initializeServer({
         applicationId,
