@@ -20,7 +20,7 @@ location "https://download.eclipse.org/tools/orbit/downloads/drops/R202203021722
 	org.apache.logging.log4j
 }
 
-location "https://download.eclipse.org/glsp/server/p2/nightly/1.1/1.1.0.202207140749/" {
+location "https://download.eclipse.org/glsp/server/p2/staging/1.1.0.RC04/" {
 	org.eclipse.glsp.feature.feature.group lazy
 	org.eclipse.glsp.feature.source.feature.group lazy
 	org.eclipse.glsp.server.websocket lazy
