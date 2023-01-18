@@ -70,12 +70,7 @@ public class IdeGLSPClient implements GLSPClient {
     *         otherwise.
     */
    public boolean disconnect(final String clientSessionId, final GLSPClient glspClient) {
-      var result = clientProxies.remove(clientSessionId, glspClient);
-      if (clientProxies.containsKey(clientSessionId)) {
-         return false;
-      }
-      clientSessionManager.disposeClientSession(clientSessionId);
-      return result;
+      return clientProxies.remove(clientSessionId, glspClient);
    }
 
    /**
