@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020-2021 EclipseSource and others.
+ * Copyright (c) 2020-2023 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -16,9 +16,6 @@
 package org.eclipse.glsp.ide.editor;
 
 import java.util.Collection;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 import javax.websocket.CloseReason;
@@ -27,8 +24,6 @@ import javax.websocket.Session;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.glsp.ide.editor.ui.GLSPIdeEditorPlugin;
-import org.eclipse.glsp.server.actions.Action;
-import org.eclipse.glsp.server.actions.ActionMessage;
 import org.eclipse.glsp.server.protocol.GLSPClient;
 import org.eclipse.glsp.server.websocket.GLSPServerEndpoint;
 import org.eclipse.lsp4j.jsonrpc.MessageConsumer;
@@ -38,7 +33,6 @@ import com.google.inject.Inject;
 
 public class DiagramWebsocketEndpoint extends GLSPServerEndpoint {
 
-   protected Timer timer;
    protected GLSPClient glspClient;
 
    @Inject
@@ -58,9 +52,6 @@ public class DiagramWebsocketEndpoint extends GLSPServerEndpoint {
 
    @Override
    public void onClose(final Session session, final CloseReason closeReason) {
-      if (timer != null) {
-         timer.cancel();
-      }
       ideGLSPClient.disconnect(glspClient);
    }
 
@@ -68,19 +59,7 @@ public class DiagramWebsocketEndpoint extends GLSPServerEndpoint {
    protected void connect(final Collection<Object> localServices, final GLSPClient remoteProxy) {
       this.glspClient = remoteProxy;
       glspServer.connect(ideGLSPClient);
-      timer = new Timer();
-      timer.scheduleAtFixedRate(new TimerTask() {
-         @Override
-         public void run() {
-            remoteProxy.process(new ActionMessage("", new KeepAliveAction()));
-         }
-      }, 0, TimeUnit.MINUTES.toMillis(2));
-   }
 
-   public static final class KeepAliveAction extends Action {
-      private KeepAliveAction() {
-         super("keepAlive");
-      }
    }
 
 }

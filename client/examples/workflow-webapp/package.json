@@ -1,26 +1,10 @@
 {
-  "private": true,
   "name": "@eclipse-glsp-examples/workflow-webapp",
   "version": "1.1.0-next",
+  "private": true,
   "description": "GLSP-based webapp for the Workflow example",
-  "dependencies": {
-    "@eclipse-glsp-examples/workflow-glsp": "next",
-    "@eclipse-glsp/ide": "^1.1.0-next"
-  },
-  "devDependencies": {
-    "circular-dependency-plugin": "^5.2.2",
-    "css-loader": "^4.3.0",
-    "file-loader": "^6.2.0",
-    "reflect-metadata": "^0.1.13",
-    "rimraf": "^3.0.2",
-    "source-map-loader": "^1.0.2",
-    "style-loader": "^2.0.0",
-    "ts-loader": "^9.2.6",
-    "webpack": "^4.46.0",
-    "webpack-cli": "^4.9.1"
-  },
   "scripts": {
-    "build": "tsc -b",
+    "build": "tsc -b && webpack",
     "clean": "rimraf lib tsconfig.tsbuildinfo app/bundle.js app/bundle.js.map",
     "lint": "eslint --ext .ts,.tsx ./src",
     "lint:ci": "yarn lint -o eslint.xml -f checkstyle",
@@ -28,5 +12,21 @@
     "test": "mocha --config ../../.mocharc.json \"./src/**/*.spec.?(ts|tsx)\"",
     "test:ci": "export JUNIT_REPORT_PATH=./report.xml && yarn test --reporter mocha-jenkins-reporter",
     "watch": "tsc -w"
+  },
+  "dependencies": {
+    "@eclipse-glsp-examples/workflow-glsp": "next",
+    "@eclipse-glsp/ide": "^1.1.0-next"
+  },
+  "devDependencies": {
+    "@vscode/codicons": "^0.0.25",
+    "css-loader": "^6.7.3",
+    "file-loader": "^6.2.0",
+    "reflect-metadata": "^0.1.13",
+    "rimraf": "^3.0.2",
+    "source-map-loader": "^4.0.1",
+    "style-loader": "^3.3.1",
+    "ts-loader": "^9.4.2",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
   }
 }

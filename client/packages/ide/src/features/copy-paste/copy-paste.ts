@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020-2021 EclipseSource and others.
+ * Copyright (c) 2020-2023 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -36,7 +36,7 @@ import { inject, injectable } from 'inversify';
 export class EclipseCopyPasteActionHandler implements IActionHandler {
     @inject(TYPES.IActionDispatcher) protected actionDispatcher: IActionDispatcher;
     @inject(TYPES.ViewerOptions) protected viewerOptions: ViewerOptions;
-    @inject(TYPES.IAsyncClipboardService) protected clipboadService: IAsyncClipboardService;
+    @inject(TYPES.IAsyncClipboardService) protected clipboardService: IAsyncClipboardService;
     @inject(EditorContextService) protected editorContext: EditorContextService;
 
     handle(action: Action): void {
@@ -57,7 +57,7 @@ export class EclipseCopyPasteActionHandler implements IActionHandler {
         if (this.shouldCopy()) {
             this.actionDispatcher.request(RequestClipboardDataAction.create(this.editorContext.get()));
         } else {
-            this.clipboadService.clear();
+            this.clipboardService.clear();
         }
     }
 
@@ -75,12 +75,10 @@ export class EclipseCopyPasteActionHandler implements IActionHandler {
         this.actionDispatcher.dispatch(PasteOperation.create({ clipboardData: clipboardData, editorContext: this.editorContext.get() }));
     }
 
-    protected shouldCopy(): boolean | null {
-        return (
-            this.editorContext.get().selectedElementIds.length > 0 &&
-            document.activeElement instanceof SVGElement &&
-            document.activeElement.parentElement &&
-            document.activeElement.parentElement.id === this.viewerOptions.baseDiv
-        );
+    protected shouldCopy(): boolean {
+        return this.editorContext.get().selectedElementIds.length > 0 && this.isDiagramActive();
+    }
+    protected isDiagramActive(): boolean {
+        return document.activeElement?.parentElement?.id === this.viewerOptions.baseDiv;
     }
 }

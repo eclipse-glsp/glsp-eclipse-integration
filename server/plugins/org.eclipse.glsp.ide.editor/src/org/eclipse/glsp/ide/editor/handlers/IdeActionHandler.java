@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020-2021 EclipseSource and others.
+ * Copyright (c) 2020-2023 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -19,7 +19,8 @@ import static org.eclipse.glsp.server.utils.ServerMessageUtil.error;
 
 import java.util.Optional;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
@@ -40,7 +41,7 @@ import org.eclipse.ui.handlers.HandlerUtil;
  */
 public abstract class IdeActionHandler extends AbstractHandler {
 
-   private final Logger log = Logger.getLogger(getClass());
+   private final Logger log = LogManager.getLogger(getClass());
 
    @Override
    public Object execute(final ExecutionEvent event) throws ExecutionException {

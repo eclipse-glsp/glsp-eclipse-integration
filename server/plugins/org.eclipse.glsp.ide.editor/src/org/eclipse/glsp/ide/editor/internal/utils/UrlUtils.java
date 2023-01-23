@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2021 EclipseSource and others.
+ * Copyright (c) 2021-2023 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -20,10 +20,11 @@ import java.net.URLEncoder;
 import java.util.Collections;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public final class UrlUtils {
-   private static Logger LOG = Logger.getLogger(UrlUtils.class);
+   private static Logger LOG = LogManager.getLogger(UrlUtils.class);
 
    private UrlUtils() {}
 

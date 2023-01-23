@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020-2022 EclipseSource and others.
+ * Copyright (c) 2020-2023 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -26,7 +26,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -87,7 +88,7 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker {
     */
    public static final String GLSP_CLIENT_ID = "GLSP_CLIENT_ID";
    public static final String APPLICATION_ID = UUID.randomUUID().toString();
-   protected static final Logger LOGGER = Logger.getLogger(GLSPDiagramEditor.class);
+   protected static final Logger LOGGER = LogManager.getLogger(GLSPDiagramEditor.class);
    protected static final String GLSP_CONTEXT_MENU_ID = "context-menu";
    protected static final AtomicInteger COUNT = new AtomicInteger(0);
 
@@ -238,6 +239,7 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker {
    }
 
    protected CompletableFuture<Void> dispatch(final Action action) {
+      LOGGER.debug("Dispatch action for client id '" + clientId + "':" + action);
       return getActionDispatcher().thenCompose(actionDispatcher -> actionDispatcher.dispatch(action));
    }
 
@@ -279,11 +281,9 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker {
          .orElse("");
    }
 
-   protected String getFileName() { 
-      return Optional.ofNullable(getFile())
-         .map(IFile::getName)
-         .orElse(""); 
-   }
+   protected String getFileName() { return Optional.ofNullable(getFile())
+      .map(IFile::getName)
+      .orElse(""); }
 
    protected IFile getFile() {
       IEditorInput editorInput = getEditorInput();
@@ -343,7 +343,7 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker {
    }
 
    protected Browser createBrowser(final Composite parent) {
-      Browser browser = new FocusAwareBrowser(parent, SWT.NO_SCROLL | SWT.CHROMIUM);
+      Browser browser = new FocusAwareBrowser(parent, SWT.NO_SCROLL);
       browser.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, true));
       toDispose.add(browser::dispose);
       return browser;

@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2021 EclipseSource and others.
+ * Copyright (c) 2021-2023 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -21,13 +21,14 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Optional;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.glsp.ide.editor.ui.GLSPDiagramEditor;
 import org.eclipse.glsp.ide.editor.ui.GLSPIdeEditorPlugin;
 
 public class ExternalBrowserDebugHandler extends IdeActionHandler {
-   private static Logger LOG = Logger.getLogger(ExternalBrowserDebugHandler.class);
+   private static Logger LOG = LogManager.getLogger(ExternalBrowserDebugHandler.class);
 
    @Override
    protected void execute(final IEclipseContext context) {

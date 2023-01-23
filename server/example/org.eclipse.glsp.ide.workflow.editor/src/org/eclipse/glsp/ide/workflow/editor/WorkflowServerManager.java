@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020-2021 EclipseSource and others.
+ * Copyright (c) 2020-2023 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -15,19 +15,13 @@
  ********************************************************************************/
 package org.eclipse.glsp.ide.workflow.editor;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
-
-import javax.servlet.ServletException;
-import javax.websocket.DeploymentException;
 
 import org.eclipse.elk.alg.layered.options.LayeredMetaDataProvider;
 import org.eclipse.glsp.ide.editor.GLSPServerManager;
 import org.eclipse.glsp.ide.editor.di.IdeServerModule;
 import org.eclipse.glsp.layout.ElkLayoutEngine;
 import org.eclipse.glsp.server.di.ServerModule;
-import org.eclipse.jetty.server.Server;
 
 public class WorkflowServerManager extends GLSPServerManager {
 
@@ -42,10 +36,8 @@ public class WorkflowServerManager extends GLSPServerManager {
    public URL getResourceURL() { return Activator.getDefault().getBundle().getResource("diagram"); }
 
    @Override
-   protected void configure(final Server server)
-      throws URISyntaxException, IOException, ServletException, DeploymentException {
+   protected void preConfigure() {
       ElkLayoutEngine.initialize(new LayeredMetaDataProvider());
-      super.configure(server);
    }
 
    @Override
