@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020 EclipseSource and others.
+ * Copyright (c) 2020-2023 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -18,7 +18,8 @@ package org.eclipse.glsp.ide.editor.ui;
 import java.util.Collection;
 import java.util.Optional;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.NotEnabledException;
 import org.eclipse.core.commands.NotHandledException;
@@ -42,7 +43,7 @@ import com.google.gson.Gson;
  * https://github.com/maketechnology/chromium.swt/issues/70.
  */
 public class ChromiumKeyBindingFunction {
-   private static final Logger LOGGER = Logger.getLogger(ChromiumKeyBindingFunction.class);
+   private static final Logger LOGGER = LogManager.getLogger(ChromiumKeyBindingFunction.class);
 
    private static final String FUNCTION_NAME = "$notifyKeybinding";
 

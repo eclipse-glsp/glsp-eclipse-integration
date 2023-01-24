@@ -27,15 +27,15 @@
           "type": "label:heading",
           "position": {
             "x": 31.0,
-            "y": 7.0
+            "y": 6.84375
           },
           "size": {
-            "width": 31.921875,
-            "height": 16.0
+            "width": 32.78125,
+            "height": 16.3125
           },
           "text": "Push",
           "alignment": {
-            "x": 15.9609375,
+            "x": 16.390625,
             "y": 13.0
           }
         }
@@ -46,15 +46,15 @@
         "y": 140.0
       },
       "size": {
-        "width": 72.921875,
+        "width": 73.78125,
         "height": 30.0
       },
-      "layout": "hbox",
       "layoutOptions": {
         "paddingRight": 10.0,
         "prefWidth": 72.921875,
         "prefHeight": 30.0
       },
+      "layout": "hbox",
       "args": {
         "radiusBottomLeft": 5.0,
         "radiusTopLeft": 5.0,
@@ -88,15 +88,15 @@
           "type": "label:heading",
           "position": {
             "x": 31.0,
-            "y": 7.0
+            "y": 6.84375
           },
           "size": {
-            "width": 42.1103515625,
-            "height": 16.0
+            "width": 46.0,
+            "height": 16.3125
           },
           "text": "ChkWt",
           "alignment": {
-            "x": 21.0,
+            "x": 23.0,
             "y": 13.0
           }
         }
@@ -107,15 +107,15 @@
         "y": 90.0
       },
       "size": {
-        "width": 83.1103515625,
+        "width": 87.0,
         "height": 30.0
       },
-      "layout": "hbox",
       "layoutOptions": {
         "prefWidth": 75.6103515625,
         "paddingRight": 10.0,
         "prefHeight": 30.0
       },
+      "layout": "hbox",
       "args": {
         "radiusBottomLeft": 5.0,
         "radiusTopLeft": 5.0,
@@ -211,7 +211,17 @@
       "id": "d34c37e0-e45e-4cfe-a76f-0e9274ed8e60",
       "type": "edge",
       "sourceId": "task0",
-      "targetId": "bb2709f5-0ff0-4438-8853-b7e934b506d7"
+      "targetId": "bb2709f5-0ff0-4438-8853-b7e934b506d7",
+      "args": {
+        "edgeSourcePoint": {
+          "x": 143.78125,
+          "y": 155.0
+        },
+        "edgeTargetPoint": {
+          "x": 169.5,
+          "y": 155.0
+        }
+      }
     },
     {
       "nodeType": "joinNode",
@@ -233,13 +243,33 @@
       "id": "7296b4a8-55c6-4c61-bddb-deacae77efa6",
       "type": "edge",
       "sourceId": "activityNode1",
-      "targetId": "bd94e44e-19f9-446e-89d4-97ca1a63c17b"
+      "targetId": "bd94e44e-19f9-446e-89d4-97ca1a63c17b",
+      "args": {
+        "edgeSourcePoint": {
+          "x": 524.3535533905932,
+          "y": 114.35355339059328
+        },
+        "edgeTargetPoint": {
+          "x": 560.4797799427402,
+          "y": 150.47977994274007
+        }
+      }
     },
     {
       "id": "0471cae4-c754-4e89-8337-96ed1546dd02",
       "type": "edge",
       "sourceId": "activityNode4",
-      "targetId": "bd94e44e-19f9-446e-89d4-97ca1a63c17b"
+      "targetId": "bd94e44e-19f9-446e-89d4-97ca1a63c17b",
+      "args": {
+        "edgeSourcePoint": {
+          "x": 524.1864130470989,
+          "y": 197.4794476448563
+        },
+        "edgeTargetPoint": {
+          "x": 560.5150734393876,
+          "y": 159.66798478757613
+        }
+      }
     },
     {
       "name": "AutomatedTask8",
@@ -267,15 +297,15 @@
           "type": "label:heading",
           "position": {
             "x": 31.0,
-            "y": 7.0
+            "y": 6.84375
           },
           "size": {
-            "width": 37.9931640625,
-            "height": 16.0
+            "width": 39.0,
+            "height": 16.3125
           },
           "text": "WtOK",
           "alignment": {
-            "x": 18.671875,
+            "x": 19.5,
             "y": 13.0
           }
         }
@@ -286,15 +316,15 @@
         "y": 120.0
       },
       "size": {
-        "width": 78.9931640625,
+        "width": 80.0,
         "height": 30.0
       },
-      "layout": "hbox",
       "layoutOptions": {
         "prefWidth": 71.4931640625,
         "paddingRight": 10.0,
         "prefHeight": 30.0
       },
+      "layout": "hbox",
       "args": {
         "radiusBottomLeft": 5.0,
         "radiusTopLeft": 5.0,
@@ -309,7 +339,17 @@
       ],
       "type": "edge:weighted",
       "sourceId": "b00fc494-0fa4-4448-8bf9-162c2c0865e4",
-      "targetId": "e47d5eba-612d-4c43-9aba-2c5502ff4f04"
+      "targetId": "e47d5eba-612d-4c43-9aba-2c5502ff4f04",
+      "args": {
+        "edgeSourcePoint": {
+          "x": 358.366431975885,
+          "y": 110.26936342024601
+        },
+        "edgeTargetPoint": {
+          "x": 390.0,
+          "y": 121.19047619047619
+        }
+      }
     },
     {
       "id": "0a57ab51-c0b6-4a51-b42e-0192bf3767dc",
@@ -317,7 +357,15 @@
       "sourceId": "bb2709f5-0ff0-4438-8853-b7e934b506d7",
       "targetId": "task0_automated",
       "args": {
-        "edgePadding": 10.0
+        "edgeSourcePoint": {
+          "x": 179.9277130054737,
+          "y": 152.21598135283972
+        },
+        "edgePadding": 10.0,
+        "edgeTargetPoint": {
+          "x": 236.95,
+          "y": 120.0
+        }
       }
     },
     {
@@ -326,7 +374,15 @@
       "sourceId": "task0_automated",
       "targetId": "b00fc494-0fa4-4448-8bf9-162c2c0865e4",
       "args": {
-        "edgePadding": 10.0
+        "edgeSourcePoint": {
+          "x": 307.0,
+          "y": 105.52727272727273
+        },
+        "edgePadding": 10.0,
+        "edgeTargetPoint": {
+          "x": 329.6916534933659,
+          "y": 105.80232307264686
+        }
       }
     },
     {
@@ -355,15 +411,15 @@
           "type": "label:heading",
           "position": {
             "x": 31.0,
-            "y": 7.0
+            "y": 6.84375
           },
           "size": {
-            "width": 34.32421875,
-            "height": 16.0
+            "width": 38.0,
+            "height": 16.3125
           },
           "text": "RflWt",
           "alignment": {
-            "x": 17.109375,
+            "x": 19.0,
             "y": 13.0
           }
         }
@@ -374,15 +430,15 @@
         "y": 70.0
       },
       "size": {
-        "width": 75.32421875,
+        "width": 79.0,
         "height": 30.0
       },
-      "layout": "hbox",
       "layoutOptions": {
         "prefWidth": 67.82421875,
         "paddingRight": 10.0,
         "prefHeight": 30.0
       },
+      "layout": "hbox",
       "args": {
         "radiusBottomLeft": 5.0,
         "radiusTopLeft": 5.0,
@@ -397,7 +453,17 @@
       ],
       "type": "edge:weighted",
       "sourceId": "b00fc494-0fa4-4448-8bf9-162c2c0865e4",
-      "targetId": "a63cfd87-da7c-4846-912b-29040b776bfb"
+      "targetId": "a63cfd87-da7c-4846-912b-29040b776bfb",
+      "args": {
+        "edgeSourcePoint": {
+          "x": 359.26958896459615,
+          "y": 102.66273810471235
+        },
+        "edgeTargetPoint": {
+          "x": 390.0,
+          "y": 94.93413173652695
+        }
+      }
     },
     {
       "id": "a36985a7-3e61-499c-9bdb-5be2b00cb75c",
@@ -405,7 +471,15 @@
       "sourceId": "a63cfd87-da7c-4846-912b-29040b776bfb",
       "targetId": "activityNode1",
       "args": {
-        "edgePadding": 10.0
+        "edgeSourcePoint": {
+          "x": 469.0,
+          "y": 94.58959537572254
+        },
+        "edgePadding": 10.0,
+        "edgeTargetPoint": {
+          "x": 502.63969534346097,
+          "y": 102.75645782904833
+        }
       }
     },
     {
@@ -414,7 +488,15 @@
       "sourceId": "e47d5eba-612d-4c43-9aba-2c5502ff4f04",
       "targetId": "activityNode1",
       "args": {
-        "edgePadding": 10.0
+        "edgeSourcePoint": {
+          "x": 470.0,
+          "y": 121.51162790697674
+        },
+        "edgePadding": 10.0,
+        "edgeTargetPoint": {
+          "x": 503.5609947551229,
+          "y": 110.19454828024924
+        }
       }
     },
     {
@@ -443,15 +525,15 @@
           "type": "label:heading",
           "position": {
             "x": 31.0,
-            "y": 7.0
+            "y": 6.84375
           },
           "size": {
-            "width": 31.90625,
-            "height": 16.0
+            "width": 35.71875,
+            "height": 16.3125
           },
           "text": "Brew",
           "alignment": {
-            "x": 15.953125,
+            "x": 17.859375,
             "y": 13.0
           }
         }
@@ -462,15 +544,15 @@
         "y": 140.0
       },
       "size": {
-        "width": 72.90625,
+        "width": 76.71875,
         "height": 30.0
       },
-      "layout": "hbox",
       "layoutOptions": {
         "prefWidth": 72.90625,
         "paddingRight": 10.0,
         "prefHeight": 30.0
       },
+      "layout": "hbox",
       "args": {
         "radiusBottomLeft": 5.0,
         "radiusTopLeft": 5.0,
@@ -484,7 +566,15 @@
       "sourceId": "bd94e44e-19f9-446e-89d4-97ca1a63c17b",
       "targetId": "7afd430b-5031-4082-8190-7e755c57cde9",
       "args": {
-        "edgePadding": 10.0
+        "edgeSourcePoint": {
+          "x": 570.5,
+          "y": 155.0
+        },
+        "edgePadding": 10.0,
+        "edgeTargetPoint": {
+          "x": 600.0,
+          "y": 155.0
+        }
       }
     },
     {
@@ -513,15 +603,15 @@
           "type": "label:heading",
           "position": {
             "x": 31.0,
-            "y": 7.0
+            "y": 6.84375
           },
           "size": {
-            "width": 41.4482421875,
-            "height": 16.0
+            "width": 45.0,
+            "height": 16.3125
           },
           "text": "ChkTp",
           "alignment": {
-            "x": 20.6171875,
+            "x": 22.5,
             "y": 13.0
           }
         }
@@ -532,15 +622,15 @@
         "y": 190.0
       },
       "size": {
-        "width": 82.4482421875,
+        "width": 86.0,
         "height": 30.0
       },
-      "layout": "hbox",
       "layoutOptions": {
         "prefWidth": 74.9482421875,
         "paddingRight": 10.0,
         "prefHeight": 30.0
       },
+      "layout": "hbox",
       "args": {
         "radiusBottomLeft": 5.0,
         "radiusTopLeft": 5.0,
@@ -554,7 +644,15 @@
       "sourceId": "bb2709f5-0ff0-4438-8853-b7e934b506d7",
       "targetId": "6c26f0a4-4354-45fa-9d9f-bc2b48adee17",
       "args": {
-        "edgePadding": 10.0
+        "edgeSourcePoint": {
+          "x": 179.92452419706373,
+          "y": 157.79802511196803
+        },
+        "edgePadding": 10.0,
+        "edgeTargetPoint": {
+          "x": 236.6,
+          "y": 190.0
+        }
       }
     },
     {
@@ -563,7 +661,15 @@
       "sourceId": "6c26f0a4-4354-45fa-9d9f-bc2b48adee17",
       "targetId": "activityNode2",
       "args": {
-        "edgePadding": 10.0
+        "edgeSourcePoint": {
+          "x": 306.0,
+          "y": 205.51807228915663
+        },
+        "edgePadding": 10.0,
+        "edgeTargetPoint": {
+          "x": 329.6905124762631,
+          "y": 205.8035001503164
+        }
       }
     },
     {
@@ -592,15 +698,15 @@
           "type": "label:heading",
           "position": {
             "x": 31.0,
-            "y": 7.0
+            "y": 6.84375
           },
           "size": {
-            "width": 49.248046875,
-            "height": 16.0
+            "width": 53.3125,
+            "height": 16.3125
           },
           "text": "KeepTp",
           "alignment": {
-            "x": 24.5234375,
+            "x": 26.65625,
             "y": 13.0
           }
         }
@@ -611,15 +717,15 @@
         "y": 170.0
       },
       "size": {
-        "width": 90.248046875,
+        "width": 94.3125,
         "height": 30.0
       },
-      "layout": "hbox",
       "layoutOptions": {
         "prefWidth": 82.748046875,
         "paddingRight": 10.0,
         "prefHeight": 30.0
       },
+      "layout": "hbox",
       "args": {
         "radiusBottomLeft": 5.0,
         "radiusTopLeft": 5.0,
@@ -653,15 +759,15 @@
           "type": "label:heading",
           "position": {
             "x": 31.0,
-            "y": 7.0
+            "y": 6.84375
           },
           "size": {
-            "width": 51.46875,
-            "height": 16.0
+            "width": 56.46875,
+            "height": 16.3125
           },
           "text": "PreHeat",
           "alignment": {
-            "x": 25.6796875,
+            "x": 28.234375,
             "y": 13.0
           }
         }
@@ -672,15 +778,15 @@
         "y": 220.0
       },
       "size": {
-        "width": 92.46875,
+        "width": 97.46875,
         "height": 30.0
       },
-      "layout": "hbox",
       "layoutOptions": {
         "prefWidth": 84.96875,
         "paddingRight": 10.0,
         "prefHeight": 30.0
       },
+      "layout": "hbox",
       "args": {
         "radiusBottomLeft": 5.0,
         "radiusTopLeft": 5.0,
@@ -695,7 +801,17 @@
       ],
       "type": "edge:weighted",
       "sourceId": "activityNode2",
-      "targetId": "4b06ed95-c9be-47df-9941-98099259be4a"
+      "targetId": "4b06ed95-c9be-47df-9941-98099259be4a",
+      "args": {
+        "edgeSourcePoint": {
+          "x": 359.4914172283154,
+          "y": 202.89193267829
+        },
+        "edgeTargetPoint": {
+          "x": 390.0,
+          "y": 195.8635584504628
+        }
+      }
     },
     {
       "id": "b9ef468f-2aaf-41b9-b408-29e2d08e490e",
@@ -704,7 +820,17 @@
       ],
       "type": "edge:weighted",
       "sourceId": "activityNode2",
-      "targetId": "80d1792f-9c7e-41c0-8eca-eeb0509397b6"
+      "targetId": "80d1792f-9c7e-41c0-8eca-eeb0509397b6",
+      "args": {
+        "edgeSourcePoint": {
+          "x": 358.66563247319283,
+          "y": 209.96081109860927
+        },
+        "edgeTargetPoint": {
+          "x": 390.7683189655172,
+          "y": 220.0
+        }
+      }
     },
     {
       "id": "58657bcf-6d32-4e7d-b73a-f84fd8d7158b",
@@ -712,7 +838,15 @@
       "sourceId": "4b06ed95-c9be-47df-9941-98099259be4a",
       "targetId": "activityNode4",
       "args": {
-        "edgePadding": 10.0
+        "edgeSourcePoint": {
+          "x": 484.3125,
+          "y": 197.5600475624257
+        },
+        "edgePadding": 10.0,
+        "edgeTargetPoint": {
+          "x": 502.8821026261692,
+          "y": 202.50605349377162
+        }
       }
     },
     {
@@ -721,10 +855,52 @@
       "sourceId": "80d1792f-9c7e-41c0-8eca-eeb0509397b6",
       "targetId": "activityNode4",
       "args": {
-        "edgePadding": 10.0
+        "edgeSourcePoint": {
+          "x": 478.6993534482759,
+          "y": 220.0
+        },
+        "edgePadding": 10.0,
+        "edgeTargetPoint": {
+          "x": 503.89830270804003,
+          "y": 210.54211328086504
+        }
+      }
+    },
+    {
+      "nodeType": "decisionNode",
+      "id": "2cf7d802-3f60-4350-8727-df4ea8379aba",
+      "type": "activityNode:decision",
+      "position": {
+        "x": 250.0,
+        "y": 40.0
+      }
+    },
+    {
+      "nodeType": "joinNode",
+      "id": "c9892ed1-dda8-422c-b6d8-afef226ce542",
+      "cssClasses": [
+        "forkOrJoin"
+      ],
+      "type": "activityNode:join",
+      "position": {
+        "x": 170.0,
+        "y": 250.0
+      },
+      "size": {
+        "width": 10.0,
+        "height": 50.0
+      }
+    },
+    {
+      "nodeType": "mergeNode",
+      "id": "006e55a7-214c-4cc5-b524-cc8085450498",
+      "type": "activityNode:merge",
+      "position": {
+        "x": 300.0,
+        "y": 270.0
       }
     }
   ],
   "type": "graph",
-  "revision": 10
+  "revision": 3
 }

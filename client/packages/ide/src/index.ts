@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020 EclipseSource and others.
+ * Copyright (c) 2020-2023 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -15,9 +15,7 @@
  ********************************************************************************/
 import eclipseCopyPasteModule from './features/copy-paste/di.config';
 import eclipseDeleteModule from './features/invoke-delete/di.config';
-import keepAliveModule from './features/keep-alive/di.config';
 
 export * from './base/eclipse-glsp-diagram-server';
 export * from './utils/url-parameters';
-
-export { eclipseCopyPasteModule, eclipseDeleteModule, keepAliveModule };
+export { eclipseCopyPasteModule, eclipseDeleteModule };

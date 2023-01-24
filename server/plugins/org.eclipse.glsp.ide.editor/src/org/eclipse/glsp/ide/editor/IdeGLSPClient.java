@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2021 EclipseSource and others.
+ * Copyright (c) 2021-2023 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -16,6 +16,7 @@
 package org.eclipse.glsp.ide.editor;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
@@ -65,7 +66,7 @@ public class IdeGLSPClient implements GLSPClient {
     * Disconnects the registered {@link GLSPClient} proxy for the given client session id.
     *
     * @param clientSessionId The client session id of the proxy that should disconnected.
-    * @param glspClient The glsp client proxy that should be disconnected.
+    * @param glspClient      The glsp client proxy that should be disconnected.
     * @return `true` if a proxy for the given id was connected and has been successfully disconnected. `false`
     *         otherwise.
     */
@@ -80,11 +81,11 @@ public class IdeGLSPClient implements GLSPClient {
     * @param glspClient The glsp client proxy that should be disconnected.
     */
    public void disconnect(final GLSPClient glspClient) {
-      clientProxies.entries().stream()
+      List<String> toRemove = clientProxies.entries().stream()
          .filter(entry -> entry.getValue() == glspClient)
          .map(Entry::getKey)
-         .collect(Collectors.toList())
-         .forEach(id -> disconnect(id, glspClient));
+         .collect(Collectors.toList());
+      toRemove.forEach(id -> disconnect(id, glspClient));
    }
 
    @Override

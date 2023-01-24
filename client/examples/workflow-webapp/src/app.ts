@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020-2021 EclipseSource and others.
+ * Copyright (c) 2020-2023 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -26,7 +26,7 @@ import {
 } from '@eclipse-glsp/client';
 import { getParameters } from '@eclipse-glsp/ide';
 import { ApplicationIdProvider, GLSPClient } from '@eclipse-glsp/protocol';
-import { listen, MessageConnection } from 'vscode-ws-jsonrpc';
+import { MessageConnection } from 'vscode-jsonrpc';
 import createContainer from './di.config';
 
 const urlParameters = getParameters();
@@ -38,7 +38,6 @@ const port = parseInt(urlParameters.port, 10);
 const applicationId = urlParameters.application;
 const id = 'workflow';
 const diagramType = 'workflow-diagram';
-const websocket = new WebSocket(`ws://localhost:${port}/${id}`);
 
 const clientId = urlParameters.client || ApplicationIdProvider.get();
 const widgetId = urlParameters.widget || clientId;
@@ -48,7 +47,10 @@ const container = createContainer(widgetId);
 const diagramServer = container.get<GLSPDiagramServer>(TYPES.ModelSource);
 diagramServer.clientId = clientId;
 
-listen({ webSocket: websocket, onConnection: connection => initialize(connection) });
+import('vscode-ws-jsonrpc').then(jsonrpc => {
+    const websocket = new WebSocket(`ws://localhost:${port}/${id}`);
+    jsonrpc.listen({ webSocket: websocket, onConnection: connection => initialize(connection) });
+});
 
 async function initialize(connectionProvider: MessageConnection): Promise<void> {
     const client = new BaseJsonrpcGLSPClient({ id, connectionProvider });

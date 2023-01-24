@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020-2021 EclipseSource and others.
+ * Copyright (c) 2020-2023 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -23,26 +23,32 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.TimeUnit;
 
 import javax.servlet.ServletException;
 import javax.websocket.DeploymentException;
-import javax.websocket.Session;
+import javax.websocket.server.ServerContainer;
 import javax.websocket.server.ServerEndpointConfig;
 
-import org.apache.log4j.BasicConfigurator;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.core.appender.ConsoleAppender;
+import org.apache.logging.log4j.core.config.Configurator;
+import org.apache.logging.log4j.core.config.builder.api.AppenderComponentBuilder;
+import org.apache.logging.log4j.core.config.builder.api.ConfigurationBuilder;
+import org.apache.logging.log4j.core.config.builder.api.ConfigurationBuilderFactory;
+import org.apache.logging.log4j.core.config.builder.api.LayoutComponentBuilder;
+import org.apache.logging.log4j.core.config.builder.api.RootLoggerComponentBuilder;
+import org.apache.logging.log4j.core.config.builder.impl.BuiltConfiguration;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.glsp.ide.editor.internal.utils.SystemUtils;
 import org.eclipse.glsp.server.di.ServerModule;
+import org.eclipse.glsp.server.utils.LaunchUtil;
 import org.eclipse.glsp.server.websocket.GLSPConfigurator;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.servlet.DefaultServlet;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import org.eclipse.jetty.websocket.jsr356.server.ServerContainer;
-import org.eclipse.jetty.websocket.jsr356.server.deploy.WebSocketServerContainerInitializer;
+import org.eclipse.jetty.websocket.javax.server.config.JavaxWebSocketServletContainerInitializer;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -73,11 +79,18 @@ public abstract class GLSPServerManager {
 
    public abstract URL getResourceURL();
 
-   @SuppressWarnings({ "checkstyle:ThrowsCount", "deprecation" })
+   /**
+    * A hook to setup services e.g. logging right before the server is initialized.
+    */
+   protected void preConfigure() {
+      // can be overwritten by subclasses
+   }
+
+   @SuppressWarnings({ "checkstyle:ThrowsCount" })
    protected void configure(final Server server)
       throws URISyntaxException, IOException, ServletException, DeploymentException {
-      BasicConfigurator.configure();
 
+      preConfigure();
       ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
       context.setContextPath("/");
       server.setHandler(context);
@@ -89,15 +102,15 @@ public abstract class GLSPServerManager {
       defaultServletHolder.setInitParameter("resourceBase", resourceBase);
       defaultServletHolder.setInitParameter("dirAllowed", "false");
       context.addServlet(defaultServletHolder, "/");
-
-      container = WebSocketServerContainerInitializer.configureContext(context);
-      container.setDefaultMaxSessionIdleTimeout(TimeUnit.MINUTES.toMillis(10));
-      ServerEndpointConfig.Builder builder = ServerEndpointConfig.Builder.create(DiagramWebsocketEndpoint.class,
-         "/" + getGlspId());
-      Injector injector = createInjector();
-      builder.configurator(new GLSPConfigurator(() -> injector));
-      container.addEndpoint(builder.build());
-
+      JavaxWebSocketServletContainerInitializer.configure(context, (servletContext, wsContainer) -> {
+         container = wsContainer;
+         ServerEndpointConfig.Builder builder = ServerEndpointConfig.Builder.create(DiagramWebsocketEndpoint.class,
+            "/" + getGlspId());
+         Injector injector = createInjector();
+         builder.configurator(new GLSPConfigurator(() -> injector));
+         wsContainer.addEndpoint(builder.build());
+         wsContainer.setDefaultMaxSessionIdleTimeout(-1);
+      });
    }
 
    protected abstract ServerModule configureServerModule();
@@ -133,11 +146,6 @@ public abstract class GLSPServerManager {
       }
    }
 
-   public Optional<Session> getSessionFor(final String clientId) {
-      return container.getOpenSessions().stream().filter(s -> s.getUserProperties().get("clientId") != null
-         && s.getUserProperties().get("clientId").equals(clientId)).findFirst();
-   }
-
    public Server getServer() { return server; }
 
    /**
@@ -148,4 +156,29 @@ public abstract class GLSPServerManager {
     *         the port used by this server.
     */
    public int getLocalPort() { return this.localPort; }
+
+   public static void configureLogger(final Level level) {
+
+      LaunchUtil.configureLogger(true, level);
+
+      ConfigurationBuilder<BuiltConfiguration> builder = ConfigurationBuilderFactory.newConfigurationBuilder();
+
+      // Configure new root logger
+      RootLoggerComponentBuilder rootLogger = builder.newRootLogger(level);
+
+      // Configure pattern layout
+      LayoutComponentBuilder patternLayout = builder.newLayout("PatternLayout")
+         .addAttribute("pattern", "%d{DEFAULT_NANOS} [%t] %-5level %logger{1} - %msg%n");
+
+      // Configure console logging
+      AppenderComponentBuilder consoleAppender = builder.newAppender("ConsoleLogger", "CONSOLE")
+         .addAttribute("target", ConsoleAppender.Target.SYSTEM_OUT)
+         .add(patternLayout);
+      builder.add(consoleAppender);
+      rootLogger.add(builder.newAppenderRef("ConsoleLogger"));
+
+      // Add root logger and reconfigure to use created configuration
+      builder.add(rootLogger);
+      Configurator.reconfigure(builder.build());
+   }
 }

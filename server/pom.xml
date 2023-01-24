@@ -172,7 +172,7 @@
 						<artifact>
 							<groupId>org.eclipse.glsp.ide</groupId>
 							<artifactId>org.eclipse.glsp.ide.parent</artifactId>
-							<classifier>releng/org.eclipse.glsp.ide.releng.target/r2021-03</classifier>
+							<classifier>releng/org.eclipse.glsp.ide.releng.target/r2022-12</classifier>
 							<version>${project.version}</version>
 						</artifact>
 					</target>

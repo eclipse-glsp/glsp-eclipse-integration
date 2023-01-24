@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020 EclipseSource and others.
+ * Copyright (c) 2020-2023 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -18,7 +18,8 @@ package org.eclipse.glsp.ide.editor.actions.handlers;
 import java.util.List;
 import java.util.Optional;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.glsp.ide.editor.utils.IdeClientOptions;
 import org.eclipse.glsp.ide.editor.utils.UIUtil;
@@ -40,7 +41,7 @@ import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.texteditor.ITextEditor;
 
 public class IdeNavigateToExternalTargetActionHandler extends AbstractActionHandler<NavigateToExternalTargetAction> {
-   private static final Logger LOGGER = Logger.getLogger(IdeNavigateToExternalTargetActionHandler.class);
+   private static final Logger LOGGER = LogManager.getLogger(IdeNavigateToExternalTargetActionHandler.class);
 
    @Override
    protected List<Action> executeAction(final NavigateToExternalTargetAction action) {

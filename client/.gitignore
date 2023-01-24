@@ -3,6 +3,8 @@ lib
 
 **/app/bundle.js
 **/app/bundle.js.map
+**/app/*.bundle.js
+**/app/*.bundle.js.map
 
 *.log
 *.ttf

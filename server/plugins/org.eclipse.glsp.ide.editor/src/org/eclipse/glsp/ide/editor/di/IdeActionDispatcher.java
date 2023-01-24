@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020-2021 EclipseSource and others.
+ * Copyright (c) 2020-2023 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -19,7 +19,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.eclipse.glsp.ide.editor.initialization.ModelInitializationConstraint;
 import org.eclipse.glsp.ide.editor.ui.GLSPIdeEditorPlugin;
 import org.eclipse.glsp.server.actions.Action;
@@ -32,7 +33,7 @@ import com.google.inject.Injector;
 
 @SuppressWarnings("restriction")
 public class IdeActionDispatcher extends DefaultActionDispatcher {
-   private static final Logger LOGGER = Logger.getLogger(IdeActionDispatcher.class);
+   private static final Logger LOGGER = LogManager.getLogger(IdeActionDispatcher.class);
 
    protected final CompletableFuture<Void> onModelInitialized;
 

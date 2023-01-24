@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020-2021 EclipseSource and others.
+ * Copyright (c) 2020-2023 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -20,7 +20,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Optional;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IMarkerDelta;
 import org.eclipse.core.resources.IResource;
@@ -44,7 +45,7 @@ import org.eclipse.ui.texteditor.MarkerUtilities;
 public final class GLSPDiagramEditorMarkerUtil {
    public static final String GLSP_MARKER = "org.eclipse.glsp.ide.marker.problem";
 
-   private static final Logger LOGGER = Logger.getLogger(GLSPDiagramEditorMarkerUtil.class);
+   private static final Logger LOGGER = LogManager.getLogger(GLSPDiagramEditorMarkerUtil.class);
    private static final String ATTRIBUTE_GLSP_MARKER = "glspMarker";
    private static final String ATTRIBUTE_SYNC_WITH_CLIENT = "syncWithClient";
 

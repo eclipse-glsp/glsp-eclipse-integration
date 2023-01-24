@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020-2021 EclipseSource and others.
+ * Copyright (c) 2020-2023 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -15,7 +15,7 @@
  ********************************************************************************/
 import { createWorkflowDiagramContainer } from '@eclipse-glsp-examples/workflow-glsp/lib';
 import { ConsoleLogger, LogLevel, TYPES } from '@eclipse-glsp/client';
-import { eclipseCopyPasteModule, eclipseDeleteModule, EclipseGLSPDiagramServer, keepAliveModule } from '@eclipse-glsp/ide';
+import { eclipseCopyPasteModule, eclipseDeleteModule, EclipseGLSPDiagramServer } from '@eclipse-glsp/ide';
 import { Container } from 'inversify';
 import '../css/diagram.css';
 
@@ -25,7 +25,6 @@ export default function createContainer(widgetId: string): Container {
     container.rebind(TYPES.ILogger).to(ConsoleLogger).inSingletonScope();
     container.rebind(TYPES.LogLevel).toConstantValue(LogLevel.warn);
 
-    container.load(keepAliveModule);
     container.load(eclipseCopyPasteModule);
     container.load(eclipseDeleteModule);
 
