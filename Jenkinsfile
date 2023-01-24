@@ -164,28 +164,9 @@ pipeline {
                 }
                 stage('Deploy server (P2)') {
                     steps {
-                        container('ci') {
-                            timeout(30) {
-                                dir('server') {
-                                    sh "rm -rf ${WORKSPACE}/p2-update-site/ide/p2"
-                                    sh "mkdir -p ${WORKSPACE}/p2-update-site/ide/p2/nightly"
-                                    sshagent ( ['projects-storage.eclipse.org-bot-ssh']) {
-                                        sh "mvn clean install -Prelease -B -Dlocal.p2.root=${WORKSPACE}/p2-update-site"
-                                    }
-                                }
-                            }
-                        }
+                        build job: 'deploy-ide-p2-nightly', wait: true
                     }
-
-                    post {
-                        success{
-                            script {
-                                if (env.BRANCH_NAME == 'master') {
-                                    archiveArtifacts artifacts: 'p2-update-site/**', followSymlinks: false 
-                                }
-                            }
-                        }
-                    }
+                
                 }
             }
         }
