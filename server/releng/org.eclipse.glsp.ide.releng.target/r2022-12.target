@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde?>
 <!-- generated with https://github.com/eclipse-cbi/targetplatform-dsl -->
-<target name="2022-12 - Default" sequenceNumber="1674516011">
+<target name="2022-12 - Default" sequenceNumber="1675239014">
   <locations>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.platform.feature.group" version="4.26.0.v20221123-2302"/>
@@ -21,7 +21,7 @@
       <unit id="org.eclipse.glsp.server.websocket" version="0.0.0"/>
       <unit id="org.eclipse.glsp.layout" version="0.0.0"/>
       <unit id="org.eclipse.glsp.example.workflow" version="0.0.0"/>
-      <repository location="https://download.eclipse.org/glsp/server/p2/nightly/1.1/1.1.0.202301232259/"/>
+      <repository location="https://download.eclipse.org/glsp/server/p2/nightly/1.1/1.1.0.202301302251/"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.elk.core" version="0.8.1"/>

@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020-2023 EclipseSource and others.
+ * Copyright (c) 2023 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -20,14 +20,6 @@ import java.util.Optional;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.browser.BrowserFunction;
 
-/**
- * @deprecated Use {@link BrowserFocusControlInstaller} instead.
- */
-@Deprecated
-public final class ChromiumSelectionFunction {
-   private ChromiumSelectionFunction() {}
-
-   public static Optional<BrowserFunction> install(final GLSPDiagramEditor editor, final Browser browser) {
-      return new BrowserFocusControlInstaller().install(browser);
-   }
+public interface BrowserFunctionInstaller {
+   Optional<BrowserFunction> install(Browser browser);
 }
