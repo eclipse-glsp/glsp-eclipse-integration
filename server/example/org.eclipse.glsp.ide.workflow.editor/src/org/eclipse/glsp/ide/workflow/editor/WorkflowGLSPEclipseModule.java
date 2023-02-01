@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020-2021 EclipseSource and others.
+ * Copyright (c) 2020-2023 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -71,7 +71,7 @@ class WorkflowGLSPEclipseModule extends WorkflowDiagramModule {
    }
 
    @Override
-   protected void configureOperationHandlers(final MultiBinding<OperationHandler> bindings) {
+   protected void configureOperationHandlers(final MultiBinding<OperationHandler<?>> bindings) {
       super.configureOperationHandlers(bindings);
       bindings.remove(GModelPasteOperationHandler.class);
       bindings.add(IdeGModelPasteOperationHandler.class);

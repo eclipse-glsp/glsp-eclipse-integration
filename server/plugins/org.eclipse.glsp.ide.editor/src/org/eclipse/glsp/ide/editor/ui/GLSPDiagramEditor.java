@@ -342,8 +342,9 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker {
          .ifPresent(toDispose::add);
    }
 
+   @SuppressWarnings("deprecation")
    protected Browser createBrowser(final Composite parent) {
-      Browser browser = new FocusAwareBrowser(parent, SWT.NO_SCROLL);
+      Browser browser = new FocusAwareBrowser(parent, SWT.NO_SCROLL | SWT.EDGE | SWT.CHROMIUM);
       browser.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, true));
       toDispose.add(browser::dispose);
       return browser;
@@ -383,8 +384,8 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker {
 
    protected void installBrowserFunctions() {
       // browser functions are automatically disposed with the browser
-      ChromiumKeyBindingFunction.install(GLSPDiagramEditor.this, browser);
-      ChromiumSelectionFunction.install(GLSPDiagramEditor.this, browser);
+      new BrowserKeyBindingForwarderInstaller(getSite()).install(browser);
+      new BrowserFocusControlInstaller().install(browser);
    }
 
    protected String getBaseUrl() { return "diagram.html"; }

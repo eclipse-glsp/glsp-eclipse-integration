@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020-2021 EclipseSource and others.
+ * Copyright (c) 2020-2023 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -15,13 +15,10 @@
  ********************************************************************************/
 package org.eclipse.glsp.ide.editor.gmodel.operations;
 
-import static org.eclipse.glsp.server.utils.GeometryUtil.shift;
-
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import org.eclipse.glsp.graph.GModelElement;
+import org.eclipse.emf.common.command.Command;
 import org.eclipse.glsp.ide.editor.clipboard.ClipboardService;
 import org.eclipse.glsp.ide.editor.clipboard.ui.JsonTransfer;
 import org.eclipse.glsp.server.gmodel.GModelPasteOperationHandler;
@@ -47,24 +44,10 @@ public class IdeGModelPasteOperationHandler extends GModelPasteOperationHandler 
    }
 
    @Override
-   public void executeOperation(final PasteOperation operation) {
-
-      Optional<String> content = clipboard.getClipboardContents(JsonTransfer.APPLICATION_JSON);
-
-      content.ifPresent(data -> {
-         // Use our own clipboard contents
-         List<GModelElement> elements = getCopiedElements(data);
-
-         //
-         // Copied from super-class implementation
-         //
-         shift(elements, computeOffset(elements, operation.getEditorContext().getLastMousePosition()));
-
-         Map<String, String> idMap = reassignIds(elements);
-         filterElements(elements, idMap);
-         rewireEdges(elements, idMap);
-
-         modelState.getRoot().getChildren().addAll(elements);
-      });
+   public Optional<Command> createCommand(final PasteOperation operation) {
+      operation.setClipboardData(Map.of(
+         JsonTransfer.APPLICATION_JSON,
+         clipboard.getClipboardContents(JsonTransfer.APPLICATION_JSON).orElse(null)));
+      return super.createCommand(operation);
    }
 }
