@@ -7,6 +7,7 @@
 - [diagram] Fixed a bug that could cause a crash when closing a diagram editor on Windows [#59](https://github.com/eclipse-glsp/glsp-eclipse-integration/pull/59)
 - [debug] Fixed a bug to ensure that the system browser opens reliably when using the `Debug (External Browser)` command [#60](https://github.com/eclipse-glsp/glsp-eclipse-integration/pull/60)
 - [websocket] Fixed a bug that could trigger premature session disposal even if other GLSP clients where associated with this session [#63](https://github.com/eclipse-glsp/glsp-eclipse-integration/pull/63)
+- [eclipse] Propagate the GLSP diagram selection to the Eclipse selection service [#73](https://github.com/eclipse-glsp/glsp-eclipse-integration/pull/73) -- Contributed on behalf of STMicroelectronics
 
 ### Breaking Changes
 

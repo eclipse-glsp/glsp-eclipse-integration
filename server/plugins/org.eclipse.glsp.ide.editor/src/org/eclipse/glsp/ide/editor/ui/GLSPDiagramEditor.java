@@ -18,26 +18,33 @@ package org.eclipse.glsp.ide.editor.ui;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.eclipse.core.commands.common.EventManager;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.glsp.graph.GModelElement;
 import org.eclipse.glsp.ide.editor.GLSPServerManager;
 import org.eclipse.glsp.ide.editor.actions.GLSPActionProvider;
 import org.eclipse.glsp.ide.editor.actions.InvokeCopyAction;
 import org.eclipse.glsp.ide.editor.actions.InvokeCutAction;
 import org.eclipse.glsp.ide.editor.actions.InvokeDeleteAction;
 import org.eclipse.glsp.ide.editor.actions.InvokePasteAction;
+import org.eclipse.glsp.ide.editor.actions.handlers.IdeSelectActionHandler;
 import org.eclipse.glsp.ide.editor.di.IdeActionDispatcher;
 import org.eclipse.glsp.ide.editor.internal.utils.UrlUtils;
 import org.eclipse.glsp.ide.editor.utils.GLSPDiagramEditorMarkerUtil;
@@ -46,6 +53,7 @@ import org.eclipse.glsp.ide.editor.utils.UIUtil;
 import org.eclipse.glsp.server.actions.Action;
 import org.eclipse.glsp.server.actions.ActionDispatcher;
 import org.eclipse.glsp.server.actions.SaveModelAction;
+import org.eclipse.glsp.server.actions.SelectAction;
 import org.eclipse.glsp.server.actions.SelectAllAction;
 import org.eclipse.glsp.server.actions.ServerStatusAction;
 import org.eclipse.glsp.server.disposable.DisposableCollection;
@@ -60,6 +68,11 @@ import org.eclipse.glsp.server.types.GLSPServerException;
 import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.ISelectionProvider;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.browser.ProgressListener;
@@ -81,7 +94,7 @@ import org.eclipse.ui.part.EditorPart;
 
 import com.google.inject.Injector;
 
-public class GLSPDiagramEditor extends EditorPart implements IGotoMarker {
+public class GLSPDiagramEditor extends EditorPart implements IGotoMarker, ISelectionProvider {
    /**
     * {@link IEclipseContext} key for the current client id. The associated value
     * is a {@link String}.
@@ -102,6 +115,9 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker {
 
    protected final CompletableFuture<Injector> injector = new CompletableFuture<>();
    protected boolean dirty;
+
+   protected final SelectionManager selectionListener = new SelectionManager();
+   private StructuredSelection currentSelection = StructuredSelection.EMPTY;
 
    protected final DisposableCollection toDispose = new DisposableCollection();
 
@@ -308,10 +324,12 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker {
 
       setPartName(generatePartName());
 
-      this.browser = createBrowser(root);
+      browser = createBrowser(root);
       setupBrowser(this.browser);
 
-      this.statusBar = createStatusBar(root);
+      statusBar = createStatusBar(root);
+
+      getSite().setSelectionProvider(this);
    }
 
    protected String generatePartName() {
@@ -454,4 +472,110 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker {
          }
       };
    }
+
+   protected static class SelectionManager extends EventManager {
+
+      public void addSelectionChangedListener(final ISelectionChangedListener listener) {
+         addListenerObject(listener);
+      }
+
+      public void removeSelectionChangedListener(final ISelectionChangedListener listener) {
+         removeListenerObject(listener);
+      }
+
+      public void selectionChanged(final SelectionChangedEvent event) {
+         for (Object listener : getListeners()) {
+            final ISelectionChangedListener selectionChangedListeners = (ISelectionChangedListener) listener;
+            UIUtil.asyncExec(() -> selectionChangedListeners.selectionChanged(event));
+         }
+      }
+
+   }
+
+   @Override
+   public void addSelectionChangedListener(final ISelectionChangedListener listener) {
+      selectionListener.addSelectionChangedListener(listener);
+   }
+
+   @Override
+   public void removeSelectionChangedListener(final ISelectionChangedListener listener) {
+      selectionListener.removeSelectionChangedListener(listener);
+   }
+
+   @Override
+   public ISelection getSelection() { return currentSelection; }
+
+   /**
+    * Sets the selection on the client by dispatching a corresponding
+    * {@link SelectAction}.
+    * <p>
+    * If a {@link IdeSelectActionHandler} is installed on the server, this will
+    * also eventually invoke {@link #updateSelection(SelectAction)} to update the
+    * {@link #currentSelection} in this editor object and notify the registered
+    * selection listeners.
+    * </p>
+    */
+   @Override
+   public void setSelection(final ISelection selection) {
+      if (!(selection instanceof StructuredSelection)) {
+         return;
+      }
+
+      getModelStateOnceInitialized().thenAccept(modelState -> {
+         StructuredSelection structuredSelection = (StructuredSelection) selection;
+         List<String> elementIdsToSelect = toGModelElementStream(structuredSelection).map(GModelElement::getId)
+            .collect(Collectors.toList());
+         Set<String> elementIdsToDeselect = modelState.getIndex().allIds();
+         elementIdsToDeselect.removeAll(elementIdsToSelect);
+         dispatch(new SelectAction(elementIdsToSelect, new ArrayList<>(elementIdsToDeselect)));
+      });
+   }
+
+   /**
+    * Updates the currently selected elements.
+    * <p>
+    * In contrast to {@link #setSelection(ISelection)}, this method does not change
+    * the selection on the client but only notifies the selection listeners and
+    * updates the list of currently selected elements in this editor object.
+    * </p>
+    * <p>
+    * This method is usually invoked by the {@link IdeSelectActionHandler}, which
+    * reacts to the {@link SelectAction} (e.g. triggered by the client on select)
+    * to update the selection and notify listeners in Eclipse.
+    * </p>
+    *
+    * @param selectAction the {@link SelectAction}
+    */
+   public void updateSelection(final SelectAction selectAction) {
+      getModelStateOnceInitialized().thenAccept(modelState -> {
+         List<GModelElement> selection = toGModelElementStream(currentSelection).collect(Collectors.toList());
+
+         List<String> selectedIds = selectAction.getSelectedElementsIDs();
+         List<String> deselectedIds = selectAction.getDeselectedElementsIDs();
+         List<GModelElement> selectedGModelElements = toGModelElements(selectedIds, modelState);
+         List<GModelElement> deselectedGModelElements = toGModelElements(deselectedIds, modelState);
+
+         selection.removeAll(deselectedGModelElements);
+
+         for (GModelElement newSelectedElement : selectedGModelElements) {
+            if (!selection.contains(newSelectedElement)) {
+               selection.add(newSelectedElement);
+            }
+         }
+         final List<GModelElement> selectedGModelElements1 = selection;
+
+         currentSelection = new StructuredSelection(selectedGModelElements1);
+         selectionListener.selectionChanged(new SelectionChangedEvent(this, currentSelection));
+      });
+   }
+
+   @SuppressWarnings("unchecked")
+   protected Stream<GModelElement> toGModelElementStream(final StructuredSelection selection) {
+      return selection.toList().stream().filter(GModelElement.class::isInstance).map(GModelElement.class::cast);
+   }
+
+   protected List<GModelElement> toGModelElements(final List<String> ids, final GModelState modelState) {
+      return ids.stream().map(modelState.getIndex()::get).flatMap(Optional::stream).collect(Collectors.toList());
+   }
+
 }
