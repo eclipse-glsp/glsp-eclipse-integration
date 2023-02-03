@@ -15,6 +15,8 @@
  ********************************************************************************/
 package org.eclipse.glsp.ide.editor.ui;
 
+import static java.util.stream.Collectors.toList;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URLEncoder;
@@ -27,7 +29,6 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.apache.logging.log4j.LogManager;
@@ -523,11 +524,10 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker, ISelec
 
       getModelStateOnceInitialized().thenAccept(modelState -> {
          StructuredSelection structuredSelection = (StructuredSelection) selection;
-         List<String> elementIdsToSelect = toGModelElementStream(structuredSelection).map(GModelElement::getId)
-            .collect(Collectors.toList());
-         Set<String> elementIdsToDeselect = modelState.getIndex().allIds();
-         elementIdsToDeselect.removeAll(elementIdsToSelect);
-         dispatch(new SelectAction(elementIdsToSelect, new ArrayList<>(elementIdsToDeselect)));
+         List<String> toSelect = toGModelElementStream(structuredSelection).map(GModelElement::getId).collect(toList());
+         Set<String> toDeselect = modelState.getIndex().allIds();
+         toDeselect.removeAll(toSelect);
+         dispatch(new SelectAction(toSelect, new ArrayList<>(toDeselect)));
       });
    }
 
@@ -548,25 +548,26 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker, ISelec
     */
    public void updateSelection(final SelectAction selectAction) {
       getModelStateOnceInitialized().thenAccept(modelState -> {
-         List<GModelElement> selection = toGModelElementStream(currentSelection).collect(Collectors.toList());
-
          List<String> selectedIds = selectAction.getSelectedElementsIDs();
          List<String> deselectedIds = selectAction.getDeselectedElementsIDs();
          List<GModelElement> selectedGModelElements = toGModelElements(selectedIds, modelState);
          List<GModelElement> deselectedGModelElements = toGModelElements(deselectedIds, modelState);
+         List<GModelElement> selection = toGModelElementStream(currentSelection).collect(toList());
 
          selection.removeAll(deselectedGModelElements);
+         addUnique(selectedGModelElements, selection);
 
-         for (GModelElement newSelectedElement : selectedGModelElements) {
-            if (!selection.contains(newSelectedElement)) {
-               selection.add(newSelectedElement);
-            }
-         }
-         final List<GModelElement> selectedGModelElements1 = selection;
-
-         currentSelection = new StructuredSelection(selectedGModelElements1);
+         currentSelection = new StructuredSelection(selection);
          selectionListener.selectionChanged(new SelectionChangedEvent(this, currentSelection));
       });
+   }
+
+   private void addUnique(final List<GModelElement> fromList, final List<GModelElement> toList) {
+      for (GModelElement newSelectedElement : fromList) {
+         if (!toList.contains(newSelectedElement)) {
+            toList.add(newSelectedElement);
+         }
+      }
    }
 
    @SuppressWarnings("unchecked")
@@ -575,7 +576,7 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker, ISelec
    }
 
    protected List<GModelElement> toGModelElements(final List<String> ids, final GModelState modelState) {
-      return ids.stream().map(modelState.getIndex()::get).flatMap(Optional::stream).collect(Collectors.toList());
+      return ids.stream().map(modelState.getIndex()::get).flatMap(Optional::stream).collect(toList());
    }
 
 }
