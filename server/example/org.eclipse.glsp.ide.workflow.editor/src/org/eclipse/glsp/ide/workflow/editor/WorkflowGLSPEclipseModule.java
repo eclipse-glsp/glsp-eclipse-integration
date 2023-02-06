@@ -23,6 +23,8 @@ import org.eclipse.glsp.ide.editor.actions.InvokePasteAction;
 import org.eclipse.glsp.ide.editor.actions.NavigateAction;
 import org.eclipse.glsp.ide.editor.actions.RequestExportSvgAction;
 import org.eclipse.glsp.ide.editor.actions.handlers.IdeNavigateToExternalTargetActionHandler;
+import org.eclipse.glsp.ide.editor.actions.handlers.IdeSelectActionHandler;
+import org.eclipse.glsp.ide.editor.actions.handlers.IdeSelectAllActionHandler;
 import org.eclipse.glsp.ide.editor.actions.handlers.IdeServerMessageActionHandler;
 import org.eclipse.glsp.ide.editor.actions.handlers.IdeServerStatusActionHandler;
 import org.eclipse.glsp.ide.editor.actions.handlers.IdeSetDirtyStateActionHandler;
@@ -68,6 +70,8 @@ class WorkflowGLSPEclipseModule extends WorkflowDiagramModule {
       bindings.add(IdeSetDirtyStateActionHandler.class);
       bindings.add(IdeServerStatusActionHandler.class);
       bindings.add(InitializeCanvasBoundsActionHandler.class);
+      bindings.add(IdeSelectActionHandler.class);
+      bindings.add(IdeSelectAllActionHandler.class);
    }
 
    @Override
