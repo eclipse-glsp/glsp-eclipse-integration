@@ -15,26 +15,38 @@
  ********************************************************************************/
 package org.eclipse.glsp.ide.editor.actions.handlers;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.glsp.ide.editor.ui.GLSPIdeEditorPlugin;
 import org.eclipse.glsp.server.actions.AbstractActionHandler;
 import org.eclipse.glsp.server.actions.Action;
 import org.eclipse.glsp.server.actions.SelectAction;
+import org.eclipse.glsp.server.actions.SelectAllAction;
 import org.eclipse.glsp.server.model.GModelState;
 
 import com.google.inject.Inject;
 
 /**
- * Forwards a {@link SelectAction} to the current editor to update its selection state.
+ * Forwards the selection of an {@link SelectAllAction} to the current editor to update its
+ * selection state.
  */
-public class IdeSelectActionHandler extends AbstractActionHandler<SelectAction> {
+public class IdeSelectAllActionHandler extends AbstractActionHandler<SelectAllAction> {
 
    @Inject
    protected GModelState modelState;
 
    @Override
-   protected List<Action> executeAction(final SelectAction selectAction) {
+   protected List<Action> executeAction(final SelectAllAction selectAllAction) {
+      SelectAction selectAction;
+      if (selectAllAction.isSelect()) {
+         // We don't know on the server which elements are selectable so we just put all
+         // elements of the diagram into the selection state.
+         selectAction = new SelectAction(new ArrayList<>(modelState.getIndex().allIds()));
+      } else {
+         selectAction = new SelectAction(Collections.emptyList(), new ArrayList<>(modelState.getIndex().allIds()));
+      }
       GLSPIdeEditorPlugin.getDefaultGLSPEditorRegistry().getGLSPEditorOrThrow(modelState.getClientId())
          .updateSelection(selectAction);
       return none();
