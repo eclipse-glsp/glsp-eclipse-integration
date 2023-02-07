@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Workflow Editor
 Bundle-SymbolicName: org.eclipse.glsp.ide.workflow.editor;singleton:=true
-Bundle-Version: 1.1.0.qualifier
+Bundle-Version: 1.1.0.RC05
 Automatic-Module-Name: com.eclipsesource.glsp.example.workflow
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Require-Bundle: org.eclipse.elk.alg.common;bundle-version="0.8.1",
