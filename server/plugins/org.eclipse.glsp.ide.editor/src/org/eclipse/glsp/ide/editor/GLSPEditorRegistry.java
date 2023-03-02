@@ -82,11 +82,11 @@ public class GLSPEditorRegistry {
          "Could not retrieve GLSP Editor. GLSP editor is not properly configured for clientId: " + clientId);
    }
 
-   private synchronized void partClosed(final IWorkbenchPartReference part) {
+   private void partClosed(final IWorkbenchPartReference part) {
       if (part.getPart(false) instanceof GLSPDiagramEditor) {
          GLSPDiagramEditor editor = (GLSPDiagramEditor) part.getPart(false);
          editor.notifyAboutToBeDisposed();
-         clientIdtoDiagramEditor.remove(editor.getClientId());
+         removeDiagramEditor(editor.getClientId());
       }
    }
 
@@ -95,6 +95,10 @@ public class GLSPEditorRegistry {
          GLSPDiagramEditor editor = (GLSPDiagramEditor) part.getPart(false);
          clientIdtoDiagramEditor.put(editor.getClientId(), editor);
       }
+   }
+   
+   private synchronized void removeDiagramEditor(final String clientID) {
+      clientIdtoDiagramEditor.remove(clientID);
    }
 
    class GLSPDiagramEditorPartListener implements IPartListener2 {
