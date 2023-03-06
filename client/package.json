@@ -23,13 +23,13 @@
     "watch": "lerna run --parallel watch"
   },
   "devDependencies": {
-    "@eclipse-glsp/dev": "1.1.0-next.164cf99.124",
+    "@eclipse-glsp/dev": "1.1.0-next.7026c40.129",
     "@types/node": "16.x",
     "copyfiles": "^2.4.1",
     "typescript": "^4.9.3"
   },
   "engines": {
-    "node": ">=14.18.0",
+    "node": ">=16.11.0",
     "yarn": ">=1.7.0 <2.x.x"
   }
 }

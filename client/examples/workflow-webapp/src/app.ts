@@ -25,7 +25,7 @@ import {
     TYPES
 } from '@eclipse-glsp/client';
 import { getParameters } from '@eclipse-glsp/ide';
-import { ApplicationIdProvider, GLSPClient } from '@eclipse-glsp/protocol';
+import { ApplicationIdProvider, GLSPClient, listen } from '@eclipse-glsp/protocol';
 import { MessageConnection } from 'vscode-jsonrpc';
 import createContainer from './di.config';
 
@@ -47,10 +47,8 @@ const container = createContainer(widgetId);
 const diagramServer = container.get<GLSPDiagramServer>(TYPES.ModelSource);
 diagramServer.clientId = clientId;
 
-import('vscode-ws-jsonrpc').then(jsonrpc => {
-    const websocket = new WebSocket(`ws://localhost:${port}/${id}`);
-    jsonrpc.listen({ webSocket: websocket, onConnection: connection => initialize(connection) });
-});
+const websocket = new WebSocket(`ws://localhost:${port}/${id}`);
+listen(websocket, connection => initialize(connection));
 
 async function initialize(connectionProvider: MessageConnection): Promise<void> {
     const client = new BaseJsonrpcGLSPClient({ id, connectionProvider });
