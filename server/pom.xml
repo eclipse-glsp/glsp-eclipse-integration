@@ -6,7 +6,7 @@
 	<groupId>org.eclipse.glsp.ide</groupId>
 	<artifactId>org.eclipse.glsp.ide.parent</artifactId>
 	<description>GLSP Eclipse IDE Integration Parent pom </description>
-	<version>1.1.0-SNAPSHOT</version>
+	<version>1.1.0.RC07</version>
 	<packaging>pom</packaging>
 
 	<name>GLSP Eclipse IDE Integration Parent</name>
