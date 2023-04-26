@@ -26,7 +26,7 @@
             allPopups="false"
             locationURI="popup:org.eclipse.glsp.workflow.editor">
          <separator
-               name="org.eclipse.glsp.integration.workflow.editor.edit_start">
+               name="org.eclipse.glsp.integration.workflow.editor.edit_start" visible="true">
          </separator>
          <command
                commandId="org.eclipse.ui.edit.copy"
@@ -43,6 +43,13 @@
          <separator
                name="org.eclipse.glsp.integration.workflow.editor.edit_end">
          </separator>
+         <separator
+               name="org.eclipse.glsp.integration.workflow.editor.navigate_start" visible="true">
+         </separator>
+         <command
+              commandId="org.eclipse.glsp.ide.workflow.editor.navigate.next-node"
+              style="push">
+        </command>
          <dynamic
                class="org.eclipse.glsp.ide.editor.ui.GLSPDynamicContribution"
                id="org.eclipse.glsp.ide.editor.actionprovider">

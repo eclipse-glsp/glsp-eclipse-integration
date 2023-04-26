@@ -361,9 +361,8 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker, ISelec
          .ifPresent(toDispose::add);
    }
 
-   @SuppressWarnings("deprecation")
    protected Browser createBrowser(final Composite parent) {
-      Browser browser = new FocusAwareBrowser(parent, SWT.NO_SCROLL | SWT.EDGE | SWT.CHROMIUM);
+      Browser browser = new FocusAwareBrowser(parent, SWT.NO_SCROLL | SWT.EDGE);
       browser.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, true));
       toDispose.add(browser::dispose);
       return browser;
@@ -405,6 +404,7 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker, ISelec
       // browser functions are automatically disposed with the browser
       new BrowserKeyBindingForwarderInstaller(getSite()).install(browser);
       new BrowserFocusControlInstaller().install(browser);
+      new BrowserContextMenuInstaller().install(browser);
    }
 
    protected String getBaseUrl() { return "diagram.html"; }
