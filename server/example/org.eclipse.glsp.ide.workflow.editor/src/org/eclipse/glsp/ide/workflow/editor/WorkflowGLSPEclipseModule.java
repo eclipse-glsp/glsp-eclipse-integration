@@ -42,6 +42,7 @@ import org.eclipse.glsp.server.actions.ServerMessageAction;
 import org.eclipse.glsp.server.actions.ServerStatusAction;
 import org.eclipse.glsp.server.actions.SetDirtyStateAction;
 import org.eclipse.glsp.server.di.MultiBinding;
+import org.eclipse.glsp.server.features.core.model.RequestModelActionHandler;
 import org.eclipse.glsp.server.features.navigation.NavigateToExternalTargetAction;
 import org.eclipse.glsp.server.gmodel.GModelPasteOperationHandler;
 import org.eclipse.glsp.server.operations.OperationHandler;
@@ -72,6 +73,7 @@ class WorkflowGLSPEclipseModule extends WorkflowDiagramModule {
       bindings.add(InitializeCanvasBoundsActionHandler.class);
       bindings.add(IdeSelectActionHandler.class);
       bindings.add(IdeSelectAllActionHandler.class);
+      bindings.rebind(RequestModelActionHandler.class, WorkflowRequestModelActionHandler.class);
    }
 
    @Override
