@@ -59,18 +59,18 @@ export class GLSPWebSocketProvider {
     constructor(protected url: string, options?: GLSPWebSocketOptions) {
         this.options = Object.assign(this.options, options);
         console.error(`GLSPWebSocketProvider initialized - opts: ${JSON.stringify(this.options)}`);
-        this.interruptTimer = setInterval(() => {
-            // Allow 2 interrupts
-            if (this.reconnectAttempts === 2 || this.webSocket.readyState >= WebSocket.CLOSING) {
-                clearInterval(this.interruptTimer);
-                return;
-            }
-            console.error('GLSPWebSocketProvider interrupting the socket now...');
-            this.webSocket.close();
-            console.error(
-                `GLSPWebSocketProvider websocket ${this.webSocket.readyState === 2 ? 'CLOSING' : 'CLOSED'} ${this.webSocket.url}`
-            );
-        }, 5000);
+        // this.interruptTimer = setInterval(() => {
+        //     // Allow 2 interrupts
+        //     if (this.reconnectAttempts === 2 || this.webSocket.readyState >= WebSocket.CLOSING) {
+        //         clearInterval(this.interruptTimer);
+        //         return;
+        //     }
+        //     console.error('GLSPWebSocketProvider interrupting the socket now...');
+        //     this.webSocket.close();
+        //     console.error(
+        //         `GLSPWebSocketProvider websocket ${this.webSocket.readyState === 2 ? 'CLOSING' : 'CLOSED'} ${this.webSocket.url}`
+        //     );
+        // }, 5000);
     }
 
     protected createWebSocket(url: string): WebSocket {
