@@ -15,7 +15,6 @@
  ********************************************************************************/
 import {
     BaseJsonrpcGLSPClient,
-    CenterAction,
     configureServerActions,
     EnableToolPaletteAction,
     GLSPActionDispatcher,
@@ -25,9 +24,10 @@ import {
     TYPES
 } from '@eclipse-glsp/client';
 import { getParameters } from '@eclipse-glsp/ide';
-import { ApplicationIdProvider, GLSPClient, listen } from '@eclipse-glsp/protocol';
+import { ApplicationIdProvider, GLSPClient } from '@eclipse-glsp/protocol';
 import { MessageConnection } from 'vscode-jsonrpc';
 import createContainer from './di.config';
+import { GLSPWebSocketProvider } from './ws-connection-provider';
 
 const urlParameters = getParameters();
 const filePath = urlParameters.path;
@@ -42,16 +42,19 @@ const diagramType = 'workflow-diagram';
 const clientId = urlParameters.client || ApplicationIdProvider.get();
 const widgetId = urlParameters.widget || clientId;
 setWidgetId(widgetId);
-const container = createContainer(widgetId);
 
-const diagramServer = container.get<GLSPDiagramServer>(TYPES.ModelSource);
+let container = createContainer(widgetId);
+let diagramServer = container.get<GLSPDiagramServer>(TYPES.ModelSource);
 diagramServer.clientId = clientId;
 
-const websocket = new WebSocket(`ws://localhost:${port}/${id}`);
-listen(websocket, connection => initialize(connection));
+const webSocketUrl = `ws://localhost:${port}/${id}`;
+
+const wsProvider = new GLSPWebSocketProvider(webSocketUrl, { reconnectAttempts: 3 });
+wsProvider.listen({ onConnection: initialize, onReconnect: reconnect, logger: console });
 
 async function initialize(connectionProvider: MessageConnection): Promise<void> {
     const client = new BaseJsonrpcGLSPClient({ id, connectionProvider });
+
     await diagramServer.connect(client);
     const result = await client.initializeServer({
         applicationId,
@@ -60,7 +63,7 @@ async function initialize(connectionProvider: MessageConnection): Promise<void> 
     await configureServerActions(result, diagramType, container);
 
     await client.initializeClientSession({ clientSessionId: diagramServer.clientId, diagramType });
-    const actionDispatcher = container.get<GLSPActionDispatcher>(TYPES.IActionDispatcher);
+    const actionDispatcher: GLSPActionDispatcher = container.get<GLSPActionDispatcher>(TYPES.IActionDispatcher);
     actionDispatcher.dispatch(
         RequestModelAction.create({
             // Java's URLEncoder.encode encodes spaces as plus sign but decodeURI expects spaces to be encoded as %20.
@@ -72,8 +75,16 @@ async function initialize(connectionProvider: MessageConnection): Promise<void> 
         })
     );
     actionDispatcher.dispatch(RequestTypeHintsAction.create());
+    await actionDispatcher.onceModelInitialized();
     actionDispatcher.dispatch(EnableToolPaletteAction.create());
-    actionDispatcher.onceModelInitialized().then(() => actionDispatcher.dispatch(CenterAction.create([])));
+}
+
+async function reconnect(connectionProvider: MessageConnection): Promise<void> {
+    container = createContainer(widgetId);
+    diagramServer = container.get<GLSPDiagramServer>(TYPES.ModelSource);
+    diagramServer.clientId = clientId;
+
+    initialize(connectionProvider);
 }
 
 function setWidgetId(mainWidgetId: string): void {
