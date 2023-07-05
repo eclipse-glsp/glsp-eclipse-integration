@@ -21,6 +21,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -548,8 +549,10 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker, ISelec
     */
    public void updateSelection(final SelectAction selectAction) {
       getModelStateOnceInitialized().thenAccept(modelState -> {
-         List<String> selectedIds = selectAction.getSelectedElementsIDs();
-         List<String> deselectedIds = selectAction.getDeselectedElementsIDs();
+         Collection<String> selectedIds = selectAction.getSelectedElementsIDs();
+         Collection<String> deselectedIds = selectAction.isDeselectAll()
+            ? modelState.getIndex().allIds()
+            : selectAction.getDeselectedElementsIDs();
          List<GModelElement> selectedGModelElements = toGModelElements(selectedIds, modelState);
          List<GModelElement> deselectedGModelElements = toGModelElements(deselectedIds, modelState);
          List<GModelElement> selection = toGModelElementStream(currentSelection).collect(toList());
@@ -575,7 +578,7 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker, ISelec
       return selection.toList().stream().filter(GModelElement.class::isInstance).map(GModelElement.class::cast);
    }
 
-   protected List<GModelElement> toGModelElements(final List<String> ids, final GModelState modelState) {
+   protected List<GModelElement> toGModelElements(final Collection<String> ids, final GModelState modelState) {
       return ids.stream().map(modelState.getIndex()::get).flatMap(Optional::stream).collect(toList());
    }
 
