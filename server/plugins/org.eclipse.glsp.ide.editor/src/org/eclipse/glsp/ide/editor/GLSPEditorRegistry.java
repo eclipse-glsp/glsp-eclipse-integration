@@ -21,6 +21,7 @@ import java.util.Optional;
 
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.glsp.ide.editor.ui.GLSPDiagramComposite;
 import org.eclipse.glsp.ide.editor.ui.GLSPDiagramEditor;
 import org.eclipse.glsp.ide.editor.ui.GLSPIdeEditorPlugin;
 import org.eclipse.glsp.ide.editor.utils.UIUtil;
@@ -33,11 +34,11 @@ public class GLSPEditorRegistry {
    private static String SERVER_MANAGER_CLASS_ATTRIBUTE = "serverManagerClass";
    private static String GLSP_EDITOR_ID_ATTRIBUTE = "editorId";
    private final Map<String, GLSPServerManager> editorIdToServerManager;
-   private final Map<String, GLSPDiagramEditor> clientIdtoDiagramEditor;
+   private final Map<String, GLSPDiagramComposite> clientIdtoDiagramComposite;
 
    public GLSPEditorRegistry() {
       editorIdToServerManager = new HashMap<>();
-      clientIdtoDiagramEditor = new HashMap<>();
+      clientIdtoDiagramComposite = new HashMap<>();
 
       UIUtil.getActiveWorkbenchWindow()
          .ifPresent(window -> window.getPartService().addPartListener(new GLSPDiagramEditorPartListener()));
@@ -69,17 +70,25 @@ public class GLSPEditorRegistry {
       return getGLSPServerManager(diagramEditor.getEditorId());
    }
 
+   public Optional<GLSPServerManager> getGLSPServerManager(final GLSPDiagramComposite diagramComposite) {
+      return getGLSPServerManager(diagramComposite.getEditorId());
+   }
+
    public Optional<GLSPServerManager> getGLSPServerManager(final String editorId) {
       return Optional.of(editorIdToServerManager.get(editorId));
    }
 
-   public synchronized Optional<GLSPDiagramEditor> getGLSPEditor(final String clientId) {
-      return Optional.ofNullable(clientIdtoDiagramEditor.get(clientId));
+   public synchronized Optional<GLSPDiagramComposite> getGLSPEditor(final String clientId) {
+      return Optional.ofNullable(clientIdtoDiagramComposite.get(clientId));
    }
 
-   public GLSPDiagramEditor getGLSPEditorOrThrow(final String clientId) {
+   public GLSPDiagramComposite getGLSPEditorOrThrow(final String clientId) {
       return GLSPServerException.getOrThrow(getGLSPEditor(clientId),
          "Could not retrieve GLSP Editor. GLSP editor is not properly configured for clientId: " + clientId);
+   }
+
+   public void registerComposite(final GLSPDiagramComposite diagram) {
+      clientIdtoDiagramComposite.put(diagram.getClientId(), diagram);
    }
 
    private void partClosed(final IWorkbenchPartReference part) {
@@ -93,12 +102,12 @@ public class GLSPEditorRegistry {
    private synchronized void partOpened(final IWorkbenchPartReference part) {
       if (part.getPart(false) instanceof GLSPDiagramEditor) {
          GLSPDiagramEditor editor = (GLSPDiagramEditor) part.getPart(false);
-         clientIdtoDiagramEditor.put(editor.getClientId(), editor);
+         clientIdtoDiagramComposite.put(editor.getClientId(), editor.getDiagram());
       }
    }
-   
+
    private synchronized void removeDiagramEditor(final String clientID) {
-      clientIdtoDiagramEditor.remove(clientID);
+      clientIdtoDiagramComposite.remove(clientID);
    }
 
    class GLSPDiagramEditorPartListener implements IPartListener2 {

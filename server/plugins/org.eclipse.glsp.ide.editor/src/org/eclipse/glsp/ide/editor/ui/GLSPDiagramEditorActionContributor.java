@@ -25,7 +25,7 @@ public class GLSPDiagramEditorActionContributor extends EditorActionBarContribut
       super.setActiveEditor(targetEditor);
       if (targetEditor instanceof GLSPDiagramEditor) {
          IActionBars actionBars = targetEditor.getEditorSite().getActionBars();
-         ((GLSPDiagramEditor) targetEditor).getGlobalActions().forEach(actionBars::setGlobalActionHandler);
+         ((GLSPDiagramEditor) targetEditor).getDiagram().getGlobalActions().forEach(actionBars::setGlobalActionHandler);
       }
    }
 }

@@ -48,7 +48,7 @@ public class GLSPDynamicContribution extends ContributionItem implements IWorkbe
       IEclipseContext context = serviceLocator.getService(IEclipseContext.class);
       GLSPActionProvider actionProvider = context.get(GLSPActionProvider.class);
       if (actionProvider != null) {
-         GLSPDiagramEditor editor = context.get(GLSPDiagramEditor.class);
+         GLSPDiagramComposite editor = context.get(GLSPDiagramComposite.class);
          // The model state will not be stored in the EclipseContext, as we (currently) have no way
          // to hook into new client connections. The Editor UI will be created and ready before the Browser
          // connects to the Backend server; so we may not have a ModelState yet.

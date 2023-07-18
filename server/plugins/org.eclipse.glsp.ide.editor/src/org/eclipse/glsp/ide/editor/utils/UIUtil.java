@@ -19,7 +19,6 @@ import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.eclipse.glsp.ide.editor.ui.GLSPIdeEditorPlugin;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
@@ -64,9 +63,10 @@ public final class UIUtil {
    }
 
    public static Optional<Shell> findShell(final String clientId) {
-      return GLSPIdeEditorPlugin.getDefault().getGLSPEditorRegistry().getGLSPEditor(clientId)
-         .map(editor -> editor.getEditorSite().getShell())
-         .or(UIUtil::findShell);
+      // return GLSPIdeEditorPlugin.getDefault().getGLSPEditorRegistry().getGLSPEditor(clientId)
+      // .map(editor -> editor.getShell())
+      // .or(UIUtil::findShell);
+      return findShell();
    }
 
    private static Optional<Shell> findShell() {

@@ -177,5 +177,14 @@
             id="org.eclipse.glsp.diagram.export"
             name="Export Diagram">
       </command>
-	</extension>
+   </extension>
+   <extension
+         id="org.eclipse.glsp.ide.workflow.editor.fragment"
+         point="org.eclipse.e4.workbench.model">
+      <fragment
+            uri="fragment.e4xmi"
+            apply="always">
+      </fragment>
+   </extension>
+
 </plugin>
