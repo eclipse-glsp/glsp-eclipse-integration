@@ -66,7 +66,6 @@ import org.eclipse.glsp.server.types.EditorContext;
 import org.eclipse.glsp.server.types.GLSPServerException;
 import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.ISelectionProvider;
@@ -81,7 +80,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.ide.IGotoMarker;
 import org.eclipse.ui.keys.IBindingService;
@@ -251,7 +249,6 @@ public class GLSPDiagramComposite implements IGotoMarker, ISelectionProvider {
       this.input = input;
       setWidgetId(generateWidgetId());
 
-      System.out.println(input);
       configureContext(context);
 
       getModelStateOnceInitialized().thenAccept(this::syncMarkers);
@@ -311,7 +308,6 @@ public class GLSPDiagramComposite implements IGotoMarker, ISelectionProvider {
       Browser.clearSessions();
       browser.refresh();
       browser.addMouseTrackListener(MouseTrackListener.mouseEnterAdapter(this::mouseEnteredBrowser));
-      browser.setMenu(createBrowserMenu());
       browser.addProgressListener(ProgressListener.completedAdapter(event -> installBrowserFunctions()));
       this.browserUrl = createBrowserUrl();
       browser.setUrl(browserUrl);
@@ -330,14 +326,6 @@ public class GLSPDiagramComposite implements IGotoMarker, ISelectionProvider {
             + "}";
          browser.execute(dispatchMouseUp);
       }
-   }
-
-   protected Menu createBrowserMenu() {
-      MenuManager menuManager = new MenuManager();
-      Menu menu = menuManager.createContextMenu(browser);
-      // TODO
-      // getSite().registerContextMenu(menuManager, getSite().getSelectionProvider());
-      return menu;
    }
 
    protected void installBrowserFunctions() {
@@ -528,4 +516,6 @@ public class GLSPDiagramComposite implements IGotoMarker, ISelectionProvider {
    public void addDirtyStateListener(final Consumer<Boolean> listener) {
       dirtyListener.add(listener);
    }
+
+   public Browser getBrowser() { return browser; }
 }

@@ -19,6 +19,7 @@ import java.util.Map.Entry;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.inject.Inject;
 
 import org.eclipse.e4.core.commands.EHandlerService;
 import org.eclipse.e4.core.contexts.IEclipseContext;
@@ -26,33 +27,35 @@ import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.di.Focus;
 import org.eclipse.e4.ui.di.Persist;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
-import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
-import org.eclipse.e4.ui.workbench.modeling.EModelService;
+import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
+import org.eclipse.e4.ui.model.application.ui.menu.MPopupMenu;
+import org.eclipse.e4.ui.services.EMenuService;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.glsp.server.actions.SaveModelAction;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.internal.handlers.IActionCommandMappingService;
 
-public class GLSPDiagramPart {
+@SuppressWarnings("restriction")
+public abstract class GLSPDiagramPart {
 
-   private final GLSPDiagramComposite diagram;
+   protected final GLSPDiagramComposite diagram;
 
-   public GLSPDiagramPart() {
-      diagram = new GLSPDiagramComposite("org.eclipse.glsp.workflow.editor");
+   @Inject
+   protected MPart part;
+
+   protected GLSPDiagramPart(final String glspEditorId) {
+      diagram = new GLSPDiagramComposite(glspEditorId);
       GLSPIdeEditorPlugin.getDefault().getGLSPEditorRegistry().registerComposite(diagram);
    }
 
    @PostConstruct
-   public void createContent(final Composite composite, final MPart part, final IEclipseContext context,
-      final ESelectionService selectionService, final EModelService modelService, final MWindow window,
-      final EHandlerService handlerService) {
+   public void createContent(final Composite composite, final IEclipseContext context,
+      final ESelectionService selectionService, final EHandlerService handlerService, final EMenuService menuService) {
 
-      diagram.init(context, "/D:/dev/eclipse/eclipse-glsp-eclipse-integration/runtime-workflowEditor/testProj/test.wf");
+      diagram.init(context, getInput());
 
-      diagram.addDirtyStateListener(dirty -> {
-         part.setDirty(dirty);
-      });
+      diagram.addDirtyStateListener(this::setDirty);
 
       diagram.createPartControl(composite);
       diagram.addSelectionChangedListener(event -> {
@@ -61,10 +64,21 @@ public class GLSPDiagramPart {
 
       initilizeCommands(context, handlerService);
 
+      regsterContextMenu(menuService);
    }
 
-   @SuppressWarnings("restriction")
-   private void initilizeCommands(final IEclipseContext context, final EHandlerService handlerService) {
+   protected boolean regsterContextMenu(final EMenuService menuService) {
+      for (MMenu mmenu : part.getMenus()) {
+         if (mmenu instanceof MPopupMenu) {
+            return menuService.registerContextMenu(diagram.getBrowser(), mmenu.getElementId());
+         }
+      }
+      return false;
+   }
+
+   protected abstract String getInput();
+
+   protected void initilizeCommands(final IEclipseContext context, final EHandlerService handlerService) {
       for (Entry<String, IAction> action : diagram.getGlobalActions().entrySet()) {
 
          IActionCommandMappingService commandMappingService = context.get(IActionCommandMappingService.class);
@@ -74,11 +88,11 @@ public class GLSPDiagramPart {
       }
    }
 
-   private class Handler {
+   protected static class Handler {
 
       private final IAction value;
 
-      public Handler(final IAction value) {
+      Handler(final IAction value) {
          this.value = value;
       }
 
@@ -86,6 +100,10 @@ public class GLSPDiagramPart {
       public void execute() {
          value.run();
       }
+   }
+
+   protected void setDirty(final boolean dirty) {
+      part.setDirty(dirty);
    }
 
    @Focus

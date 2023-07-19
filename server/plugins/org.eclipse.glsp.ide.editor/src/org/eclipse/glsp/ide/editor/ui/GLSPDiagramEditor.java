@@ -25,7 +25,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.glsp.ide.editor.GLSPServerManager;
 import org.eclipse.glsp.ide.editor.actions.GLSPActionProvider;
-import org.eclipse.glsp.ide.editor.actions.handlers.IdeSelectActionHandler;
 import org.eclipse.glsp.ide.editor.utils.GLSPDiagramEditorMarkerUtil;
 import org.eclipse.glsp.ide.editor.utils.IdeClientOptions;
 import org.eclipse.glsp.ide.editor.utils.UIUtil;
@@ -36,11 +35,13 @@ import org.eclipse.glsp.server.features.navigation.NavigateToTargetAction;
 import org.eclipse.glsp.server.model.GModelState;
 import org.eclipse.glsp.server.types.GLSPServerException;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IFileEditorInput;
@@ -160,6 +161,15 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker, ISelec
       setPartName(generatePartName());
 
       getSite().setSelectionProvider(diagram);
+
+      createBrowserMenu();
+   }
+
+   protected void createBrowserMenu() {
+      MenuManager menuManager = new MenuManager();
+      Menu menu = menuManager.createContextMenu(diagram.getBrowser());
+      getSite().registerContextMenu(menuManager, getSite().getSelectionProvider());
+      diagram.getBrowser().setMenu(menu);
    }
 
    protected String generatePartName() {
@@ -233,36 +243,11 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker, ISelec
    @Override
    public ISelection getSelection() { return diagram.getSelection(); }
 
-   /**
-    * Sets the selection on the client by dispatching a corresponding
-    * {@link SelectAction}.
-    * <p>
-    * If a {@link IdeSelectActionHandler} is installed on the server, this will
-    * also eventually invoke {@link #updateSelection(SelectAction)} to update the
-    * {@link #currentSelection} in this editor object and notify the registered
-    * selection listeners.
-    * </p>
-    */
    @Override
    public void setSelection(final ISelection selection) {
       diagram.setSelection(selection);
    }
 
-   /**
-    * Updates the currently selected elements.
-    * <p>
-    * In contrast to {@link #setSelection(ISelection)}, this method does not change
-    * the selection on the client but only notifies the selection listeners and
-    * updates the list of currently selected elements in this editor object.
-    * </p>
-    * <p>
-    * This method is usually invoked by the {@link IdeSelectActionHandler}, which
-    * reacts to the {@link SelectAction} (e.g. triggered by the client on select)
-    * to update the selection and notify listeners in Eclipse.
-    * </p>
-    *
-    * @param selectAction the {@link SelectAction}
-    */
    public void updateSelection(final SelectAction selectAction) {
       diagram.updateSelection(selectAction);
    }
