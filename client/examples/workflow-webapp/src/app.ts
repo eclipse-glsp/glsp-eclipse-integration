@@ -18,7 +18,6 @@ import {
     EnableToolPaletteAction,
     GLSPActionDispatcher,
     GLSPDiagramServer,
-    GLSPWebSocketProvider,
     RequestModelAction,
     RequestTypeHintsAction,
     ServerMessageAction,
@@ -30,6 +29,7 @@ import { getParameters } from '@eclipse-glsp/ide';
 import { ApplicationIdProvider, GLSPClient } from '@eclipse-glsp/protocol';
 import { MessageConnection } from 'vscode-jsonrpc';
 import createContainer from './di.config';
+import { WorkflowGLSPWebSocketProvider } from './ws-connection-provider';
 
 const urlParameters = getParameters();
 const filePath = urlParameters.path;
@@ -51,7 +51,7 @@ diagramServer.clientId = clientId;
 
 const webSocketUrl = `ws://localhost:${port}/${id}`;
 
-const wsProvider = new GLSPWebSocketProvider(webSocketUrl);
+const wsProvider = new WorkflowGLSPWebSocketProvider(webSocketUrl);
 wsProvider.listen({ onConnection: initialize, onReconnect: reconnect, logger: console });
 
 async function initialize(connectionProvider: MessageConnection, isReconnecting = false): Promise<void> {
