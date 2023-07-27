@@ -265,6 +265,7 @@ public class GLSPDiagramComposite implements IGotoMarker, ISelectionProvider {
    public void createPartControl(final Composite parent) {
       root = new Composite(parent, SWT.NO_SCROLL);
       root.setLayout(new GridLayout(1, true));
+      root.setBackground(parent.getBackground());
 
       browser = createBrowser(root);
       setupBrowser(this.browser);

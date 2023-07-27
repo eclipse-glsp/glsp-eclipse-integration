@@ -62,14 +62,7 @@ public final class UIUtil {
       }
    }
 
-   public static Optional<Shell> findShell(final String clientId) {
-      // return GLSPIdeEditorPlugin.getDefault().getGLSPEditorRegistry().getGLSPEditor(clientId)
-      // .map(editor -> editor.getShell())
-      // .or(UIUtil::findShell);
-      return findShell();
-   }
-
-   private static Optional<Shell> findShell() {
+   public static Optional<Shell> findShell() {
       return findDisplay().flatMap(display -> Optional.ofNullable(display.getActiveShell()));
    }
 }

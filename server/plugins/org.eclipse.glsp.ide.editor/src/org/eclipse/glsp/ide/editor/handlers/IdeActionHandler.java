@@ -26,6 +26,7 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.glsp.ide.editor.ui.GLSPDiagramComposite;
+import org.eclipse.glsp.ide.editor.ui.GLSPDiagramPart;
 import org.eclipse.glsp.server.actions.Action;
 import org.eclipse.glsp.server.actions.ActionDispatcher;
 import org.eclipse.glsp.server.actions.ActionMessage;
@@ -33,6 +34,7 @@ import org.eclipse.glsp.server.model.GModelState;
 import org.eclipse.glsp.server.protocol.GLSPClient;
 import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.handlers.HandlerUtil;
+import org.eclipse.ui.internal.E4PartWrapper;
 
 /**
  * An abstract Handler to delegate the execution of Eclipse Commands to GLSP Actions,
@@ -43,8 +45,16 @@ public abstract class IdeActionHandler extends AbstractHandler {
    private final Logger log = LogManager.getLogger(getClass());
 
    @Override
+   @SuppressWarnings("restriction")
    public Object execute(final ExecutionEvent event) throws ExecutionException {
       IWorkbenchPartSite partSite = HandlerUtil.getActivePart(event).getSite();
+      if (partSite.getPart() instanceof E4PartWrapper) {
+         E4PartWrapper wrapper = (E4PartWrapper) partSite.getPart();
+         GLSPDiagramPart part = wrapper.getAdapter(GLSPDiagramPart.class);
+         IEclipseContext context = part.getPart().getContext();
+         execute(context);
+         return null;
+      }
       IEclipseContext context = partSite.getService(IEclipseContext.class);
       execute(context);
       return null;

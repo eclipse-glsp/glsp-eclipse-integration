@@ -64,10 +64,10 @@ public abstract class GLSPDiagramPart {
 
       initilizeCommands(context, handlerService);
 
-      regsterContextMenu(menuService);
+      registerContextMenu(menuService);
    }
 
-   protected boolean regsterContextMenu(final EMenuService menuService) {
+   protected boolean registerContextMenu(final EMenuService menuService) {
       for (MMenu mmenu : part.getMenus()) {
          if (mmenu instanceof MPopupMenu) {
             return menuService.registerContextMenu(diagram.getBrowser(), mmenu.getElementId());
@@ -122,4 +122,6 @@ public abstract class GLSPDiagramPart {
    public void save() {
       diagram.dispatch(new SaveModelAction());
    }
+
+   public MPart getPart() { return part; }
 }
