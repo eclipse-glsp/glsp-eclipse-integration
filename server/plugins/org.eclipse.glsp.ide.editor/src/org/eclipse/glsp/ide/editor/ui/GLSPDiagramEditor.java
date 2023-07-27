@@ -119,13 +119,17 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker, ISelec
 
       IEclipseContext context = site.getService(IEclipseContext.class);
 
-      diagram = new GLSPDiagramComposite(getEditorId());
+      diagram = createGLSPDiagramComposite();
       diagram.init(context, getFilePath());
 
       diagram.getModelStateOnceInitialized().thenAccept(this::syncMarkers);
       diagram.addDirtyStateListener(dirty -> {
          setDirty(dirty);
       });
+   }
+
+   protected GLSPDiagramComposite createGLSPDiagramComposite() {
+      return new GLSPDiagramComposite(getEditorId());
    }
 
    protected void validateEditorInput(final IEditorInput editorInput) throws PartInitException {
