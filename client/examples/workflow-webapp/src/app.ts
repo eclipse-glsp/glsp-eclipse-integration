@@ -15,17 +15,19 @@
  ********************************************************************************/
 import {
     BaseJsonrpcGLSPClient,
-    CenterAction,
-    configureServerActions,
     EnableToolPaletteAction,
     GLSPActionDispatcher,
     GLSPDiagramServer,
+    GLSPWebSocketProvider,
     RequestModelAction,
     RequestTypeHintsAction,
-    TYPES
+    ServerMessageAction,
+    ServerStatusAction,
+    TYPES,
+    configureServerActions
 } from '@eclipse-glsp/client';
 import { getParameters } from '@eclipse-glsp/ide';
-import { ApplicationIdProvider, GLSPClient, listen } from '@eclipse-glsp/protocol';
+import { ApplicationIdProvider, GLSPClient } from '@eclipse-glsp/protocol';
 import { MessageConnection } from 'vscode-jsonrpc';
 import createContainer from './di.config';
 
@@ -42,16 +44,19 @@ const diagramType = 'workflow-diagram';
 const clientId = urlParameters.client || ApplicationIdProvider.get();
 const widgetId = urlParameters.widget || clientId;
 setWidgetId(widgetId);
-const container = createContainer(widgetId);
 
-const diagramServer = container.get<GLSPDiagramServer>(TYPES.ModelSource);
+let container = createContainer(widgetId);
+let diagramServer = container.get<GLSPDiagramServer>(TYPES.ModelSource);
 diagramServer.clientId = clientId;
 
-const websocket = new WebSocket(`ws://localhost:${port}/${id}`);
-listen(websocket, connection => initialize(connection));
+const webSocketUrl = `ws://localhost:${port}/${id}`;
 
-async function initialize(connectionProvider: MessageConnection): Promise<void> {
+const wsProvider = new GLSPWebSocketProvider(webSocketUrl);
+wsProvider.listen({ onConnection: initialize, onReconnect: reconnect, logger: console });
+
+async function initialize(connectionProvider: MessageConnection, isReconnecting = false): Promise<void> {
     const client = new BaseJsonrpcGLSPClient({ id, connectionProvider });
+
     await diagramServer.connect(client);
     const result = await client.initializeServer({
         applicationId,
@@ -60,20 +65,42 @@ async function initialize(connectionProvider: MessageConnection): Promise<void> 
     await configureServerActions(result, diagramType, container);
 
     await client.initializeClientSession({ clientSessionId: diagramServer.clientId, diagramType });
-    const actionDispatcher = container.get<GLSPActionDispatcher>(TYPES.IActionDispatcher);
+
+    const actionDispatcher: GLSPActionDispatcher = container.get<GLSPActionDispatcher>(TYPES.IActionDispatcher);
+
     actionDispatcher.dispatch(
         RequestModelAction.create({
             // Java's URLEncoder.encode encodes spaces as plus sign but decodeURI expects spaces to be encoded as %20.
             // See also https://en.wikipedia.org/wiki/Query_string#URL_encoding for URL encoding in forms vs generic URL encoding.
             options: {
                 sourceUri: 'file://' + decodeURI(filePath.replace(/\+/g, '%20')),
-                diagramType: 'workflow-diagram'
+                diagramType: 'workflow-diagram',
+                isReconnecting
             }
         })
     );
     actionDispatcher.dispatch(RequestTypeHintsAction.create());
+    await actionDispatcher.onceModelInitialized();
     actionDispatcher.dispatch(EnableToolPaletteAction.create());
-    actionDispatcher.onceModelInitialized().then(() => actionDispatcher.dispatch(CenterAction.create([])));
+
+    if (isReconnecting) {
+        const message = `Connection to the ${id} glsp server got closed. Connection was successfully re-established.`;
+        const timeout = 5000;
+        const severity = 'WARNING';
+        actionDispatcher.dispatchAll([
+            ServerStatusAction.create(message, { severity, timeout }),
+            ServerMessageAction.create(message, { severity })
+        ]);
+        return;
+    }
+}
+
+async function reconnect(connectionProvider: MessageConnection): Promise<void> {
+    container = createContainer(widgetId);
+    diagramServer = container.get<GLSPDiagramServer>(TYPES.ModelSource);
+    diagramServer.clientId = clientId;
+
+    initialize(connectionProvider, true /* isReconnecting */);
 }
 
 function setWidgetId(mainWidgetId: string): void {
