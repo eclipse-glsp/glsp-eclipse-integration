@@ -17,6 +17,12 @@ package org.eclipse.glsp.ide.workflow.editor;
 
 import org.eclipse.glsp.ide.editor.ui.GLSPDiagramPart;
 
+/**
+ * This is an example to open the E4 Part on a file basis.
+ * If you want to work with files it is probably better to use the E3 Editor.
+ *
+ * If you have a use case where you are not working on a file, try the E4 Solution
+ */
 public class WorkflowPart extends GLSPDiagramPart {
 
    public WorkflowPart() {
@@ -24,8 +30,6 @@ public class WorkflowPart extends GLSPDiagramPart {
    }
 
    @Override
-   protected String getInput() {
-      return "/D:/dev/eclipse/eclipse-glsp-eclipse-integration/runtime-workflowEditor/testProj/test.wf";
-   }
+   protected String getInput() { return getPart().getProperties().get("file"); }
 
 }

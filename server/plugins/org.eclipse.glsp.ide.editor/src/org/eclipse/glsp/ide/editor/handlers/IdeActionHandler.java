@@ -40,20 +40,23 @@ import org.eclipse.ui.internal.E4PartWrapper;
  * An abstract Handler to delegate the execution of Eclipse Commands to GLSP Actions,
  * via the ActionDispatcher of the current GLSP diagram.
  */
+@SuppressWarnings("restriction")
 public abstract class IdeActionHandler extends AbstractHandler {
 
    private final Logger log = LogManager.getLogger(getClass());
 
    @Override
-   @SuppressWarnings("restriction")
    public Object execute(final ExecutionEvent event) throws ExecutionException {
       IWorkbenchPartSite partSite = HandlerUtil.getActivePart(event).getSite();
+
       if (partSite.getPart() instanceof E4PartWrapper) {
          E4PartWrapper wrapper = (E4PartWrapper) partSite.getPart();
          GLSPDiagramPart part = wrapper.getAdapter(GLSPDiagramPart.class);
-         IEclipseContext context = part.getPart().getContext();
-         execute(context);
-         return null;
+         if (part != null) {
+            IEclipseContext context = part.getPart().getContext();
+            execute(context);
+            return null;
+         }
       }
       IEclipseContext context = partSite.getService(IEclipseContext.class);
       execute(context);
@@ -64,6 +67,10 @@ public abstract class IdeActionHandler extends AbstractHandler {
 
    protected void dispatchMessage(final IEclipseContext context, final Action action) {
       ActionDispatcher dispatcher = context.get(ActionDispatcher.class);
+      if (dispatcher == null) {
+         // We got into a part which does not support dispatching of actions
+         return;
+      }
       String clientId = (String) context.get(GLSPDiagramComposite.GLSP_CLIENT_ID);
       // Note: GLSPClient is not available at the moment, as we don't have a way to track the
       // client connection lifecycle in the Eclipse Integration yet.

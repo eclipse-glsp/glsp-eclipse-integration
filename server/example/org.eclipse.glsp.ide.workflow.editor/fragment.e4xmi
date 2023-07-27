@@ -7,12 +7,12 @@
     <elements xsi:type="commands:Command" xmi:id="_4utu4Cx1Ee6j-oaIUDoEgw" elementId="org.eclipse.glsp.ide.workflow.editor.command.openViewer" commandName="Open Workflow Viewer"/>
   </fragments>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_9RCDgCx1Ee6j-oaIUDoEgw" featurename="handlers" parentElementId="org.eclipse.e4.legacy.ide.application">
-    <elements xsi:type="commands:Handler" xmi:id="__e5CMCx1Ee6j-oaIUDoEgw" elementId="org.eclipse.glsp.ide.workflow.editor.handler.openViewer" command="_4utu4Cx1Ee6j-oaIUDoEgw"/>
+    <elements xsi:type="commands:Handler" xmi:id="__e5CMCx1Ee6j-oaIUDoEgw" elementId="org.eclipse.glsp.ide.workflow.editor.handler.openViewer" contributionURI="bundleclass://org.eclipse.glsp.ide.workflow.editor/org.eclipse.glsp.ide.workflow.editor.OpenWorkflowViewerHandler" command="_4utu4Cx1Ee6j-oaIUDoEgw"/>
   </fragments>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_A-w5gCx2Ee6j-oaIUDoEgw" featurename="menuContributions" parentElementId="org.eclipse.e4.legacy.ide.application">
-    <elements xsi:type="menu:MenuContribution" xmi:id="_B4ZQMCx2Ee6j-oaIUDoEgw" elementId="org.eclipse.glsp.ide.workflow.editor.menucontribution.openViewer">
+    <elements xsi:type="menu:MenuContribution" xmi:id="_B4ZQMCx2Ee6j-oaIUDoEgw" elementId="org.eclipse.glsp.ide.workflow.editor.menucontribution.openViewer" positionInParent="after=additions" parentId="popup">
       <children xsi:type="menu:HandledMenuItem" xmi:id="_DRz6MCx2Ee6j-oaIUDoEgw" elementId="org.eclipse.glsp.ide.workflow.editor.menu.openViewer" label="Open In Workflow Viewer" command="_4utu4Cx1Ee6j-oaIUDoEgw">
-        <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_HhtCECx2Ee6j-oaIUDoEgw"/>
+        <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_FLABsCx8Ee6j-oaIUDoEgw" coreExpressionId="org.eclipse.glsp.ide.workflow.editor.workflowFile"/>
       </children>
     </elements>
   </fragments>
