@@ -80,6 +80,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.ide.IGotoMarker;
 import org.eclipse.ui.keys.IBindingService;
@@ -519,4 +520,11 @@ public class GLSPDiagramComposite implements IGotoMarker, ISelectionProvider {
    }
 
    public Browser getBrowser() { return browser; }
+
+   public Shell getShell() {
+      if (browser != null) {
+         return browser.getShell();
+      }
+      return null;
+   }
 }

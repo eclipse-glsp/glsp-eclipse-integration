@@ -20,6 +20,7 @@ import java.util.Optional;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.glsp.ide.editor.ui.GLSPIdeEditorPlugin;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Display;
@@ -66,7 +67,13 @@ public final class UIUtil {
       }
    }
 
-   public static Optional<Shell> findShell() {
+   public static Optional<Shell> findShell(final String clientId) {
+      return GLSPIdeEditorPlugin.getDefault().getGLSPEditorRegistry().getGLSPEditor(clientId)
+         .map(composite -> composite.getShell())
+         .or(UIUtil::findShell);
+   }
+
+   private static Optional<Shell> findShell() {
       return findDisplay().flatMap(display -> Optional.ofNullable(display.getActiveShell()));
    }
 

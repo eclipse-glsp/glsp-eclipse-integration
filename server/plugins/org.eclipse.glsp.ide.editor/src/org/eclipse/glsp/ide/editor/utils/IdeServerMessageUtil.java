@@ -36,7 +36,7 @@ public final class IdeServerMessageUtil {
       Platform.getLog(IdeServerMessageUtil.class).log(status.get());
       if (status.get().getSeverity() >= IStatus.ERROR) {
          UIUtil.asyncExec(() -> {
-            UIUtil.findShell().ifPresent(
+            UIUtil.findShell(clientId).ifPresent(
                shell -> ErrorDialog.openError(shell, "GLSP Server Error", action.getMessage(), status.get()));
          });
       }
