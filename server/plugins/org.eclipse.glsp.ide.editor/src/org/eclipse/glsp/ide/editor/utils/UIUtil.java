@@ -19,8 +19,12 @@ import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.ISelectionService;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -64,5 +68,16 @@ public final class UIUtil {
 
    public static Optional<Shell> findShell() {
       return findDisplay().flatMap(display -> Optional.ofNullable(display.getActiveShell()));
+   }
+
+   public static Optional<IFile> getFirstSelectedFile(final ISelectionService selectionService) {
+      ISelection selection = selectionService.getSelection();
+      if (selection instanceof IStructuredSelection) {
+         Object firstElement = ((IStructuredSelection) selection).getFirstElement();
+         if (firstElement instanceof IFile) {
+            return Optional.of((IFile) firstElement);
+         }
+      }
+      return Optional.empty();
    }
 }
