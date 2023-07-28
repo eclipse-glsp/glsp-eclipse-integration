@@ -80,9 +80,14 @@
                   checkEnabled="false">
              <with
                    variable="activePartId">
-                <equals
-                      value="org.eclipse.glsp.workflow.editor">
-                </equals>
+                <or>
+                   <equals
+                         value="org.eclipse.glsp.workflow.editor">
+                   </equals>
+                   <equals
+                         value="org.eclipse.glsp.ide.workflow.editor.part.workflowViewer">
+                   </equals>
+                </or>
              </with>
             </visibleWhen>
          </menu>
@@ -93,9 +98,14 @@
                   checkEnabled="false">
                <with
                      variable="activePartId">
-                  <equals
-                        value="org.eclipse.glsp.workflow.editor">
-                  </equals>
+                  <or>
+                     <equals
+                           value="org.eclipse.glsp.workflow.editor">
+                     </equals>
+                     <equals
+                           value="org.eclipse.glsp.ide.workflow.editor.part.workflowViewer">
+                     </equals>
+                  </or>
                </with>
             </visibleWhen>
          </command>
@@ -113,12 +123,19 @@
                   style="push">
                <visibleWhen
                      checkEnabled="false">
-                  <with
-                        variable="activeEditor">
-                     <instanceof
-                           value="org.eclipse.glsp.ide.editor.ui.GLSPDiagramEditor">
-                     </instanceof>
-                  </with>
+                  <or>
+                     <with
+                           variable="activeEditor">
+                        <instanceof
+                              value="org.eclipse.glsp.ide.editor.ui.GLSPDiagramEditor">
+                        </instanceof>
+                     </with>
+                     <with
+                           variable="activePartId">
+                        <equals
+                              value="org.eclipse.glsp.ide.workflow.editor.part.workflowViewer">
+                        </equals>
+                     </with></or>
                </visibleWhen>
             </command>
          </menu>
