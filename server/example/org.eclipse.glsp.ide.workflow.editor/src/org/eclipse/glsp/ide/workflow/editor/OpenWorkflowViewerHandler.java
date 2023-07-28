@@ -28,44 +28,39 @@ import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.glsp.ide.editor.utils.UIUtil;
 import org.eclipse.ui.ISelectionService;
 
 /**
- * This is an example to open the E4 Part on a file basis.
- * If you want to work with files it is probably better to use the E3 Editor.
- *
+ * This is an example to open the GLSP widget as an E4 Part based on a selected file.
+ * <p>
+ * Note however, that if you work with files it is probably better to use the E3 Editor.
  * If you have a use case where you are not working on a file, try the E4 Solution
+ * </p>
  */
 public class OpenWorkflowViewerHandler {
+
+   private static final String VIEWER_ID = "org.eclipse.glsp.ide.workflow.editor.part.workflowViewer";
 
    @Execute
    public void execute(final EModelService modelService, final MApplication app, final EPartService partService,
       final ISelectionService selectionService) {
-      MPart viwerPart = (MPart) modelService.cloneSnippet(app,
-         "org.eclipse.glsp.ide.workflow.editor.part.workflowViewer",
-         app.getSelectedElement());
-
       MUIElement editorssArea = modelService.find("org.eclipse.ui.editorss", app);
-
       MUIElement element = ((MPlaceholder) editorssArea).getRef();
 
-      ((MPartStack) ((MArea) element).getChildren().get(0)).getChildren().add(viwerPart);
+      MPart viewerPart = (MPart) modelService.cloneSnippet(app, VIEWER_ID, app.getSelectedElement());
+      MPartStack partStack = (MPartStack) ((MArea) element).getChildren().get(0);
+      partStack.getChildren().add(viewerPart);
 
-      ISelection selection = selectionService.getSelection();
-      if (selection instanceof IStructuredSelection) {
-         Object firstElement = ((IStructuredSelection) selection).getFirstElement();
-         if (firstElement instanceof IFile) {
-            IFile file = (IFile) firstElement;
-
-            viwerPart.getProperties().put("file", Optional.ofNullable(file)
-               .map(IFile::getLocationURI)
-               .map(URI::getPath)
-               .orElse(""));
-         }
+      Optional<IFile> file = UIUtil.getFirstSelectedFile(selectionService);
+      if (file.isPresent()) {
+         viewerPart.getProperties().put("file", file
+            .map(IFile::getLocationURI)
+            .map(URI::getPath)
+            .orElse(""));
       }
-      partService.activate(viwerPart);
 
+      partService.activate(viewerPart);
    }
+
 }

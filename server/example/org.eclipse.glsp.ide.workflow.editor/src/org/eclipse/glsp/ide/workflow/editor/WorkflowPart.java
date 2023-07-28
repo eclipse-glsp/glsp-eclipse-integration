@@ -18,10 +18,11 @@ package org.eclipse.glsp.ide.workflow.editor;
 import org.eclipse.glsp.ide.editor.ui.GLSPDiagramPart;
 
 /**
- * This is an example to open the E4 Part on a file basis.
- * If you want to work with files it is probably better to use the E3 Editor.
- *
+ * This is an example to open the GLSP widget as an E4 Part based on a selected file.
+ * <p>
+ * Note however, that if you work with files it is probably better to use the E3 Editor.
  * If you have a use case where you are not working on a file, try the E4 Solution
+ * </p>
  */
 public class WorkflowPart extends GLSPDiagramPart {
 

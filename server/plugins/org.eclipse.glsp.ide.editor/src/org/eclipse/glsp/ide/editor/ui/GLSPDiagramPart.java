@@ -54,39 +54,32 @@ public abstract class GLSPDiagramPart {
       final ESelectionService selectionService, final EHandlerService handlerService, final EMenuService menuService) {
 
       diagram.init(context, getInput());
-
       diagram.addDirtyStateListener(this::setDirty);
-
       diagram.createPartControl(composite);
-      diagram.addSelectionChangedListener(event -> {
-         selectionService.setSelection(diagram.getSelection());
-      });
+      diagram.addSelectionChangedListener(event -> selectionService.setSelection(diagram.getSelection()));
 
       initilizeCommands(context, handlerService);
-
       registerContextMenu(menuService);
    }
 
    protected boolean registerContextMenu(final EMenuService menuService) {
-      for (MMenu mmenu : part.getMenus()) {
-         if (mmenu instanceof MPopupMenu) {
-            return menuService.registerContextMenu(diagram.getBrowser(), mmenu.getElementId());
+      for (MMenu menu : part.getMenus()) {
+         if (menu instanceof MPopupMenu) {
+            return menuService.registerContextMenu(diagram.getBrowser(), menu.getElementId());
          }
       }
       return false;
    }
 
-   protected abstract String getInput();
-
    protected void initilizeCommands(final IEclipseContext context, final EHandlerService handlerService) {
       for (Entry<String, IAction> action : diagram.getGlobalActions().entrySet()) {
-
          IActionCommandMappingService commandMappingService = context.get(IActionCommandMappingService.class);
          String commandId = commandMappingService.getCommandId(action.getKey());
          handlerService.activateHandler(commandId, new Handler(action.getValue()));
-
       }
    }
+
+   protected abstract String getInput();
 
    protected static class Handler {
 
@@ -114,7 +107,6 @@ public abstract class GLSPDiagramPart {
    @PreDestroy
    public void preDestroy() {
       diagram.notifyAboutToBeDisposed();
-
       diagram.dispose();
    }
 

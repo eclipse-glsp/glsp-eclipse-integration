@@ -48,19 +48,19 @@ public abstract class IdeActionHandler extends AbstractHandler {
    @Override
    public Object execute(final ExecutionEvent event) throws ExecutionException {
       IWorkbenchPartSite partSite = HandlerUtil.getActivePart(event).getSite();
+      execute(getContext(partSite));
+      return null;
+   }
 
+   protected IEclipseContext getContext(final IWorkbenchPartSite partSite) {
       if (partSite.getPart() instanceof E4PartWrapper) {
-         E4PartWrapper wrapper = (E4PartWrapper) partSite.getPart();
-         GLSPDiagramPart part = wrapper.getAdapter(GLSPDiagramPart.class);
+         final E4PartWrapper wrapper = (E4PartWrapper) partSite.getPart();
+         final GLSPDiagramPart part = wrapper.getAdapter(GLSPDiagramPart.class);
          if (part != null) {
-            IEclipseContext context = part.getPart().getContext();
-            execute(context);
-            return null;
+            return part.getPart().getContext();
          }
       }
-      IEclipseContext context = partSite.getService(IEclipseContext.class);
-      execute(context);
-      return null;
+      return partSite.getService(IEclipseContext.class);
    }
 
    protected abstract void execute(IEclipseContext context);
