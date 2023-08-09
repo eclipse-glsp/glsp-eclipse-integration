@@ -43,11 +43,13 @@ import org.eclipse.glsp.ide.editor.internal.utils.SystemUtils;
 import org.eclipse.glsp.server.di.ServerModule;
 import org.eclipse.glsp.server.utils.LaunchUtil;
 import org.eclipse.glsp.server.websocket.GLSPConfigurator;
+import org.eclipse.jetty.server.AllowedResourceAliasChecker;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.servlet.DefaultServlet;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import org.eclipse.jetty.util.resource.Resource;
 import org.eclipse.jetty.websocket.javax.server.config.JavaxWebSocketServletContainerInitializer;
 
 import com.google.inject.Guice;
@@ -98,6 +100,10 @@ public abstract class GLSPServerManager {
       ServletHolder defaultServletHolder = new ServletHolder("default", new DefaultServlet());
 
       String resourceBase = resolveResourceBase();
+      if (SystemUtils.isWindows()) {
+         var resource = Resource.newResource(resourceBase);
+         context.addAliasCheck(new AllowedResourceAliasChecker(context, resource));
+      }
 
       defaultServletHolder.setInitParameter("resourceBase", resourceBase);
       defaultServletHolder.setInitParameter("dirAllowed", "false");
