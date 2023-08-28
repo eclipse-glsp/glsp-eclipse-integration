@@ -18,6 +18,10 @@
     - ELK 0.7.0 -> 0.8.1
     - Log4J 1.2x -> 2.19
   - Remove the `keepAliveModule` and rely on Jetty's infinite session timeout mechanism instead
+- [eclipse] Rework of the GLSPDiagramEditor to support E4 Parts [#83](https://github.com/eclipse-glsp/glsp-eclipse-integration/pull/83)
+  - Most methods in GLSPDiagramEditor moved to GLSPDiagramComposite if you want to override them with your own implementation override GLSPDiagramEditor.createGLSPDiagramComposite() and return our own class
+  - Extent GLSPDiagramPart to implement your own E4 Part
+  - GLSPEditorRegistry works on GLSPDiagramComposite and no longer on GLSPDiagramEditor, which is the implementation used by E3 and E4
 
 ## [v1.0.0 - 30/06/2022](https://github.com/eclipse-glsp/glsp-eclipse-integration/releases/tag/v1.0.0)
 

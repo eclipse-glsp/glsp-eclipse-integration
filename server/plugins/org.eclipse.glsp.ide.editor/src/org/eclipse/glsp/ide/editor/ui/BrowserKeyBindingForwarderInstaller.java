@@ -56,10 +56,14 @@ public class BrowserKeyBindingForwarderInstaller implements BrowserFunctionInsta
    private static final String FUNCTION_INSTALLER = //
       "document.addEventListener('keydown', (event) => { " + FUNCTION_CALL + " });";
 
-   private final IServiceLocator serviceLocator;
+   private final IBindingService bindingService;
+
+   public BrowserKeyBindingForwarderInstaller(final IBindingService bindingService) {
+      this.bindingService = bindingService;
+   }
 
    public BrowserKeyBindingForwarderInstaller(final IServiceLocator serviceLocator) {
-      this.serviceLocator = serviceLocator;
+      this.bindingService = serviceLocator.getService(IBindingService.class);
    }
 
    @Override
@@ -75,7 +79,6 @@ public class BrowserKeyBindingForwarderInstaller implements BrowserFunctionInsta
                SerializableKeyEvent event = new Gson().fromJson((String) arguments[0], SerializableKeyEvent.class);
                Optional<KeySequence> keySequence = getKeySequence(event);
                if (keySequence.isPresent()) {
-                  IBindingService bindingService = serviceLocator.getService(IBindingService.class);
                   if (bindingService != null) {
                      forwardKeySequence(bindingService, keySequence.get());
                   }

@@ -25,20 +25,22 @@ import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.glsp.ide.editor.ui.GLSPDiagramEditor;
+import org.eclipse.glsp.ide.editor.ui.GLSPDiagramComposite;
+import org.eclipse.glsp.ide.editor.ui.GLSPDiagramPart;
 import org.eclipse.glsp.server.actions.Action;
 import org.eclipse.glsp.server.actions.ActionDispatcher;
 import org.eclipse.glsp.server.actions.ActionMessage;
 import org.eclipse.glsp.server.model.GModelState;
 import org.eclipse.glsp.server.protocol.GLSPClient;
-import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.handlers.HandlerUtil;
+import org.eclipse.ui.internal.E4PartWrapper;
 
 /**
  * An abstract Handler to delegate the execution of Eclipse Commands to GLSP Actions,
  * via the ActionDispatcher of the current GLSP diagram.
  */
+@SuppressWarnings("restriction")
 public abstract class IdeActionHandler extends AbstractHandler {
 
    private final Logger log = LogManager.getLogger(getClass());
@@ -46,16 +48,30 @@ public abstract class IdeActionHandler extends AbstractHandler {
    @Override
    public Object execute(final ExecutionEvent event) throws ExecutionException {
       IWorkbenchPartSite partSite = HandlerUtil.getActivePart(event).getSite();
-      IEclipseContext context = partSite.getService(IEclipseContext.class);
-      execute(context);
+      execute(getContext(partSite));
       return null;
+   }
+
+   protected IEclipseContext getContext(final IWorkbenchPartSite partSite) {
+      if (partSite.getPart() instanceof E4PartWrapper) {
+         final E4PartWrapper wrapper = (E4PartWrapper) partSite.getPart();
+         final GLSPDiagramPart part = wrapper.getAdapter(GLSPDiagramPart.class);
+         if (part != null) {
+            return part.getPart().getContext();
+         }
+      }
+      return partSite.getService(IEclipseContext.class);
    }
 
    protected abstract void execute(IEclipseContext context);
 
    protected void dispatchMessage(final IEclipseContext context, final Action action) {
       ActionDispatcher dispatcher = context.get(ActionDispatcher.class);
-      String clientId = (String) context.get(GLSPDiagramEditor.GLSP_CLIENT_ID);
+      if (dispatcher == null) {
+         // We got into a part which does not support dispatching of actions
+         return;
+      }
+      String clientId = (String) context.get(GLSPDiagramComposite.GLSP_CLIENT_ID);
       // Note: GLSPClient is not available at the moment, as we don't have a way to track the
       // client connection lifecycle in the Eclipse Integration yet.
       Optional<GLSPClient> client = Optional.ofNullable(context.get(GLSPClient.class));
@@ -64,9 +80,9 @@ public abstract class IdeActionHandler extends AbstractHandler {
    }
 
    protected <T> Optional<T> getInstance(final IEclipseContext context, final Class<T> type) {
-      IEditorPart editor = context.get(IEditorPart.class);
-      return editor instanceof GLSPDiagramEditor
-         ? Optional.ofNullable(((GLSPDiagramEditor) editor).getInjector().getInstance(type))
+      GLSPDiagramComposite diagramComposite = context.get(GLSPDiagramComposite.class);
+      return diagramComposite != null
+         ? Optional.ofNullable(diagramComposite.getInjector().getInstance(type))
          : Optional.empty();
    }
 

@@ -24,7 +24,7 @@ import java.util.Optional;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.glsp.ide.editor.ui.GLSPDiagramEditor;
+import org.eclipse.glsp.ide.editor.ui.GLSPDiagramComposite;
 import org.eclipse.glsp.ide.editor.ui.GLSPIdeEditorPlugin;
 
 public class ExternalBrowserDebugHandler extends IdeActionHandler {
@@ -32,8 +32,8 @@ public class ExternalBrowserDebugHandler extends IdeActionHandler {
 
    @Override
    protected void execute(final IEclipseContext context) {
-      String clientId = (String) context.get(GLSPDiagramEditor.GLSP_CLIENT_ID);
-      Optional<GLSPDiagramEditor> editor = GLSPIdeEditorPlugin.getDefault().getGLSPEditorRegistry()
+      String clientId = (String) context.get(GLSPDiagramComposite.GLSP_CLIENT_ID);
+      Optional<GLSPDiagramComposite> editor = GLSPIdeEditorPlugin.getDefault().getGLSPEditorRegistry()
          .getGLSPEditor(clientId);
       if (editor.isPresent()) {
          String url = editor.get().getBrowserUrl();

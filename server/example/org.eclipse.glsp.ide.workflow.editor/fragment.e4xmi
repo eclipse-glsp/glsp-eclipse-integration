@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ASCII"?>
+<fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:commands="http://www.eclipse.org/ui/2010/UIModel/application/commands" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmlns:ui="http://www.eclipse.org/ui/2010/UIModel/application/ui" xmi:id="_Lo1j0CVVEe6BWNnGTQlFsQ">
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_tlU_oCx1Ee6j-oaIUDoEgw" featurename="snippets" parentElementId="org.eclipse.e4.legacy.ide.application">
+    <elements xsi:type="basic:Part" xmi:id="_vceugCx1Ee6j-oaIUDoEgw" elementId="org.eclipse.glsp.ide.workflow.editor.part.workflowViewer" contributionURI="bundleclass://org.eclipse.glsp.ide.workflow.editor/org.eclipse.glsp.ide.workflow.editor.WorkflowPart" label="Workflow Viewer" closeable="true">
+      <menus xsi:type="menu:PopupMenu" xmi:id="_cV-L4C0eEe6x6_YHT7ghoA" elementId="org.eclipse.glsp.workflow.editor"/>
+    </elements>
+  </fragments>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_3bM4kCx1Ee6j-oaIUDoEgw" featurename="commands" parentElementId="org.eclipse.e4.legacy.ide.application">
+    <elements xsi:type="commands:Command" xmi:id="_4utu4Cx1Ee6j-oaIUDoEgw" elementId="org.eclipse.glsp.ide.workflow.editor.command.openViewer" commandName="Open Workflow Viewer"/>
+  </fragments>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_9RCDgCx1Ee6j-oaIUDoEgw" featurename="handlers" parentElementId="org.eclipse.e4.legacy.ide.application">
+    <elements xsi:type="commands:Handler" xmi:id="__e5CMCx1Ee6j-oaIUDoEgw" elementId="org.eclipse.glsp.ide.workflow.editor.handler.openViewer" contributionURI="bundleclass://org.eclipse.glsp.ide.workflow.editor/org.eclipse.glsp.ide.workflow.editor.OpenWorkflowViewerHandler" command="_4utu4Cx1Ee6j-oaIUDoEgw"/>
+  </fragments>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_A-w5gCx2Ee6j-oaIUDoEgw" featurename="menuContributions" parentElementId="org.eclipse.e4.legacy.ide.application">
+    <elements xsi:type="menu:MenuContribution" xmi:id="_B4ZQMCx2Ee6j-oaIUDoEgw" elementId="org.eclipse.glsp.ide.workflow.editor.menucontribution.openViewer" positionInParent="after=additions" parentId="popup">
+      <children xsi:type="menu:HandledMenuItem" xmi:id="_DRz6MCx2Ee6j-oaIUDoEgw" elementId="org.eclipse.glsp.ide.workflow.editor.menu.openViewer" label="Open In Workflow Viewer" command="_4utu4Cx1Ee6j-oaIUDoEgw">
+        <visibleWhen xsi:type="ui:CoreExpression" xmi:id="_FLABsCx8Ee6j-oaIUDoEgw" coreExpressionId="org.eclipse.glsp.ide.workflow.editor.workflowFile"/>
+      </children>
+    </elements>
+  </fragments>
+</fragment:ModelFragments>
