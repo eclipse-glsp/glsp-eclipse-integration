@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020 EclipseSource and others.
+ * Copyright (c) 2020-2023 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -13,15 +13,15 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { configureActionHandler } from '@eclipse-glsp/client';
-import { ContainerModule } from 'inversify';
+import { FeatureModule, configureActionHandler, copyPasteModule } from '@eclipse-glsp/client';
 
 import { EclipseCopyPasteActionHandler } from './copy-paste';
 
-const eclipseCopyPasteModule = new ContainerModule((bind, _unbind, isBound) => {
-    configureActionHandler({ bind, isBound }, 'invoke-copy', EclipseCopyPasteActionHandler);
-    configureActionHandler({ bind, isBound }, 'invoke-cut', EclipseCopyPasteActionHandler);
-    configureActionHandler({ bind, isBound }, 'invoke-paste', EclipseCopyPasteActionHandler);
-});
-
-export default eclipseCopyPasteModule;
+export const eclipseCopyPasteModule = new FeatureModule(
+    (bind, _unbind, isBound) => {
+        configureActionHandler({ bind, isBound }, 'invoke-copy', EclipseCopyPasteActionHandler);
+        configureActionHandler({ bind, isBound }, 'invoke-cut', EclipseCopyPasteActionHandler);
+        configureActionHandler({ bind, isBound }, 'invoke-paste', EclipseCopyPasteActionHandler);
+    },
+    { requires: copyPasteModule }
+);
