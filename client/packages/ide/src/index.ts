@@ -13,9 +13,10 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import eclipseCopyPasteModule from './features/copy-paste/di.config';
-import eclipseDeleteModule from './features/invoke-delete/di.config';
 
-export * from './base/eclipse-glsp-diagram-server';
+export * from './default-modules';
+export * from './features/copy-paste/copy-paste';
+export * from './features/copy-paste/copy-paste-module';
+export * from './features/delete/delete-module';
+export * from './features/fallback/fallback-module';
 export * from './utils/url-parameters';
-export { eclipseCopyPasteModule, eclipseDeleteModule };

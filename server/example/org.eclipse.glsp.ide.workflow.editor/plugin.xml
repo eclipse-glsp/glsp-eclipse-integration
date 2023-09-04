@@ -50,6 +50,10 @@
               commandId="org.eclipse.glsp.ide.workflow.editor.navigate.next-node"
               style="push">
         </command>
+         <command
+               commandId="org.eclipse.glsp.ide.workflow.editor.navigate.previous-node"
+               style="push">
+         </command>
          <dynamic
                class="org.eclipse.glsp.ide.editor.ui.GLSPDynamicContribution"
                id="org.eclipse.glsp.ide.editor.actionprovider">
