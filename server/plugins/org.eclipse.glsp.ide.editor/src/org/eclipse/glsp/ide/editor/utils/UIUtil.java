@@ -36,7 +36,12 @@ public final class UIUtil {
 
    private UIUtil() {}
 
-   public static Optional<IWorkbench> getWorkbench() { return Optional.ofNullable(PlatformUI.getWorkbench()); }
+   public static Optional<IWorkbench> getWorkbench() {
+      if (PlatformUI.isWorkbenchRunning()) {
+         return Optional.ofNullable(PlatformUI.getWorkbench());
+      }
+      return Optional.empty();
+   }
 
    public static Optional<IWorkbenchWindow> getActiveWorkbenchWindow() {
       return getWorkbench().map(IWorkbench::getActiveWorkbenchWindow);
