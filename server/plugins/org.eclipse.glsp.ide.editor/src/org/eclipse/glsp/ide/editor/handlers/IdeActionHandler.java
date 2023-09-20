@@ -15,7 +15,7 @@
  ********************************************************************************/
 package org.eclipse.glsp.ide.editor.handlers;
 
-import static org.eclipse.glsp.server.utils.ServerMessageUtil.error;
+import static org.eclipse.glsp.server.utils.MessageActionUtil.error;
 
 import java.util.Optional;
 

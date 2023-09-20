@@ -17,22 +17,22 @@ package org.eclipse.glsp.ide.editor.actions.handlers;
 
 import java.util.List;
 
-import org.eclipse.glsp.ide.editor.utils.IdeServerMessageUtil;
+import org.eclipse.glsp.ide.editor.utils.IdeMessageUtil;
 import org.eclipse.glsp.server.actions.AbstractActionHandler;
 import org.eclipse.glsp.server.actions.Action;
-import org.eclipse.glsp.server.actions.ServerMessageAction;
+import org.eclipse.glsp.server.actions.MessageAction;
 import org.eclipse.glsp.server.model.GModelState;
 
 import com.google.inject.Inject;
 
-public class IdeServerMessageActionHandler extends AbstractActionHandler<ServerMessageAction> {
+public class IdeMessageActionHandler extends AbstractActionHandler<MessageAction> {
 
    @Inject
    protected GModelState modelState;
 
    @Override
-   protected List<Action> executeAction(final ServerMessageAction action) {
-      IdeServerMessageUtil.log(action, modelState.getClientId());
+   protected List<Action> executeAction(final MessageAction action) {
+      IdeMessageUtil.log(action, modelState.getClientId());
       return none();
    }
 

@@ -21,19 +21,19 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.glsp.ide.editor.di.IdeActionDispatcher;
-import org.eclipse.glsp.server.actions.ServerMessageAction;
+import org.eclipse.glsp.server.actions.MessageAction;
 import org.eclipse.glsp.server.types.Severity;
 import org.eclipse.jface.dialogs.ErrorDialog;
 
-public final class IdeServerMessageUtil {
-   private IdeServerMessageUtil() {}
+public final class IdeMessageUtil {
+   private IdeMessageUtil() {}
 
-   public static void log(final ServerMessageAction action, final String clientId) {
+   public static void log(final MessageAction action, final String clientId) {
       Optional<IStatus> status = toStatus(action);
       if (status.isEmpty()) {
          return;
       }
-      Platform.getLog(IdeServerMessageUtil.class).log(status.get());
+      Platform.getLog(IdeMessageUtil.class).log(status.get());
       if (status.get().getSeverity() >= IStatus.ERROR) {
          UIUtil.asyncExec(() -> {
             UIUtil.findShell(clientId).ifPresent(
@@ -42,7 +42,7 @@ public final class IdeServerMessageUtil {
       }
    }
 
-   public static Optional<IStatus> toStatus(final ServerMessageAction action) {
+   public static Optional<IStatus> toStatus(final MessageAction action) {
       int severity = toSeverity(action.getSeverity());
       String message = action.getMessage();
       if (message == null || message.isEmpty()) {
