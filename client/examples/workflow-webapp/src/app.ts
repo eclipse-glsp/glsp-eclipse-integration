@@ -15,17 +15,9 @@
  ********************************************************************************/
 import 'reflect-metadata';
 
-import {
-    BaseJsonrpcGLSPClient,
-    DiagramLoader,
-    GLSPActionDispatcher,
-    GLSPWebSocketProvider,
-    ServerMessageAction,
-    ServerStatusAction,
-    TYPES
-} from '@eclipse-glsp/client';
+import { BaseJsonrpcGLSPClient, DiagramLoader, GLSPActionDispatcher, GLSPWebSocketProvider, TYPES } from '@eclipse-glsp/client';
 import { getParameters } from '@eclipse-glsp/ide';
-import { ApplicationIdProvider, GLSPClient } from '@eclipse-glsp/protocol';
+import { ApplicationIdProvider, GLSPClient, MessageAction, StatusAction } from '@eclipse-glsp/protocol';
 import { Container } from 'inversify';
 import { MessageConnection } from 'vscode-jsonrpc';
 import createContainer from './di.config';
@@ -66,7 +58,8 @@ async function initialize(connectionProvider: MessageConnection, isReconnecting 
     const diagramLoader = container.get(DiagramLoader);
     await diagramLoader.load({
         requestModelOptions: { isReconnecting },
-        initializeParameters: { applicationId }
+        initializeParameters: { applicationId },
+        enableNotifications: false
     });
 
     const actionDispatcher: GLSPActionDispatcher = container.get<GLSPActionDispatcher>(TYPES.IActionDispatcher);
@@ -75,10 +68,7 @@ async function initialize(connectionProvider: MessageConnection, isReconnecting 
         const message = `Connection to the ${id} glsp server got closed. Connection was successfully re-established.`;
         const timeout = 5000;
         const severity = 'WARNING';
-        actionDispatcher.dispatchAll([
-            ServerStatusAction.create(message, { severity, timeout }),
-            ServerMessageAction.create(message, { severity })
-        ]);
+        actionDispatcher.dispatchAll([StatusAction.create(message, { severity, timeout }), MessageAction.create(message, { severity })]);
         return;
     }
 }

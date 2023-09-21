@@ -54,7 +54,7 @@ import org.eclipse.glsp.server.actions.Action;
 import org.eclipse.glsp.server.actions.ActionDispatcher;
 import org.eclipse.glsp.server.actions.SelectAction;
 import org.eclipse.glsp.server.actions.SelectAllAction;
-import org.eclipse.glsp.server.actions.ServerStatusAction;
+import org.eclipse.glsp.server.actions.StatusAction;
 import org.eclipse.glsp.server.disposable.DisposableCollection;
 import org.eclipse.glsp.server.features.contextactions.RequestContextActions;
 import org.eclipse.glsp.server.features.navigation.NavigateToTargetAction;
@@ -188,7 +188,7 @@ public class GLSPDiagramComposite implements IGotoMarker, ISelectionProvider {
       dispatch(new SelectAllAction(true));
    }
 
-   public void showServerStatus(final ServerStatusAction action) {
+   public void showServerStatus(final StatusAction action) {
       this.statusBar.showServerStatus(action);
    }
 

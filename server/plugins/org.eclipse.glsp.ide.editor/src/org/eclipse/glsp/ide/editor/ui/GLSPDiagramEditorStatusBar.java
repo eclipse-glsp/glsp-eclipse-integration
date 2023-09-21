@@ -23,9 +23,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import org.eclipse.glsp.ide.editor.utils.UIUtil;
-import org.eclipse.glsp.server.actions.ServerStatusAction;
+import org.eclipse.glsp.server.actions.StatusAction;
 import org.eclipse.glsp.server.types.Severity;
-import org.eclipse.glsp.server.utils.ServerStatusUtil;
+import org.eclipse.glsp.server.utils.StatusActionUtil;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
@@ -40,7 +40,7 @@ public class GLSPDiagramEditorStatusBar extends Composite {
    private final Label statusBarIcon;
    private final Label statusBarMessage;
 
-   private ServerStatusAction currentStatus;
+   private StatusAction currentStatus;
    private final Timer statusTimer = new Timer();
 
    public GLSPDiagramEditorStatusBar(final Composite parent) {
@@ -57,16 +57,16 @@ public class GLSPDiagramEditorStatusBar extends Composite {
       statusBarMessage.setText("");
    }
 
-   public synchronized void showServerStatus(final ServerStatusAction serverStatus) {
-      this.currentStatus = serverStatus;
-      UIUtil.asyncExec(() -> updateStatusBar(serverStatus));
-      if (serverStatus.getTimeout() > 0) {
-         int timeout = serverStatus.getTimeout();
-         statusTimer.schedule(new ClearStatusBarTask(serverStatus), timeout);
+   public synchronized void showServerStatus(final StatusAction status) {
+      this.currentStatus = status;
+      UIUtil.asyncExec(() -> updateStatusBar(status));
+      if (status.getTimeout() > 0) {
+         int timeout = status.getTimeout();
+         statusTimer.schedule(new ClearStatusBarTask(status), timeout);
       }
    }
 
-   protected synchronized void updateStatusBar(final ServerStatusAction status) {
+   protected synchronized void updateStatusBar(final StatusAction status) {
       Severity severity = Severity.valueOf(status.getSeverity());
       Image image = toImage(severity);
       String message = status.getMessage();
@@ -108,9 +108,9 @@ public class GLSPDiagramEditorStatusBar extends Composite {
    }
 
    private class ClearStatusBarTask extends TimerTask {
-      private final ServerStatusAction startStatus;
+      private final StatusAction startStatus;
 
-      ClearStatusBarTask(final ServerStatusAction startStatus) {
+      ClearStatusBarTask(final StatusAction startStatus) {
          this.startStatus = startStatus;
       }
 
@@ -118,7 +118,7 @@ public class GLSPDiagramEditorStatusBar extends Composite {
       public void run() {
          // do not clear if the current status changed in the meantime as that status might have a different timeout
          if (currentStatus == startStatus) {
-            UIUtil.asyncExec(() -> updateStatusBar(ServerStatusUtil.clear()));
+            UIUtil.asyncExec(() -> updateStatusBar(StatusActionUtil.clear()));
          }
       }
    }

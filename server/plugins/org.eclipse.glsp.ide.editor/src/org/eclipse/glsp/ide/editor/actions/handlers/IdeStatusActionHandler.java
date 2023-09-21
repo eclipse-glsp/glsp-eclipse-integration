@@ -20,23 +20,23 @@ import java.util.List;
 import org.eclipse.glsp.ide.editor.ui.GLSPIdeEditorPlugin;
 import org.eclipse.glsp.server.actions.AbstractActionHandler;
 import org.eclipse.glsp.server.actions.Action;
-import org.eclipse.glsp.server.actions.ServerStatusAction;
+import org.eclipse.glsp.server.actions.StatusAction;
 import org.eclipse.glsp.server.model.GModelState;
 
 import com.google.inject.Inject;
 
-public class IdeServerStatusActionHandler extends AbstractActionHandler<ServerStatusAction> {
+public class IdeStatusActionHandler extends AbstractActionHandler<StatusAction> {
 
    @Inject
    protected GModelState modelState;
 
    @Override
-   protected List<Action> executeAction(final ServerStatusAction action) {
+   protected List<Action> executeAction(final StatusAction action) {
       GLSPIdeEditorPlugin.getDefaultGLSPEditorRegistry().getGLSPEditorOrThrow(modelState.getClientId())
          .showServerStatus(action);
       return none();
    }
 
    @Override
-   public List<Class<? extends Action>> getHandledActionTypes() { return List.of(ServerStatusAction.class); }
+   public List<Class<? extends Action>> getHandledActionTypes() { return List.of(StatusAction.class); }
 }
