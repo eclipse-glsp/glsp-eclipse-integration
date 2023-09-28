@@ -5,7 +5,6 @@ spec:
   containers:
   - name: ci
     image: eclipseglsp/ci:alpine-v4.0
-    tty: true
     resources:
       limits:
         memory: "2Gi"
@@ -164,7 +163,7 @@ pipeline {
                 }
                 stage('Deploy server (P2)') {
                     steps {
-                        build job: 'deploy-ide-p2-nightly', wait: true
+                        build job: 'deploy-ide-p2-nightly', wait: false
                     }
                 
                 }
