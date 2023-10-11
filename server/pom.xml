@@ -38,8 +38,8 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java.source>11</java.source>
-		<java.target>11</java.target>
+		<java.source>17</java.source>
+		<java.target>17</java.target>
 		<project.build.java.target>1.8</project.build.java.target>
 		<tycho-version>2.7.5</tycho-version>
 		<maven-antrun-plugin.version>3.0.0</maven-antrun-plugin.version>
