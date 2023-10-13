@@ -24,7 +24,6 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.NotEnabledException;
 import org.eclipse.core.commands.NotHandledException;
 import org.eclipse.core.commands.common.NotDefinedException;
-import org.eclipse.glsp.ide.editor.utils.SWTUtil;
 import org.eclipse.glsp.ide.editor.utils.UIUtil;
 import org.eclipse.jface.bindings.Binding;
 import org.eclipse.jface.bindings.keys.IKeyLookup;
@@ -68,7 +67,7 @@ public class BrowserKeyBindingForwarderInstaller implements BrowserFunctionInsta
 
    @Override
    public Optional<BrowserFunction> install(final Browser browser) {
-      return SWTUtil.isChromiumOrEdge(browser) ? doInstall(browser) : Optional.empty();
+      return doInstall(browser);
    }
 
    protected Optional<BrowserFunction> doInstall(final Browser browser) {
