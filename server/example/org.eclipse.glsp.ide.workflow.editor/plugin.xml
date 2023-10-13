@@ -209,22 +209,28 @@
    </extension>
    <extension
          point="org.eclipse.core.expressions.definitions">
-      <definition
-            id="org.eclipse.glsp.ide.workflow.editor.workflowFile">
-         <with
-               variable="selection">
-            <iterate
-                  operator="and">
-               <adapt
-                     type="org.eclipse.core.resources.IResource">
-                  <test
-                        forcePluginActivation="true"
-                        property="org.eclipse.core.resources.name"
-                        value="*.wf">
-                  </test>
-               </adapt></iterate>
-         </with>
-      </definition>
+    <definition id="org.eclipse.glsp.ide.workflow.editor.workflowFile">
+        <iterate
+              ifEmpty="false"
+              operator="and">
+            <adapt type="org.eclipse.core.resources.IResource">
+                <test forcePluginActivation="true" property="org.eclipse.core.resources.name" value="*.wf">
+                </test>
+            </adapt>
+            <not>
+                <or>
+                    <with variable="activePartId">
+                        <equals value="org.eclipse.glsp.workflow.editor">
+                        </equals>
+                    </with>
+                    <with variable="activePartId">
+                        <equals value="org.eclipse.glsp.ide.workflow.editor.part.workflowViewer">
+                        </equals>
+                    </with>
+                </or>
+            </not>
+        </iterate>
+    </definition>
    </extension>
 
 </plugin>
