@@ -14,7 +14,7 @@
     "watch": "tsc -w"
   },
   "dependencies": {
-    "@eclipse-glsp-examples/workflow-glsp": "2.1.0",
+    "@eclipse-glsp-examples/workflow-glsp": "~2.1.1",
     "@eclipse-glsp/ide": "2.1.0"
   },
   "devDependencies": {
