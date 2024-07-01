@@ -1,6 +1,6 @@
 {
   "name": "@eclipse-glsp/ide",
-  "version": "2.1.0",
+  "version": "2.2.0-next",
   "description": "Glue code to integrate GLSP clients into Eclipse via a webapp",
   "homepage": "https://www.eclipse.org/glsp/",
   "bugs": "https://github.com/eclipse-glsp/glsp/issues",
@@ -28,13 +28,13 @@
   "scripts": {
     "build": "tsc -b",
     "clean": "rimraf lib tsconfig.tsbuildinfo",
+    "generate:index": "glsp generateIndex src -f -s",
     "lint": "eslint --ext .ts,.tsx ./src",
     "lint:ci": "yarn lint -o eslint.xml -f checkstyle",
-    "prepare": "yarn clean && yarn build",
     "watch": "tsc -w"
   },
   "dependencies": {
-    "@eclipse-glsp/client": "2.1.0"
+    "@eclipse-glsp/client": "next"
   },
   "engines": {
     "yarn": "1.0.x || >=1.2.1"

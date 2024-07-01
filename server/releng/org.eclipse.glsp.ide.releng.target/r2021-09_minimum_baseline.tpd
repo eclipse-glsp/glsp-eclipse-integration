@@ -16,7 +16,7 @@ location "https://download.eclipse.org/tools/orbit/downloads/drops/R202211230215
 	com.google.inject
 }
 
-location "https://download.eclipse.org/glsp/server/p2/releases/2.0.0/" {
+location "https://download.eclipse.org/glsp/server/p2/nightly/2.2" {
 	org.eclipse.glsp.feature.feature.group lazy
 	org.eclipse.glsp.feature.source.feature.group lazy
 	org.eclipse.glsp.server.websocket lazy

@@ -1,32 +1,35 @@
 {
   "name": "parent",
-  "version": "2.1.0",
+  "version": "2.2.0-next",
   "private": true,
   "workspaces": [
     "packages/*",
     "examples/*"
   ],
   "scripts": {
-    "all": "yarn install && yarn lint",
-    "build": "lerna run build && yarn copy:client",
+    "all": "yarn build && yarn lint",
+    "app": "yarn --cwd examples/workflow-webapp",
+    "build": "yarn compile && yarn app bundle",
     "check:headers": "glsp checkHeaders ../../glsp-eclipse-integration -t lastCommit -f ts tsx java -e \"**/src-gen/**\"",
     "check:pr": "yarn all && yarn check:headers",
     "clean": "lerna run clean",
+    "compile": "tsc -b",
     "copy:client": "copyfiles -f ./examples/workflow-webapp/app/* ../server/example/org.eclipse.glsp.ide.workflow.editor/diagram",
-    "lint": "lerna run lint",
-    "lint:ci": "lerna run lint:ci",
-    "prepare": "lerna run prepare && yarn copy:client",
+    "generate:index": "lerna run generate:index && yarn lint:fix",
+    "lint": "eslint --ext .ts,.tsx .",
+    "lint:ci": "yarn lint --output-file eslint_report.json --format json",
+    "lint:fix": " yarn lint --fix",
+    "prepare": "yarn build && yarn copy:client",
     "publish:latest": "lerna publish from-git --no-git-reset --no-git-tag-version --no-verify-access --no-push",
-    "publish:next": "SHA=$(git rev-parse --short HEAD) && lerna publish preminor --exact --canary --preid next.${SHA} --dist-tag next --no-git-reset --no-git-tag-version --no-push --ignore-scripts --yes --no-verify-access",
+    "publish:next": "lerna publish preminor --exact --canary --preid next --dist-tag next --no-git-reset --no-git-tag-version --no-push --ignore-scripts --yes",
     "publish:prepare": "lerna version --ignore-scripts --yes --no-push",
-    "upgrade:next": "yarn upgrade -p \"@eclipse-glsp.*|sprotty.*\" --next ",
-    "watch": "lerna run --parallel watch"
+    "upgrade:next": "glsp updateNext",
+    "watch": "concurrently --kill-others -n tsc,webapp -c red,yellow \"tsc -b -w --preserveWatchOutput\" \"yarn -s app watch\""
   },
   "devDependencies": {
-    "@eclipse-glsp/dev": "^1.1.0-next.cbae4df.145",
-    "@types/node": "16.x",
+    "@eclipse-glsp/dev": "next",
+    "@types/node": "18.x",
     "copyfiles": "^2.4.1",
-    "inversify": "6.0.1",
     "lerna": "^7.0.0",
     "typescript": "^5.1.3"
   },
