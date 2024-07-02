@@ -10,3 +10,5 @@ lib
 *.ttf
 tsconfig.tsbuildinfo
 eslint.xml
+@tmp/
+.npmrc
