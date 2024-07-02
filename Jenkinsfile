@@ -76,7 +76,7 @@ pipeline {
                             sh "yarn install"
                             script {
                                 // Fail the step if there are uncommited changes to the yarn.lock file
-                                if (sh(returnStatus: true, script: 'git diff --name-only | grep -q "^client/yarn.lock"') == 0) {
+                                if (sh(returnStatus: true, script: 'git diff --name-only | grep -q "^yarn.lock"') == 0) {
                                     echo 'The yarn.lock file has uncommited changes!'
                                     error 'The yarn.lock file has uncommited changes!'
                                 } 
@@ -127,7 +127,7 @@ pipeline {
                 
                     // Record & publish esLint issues
                     recordIssues enabledForFailure: true, publishAllIssues: true, aggregatingResults: true, 
-                    tools: [esLint(pattern: 'client/node_modules/**/*/eslint.xml')], 
+                    tools: [esLint(pattern: 'client/eslint.xml')], 
                     qualityGates: [[threshold: 1, type: 'TOTAL', unstable: true]] 
                 }
             }
