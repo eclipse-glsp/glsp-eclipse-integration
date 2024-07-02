@@ -1,0 +1,16 @@
+{
+  "extends": "@eclipse-glsp/ts-config",
+  "include": [],
+  "compilerOptions": {
+    "composite": true,
+    "resolveJsonModule": true
+  },
+  "references": [
+    {
+      "path": "./packages/ide"
+    },
+    {
+      "path": "./examples/workflow-webapp"
+    }
+  ]
+}

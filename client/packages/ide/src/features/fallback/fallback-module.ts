@@ -28,13 +28,16 @@ import {
 } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
 
-export const eclipseFallbackModule = new FeatureModule((bind, unbind, isBound, rebind) => {
-    const context = { bind, unbind, isBound, rebind };
-    bind(FallbackActionHandler).toSelf().inSingletonScope();
-    configureActionHandler(context, StartProgressAction.KIND, FallbackActionHandler);
-    configureActionHandler(context, UpdateProgressAction.KIND, FallbackActionHandler);
-    configureActionHandler(context, EndProgressAction.KIND, FallbackActionHandler);
-});
+export const eclipseFallbackModule = new FeatureModule(
+    (bind, unbind, isBound, rebind) => {
+        const context = { bind, unbind, isBound, rebind };
+        bind(FallbackActionHandler).toSelf().inSingletonScope();
+        configureActionHandler(context, StartProgressAction.KIND, FallbackActionHandler);
+        configureActionHandler(context, UpdateProgressAction.KIND, FallbackActionHandler);
+        configureActionHandler(context, EndProgressAction.KIND, FallbackActionHandler);
+    },
+    { featureId: Symbol('eclipseFallback') }
+);
 
 /**
  * A fallback action handler for actions sent by features that are currently not supported by

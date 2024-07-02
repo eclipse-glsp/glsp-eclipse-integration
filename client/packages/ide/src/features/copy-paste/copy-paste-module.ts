@@ -23,5 +23,5 @@ export const eclipseCopyPasteModule = new FeatureModule(
         configureActionHandler({ bind, isBound }, 'invoke-cut', EclipseCopyPasteActionHandler);
         configureActionHandler({ bind, isBound }, 'invoke-paste', EclipseCopyPasteActionHandler);
     },
-    { requires: copyPasteModule }
+    { requires: copyPasteModule, featureId: Symbol('eclipseCopyPaste') }
 );

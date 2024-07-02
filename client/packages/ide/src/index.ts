@@ -18,5 +18,6 @@ export * from './default-modules';
 export * from './features/copy-paste/copy-paste';
 export * from './features/copy-paste/copy-paste-module';
 export * from './features/delete/delete-module';
+export * from './features/delete/invoke-delete';
 export * from './features/fallback/fallback-module';
 export * from './utils/url-parameters';

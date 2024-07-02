@@ -17,6 +17,9 @@ import { FeatureModule, configureActionHandler } from '@eclipse-glsp/client';
 
 import { InvokeDeleteActionHandler } from './invoke-delete';
 
-export const eclipseDeleteModule = new FeatureModule((bind, _unbind, isBound) => {
-    configureActionHandler({ bind, isBound }, 'invoke-delete', InvokeDeleteActionHandler);
-});
+export const eclipseDeleteModule = new FeatureModule(
+    (bind, _unbind, isBound) => {
+        configureActionHandler({ bind, isBound }, 'invoke-delete', InvokeDeleteActionHandler);
+    },
+    { featureId: Symbol('eclipseDelete') }
+);
