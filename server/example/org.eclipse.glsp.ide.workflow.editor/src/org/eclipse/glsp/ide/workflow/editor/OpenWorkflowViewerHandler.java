@@ -40,7 +40,7 @@ import org.eclipse.ui.ISelectionService;
  */
 public class OpenWorkflowViewerHandler {
 
-   private static final String VIEWER_ID = "org.eclipse.glsp.ide.workflow.editor.part.workflowViewer";
+   protected static final String VIEWER_ID = "org.eclipse.glsp.ide.workflow.editor.part.workflowViewer";
 
    @Execute
    public void execute(final EModelService modelService, final MApplication app, final EPartService partService,

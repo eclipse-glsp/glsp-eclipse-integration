@@ -35,13 +35,13 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 
 public class GLSPDiagramEditorStatusBar extends Composite {
-   private static final ISharedImages SHARED_IMAGES = PlatformUI.getWorkbench().getSharedImages();
+   public static final ISharedImages SHARED_IMAGES = PlatformUI.getWorkbench().getSharedImages();
 
-   private final Label statusBarIcon;
-   private final Label statusBarMessage;
+   protected final Label statusBarIcon;
+   protected final Label statusBarMessage;
 
-   private StatusAction currentStatus;
-   private final Timer statusTimer = new Timer();
+   protected StatusAction currentStatus;
+   protected final Timer statusTimer = new Timer();
 
    public GLSPDiagramEditorStatusBar(final Composite parent) {
       super(parent, SWT.NO_SCROLL);
@@ -107,8 +107,8 @@ public class GLSPDiagramEditorStatusBar extends Composite {
       super.dispose();
    }
 
-   private class ClearStatusBarTask extends TimerTask {
-      private final StatusAction startStatus;
+   protected class ClearStatusBarTask extends TimerTask {
+      protected StatusAction startStatus;
 
       ClearStatusBarTask(final StatusAction startStatus) {
          this.startStatus = startStatus;

@@ -58,7 +58,7 @@ public class GLSPDiagramEditor extends EditorPart implements IGotoMarker, ISelec
 
    protected final DisposableCollection toDispose = new DisposableCollection();
 
-   private GLSPDiagramComposite diagram;
+   protected GLSPDiagramComposite diagram;
 
    public GLSPDiagramEditor() {}
 

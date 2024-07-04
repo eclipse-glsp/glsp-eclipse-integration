@@ -28,7 +28,7 @@ import org.eclipse.swt.widgets.Composite;
  * Once this is fixed on Eclipse side, the subclass and the focus listener may be removed.
  */
 public class FocusAwareBrowser extends Browser {
-   private final AtomicBoolean focusTracker = new AtomicBoolean(false);
+   protected final AtomicBoolean focusTracker = new AtomicBoolean(false);
 
    public FocusAwareBrowser(final Composite parent, final int style) {
       super(parent, style);

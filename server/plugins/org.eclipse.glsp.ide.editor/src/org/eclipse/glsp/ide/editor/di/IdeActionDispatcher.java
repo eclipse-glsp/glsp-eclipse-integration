@@ -33,7 +33,7 @@ import com.google.inject.Injector;
 
 @SuppressWarnings("restriction")
 public class IdeActionDispatcher extends DefaultActionDispatcher {
-   private static final Logger LOGGER = LogManager.getLogger(IdeActionDispatcher.class);
+   protected static final Logger LOGGER = LogManager.getLogger(IdeActionDispatcher.class);
 
    protected final CompletableFuture<Void> onModelInitialized;
 
@@ -76,7 +76,7 @@ public class IdeActionDispatcher extends DefaultActionDispatcher {
       return false;
    }
 
-   private boolean handleRequestContextActions(final RequestContextActions action, final String clientId) {
+   protected boolean handleRequestContextActions(final RequestContextActions action, final String clientId) {
       GLSPIdeEditorPlugin.getDefaultGLSPEditorRegistry().getGLSPEditorOrThrow(clientId)
          .handleRequestContext(action);
       return false;

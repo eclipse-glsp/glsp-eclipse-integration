@@ -32,7 +32,7 @@ import org.eclipse.ui.services.IServiceLocator;
  */
 public class GLSPDynamicContribution extends ContributionItem implements IWorkbenchContribution {
 
-   private IServiceLocator serviceLocator;
+   protected IServiceLocator serviceLocator;
 
    @Override
    public void initialize(final IServiceLocator serviceLocator) {

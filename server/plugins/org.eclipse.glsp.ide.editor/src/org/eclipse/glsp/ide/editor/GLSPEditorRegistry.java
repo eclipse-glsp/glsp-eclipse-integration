@@ -30,11 +30,11 @@ import org.eclipse.ui.IPartListener2;
 import org.eclipse.ui.IWorkbenchPartReference;
 
 public class GLSPEditorRegistry {
-   private static String EDITOR_INTEGRATION_EXTENSION_POINT = "org.eclipse.glsp.ide.editor";
-   private static String SERVER_MANAGER_CLASS_ATTRIBUTE = "serverManagerClass";
-   private static String GLSP_EDITOR_ID_ATTRIBUTE = "editorId";
-   private final Map<String, GLSPServerManager> editorIdToServerManager;
-   private final Map<String, GLSPDiagramComposite> clientIdtoDiagramComposite;
+   protected static String EDITOR_INTEGRATION_EXTENSION_POINT = "org.eclipse.glsp.ide.editor";
+   protected static String SERVER_MANAGER_CLASS_ATTRIBUTE = "serverManagerClass";
+   protected static String GLSP_EDITOR_ID_ATTRIBUTE = "editorId";
+   protected final Map<String, GLSPServerManager> editorIdToServerManager;
+   protected final Map<String, GLSPDiagramComposite> clientIdtoDiagramComposite;
 
    public GLSPEditorRegistry() {
       editorIdToServerManager = new HashMap<>();
@@ -91,7 +91,7 @@ public class GLSPEditorRegistry {
       clientIdtoDiagramComposite.put(diagram.getClientId(), diagram);
    }
 
-   private void partClosed(final IWorkbenchPartReference part) {
+   protected void partClosed(final IWorkbenchPartReference part) {
       if (part.getPart(false) instanceof GLSPDiagramEditor) {
          GLSPDiagramEditor editor = (GLSPDiagramEditor) part.getPart(false);
          editor.notifyAboutToBeDisposed();
@@ -99,14 +99,14 @@ public class GLSPEditorRegistry {
       }
    }
 
-   private synchronized void partOpened(final IWorkbenchPartReference part) {
+   protected synchronized void partOpened(final IWorkbenchPartReference part) {
       if (part.getPart(false) instanceof GLSPDiagramEditor) {
          GLSPDiagramEditor editor = (GLSPDiagramEditor) part.getPart(false);
          clientIdtoDiagramComposite.put(editor.getClientId(), editor.getDiagram());
       }
    }
 
-   private synchronized void removeDiagramEditor(final String clientID) {
+   protected synchronized void removeDiagramEditor(final String clientID) {
       clientIdtoDiagramComposite.remove(clientID);
    }
 
