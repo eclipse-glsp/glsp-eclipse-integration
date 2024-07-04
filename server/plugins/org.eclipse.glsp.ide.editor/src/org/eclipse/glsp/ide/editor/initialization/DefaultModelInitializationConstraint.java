@@ -27,7 +27,7 @@ import org.eclipse.glsp.server.features.core.model.SetModelAction;
  */
 public class DefaultModelInitializationConstraint extends AbstractModelInitializationConstraint {
 
-   private boolean nonEmptySetModelActionDispatched;
+   protected boolean nonEmptySetModelActionDispatched;
 
    @Override
    protected boolean isInitializedAfter(final Action action) {
@@ -35,13 +35,13 @@ public class DefaultModelInitializationConstraint extends AbstractModelInitializ
       return nonEmptySetModelActionDispatched && isInitializeCanvasBoundsAction(action);
    }
 
-   private static boolean isNotEmptySetModelAction(final Action action) {
+   protected static boolean isNotEmptySetModelAction(final Action action) {
       return action instanceof SetModelAction
          && ((SetModelAction) action).getNewRoot() != null
          && !Objects.equals(((SetModelAction) action).getNewRoot().getType(), "NONE");
    }
 
-   private static boolean isInitializeCanvasBoundsAction(final Action action) {
+   protected static boolean isInitializeCanvasBoundsAction(final Action action) {
       return action instanceof InitializeCanvasBoundsAction;
    }
 }

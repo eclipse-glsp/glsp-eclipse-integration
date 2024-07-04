@@ -108,10 +108,10 @@ public class GLSPDiagramComposite implements IGotoMarker, ISelectionProvider {
 
    protected final CompletableFuture<Injector> injector = new CompletableFuture<>();
    protected boolean dirty;
-   private final List<Consumer<Boolean>> dirtyListener = new ArrayList<>();
+   protected final List<Consumer<Boolean>> dirtyListener = new ArrayList<>();
 
    protected final SelectionManager selectionListener = new SelectionManager();
-   private StructuredSelection currentSelection = StructuredSelection.EMPTY;
+   protected StructuredSelection currentSelection = StructuredSelection.EMPTY;
 
    protected final DisposableCollection toDispose = new DisposableCollection();
 
@@ -123,9 +123,9 @@ public class GLSPDiagramComposite implements IGotoMarker, ISelectionProvider {
       ActionFactory.PASTE.getId(), actionFor(this::paste),
       ActionFactory.DELETE.getId(), actionFor(this::delete),
       ActionFactory.SELECT_ALL.getId(), actionFor(this::selectAll)));
-   private IEclipseContext context;
-   private String input;
-   private final String editorId;
+   protected IEclipseContext context;
+   protected String input;
+   protected final String editorId;
 
    public GLSPDiagramComposite(final String editorId) {
       this.editorId = editorId;
@@ -491,7 +491,7 @@ public class GLSPDiagramComposite implements IGotoMarker, ISelectionProvider {
       });
    }
 
-   private void addUnique(final List<GModelElement> fromList, final List<GModelElement> toList) {
+   protected void addUnique(final List<GModelElement> fromList, final List<GModelElement> toList) {
       for (GModelElement newSelectedElement : fromList) {
          if (!toList.contains(newSelectedElement)) {
             toList.add(newSelectedElement);

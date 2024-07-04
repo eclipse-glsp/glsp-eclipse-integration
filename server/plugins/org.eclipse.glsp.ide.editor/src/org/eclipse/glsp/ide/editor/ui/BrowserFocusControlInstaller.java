@@ -26,8 +26,8 @@ import org.eclipse.swt.widgets.Control;
 
 public class BrowserFocusControlInstaller implements BrowserFunctionInstaller {
 
-   private static final String FUNCTION_NAME = "mouseDownHappened";
-   private static final String FUNCTION_INSTALLER = "document.onmousedown = function(e) {if (!e) {e = window.event;} if (e) {mouseDownHappened();}}";
+   public static final String FUNCTION_NAME = "mouseDownHappened";
+   public static final String FUNCTION_INSTALLER = "document.onmousedown = function(e) {if (!e) {e = window.event;} if (e) {mouseDownHappened();}}";
 
    @Override
    public Optional<BrowserFunction> install(final Browser browser) {

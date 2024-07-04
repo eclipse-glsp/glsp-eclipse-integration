@@ -22,8 +22,8 @@ import org.eclipse.swt.browser.BrowserFunction;
 
 public class BrowserContextMenuInstaller implements BrowserFunctionInstaller {
 
-   private static final String FUNCTION_NAME = "requestContextMenu";
-   private static final String FUNCTION_INSTALLER = "document.addEventListener(\"contextmenu\", e => { requestContextMenu(); e.preventDefault(); });";
+   public static final String FUNCTION_NAME = "requestContextMenu";
+   public static final String FUNCTION_INSTALLER = "document.addEventListener(\"contextmenu\", e => { requestContextMenu(); e.preventDefault(); });";
 
    @Override
    public Optional<BrowserFunction> install(final Browser browser) {

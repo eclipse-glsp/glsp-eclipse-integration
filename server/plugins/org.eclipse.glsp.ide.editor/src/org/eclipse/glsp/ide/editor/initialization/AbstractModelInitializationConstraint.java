@@ -20,8 +20,8 @@ import java.util.concurrent.CompletableFuture;
 import org.eclipse.glsp.server.actions.Action;
 
 public abstract class AbstractModelInitializationConstraint implements ModelInitializationConstraint {
-   private final CompletableFuture<Void> initialized = new CompletableFuture<>();
-   private boolean completed;
+   protected final CompletableFuture<Void> initialized = new CompletableFuture<>();
+   protected boolean completed;
 
    @Override
    public CompletableFuture<Void> onInitialized() {

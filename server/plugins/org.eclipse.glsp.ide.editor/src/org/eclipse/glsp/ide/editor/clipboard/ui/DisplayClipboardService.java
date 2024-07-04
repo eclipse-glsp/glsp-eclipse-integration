@@ -43,7 +43,7 @@ public class DisplayClipboardService implements ClipboardService, GLSPServerList
    @Inject
    protected Provider<GLSPClient> client;
 
-   private Clipboard clipboard;
+   protected Clipboard clipboard;
 
    @Inject
    public DisplayClipboardService(final GLSPServer server) {

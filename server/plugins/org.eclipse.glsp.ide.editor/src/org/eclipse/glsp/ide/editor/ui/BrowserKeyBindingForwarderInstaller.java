@@ -43,12 +43,12 @@ import com.google.gson.Gson;
  * https://github.com/maketechnology/chromium.swt/issues/70.
  */
 public class BrowserKeyBindingForwarderInstaller implements BrowserFunctionInstaller {
-   private static final Logger LOGGER = LogManager.getLogger(BrowserKeyBindingForwarderInstaller.class);
+   protected static final Logger LOGGER = LogManager.getLogger(BrowserKeyBindingForwarderInstaller.class);
 
-   private static final String FUNCTION_NAME = "$notifyKeybinding";
+   public static final String FUNCTION_NAME = "$notifyKeybinding";
 
    // only delegate ctrl/shift/alt events for now to cover most global bindings
-   private static final String FUNCTION_CALL = "if(event.ctrlKey || event.shiftKey || event.altKey) { " //
+   public static final String FUNCTION_CALL = "if(event.ctrlKey || event.shiftKey || event.altKey) { " //
       + FUNCTION_NAME + "(JSON.stringify(" + SerializableKeyEvent.JAVASCRIPT_CONSTRUCTOR_FOR_EVENT + "));" //
       + "}";
 

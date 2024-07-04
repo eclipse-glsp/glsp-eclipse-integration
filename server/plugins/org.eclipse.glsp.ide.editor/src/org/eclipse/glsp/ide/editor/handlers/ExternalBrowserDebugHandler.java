@@ -28,7 +28,7 @@ import org.eclipse.glsp.ide.editor.ui.GLSPDiagramComposite;
 import org.eclipse.glsp.ide.editor.ui.GLSPIdeEditorPlugin;
 
 public class ExternalBrowserDebugHandler extends IdeActionHandler {
-   private static Logger LOG = LogManager.getLogger(ExternalBrowserDebugHandler.class);
+   protected static Logger LOG = LogManager.getLogger(ExternalBrowserDebugHandler.class);
 
    @Override
    protected void execute(final IEclipseContext context) {

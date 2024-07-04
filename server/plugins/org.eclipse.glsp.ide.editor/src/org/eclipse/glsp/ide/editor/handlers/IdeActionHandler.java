@@ -43,7 +43,7 @@ import org.eclipse.ui.internal.E4PartWrapper;
 @SuppressWarnings("restriction")
 public abstract class IdeActionHandler extends AbstractHandler {
 
-   private final Logger log = LogManager.getLogger(getClass());
+   protected final Logger log = LogManager.getLogger(getClass());
 
    @Override
    public Object execute(final ExecutionEvent event) throws ExecutionException {
