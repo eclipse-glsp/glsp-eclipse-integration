@@ -1,5 +1,11 @@
 # Eclipse GLSP Eclipse Integration Changelog
 
+## v2.3.0 - active
+
+### Changes
+
+### Potentially Breaking Changes
+
 ## v2.2.1 - 22/07/2024(<https://github.com/eclipse-glsp/glsp-eclipse-integration/releases/tag/v2.2.1>)
 
 ### Changes
