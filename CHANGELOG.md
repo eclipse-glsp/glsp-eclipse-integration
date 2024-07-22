@@ -1,5 +1,11 @@
 # Eclipse GLSP Eclipse Integration Changelog
 
+## v2.2.1 - 22/07/2024(<https://github.com/eclipse-glsp/glsp-eclipse-integration/releases/tag/v2.2.1>)
+
+### Changes
+
+- [api] Improved customizability by changing the visibility of private methods and fields to protected [#101](https://github.com/eclipse-glsp/glsp-eclipse-integration/pull/101)
+
 ## v2.1.0 - 24/01/2024(<https://github.com/eclipse-glsp/glsp-eclipse-integration/releases/tag/v2.1.0>)
 
 ## v2.0.0 - 14/10/2023(<https://github.com/eclipse-glsp/glsp-eclipse-integration/releases/tag/v2.0.0>)
