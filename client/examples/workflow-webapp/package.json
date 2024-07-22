@@ -1,6 +1,6 @@
 {
   "name": "@eclipse-glsp-examples/workflow-webapp",
-  "version": "2.2.0-next",
+  "version": "2.2.1",
   "private": true,
   "description": "GLSP-based webapp for the Workflow example",
   "scripts": {
@@ -15,8 +15,8 @@
     "watch:tsc": "tsc -w"
   },
   "dependencies": {
-    "@eclipse-glsp-examples/workflow-glsp": "next",
-    "@eclipse-glsp/ide": "2.2.0-next"
+    "@eclipse-glsp-examples/workflow-glsp": "2.2.1",
+    "@eclipse-glsp/ide": "2.2.1"
   },
   "devDependencies": {
     "@vscode/codicons": "^0.0.25",

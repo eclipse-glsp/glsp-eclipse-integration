@@ -1,6 +1,6 @@
 {
   "name": "parent",
-  "version": "2.2.0-next",
+  "version": "2.2.1",
   "private": true,
   "workspaces": [
     "packages/*",
@@ -27,7 +27,7 @@
     "watch": "concurrently --kill-others -n tsc,webapp -c red,yellow \"tsc -b -w --preserveWatchOutput\" \"yarn -s app watch\""
   },
   "devDependencies": {
-    "@eclipse-glsp/dev": "next",
+    "@eclipse-glsp/dev": "2.2.1",
     "@types/node": "18.x",
     "copyfiles": "^2.4.1",
     "lerna": "^7.0.0",
