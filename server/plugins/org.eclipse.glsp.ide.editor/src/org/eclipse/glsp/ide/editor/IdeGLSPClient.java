@@ -17,9 +17,9 @@ package org.eclipse.glsp.ide.editor;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.eclipse.glsp.server.actions.ActionMessage;
 import org.eclipse.glsp.server.protocol.GLSPClient;
@@ -46,7 +46,7 @@ public class IdeGLSPClient implements GLSPClient {
    protected Map<String, List<GLSPClient>> clientProxies;
 
    public IdeGLSPClient() {
-      clientProxies = new HashMap<>();
+      clientProxies = new ConcurrentHashMap<>();
    }
 
    /**
@@ -87,7 +87,8 @@ public class IdeGLSPClient implements GLSPClient {
     * @param glspClient The glsp client proxy that should be disconnected.
     */
    public void disconnect(final GLSPClient glspClient) {
-      clientProxies.keySet().forEach(clientSessionId -> disconnect(clientSessionId, glspClient));
+      // create a copy of the key set to avoid ConcurrentModificationException in case a complete session is removed
+      clientProxies.keySet().stream().toList().forEach(clientSessionId -> disconnect(clientSessionId, glspClient));
    }
 
    @Override
