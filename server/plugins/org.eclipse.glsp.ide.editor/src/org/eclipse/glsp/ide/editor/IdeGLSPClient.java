@@ -15,19 +15,17 @@
  ********************************************************************************/
 package org.eclipse.glsp.ide.editor;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map.Entry;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 import org.eclipse.glsp.server.actions.ActionMessage;
 import org.eclipse.glsp.server.protocol.GLSPClient;
 import org.eclipse.glsp.server.protocol.GLSPServer;
 import org.eclipse.glsp.server.session.ClientSessionManager;
 
-import com.google.common.base.Preconditions;
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
 import com.google.inject.Inject;
 
 /**
@@ -45,10 +43,10 @@ public class IdeGLSPClient implements GLSPClient {
    @Inject
    protected ClientSessionManager clientSessionManager;
 
-   protected Multimap<String, GLSPClient> clientProxies;
+   protected Map<String, List<GLSPClient>> clientProxies;
 
    public IdeGLSPClient() {
-      clientProxies = HashMultimap.create();
+      clientProxies = new HashMap<>();
    }
 
    /**
@@ -59,7 +57,7 @@ public class IdeGLSPClient implements GLSPClient {
     * @param glspClient      The GLSPClient proxy given client id). `false` otherwise.
     */
    public void connect(final String clientSessionId, final GLSPClient glspClient) {
-      clientProxies.put(clientSessionId, glspClient);
+      clientProxies.computeIfAbsent(clientSessionId, id -> new ArrayList<>()).add(glspClient);
    }
 
    /**
@@ -71,7 +69,15 @@ public class IdeGLSPClient implements GLSPClient {
     *         otherwise.
     */
    public boolean disconnect(final String clientSessionId, final GLSPClient glspClient) {
-      return clientProxies.remove(clientSessionId, glspClient);
+      List<GLSPClient> clients = clientProxies.get(clientSessionId);
+      if (clients == null) {
+         return false;
+      }
+      boolean didDisconnect = clients.remove(glspClient);
+      if (didDisconnect && clients.isEmpty()) {
+         clientProxies.remove(clientSessionId);
+      }
+      return didDisconnect;
    }
 
    /**
@@ -81,18 +87,16 @@ public class IdeGLSPClient implements GLSPClient {
     * @param glspClient The glsp client proxy that should be disconnected.
     */
    public void disconnect(final GLSPClient glspClient) {
-      List<String> toRemove = clientProxies.entries().stream()
-         .filter(entry -> entry.getValue() == glspClient)
-         .map(Entry::getKey)
-         .collect(Collectors.toList());
-      toRemove.forEach(id -> disconnect(id, glspClient));
+      clientProxies.keySet().forEach(clientSessionId -> disconnect(clientSessionId, glspClient));
    }
 
    @Override
    public void process(final ActionMessage message) {
       Collection<GLSPClient> result = clientProxies.get(message.getClientId());
-      Preconditions.checkState(!result.isEmpty(),
-         "Could not retrieve GLSPCLient proxy for client session with id: " + message.getClientId());
+      if (result == null || result.isEmpty()) {
+         throw new IllegalArgumentException(
+            "Could not retrieve GLSPCLient proxy for client session with id: " + message.getClientId());
+      }
       result.forEach(proxy -> proxy.process(message));
    }
 
