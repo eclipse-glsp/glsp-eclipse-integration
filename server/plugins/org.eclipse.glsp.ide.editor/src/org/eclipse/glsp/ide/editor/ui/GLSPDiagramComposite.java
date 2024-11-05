@@ -36,6 +36,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.core.commands.common.EventManager;
 import org.eclipse.core.resources.IMarker;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.glsp.graph.GModelElement;
 import org.eclipse.glsp.ide.editor.GLSPServerManager;
@@ -332,7 +333,9 @@ public class GLSPDiagramComposite implements IGotoMarker, ISelectionProvider {
 
    protected void installBrowserFunctions() {
       // browser functions are automatically disposed with the browser
-      new BrowserKeyBindingForwarderInstaller(context.get(IBindingService.class)).install(browser);
+      if (Platform.getOS().equals(Platform.WS_WIN32)) {
+         new BrowserKeyBindingForwarderInstaller(context.get(IBindingService.class)).install(browser);
+      }
       new BrowserFocusControlInstaller().install(browser);
       new BrowserContextMenuInstaller().install(browser);
    }
