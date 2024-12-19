@@ -321,26 +321,19 @@ version(s), and exceptions or additional permissions here}.&quot;
       <import plugin="org.eclipse.core.resources" version="3.12.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.ui.editors" version="3.11.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.glsp.server.websocket" version="2.0.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.glsp.server" version="2.0.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.e4.core.contexts" version="1.8.400" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.jetty.server" version="10.0.0" match="compatible"/>
-      <import plugin="org.eclipse.jetty.websocket.javax.client" version="10.0.0" match="compatible"/>
-      <import plugin="org.eclipse.jetty.util" version="10.0.0" match="compatible"/>
-      <import plugin="org.eclipse.jetty.servlet" version="10.0.0" match="compatible"/>
-      <import plugin="org.eclipse.jetty.websocket.javax.server" version="10.0.0" match="compatible"/>
+      <import plugin="org.eclipse.jetty.util" version="12.0.0" match="compatible"/>
       <import plugin="org.eclipse.jface.text" version="3.0.0" match="greaterOrEqual"/>
-      <import plugin="javax.websocket"/>
       <import plugin="com.google.inject" version="5.0.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.lsp4j" version="0.11.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.lsp4j.websocket" version="0.11.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.lsp4j.jsonrpc" version="0.11.0" match="greaterOrEqual"/>
+      <import plugin="jakarta.websocket-api"/>
+      <import plugin="org.eclipse.jetty.server" version="12.0.0" match="compatible"/>
+      <import plugin="org.eclipse.glsp.server"  version="2.0.0" match="greaterOrEqual"/>
    </requires>
 
    <plugin
          id="org.eclipse.glsp.ide.editor"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
+         version="0.0.0"/>
 
 </feature>
