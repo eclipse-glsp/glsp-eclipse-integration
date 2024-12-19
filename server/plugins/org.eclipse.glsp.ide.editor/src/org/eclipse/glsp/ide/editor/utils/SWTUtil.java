@@ -22,7 +22,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.widgets.Control;
 
-@SuppressWarnings("deprecation")
+@SuppressWarnings("removal")
 public final class SWTUtil {
    private SWTUtil() {}
 
