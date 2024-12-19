@@ -40,11 +40,12 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.source>17</java.source>
 		<java.target>17</java.target>
-		<project.build.java.target>1.8</project.build.java.target>
-		<tycho-version>2.7.5</tycho-version>
-		<maven-antrun-plugin.version>3.0.0</maven-antrun-plugin.version>
-		<checkstyle.plugin>3.1.2</checkstyle.plugin>
+		<project.build.java.target>17</project.build.java.target>
+		<tycho-version>4.0.8</tycho-version>
+		<maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
+		<checkstyle.plugin>3.4.0</checkstyle.plugin>
 		<checkstyle>8.44</checkstyle>
+		<p2.target>r2024-09</p2.target>
 	</properties>
 
 	<pluginRepositories>
@@ -172,7 +173,7 @@
 						<artifact>
 							<groupId>org.eclipse.glsp.ide</groupId>
 							<artifactId>org.eclipse.glsp.ide.parent</artifactId>
-							<classifier>releng/org.eclipse.glsp.ide.releng.target/r2023-09</classifier>
+							<classifier>releng/org.eclipse.glsp.ide.releng.target/${p2.target}</classifier>
 							<version>${project.version}</version>
 						</artifact>
 					</target>
