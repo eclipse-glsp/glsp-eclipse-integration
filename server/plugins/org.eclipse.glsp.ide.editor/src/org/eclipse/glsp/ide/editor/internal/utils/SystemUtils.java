@@ -18,7 +18,6 @@ package org.eclipse.glsp.ide.editor.internal.utils;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 
-@SuppressWarnings("removal")
 public final class SystemUtils {
    private static final String OS_NAME;
    static {

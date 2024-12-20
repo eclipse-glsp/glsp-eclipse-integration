@@ -18,6 +18,9 @@ package org.eclipse.glsp.ide.editor;
 import java.util.Collection;
 import java.util.function.Function;
 
+import javax.websocket.CloseReason;
+import javax.websocket.Session;
+
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.glsp.ide.editor.ui.GLSPIdeEditorPlugin;
@@ -27,9 +30,6 @@ import org.eclipse.lsp4j.jsonrpc.MessageConsumer;
 import org.eclipse.ui.statushandlers.StatusManager;
 
 import com.google.inject.Inject;
-
-import jakarta.websocket.CloseReason;
-import jakarta.websocket.Session;
 
 public class DiagramWebsocketEndpoint extends GLSPServerEndpoint {
 

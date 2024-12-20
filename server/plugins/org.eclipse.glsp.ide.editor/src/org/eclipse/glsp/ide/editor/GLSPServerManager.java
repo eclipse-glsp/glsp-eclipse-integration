@@ -24,6 +24,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import javax.servlet.ServletException;
+import javax.websocket.DeploymentException;
+import javax.websocket.server.ServerContainer;
+import javax.websocket.server.ServerEndpointConfig;
+
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.core.appender.ConsoleAppender;
 import org.apache.logging.log4j.core.config.Configurator;
@@ -38,23 +43,18 @@ import org.eclipse.glsp.ide.editor.internal.utils.SystemUtils;
 import org.eclipse.glsp.server.di.ServerModule;
 import org.eclipse.glsp.server.utils.LaunchUtil;
 import org.eclipse.glsp.server.websocket.GLSPConfigurator;
-import org.eclipse.jetty.ee10.servlet.DefaultServlet;
-import org.eclipse.jetty.ee10.servlet.ServletContextHandler;
-import org.eclipse.jetty.ee10.servlet.ServletHolder;
-import org.eclipse.jetty.ee10.websocket.jakarta.server.config.JakartaWebSocketServletContainerInitializer;
 import org.eclipse.jetty.server.AllowedResourceAliasChecker;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
-import org.eclipse.jetty.util.resource.PathResourceFactory;
+import org.eclipse.jetty.servlet.DefaultServlet;
+import org.eclipse.jetty.servlet.ServletContextHandler;
+import org.eclipse.jetty.servlet.ServletHolder;
+import org.eclipse.jetty.util.resource.Resource;
+import org.eclipse.jetty.websocket.javax.server.config.JavaxWebSocketServletContainerInitializer;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
-
-import jakarta.servlet.ServletException;
-import jakarta.websocket.DeploymentException;
-import jakarta.websocket.server.ServerContainer;
-import jakarta.websocket.server.ServerEndpointConfig;
 
 public abstract class GLSPServerManager {
 
@@ -101,15 +101,14 @@ public abstract class GLSPServerManager {
 
       String resourceBase = resolveResourceBase();
       if (SystemUtils.isWindows()) {
-         var resource = new PathResourceFactory()
-            .newResource(resourceBase);
+         var resource = Resource.newResource(resourceBase);
          context.addAliasCheck(new AllowedResourceAliasChecker(context, resource));
       }
 
       defaultServletHolder.setInitParameter("resourceBase", resourceBase);
       defaultServletHolder.setInitParameter("dirAllowed", "false");
       context.addServlet(defaultServletHolder, "/");
-      JakartaWebSocketServletContainerInitializer.configure(context, (servletContext, wsContainer) -> {
+      JavaxWebSocketServletContainerInitializer.configure(context, (servletContext, wsContainer) -> {
          container = wsContainer;
          ServerEndpointConfig.Builder builder = ServerEndpointConfig.Builder.create(DiagramWebsocketEndpoint.class,
             "/" + getGlspId());
