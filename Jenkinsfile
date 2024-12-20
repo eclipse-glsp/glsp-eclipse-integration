@@ -70,15 +70,12 @@ pipeline {
     }
     
     stages {
-        stage('Setup Maven') {
+        stage('Download & Setup Maven') {
             steps {
                 container('ci') {
                     sh '''
-                        # Download Maven 3.9.0
                         curl -o maven.tar.gz -L https://downloads.apache.org/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz
-                        # Extract Maven
                         tar -xzf maven.tar.gz -C ${WORKSPACE}
-                        # Clean up tar file
                         rm -f maven.tar.gz
                     '''
                     // Set MAVEN_HOME manually
