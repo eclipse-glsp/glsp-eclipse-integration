@@ -1,16 +1,24 @@
 # Eclipse GLSP Eclipse Integration Changelog
 
-## v2.3.0 - active
+## v2.3.0 - 27/12/2024(<https://github.com/eclipse-glsp/glsp-eclipse-integration/releases/tag/v2.3.0>)
 
 ### Changes
 
-### Potentially Breaking Changes
+-   [deps] Drop support for node `16`. New minimum version is `18.x` [#109](https://github.com/eclipse-glsp/glsp-theia-integration/pull/109)
+
+### Potentially breaking changes
+
+-   [deps] Remove dependency on Guava [#104](https://github.com/eclipse-glsp/glsp-eclipse-integration/pull/104)
+    -   The GLSP base framework no longer depends on Google Guava. This might affect adopters if the use Guava concepts in their custom code.
+-   [deps] Update plugin dependencies to be compatible with Eclipse 24-x. [#107](https://github.com/eclipse-glsp/glsp-eclipse-integration/pull/107)
+    -   This includes a full migration to the jakarta namespace for lsp4j.websocket and jetty and an update to Jetty 12.
+    -   A javax-compatible backport of this release is available as [`v2.3.0-javax`](<<https://github.com/eclipse-glsp/glsp-eclipse-integration/releases/tag/v2.3.0-javax>)
 
 ## v2.2.1 - 22/07/2024(<https://github.com/eclipse-glsp/glsp-eclipse-integration/releases/tag/v2.2.1>)
 
 ### Changes
 
-- [api] Improved customizability by changing the visibility of private methods and fields to protected [#101](https://github.com/eclipse-glsp/glsp-eclipse-integration/pull/101)
+-   [api] Improved customizability by changing the visibility of private methods and fields to protected [#101](https://github.com/eclipse-glsp/glsp-eclipse-integration/pull/101)
 
 ## v2.1.0 - 24/01/2024(<https://github.com/eclipse-glsp/glsp-eclipse-integration/releases/tag/v2.1.0>)
 

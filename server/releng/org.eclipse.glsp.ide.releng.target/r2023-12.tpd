@@ -21,7 +21,7 @@ location "https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/2024
 	jakarta.servlet-api [6.1.0,7.0.0)
 }
 
-location "https://download.eclipse.org/glsp/server/p2/nightly/2.3/2.3.0.202412181217/" {
+location "https://download.eclipse.org/glsp/server/p2/releases/2.3.0"{
 	org.eclipse.glsp.feature.feature.group lazy
 	org.eclipse.glsp.feature.source.feature.group lazy
 	org.eclipse.glsp.server.websocket lazy
