@@ -4,7 +4,7 @@ Bundle-Name: GLSP Editor Integration
 Bundle-SymbolicName: org.eclipse.glsp.ide.editor;singleton:=true
 Bundle-Activator: org.eclipse.glsp.ide.editor.ui.GLSPIdeEditorPlugin
 Bundle-ActivationPolicy: lazy
-Bundle-Version: 2.4.0
+Bundle-Version: 2.5.0.qualifier
 Bundle-Vendor: Eclipse GLSP
 Automatic-Module-Name: com.eclipsesource.glsp.editor
 Bundle-RequiredExecutionEnvironment: JavaSE-17
