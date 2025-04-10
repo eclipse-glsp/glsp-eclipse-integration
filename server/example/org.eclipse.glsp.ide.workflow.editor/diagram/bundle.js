@@ -131,6 +131,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*************************************
     font-weight: inherit;
     text-align: inherit;
     font-size: 100%;
+    user-select: none;
 }
 
 .sprotty-label.heading {
@@ -167,33 +168,33 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*************************************
     stroke-width: 1;
 }
 
-.sprotty-edge.weighted.low:not(.selected),
-.sprotty-edge.weighted.low:not(.selected) .arrow {
+.sprotty-edge.weighted.low:not(.selected, .navigable-element),
+.sprotty-edge.weighted.low:not(.selected, .navigable-element) .arrow {
     stroke: rgb(128, 90, 233);
 }
 
-.sprotty-edge.weighted.low:not(.selected) .arrow {
+.sprotty-edge.weighted.low:not(.selected, .navigable-element) .arrow {
     fill: rgb(128, 90, 233);
 }
 
-.sprotty-edge.weighted:not(.selected),
-.sprotty-edge.weighted:not(.selected) .arrow,
-.sprotty-edge.weighted.medium:not(.selected),
-.sprotty-edge.weighted.medium:not(.selected) .arrow {
+.sprotty-edge.weighted:not(.selected, .navigable-element),
+.sprotty-edge.weighted:not(.selected, .navigable-element) .arrow,
+.sprotty-edge.weighted.medium:not(.selected, .navigable-element),
+.sprotty-edge.weighted.medium:not(.selected, .navigable-element) .arrow {
     stroke: rgb(98, 60, 193);
 }
 
-.sprotty-edge.weighted:not(.selected) .arrow,
-.sprotty-edge.weighted.medium:not(.selected) .arrow {
+.sprotty-edge.weighted:not(.selected, .navigable-element) .arrow,
+.sprotty-edge.weighted.medium:not(.selected, .navigable-element) .arrow {
     fill: rgb(98, 60, 193);
 }
 
-.sprotty-edge.weighted.high:not(.selected),
-.sprotty-edge.weighted.high:not(.selected) .arrow {
+.sprotty-edge.weighted.high:not(.selected, .navigable-element),
+.sprotty-edge.weighted.high:not(.selected, .navigable-element) .arrow {
     stroke: rgb(68, 30, 163);
 }
 
-.sprotty-edge.weighted.high:not(.selected) .arrow {
+.sprotty-edge.weighted.high:not(.selected, .navigable-element) .arrow {
     fill: rgb(68, 30, 163);
 }
 
@@ -206,7 +207,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*************************************
     margin-top: -3px;
     margin-left: -3px;
 }
-`, "",{"version":3,"sources":["webpack://./../../node_modules/@eclipse-glsp-examples/workflow-glsp/css/diagram.css"],"names":[],"mappings":"AAAA;;;;;;;;;;;;;;iFAciF;;AAEjF;IACI,eAAe;IACf,YAAY;IACZ,YAAY;AAChB;;AAEA;IACI,eAAe;IACf,mBAAmB;AACvB;;AAEA;IACI,eAAe;IACf,iBAAiB;AACrB;;AAEA;IACI,eAAe;IACf,UAAU;IACV,oBAAoB;IACpB,mBAAmB;IACnB,eAAe;AACnB;;AAEA;IACI,mBAAmB;IACnB,gBAAgB;IAChB,aAAa;AACjB;;AAEA;IACI,eAAe;IACf,aAAa;AACjB;;AAEA;IACI,iBAAiB;AACrB;;AAEA;IACI,aAAa;AACjB;;AAEA;IACI,aAAa;AACjB;;AAEA;IACI,aAAa;AACjB;;AAEA;IACI,mEAAmE;IACnE,eAAe;IACf,aAAa;IACb,eAAe;AACnB;;AAEA;;IAEI,yBAAyB;AAC7B;;AAEA;IACI,uBAAuB;AAC3B;;AAEA;;;;IAII,wBAAwB;AAC5B;;AAEA;;IAEI,sBAAsB;AAC1B;;AAEA;;IAEI,wBAAwB;AAC5B;;AAEA;IACI,sBAAsB;AAC1B;;AAEA;IACI,mBAAmB;IACnB,iBAAiB;AACrB;;AAEA;IACI,gBAAgB;IAChB,iBAAiB;AACrB","sourcesContent":["/********************************************************************************\n * Copyright (c) 2019-2022 EclipseSource and others.\n *\n * This program and the accompanying materials are made available under the\n * terms of the Eclipse Public License v. 2.0 which is available at\n * http://www.eclipse.org/legal/epl-2.0.\n *\n * This Source Code may also be made available under the following Secondary\n * Licenses when the conditions for such availability set forth in the Eclipse\n * Public License v. 2.0 are satisfied: GNU General Public License, version 2\n * with the GNU Classpath Exception which is available at\n * https://www.gnu.org/software/classpath/license.html.\n *\n * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0\n ********************************************************************************/\n\n.sprotty-graph {\n    font-size: 15pt;\n    border: none;\n    height: 100%;\n}\n\n.sprotty-text {\n    font-size: 12pt;\n    text-anchor: middle;\n}\n\n.sprotty-node {\n    stroke-width: 0;\n    font-weight: bold;\n}\n\n.sprotty-label {\n    stroke-width: 0;\n    fill: #000;\n    font-weight: inherit;\n    text-align: inherit;\n    font-size: 100%;\n}\n\n.sprotty-label.heading {\n    font-weight: normal;\n    font-size: 0.7em;\n    fill: #f0f3f8;\n}\n\n.icon path {\n    stroke-width: 0;\n    fill: #f0f3f8;\n}\n\n.icon .icon-background {\n    fill: transparent;\n}\n\n.task.automated > .sprotty-node {\n    fill: #5b9fa8;\n}\n\n.task.manual > .sprotty-node {\n    fill: #db8651;\n}\n\n.category > .sprotty-node {\n    fill: #5c87bd;\n}\n\n.category .category > .sprotty-node {\n    /** Add a border to nested categories, so we can distinguish them */\n    stroke: #38679a;\n    fill: #6f9ad0;\n    stroke-width: 1;\n}\n\n.sprotty-edge.weighted.low:not(.selected),\n.sprotty-edge.weighted.low:not(.selected) .arrow {\n    stroke: rgb(128, 90, 233);\n}\n\n.sprotty-edge.weighted.low:not(.selected) .arrow {\n    fill: rgb(128, 90, 233);\n}\n\n.sprotty-edge.weighted:not(.selected),\n.sprotty-edge.weighted:not(.selected) .arrow,\n.sprotty-edge.weighted.medium:not(.selected),\n.sprotty-edge.weighted.medium:not(.selected) .arrow {\n    stroke: rgb(98, 60, 193);\n}\n\n.sprotty-edge.weighted:not(.selected) .arrow,\n.sprotty-edge.weighted.medium:not(.selected) .arrow {\n    fill: rgb(98, 60, 193);\n}\n\n.sprotty-edge.weighted.high:not(.selected),\n.sprotty-edge.weighted.high:not(.selected) .arrow {\n    stroke: rgb(68, 30, 163);\n}\n\n.sprotty-edge.weighted.high:not(.selected) .arrow {\n    fill: rgb(68, 30, 163);\n}\n\n.sprotty-comp {\n    stroke: transparent;\n    fill: transparent;\n}\n\n.label-edit input {\n    margin-top: -3px;\n    margin-left: -3px;\n}\n"],"sourceRoot":""}]);
+`, "",{"version":3,"sources":["webpack://./../../node_modules/@eclipse-glsp-examples/workflow-glsp/css/diagram.css"],"names":[],"mappings":"AAAA;;;;;;;;;;;;;;iFAciF;;AAEjF;IACI,eAAe;IACf,YAAY;IACZ,YAAY;AAChB;;AAEA;IACI,eAAe;IACf,mBAAmB;AACvB;;AAEA;IACI,eAAe;IACf,iBAAiB;AACrB;;AAEA;IACI,eAAe;IACf,UAAU;IACV,oBAAoB;IACpB,mBAAmB;IACnB,eAAe;IACf,iBAAiB;AACrB;;AAEA;IACI,mBAAmB;IACnB,gBAAgB;IAChB,aAAa;AACjB;;AAEA;IACI,eAAe;IACf,aAAa;AACjB;;AAEA;IACI,iBAAiB;AACrB;;AAEA;IACI,aAAa;AACjB;;AAEA;IACI,aAAa;AACjB;;AAEA;IACI,aAAa;AACjB;;AAEA;IACI,mEAAmE;IACnE,eAAe;IACf,aAAa;IACb,eAAe;AACnB;;AAEA;;IAEI,yBAAyB;AAC7B;;AAEA;IACI,uBAAuB;AAC3B;;AAEA;;;;IAII,wBAAwB;AAC5B;;AAEA;;IAEI,sBAAsB;AAC1B;;AAEA;;IAEI,wBAAwB;AAC5B;;AAEA;IACI,sBAAsB;AAC1B;;AAEA;IACI,mBAAmB;IACnB,iBAAiB;AACrB;;AAEA;IACI,gBAAgB;IAChB,iBAAiB;AACrB","sourcesContent":["/********************************************************************************\n * Copyright (c) 2019-2022 EclipseSource and others.\n *\n * This program and the accompanying materials are made available under the\n * terms of the Eclipse Public License v. 2.0 which is available at\n * http://www.eclipse.org/legal/epl-2.0.\n *\n * This Source Code may also be made available under the following Secondary\n * Licenses when the conditions for such availability set forth in the Eclipse\n * Public License v. 2.0 are satisfied: GNU General Public License, version 2\n * with the GNU Classpath Exception which is available at\n * https://www.gnu.org/software/classpath/license.html.\n *\n * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0\n ********************************************************************************/\n\n.sprotty-graph {\n    font-size: 15pt;\n    border: none;\n    height: 100%;\n}\n\n.sprotty-text {\n    font-size: 12pt;\n    text-anchor: middle;\n}\n\n.sprotty-node {\n    stroke-width: 0;\n    font-weight: bold;\n}\n\n.sprotty-label {\n    stroke-width: 0;\n    fill: #000;\n    font-weight: inherit;\n    text-align: inherit;\n    font-size: 100%;\n    user-select: none;\n}\n\n.sprotty-label.heading {\n    font-weight: normal;\n    font-size: 0.7em;\n    fill: #f0f3f8;\n}\n\n.icon path {\n    stroke-width: 0;\n    fill: #f0f3f8;\n}\n\n.icon .icon-background {\n    fill: transparent;\n}\n\n.task.automated > .sprotty-node {\n    fill: #5b9fa8;\n}\n\n.task.manual > .sprotty-node {\n    fill: #db8651;\n}\n\n.category > .sprotty-node {\n    fill: #5c87bd;\n}\n\n.category .category > .sprotty-node {\n    /** Add a border to nested categories, so we can distinguish them */\n    stroke: #38679a;\n    fill: #6f9ad0;\n    stroke-width: 1;\n}\n\n.sprotty-edge.weighted.low:not(.selected, .navigable-element),\n.sprotty-edge.weighted.low:not(.selected, .navigable-element) .arrow {\n    stroke: rgb(128, 90, 233);\n}\n\n.sprotty-edge.weighted.low:not(.selected, .navigable-element) .arrow {\n    fill: rgb(128, 90, 233);\n}\n\n.sprotty-edge.weighted:not(.selected, .navigable-element),\n.sprotty-edge.weighted:not(.selected, .navigable-element) .arrow,\n.sprotty-edge.weighted.medium:not(.selected, .navigable-element),\n.sprotty-edge.weighted.medium:not(.selected, .navigable-element) .arrow {\n    stroke: rgb(98, 60, 193);\n}\n\n.sprotty-edge.weighted:not(.selected, .navigable-element) .arrow,\n.sprotty-edge.weighted.medium:not(.selected, .navigable-element) .arrow {\n    fill: rgb(98, 60, 193);\n}\n\n.sprotty-edge.weighted.high:not(.selected, .navigable-element),\n.sprotty-edge.weighted.high:not(.selected, .navigable-element) .arrow {\n    stroke: rgb(68, 30, 163);\n}\n\n.sprotty-edge.weighted.high:not(.selected, .navigable-element) .arrow {\n    fill: rgb(68, 30, 163);\n}\n\n.sprotty-comp {\n    stroke: transparent;\n    fill: transparent;\n}\n\n.label-edit input {\n    margin-top: -3px;\n    margin-left: -3px;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -841,25 +842,25 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*************************************
 }
 
 .sprotty g .movement-not-allowed > .sprotty-node {
-    stroke: var(--glsp-error-foreground) !important;
+    stroke: var(--glsp-error-foreground);
     stroke-width: 1.5px;
 }
 
-.sprotty-resize-handle.movement-not-allowed {
-    stroke: var(--glsp-error-foreground) !important;
-    fill: var(--glsp-error-foreground) !important;
+.sprotty .sprotty-resize-handle.movement-not-allowed {
+    stroke: var(--glsp-error-foreground);
+    fill: var(--glsp-error-foreground);
 }
 
 .sprotty .error > .sprotty-node {
-    filter: drop-shadow(0px 0px 2px var(--glsp-error-foreground)) !important;
+    filter: drop-shadow(0px 0px 2px var(--glsp-error-foreground));
 }
 
 .sprotty .warning > .sprotty-node {
-    filter: drop-shadow(0px 0px 2px var(--glsp-warning-foreground)) !important;
+    filter: drop-shadow(0px 0px 2px var(--glsp-warning-foreground));
 }
 
 .sprotty .info > .sprotty-node {
-    filter: drop-shadow(0px 0px 2px var(--glsp-info-foreground)) !important;
+    filter: drop-shadow(0px 0px 2px var(--glsp-info-foreground));
 }
 
 .sprotty svg {
@@ -937,26 +938,11 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*************************************
     fill: transparent;
 }
 
-.search-hidden {
-    opacity: 0.4;
-}
-
-.search-highlighted .sprotty-node,
-.search-highlighted .sprotty-edge {
-    stroke-width: 1.5px;
-    stroke-width: 2px;
-    stroke-dashoffset: 5;
-    stroke-dasharray: 5, 5;
-    stroke-linecap: round;
-    stroke: rgb(218, 89, 15) !important;
-    stroke: #130bf7 !important;
-}
-
 .ui-extension.hidden {
     display: none;
     opacity: 0;
 }
-`, "",{"version":3,"sources":["webpack://./../../node_modules/@eclipse-glsp/client/css/glsp-sprotty.css"],"names":[],"mappings":"AAAA;;;;;;;;;;;;;;iFAciF;;AAEjF;IACI,4BAA4B;IAC5B,iCAAiC;IACjC,iCAAiC;IACjC,+CAA+C;AACnD;;AAEA;IACI,YAAY;IACZ,2DAA2D;AAC/D;;AAEA;IACI,gBAAgB;AACpB;;AAEA;IACI,cAAc;IACd,kBAAkB;IAClB,UAAU;IACV,WAAW;AACf;;AAEA;IACI,2DAA2D;IAC3D,kBAAkB;IAClB,iBAAiB;IACjB,kBAAkB;IAClB,iBAAiB;IACjB,gBAAgB;IAChB,gBAAgB;IAChB,UAAU;IACV,oBAAoB;AACxB;;AAEA;IACI,YAAY;AAChB;;AAEA;IACI,aAAa;AACjB;;AAEA;IACI,oCAAoC;IACpC,MAAM;IACN,aAAa;IACb,YAAY;IACZ,aAAa;AACjB;;AAEA;IACI,aAAa;AACjB;;AAEA;IACI,aAAa;AACjB;;AAEA;IACI,UAAU;IACV,mBAAmB;AACvB;;AAEA;IACI,mBAAmB;AACvB;;AAEA;IACI,mBAAmB;AACvB;;AAEA;IACI,iBAAiB;AACrB;;AAEA;;IAEI,YAAY;AAChB;;AAEA;;IAEI,eAAe;IACf,mBAAmB;AACvB;;AAEA;;IAEI,uBAAuB;IACvB,sBAAsB;AAC1B;;AAEA;IACI,YAAY;AAChB;;AAEA;IACI,mBAAmB;AACvB;;AAEA;IACI,eAAe;AACnB;;AAEA;IACI,eAAe;AACnB;;AAEA;IACI,eAAe;AACnB;;AAEA;;IAEI,iBAAiB;AACrB;;AAEA;IACI,YAAY;AAChB;;AAEA;IACI,YAAY;AAChB;;AAEA;IACI,mBAAmB;AACvB;;AAEA;IACI,mBAAmB;AACvB;;AAEA;IACI,iBAAiB;AACrB;;AAEA;IACI,gBAAgB;AACpB;;AAEA;IACI,iBAAiB;AACrB;;AAEA;IACI,gBAAgB;AACpB;;AAEA;IACI,iBAAiB;AACrB;;AAEA;IACI,gBAAgB;AACpB;;AAEA;IACI,iBAAiB;AACrB;;AAEA;IACI,gBAAgB;AACpB;;AAEA;IACI,eAAe;AACnB;;AAEA;IACI,iBAAiB;AACrB;;AAEA;IACI,eAAe;IACf,YAAY;AAChB;;AAEA;IACI,MAAM;IACN,aAAa;IACb,YAAY;IACZ,aAAa;AACjB;;AAEA;IACI,aAAa;AACjB;;AAEA;IACI,aAAa;AACjB;;AAEA;IACI,iBAAiB;IACjB,eAAe;AACnB;;AAEA;IACI,eAAe;IACf,YAAY;IACZ,UAAU;IACV,eAAe;IACf,mBAAmB;AACvB;;AAEA;IACI,+CAA+C;IAC/C,mBAAmB;AACvB;;AAEA;IACI,+CAA+C;IAC/C,6CAA6C;AACjD;;AAEA;IACI,wEAAwE;AAC5E;;AAEA;IACI,0EAA0E;AAC9E;;AAEA;IACI,uEAAuE;AAC3E;;AAEA;IACI,mBAAmB;IACnB,iBAAiB;IACjB,kBAAkB;AACtB;;AAEA;IACI,eAAe;IACf,YAAY;IACZ,UAAU;IACV,uBAAuB;IACvB,cAAc;IACd,mBAAmB;AACvB;;AAEA;IACI,UAAU;IACV,UAAU;AACd;;AAEA;IACI,kBAAkB;AACtB;;AAEA;IACI,kBAAkB;IAClB,MAAM;IACN,QAAQ;IACR,WAAW;IACX,YAAY;AAChB;;AAEA;IACI,kBAAkB;IAClB,SAAS;IACT,OAAO;IACP,YAAY;IACZ,WAAW;AACf;;AAEA;;IAEI,kBAAkB;IAClB,YAAY;IACZ,MAAM;AACV;;AAEA;;IAEI,kBAAkB;IAClB,WAAW;IACX,OAAO;AACX;;AAEA;IACI,kBAAkB;IAClB,uBAAuB;IACvB,sBAAsB;IACtB,UAAU;IACV,YAAY;IACZ,+BAA+B;AACnC;;AAEA;IACI,UAAU;IACV,mBAAmB;IACnB,iBAAiB;AACrB;;AAEA;IACI,+CAA+C;IAC/C,8CAA8C;IAC9C,iBAAiB;AACrB;;AAEA;IACI,YAAY;AAChB;;AAEA;;IAEI,mBAAmB;IACnB,iBAAiB;IACjB,oBAAoB;IACpB,sBAAsB;IACtB,qBAAqB;IACrB,mCAAmC;IACnC,0BAA0B;AAC9B;;AAEA;IACI,aAAa;IACb,UAAU;AACd","sourcesContent":["/********************************************************************************\n * Copyright (c) 2019-2023 EclipseSource and others.\n *\n * This program and the accompanying materials are made available under the\n * terms of the Eclipse Public License v. 2.0 which is available at\n * http://www.eclipse.org/legal/epl-2.0.\n *\n * This Source Code may also be made available under the following Secondary\n * Licenses when the conditions for such availability set forth in the Eclipse\n * Public License v. 2.0 are satisfied: GNU General Public License, version 2\n * with the GNU Classpath Exception which is available at\n * https://www.gnu.org/software/classpath/license.html.\n *\n * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0\n ********************************************************************************/\n\n:root {\n    --glsp-error-foreground: red;\n    --glsp-warning-foreground: yellow;\n    --glsp-info-foreground: lightblue;\n    --glsp-issue-background: rgb(255 255 255 / 85%);\n}\n\n.sprotty {\n    padding: 0px;\n    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;\n}\n\n.sprotty svg text::selection {\n    background: none;\n}\n\n.sprotty-hidden {\n    display: block;\n    position: absolute;\n    width: 0px;\n    height: 0px;\n}\n\n.sprotty-popup {\n    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;\n    position: absolute;\n    background: white;\n    border-radius: 5px;\n    border: 1px solid;\n    max-width: 400px;\n    min-width: 100px;\n    z-index: 1;\n    pointer-events: none;\n}\n\n.sprotty-popup > div {\n    margin: 10px;\n}\n\n.sprotty-popup-closed {\n    display: none;\n}\n\n.sprotty-resize-handle {\n    /* radius does not work in Firefox */\n    r: 5px;\n    fill: #1d80d1;\n    stroke: none;\n    z-index: 1000;\n}\n\n.sprotty-resize-handle.selected {\n    fill: #1d80d1;\n}\n\n.sprotty-resize-handle.active {\n    fill: #1d80d1;\n}\n\n.sprotty-edge {\n    fill: none;\n    stroke-width: 1.5px;\n}\n\n.sprotty-edge.selected {\n    stroke-width: 1.5px;\n}\n\n.sprotty-edge.mouseover:not(.selected) path {\n    stroke-width: 1.5px;\n}\n\n.sprotty-node:not(.selected) {\n    stroke-width: 0px;\n}\n\n.sprotty-node.mouseover:not(.selected),\n.sprotty-edge.mouseover:not(.selected) {\n    opacity: 60%;\n}\n\n.sprotty-node.selected,\n.sprotty-edge.selected {\n    stroke: #1d80d1;\n    stroke-width: 1.5px;\n}\n\n.sprotty-edge.mouseover:not(.selected) .arrow,\n.sprotty-edge.selected .arrow {\n    stroke-dashoffset: none;\n    stroke-dasharray: none;\n}\n\n.sprotty .node-creation-mode {\n    cursor: copy;\n}\n\n.sprotty .overlap-forbidden-mode {\n    cursor: not-allowed;\n}\n\n.sprotty .default-mode {\n    cursor: default;\n}\n\n.sprotty .edge-modification-not-allowed-mode {\n    cursor: no-drop;\n}\n\n.sprotty .edge-creation-select-source-mode {\n    cursor: pointer;\n}\n\n.sprotty .edge-creation-select-target-mode,\n.sprotty .edge-reconnect-select-target-mode {\n    cursor: crosshair;\n}\n\n.sprotty .edge-check-pending-mode {\n    cursor: wait;\n}\n\n.sprotty .move-mode {\n    cursor: move;\n}\n\n.sprotty .resize-nesw-mode {\n    cursor: nesw-resize;\n}\n\n.sprotty .resize-nwse-mode {\n    cursor: nwse-resize;\n}\n\n.sprotty .resize-nw-mode {\n    cursor: nw-resize;\n}\n\n.sprotty .resize-w-mode {\n    cursor: n-resize;\n}\n\n.sprotty .resize-ne-mode {\n    cursor: ne-resize;\n}\n\n.sprotty .resize-e-mode {\n    cursor: e-resize;\n}\n\n.sprotty .resize-se-mode {\n    cursor: se-resize;\n}\n\n.sprotty .resize-s-mode {\n    cursor: s-resize;\n}\n\n.sprotty .resize-sw-mode {\n    cursor: sw-resize;\n}\n\n.sprotty .resize-w-mode {\n    cursor: w-resize;\n}\n\n.sprotty .element-deletion-mode {\n    cursor: pointer;\n}\n\n.sprotty .marquee-mode {\n    cursor: crosshair;\n}\n\n.sprotty-node.marquee {\n    fill: lightgray;\n    opacity: 0.2;\n}\n\n.sprotty-edge > .sprotty-routing-handle {\n    r: 5px;\n    fill: #1d80d1;\n    stroke: none;\n    z-index: 1000;\n}\n\n.sprotty-edge > .sprotty-routing-handle[data-kind='line'] {\n    opacity: 0.35;\n}\n\n.sprotty-edge > .sprotty-routing-handle.selected {\n    fill: #1d80d1;\n}\n\n.sprotty-edge > .sprotty-routing-handle.mouseover {\n    stroke: #1d80d1a1;\n    stroke-width: 1;\n}\n\n.sprotty-missing {\n    stroke-width: 1;\n    stroke: #f00;\n    fill: #f00;\n    font-size: 14pt;\n    text-anchor: middle;\n}\n\n.sprotty g .movement-not-allowed > .sprotty-node {\n    stroke: var(--glsp-error-foreground) !important;\n    stroke-width: 1.5px;\n}\n\n.sprotty-resize-handle.movement-not-allowed {\n    stroke: var(--glsp-error-foreground) !important;\n    fill: var(--glsp-error-foreground) !important;\n}\n\n.sprotty .error > .sprotty-node {\n    filter: drop-shadow(0px 0px 2px var(--glsp-error-foreground)) !important;\n}\n\n.sprotty .warning > .sprotty-node {\n    filter: drop-shadow(0px 0px 2px var(--glsp-warning-foreground)) !important;\n}\n\n.sprotty .info > .sprotty-node {\n    filter: drop-shadow(0px 0px 2px var(--glsp-info-foreground)) !important;\n}\n\n.sprotty svg {\n    border-style: solid;\n    border-width: 1px;\n    border-color: #bbb;\n}\n\n.sprotty text {\n    stroke-width: 0;\n    stroke: #000;\n    fill: #000;\n    font-family: sans-serif;\n    font-size: 8pt;\n    text-anchor: middle;\n}\n\n.glsp-projection {\n    width: 40%;\n    opacity: 1;\n}\n\n.sprotty.sprotty-hidden .sprotty-projection-bar {\n    visibility: hidden;\n}\n\n.sprotty-projection-bar.vertical.bordered-projection-bar {\n    position: absolute;\n    top: 0;\n    right: 0;\n    width: 20px;\n    height: 100%;\n}\n\n.sprotty-projection-bar.horizontal.bordered-projection-bar {\n    position: absolute;\n    bottom: 0;\n    left: 0;\n    height: 20px;\n    width: 100%;\n}\n\n.sprotty-projection-bar.horizontal .sprotty-projection,\n.sprotty-projection-bar.horizontal .sprotty-viewport {\n    position: absolute;\n    height: 100%;\n    top: 0;\n}\n\n.sprotty-projection-bar.vertical .sprotty-projection,\n.sprotty-projection-bar.vertical .sprotty-viewport {\n    position: absolute;\n    width: 100%;\n    left: 0;\n}\n\n.projection-scroll-bar {\n    position: absolute;\n    background: transparent;\n    background-color: #aaa;\n    z-index: 1;\n    opacity: 0.3;\n    transition: opacity 0.8s linear;\n}\n\n.sprotty-viewport {\n    z-index: 1;\n    border-style: solid;\n    border-width: 2px;\n}\n\n.bordered-projection-bar {\n    border-left: 1px solid rgba(212, 212, 212, 0.2);\n    border-top: 1px solid rgba(212, 212, 212, 0.2);\n    fill: transparent;\n}\n\n.search-hidden {\n    opacity: 0.4;\n}\n\n.search-highlighted .sprotty-node,\n.search-highlighted .sprotty-edge {\n    stroke-width: 1.5px;\n    stroke-width: 2px;\n    stroke-dashoffset: 5;\n    stroke-dasharray: 5, 5;\n    stroke-linecap: round;\n    stroke: rgb(218, 89, 15) !important;\n    stroke: #130bf7 !important;\n}\n\n.ui-extension.hidden {\n    display: none;\n    opacity: 0;\n}\n"],"sourceRoot":""}]);
+`, "",{"version":3,"sources":["webpack://./../../node_modules/@eclipse-glsp/client/css/glsp-sprotty.css"],"names":[],"mappings":"AAAA;;;;;;;;;;;;;;iFAciF;;AAEjF;IACI,4BAA4B;IAC5B,iCAAiC;IACjC,iCAAiC;IACjC,+CAA+C;AACnD;;AAEA;IACI,YAAY;IACZ,2DAA2D;AAC/D;;AAEA;IACI,gBAAgB;AACpB;;AAEA;IACI,cAAc;IACd,kBAAkB;IAClB,UAAU;IACV,WAAW;AACf;;AAEA;IACI,2DAA2D;IAC3D,kBAAkB;IAClB,iBAAiB;IACjB,kBAAkB;IAClB,iBAAiB;IACjB,gBAAgB;IAChB,gBAAgB;IAChB,UAAU;IACV,oBAAoB;AACxB;;AAEA;IACI,YAAY;AAChB;;AAEA;IACI,aAAa;AACjB;;AAEA;IACI,oCAAoC;IACpC,MAAM;IACN,aAAa;IACb,YAAY;IACZ,aAAa;AACjB;;AAEA;IACI,aAAa;AACjB;;AAEA;IACI,aAAa;AACjB;;AAEA;IACI,UAAU;IACV,mBAAmB;AACvB;;AAEA;IACI,mBAAmB;AACvB;;AAEA;IACI,mBAAmB;AACvB;;AAEA;IACI,iBAAiB;AACrB;;AAEA;;IAEI,YAAY;AAChB;;AAEA;;IAEI,eAAe;IACf,mBAAmB;AACvB;;AAEA;;IAEI,uBAAuB;IACvB,sBAAsB;AAC1B;;AAEA;IACI,YAAY;AAChB;;AAEA;IACI,mBAAmB;AACvB;;AAEA;IACI,eAAe;AACnB;;AAEA;IACI,eAAe;AACnB;;AAEA;IACI,eAAe;AACnB;;AAEA;;IAEI,iBAAiB;AACrB;;AAEA;IACI,YAAY;AAChB;;AAEA;IACI,YAAY;AAChB;;AAEA;IACI,mBAAmB;AACvB;;AAEA;IACI,mBAAmB;AACvB;;AAEA;IACI,iBAAiB;AACrB;;AAEA;IACI,gBAAgB;AACpB;;AAEA;IACI,iBAAiB;AACrB;;AAEA;IACI,gBAAgB;AACpB;;AAEA;IACI,iBAAiB;AACrB;;AAEA;IACI,gBAAgB;AACpB;;AAEA;IACI,iBAAiB;AACrB;;AAEA;IACI,gBAAgB;AACpB;;AAEA;IACI,eAAe;AACnB;;AAEA;IACI,iBAAiB;AACrB;;AAEA;IACI,eAAe;IACf,YAAY;AAChB;;AAEA;IACI,MAAM;IACN,aAAa;IACb,YAAY;IACZ,aAAa;AACjB;;AAEA;IACI,aAAa;AACjB;;AAEA;IACI,aAAa;AACjB;;AAEA;IACI,iBAAiB;IACjB,eAAe;AACnB;;AAEA;IACI,eAAe;IACf,YAAY;IACZ,UAAU;IACV,eAAe;IACf,mBAAmB;AACvB;;AAEA;IACI,oCAAoC;IACpC,mBAAmB;AACvB;;AAEA;IACI,oCAAoC;IACpC,kCAAkC;AACtC;;AAEA;IACI,6DAA6D;AACjE;;AAEA;IACI,+DAA+D;AACnE;;AAEA;IACI,4DAA4D;AAChE;;AAEA;IACI,mBAAmB;IACnB,iBAAiB;IACjB,kBAAkB;AACtB;;AAEA;IACI,eAAe;IACf,YAAY;IACZ,UAAU;IACV,uBAAuB;IACvB,cAAc;IACd,mBAAmB;AACvB;;AAEA;IACI,UAAU;IACV,UAAU;AACd;;AAEA;IACI,kBAAkB;AACtB;;AAEA;IACI,kBAAkB;IAClB,MAAM;IACN,QAAQ;IACR,WAAW;IACX,YAAY;AAChB;;AAEA;IACI,kBAAkB;IAClB,SAAS;IACT,OAAO;IACP,YAAY;IACZ,WAAW;AACf;;AAEA;;IAEI,kBAAkB;IAClB,YAAY;IACZ,MAAM;AACV;;AAEA;;IAEI,kBAAkB;IAClB,WAAW;IACX,OAAO;AACX;;AAEA;IACI,kBAAkB;IAClB,uBAAuB;IACvB,sBAAsB;IACtB,UAAU;IACV,YAAY;IACZ,+BAA+B;AACnC;;AAEA;IACI,UAAU;IACV,mBAAmB;IACnB,iBAAiB;AACrB;;AAEA;IACI,+CAA+C;IAC/C,8CAA8C;IAC9C,iBAAiB;AACrB;;AAEA;IACI,aAAa;IACb,UAAU;AACd","sourcesContent":["/********************************************************************************\n * Copyright (c) 2019-2023 EclipseSource and others.\n *\n * This program and the accompanying materials are made available under the\n * terms of the Eclipse Public License v. 2.0 which is available at\n * http://www.eclipse.org/legal/epl-2.0.\n *\n * This Source Code may also be made available under the following Secondary\n * Licenses when the conditions for such availability set forth in the Eclipse\n * Public License v. 2.0 are satisfied: GNU General Public License, version 2\n * with the GNU Classpath Exception which is available at\n * https://www.gnu.org/software/classpath/license.html.\n *\n * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0\n ********************************************************************************/\n\n:root {\n    --glsp-error-foreground: red;\n    --glsp-warning-foreground: yellow;\n    --glsp-info-foreground: lightblue;\n    --glsp-issue-background: rgb(255 255 255 / 85%);\n}\n\n.sprotty {\n    padding: 0px;\n    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;\n}\n\n.sprotty svg text::selection {\n    background: none;\n}\n\n.sprotty-hidden {\n    display: block;\n    position: absolute;\n    width: 0px;\n    height: 0px;\n}\n\n.sprotty-popup {\n    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;\n    position: absolute;\n    background: white;\n    border-radius: 5px;\n    border: 1px solid;\n    max-width: 400px;\n    min-width: 100px;\n    z-index: 1;\n    pointer-events: none;\n}\n\n.sprotty-popup > div {\n    margin: 10px;\n}\n\n.sprotty-popup-closed {\n    display: none;\n}\n\n.sprotty-resize-handle {\n    /* radius does not work in Firefox */\n    r: 5px;\n    fill: #1d80d1;\n    stroke: none;\n    z-index: 1000;\n}\n\n.sprotty-resize-handle.selected {\n    fill: #1d80d1;\n}\n\n.sprotty-resize-handle.active {\n    fill: #1d80d1;\n}\n\n.sprotty-edge {\n    fill: none;\n    stroke-width: 1.5px;\n}\n\n.sprotty-edge.selected {\n    stroke-width: 1.5px;\n}\n\n.sprotty-edge.mouseover:not(.selected) path {\n    stroke-width: 1.5px;\n}\n\n.sprotty-node:not(.selected) {\n    stroke-width: 0px;\n}\n\n.sprotty-node.mouseover:not(.selected),\n.sprotty-edge.mouseover:not(.selected) {\n    opacity: 60%;\n}\n\n.sprotty-node.selected,\n.sprotty-edge.selected {\n    stroke: #1d80d1;\n    stroke-width: 1.5px;\n}\n\n.sprotty-edge.mouseover:not(.selected) .arrow,\n.sprotty-edge.selected .arrow {\n    stroke-dashoffset: none;\n    stroke-dasharray: none;\n}\n\n.sprotty .node-creation-mode {\n    cursor: copy;\n}\n\n.sprotty .overlap-forbidden-mode {\n    cursor: not-allowed;\n}\n\n.sprotty .default-mode {\n    cursor: default;\n}\n\n.sprotty .edge-modification-not-allowed-mode {\n    cursor: no-drop;\n}\n\n.sprotty .edge-creation-select-source-mode {\n    cursor: pointer;\n}\n\n.sprotty .edge-creation-select-target-mode,\n.sprotty .edge-reconnect-select-target-mode {\n    cursor: crosshair;\n}\n\n.sprotty .edge-check-pending-mode {\n    cursor: wait;\n}\n\n.sprotty .move-mode {\n    cursor: move;\n}\n\n.sprotty .resize-nesw-mode {\n    cursor: nesw-resize;\n}\n\n.sprotty .resize-nwse-mode {\n    cursor: nwse-resize;\n}\n\n.sprotty .resize-nw-mode {\n    cursor: nw-resize;\n}\n\n.sprotty .resize-w-mode {\n    cursor: n-resize;\n}\n\n.sprotty .resize-ne-mode {\n    cursor: ne-resize;\n}\n\n.sprotty .resize-e-mode {\n    cursor: e-resize;\n}\n\n.sprotty .resize-se-mode {\n    cursor: se-resize;\n}\n\n.sprotty .resize-s-mode {\n    cursor: s-resize;\n}\n\n.sprotty .resize-sw-mode {\n    cursor: sw-resize;\n}\n\n.sprotty .resize-w-mode {\n    cursor: w-resize;\n}\n\n.sprotty .element-deletion-mode {\n    cursor: pointer;\n}\n\n.sprotty .marquee-mode {\n    cursor: crosshair;\n}\n\n.sprotty-node.marquee {\n    fill: lightgray;\n    opacity: 0.2;\n}\n\n.sprotty-edge > .sprotty-routing-handle {\n    r: 5px;\n    fill: #1d80d1;\n    stroke: none;\n    z-index: 1000;\n}\n\n.sprotty-edge > .sprotty-routing-handle[data-kind='line'] {\n    opacity: 0.35;\n}\n\n.sprotty-edge > .sprotty-routing-handle.selected {\n    fill: #1d80d1;\n}\n\n.sprotty-edge > .sprotty-routing-handle.mouseover {\n    stroke: #1d80d1a1;\n    stroke-width: 1;\n}\n\n.sprotty-missing {\n    stroke-width: 1;\n    stroke: #f00;\n    fill: #f00;\n    font-size: 14pt;\n    text-anchor: middle;\n}\n\n.sprotty g .movement-not-allowed > .sprotty-node {\n    stroke: var(--glsp-error-foreground);\n    stroke-width: 1.5px;\n}\n\n.sprotty .sprotty-resize-handle.movement-not-allowed {\n    stroke: var(--glsp-error-foreground);\n    fill: var(--glsp-error-foreground);\n}\n\n.sprotty .error > .sprotty-node {\n    filter: drop-shadow(0px 0px 2px var(--glsp-error-foreground));\n}\n\n.sprotty .warning > .sprotty-node {\n    filter: drop-shadow(0px 0px 2px var(--glsp-warning-foreground));\n}\n\n.sprotty .info > .sprotty-node {\n    filter: drop-shadow(0px 0px 2px var(--glsp-info-foreground));\n}\n\n.sprotty svg {\n    border-style: solid;\n    border-width: 1px;\n    border-color: #bbb;\n}\n\n.sprotty text {\n    stroke-width: 0;\n    stroke: #000;\n    fill: #000;\n    font-family: sans-serif;\n    font-size: 8pt;\n    text-anchor: middle;\n}\n\n.glsp-projection {\n    width: 40%;\n    opacity: 1;\n}\n\n.sprotty.sprotty-hidden .sprotty-projection-bar {\n    visibility: hidden;\n}\n\n.sprotty-projection-bar.vertical.bordered-projection-bar {\n    position: absolute;\n    top: 0;\n    right: 0;\n    width: 20px;\n    height: 100%;\n}\n\n.sprotty-projection-bar.horizontal.bordered-projection-bar {\n    position: absolute;\n    bottom: 0;\n    left: 0;\n    height: 20px;\n    width: 100%;\n}\n\n.sprotty-projection-bar.horizontal .sprotty-projection,\n.sprotty-projection-bar.horizontal .sprotty-viewport {\n    position: absolute;\n    height: 100%;\n    top: 0;\n}\n\n.sprotty-projection-bar.vertical .sprotty-projection,\n.sprotty-projection-bar.vertical .sprotty-viewport {\n    position: absolute;\n    width: 100%;\n    left: 0;\n}\n\n.projection-scroll-bar {\n    position: absolute;\n    background: transparent;\n    background-color: #aaa;\n    z-index: 1;\n    opacity: 0.3;\n    transition: opacity 0.8s linear;\n}\n\n.sprotty-viewport {\n    z-index: 1;\n    border-style: solid;\n    border-width: 2px;\n}\n\n.bordered-projection-bar {\n    border-left: 1px solid rgba(212, 212, 212, 0.2);\n    border-top: 1px solid rgba(212, 212, 212, 0.2);\n    fill: transparent;\n}\n\n.ui-extension.hidden {\n    display: none;\n    opacity: 0;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1354,8 +1340,18 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*************************************
     grid-template-columns: auto auto auto;
 }
 
+.grid-container.grid-visible {
+    opacity: 0.7;
+    visibility: visible;
+}
+
+.grid-container.grid-hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
 .grid-container:focus {
-    opacity: 1 !important;
+    opacity: 1;
 }
 
 .grid-item {
@@ -1380,7 +1376,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*************************************
         bold 1.3rem Arial,
         sans-serif;
 }
-`, "",{"version":3,"sources":["webpack://./../../node_modules/@eclipse-glsp/client/css/keyboard.css"],"names":[],"mappings":"AAAA;;;;;;;;;;;;;;iFAciF;;AAEjF;IACI,aAAa;IACb,kBAAkB;IAClB,WAAW;IACX,cAAc;IACd,YAAY;IACZ,aAAa;IACb,qCAAqC;AACzC;;AAEA;IACI,qBAAqB;AACzB;;AAEA;IACI,oCAAoC;IACpC,aAAa;IACb,4BAA4B;IAC5B,qBAAqB;AACzB;;AAEA;IACI,kBAAkB;IAClB,aAAa;IACb,cAAc;IACd,eAAe;;IAEf,gBAAgB;IAChB,sBAAsB;IACtB,YAAY;IACZ,kBAAkB;;IAElB;;kBAEc;AAClB","sourcesContent":["/********************************************************************************\n * Copyright (c) 2023 Business Informatics Group (TU Wien) and others.\n *\n * This program and the accompanying materials are made available under the\n * terms of the Eclipse Public License v. 2.0 which is available at\n * http://www.eclipse.org/legal/epl-2.0.\n *\n * This Source Code may also be made available under the following Secondary\n * Licenses when the conditions for such availability set forth in the Eclipse\n * Public License v. 2.0 are satisfied: GNU General Public License, version 2\n * with the GNU Classpath Exception which is available at\n * https://www.gnu.org/software/classpath/license.html.\n *\n * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0\n ********************************************************************************/\n\n.grid-container {\n    display: grid;\n    position: absolute;\n    top: 0.5rem;\n    bottom: 0.5rem;\n    left: 0.5rem;\n    right: 0.5rem;\n    grid-template-columns: auto auto auto;\n}\n\n.grid-container:focus {\n    opacity: 1 !important;\n}\n\n.grid-item {\n    border: 1px solid rgba(0, 0, 0, 0.6);\n    padding: 1rem;\n    /* Fix overlapping borders */\n    margin: 0 -1px -1px 0;\n}\n\n.grid-item-number {\n    border-radius: 50%;\n    width: 1.5rem;\n    height: 1.5rem;\n    padding: 0.5rem;\n\n    background: #fff;\n    border: 2px solid #666;\n    color: black;\n    text-align: center;\n\n    font:\n        bold 1.3rem Arial,\n        sans-serif;\n}\n"],"sourceRoot":""}]);
+`, "",{"version":3,"sources":["webpack://./../../node_modules/@eclipse-glsp/client/css/keyboard.css"],"names":[],"mappings":"AAAA;;;;;;;;;;;;;;iFAciF;;AAEjF;IACI,aAAa;IACb,kBAAkB;IAClB,WAAW;IACX,cAAc;IACd,YAAY;IACZ,aAAa;IACb,qCAAqC;AACzC;;AAEA;IACI,YAAY;IACZ,mBAAmB;AACvB;;AAEA;IACI,UAAU;IACV,kBAAkB;AACtB;;AAEA;IACI,UAAU;AACd;;AAEA;IACI,oCAAoC;IACpC,aAAa;IACb,4BAA4B;IAC5B,qBAAqB;AACzB;;AAEA;IACI,kBAAkB;IAClB,aAAa;IACb,cAAc;IACd,eAAe;;IAEf,gBAAgB;IAChB,sBAAsB;IACtB,YAAY;IACZ,kBAAkB;;IAElB;;kBAEc;AAClB","sourcesContent":["/********************************************************************************\n * Copyright (c) 2023 Business Informatics Group (TU Wien) and others.\n *\n * This program and the accompanying materials are made available under the\n * terms of the Eclipse Public License v. 2.0 which is available at\n * http://www.eclipse.org/legal/epl-2.0.\n *\n * This Source Code may also be made available under the following Secondary\n * Licenses when the conditions for such availability set forth in the Eclipse\n * Public License v. 2.0 are satisfied: GNU General Public License, version 2\n * with the GNU Classpath Exception which is available at\n * https://www.gnu.org/software/classpath/license.html.\n *\n * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0\n ********************************************************************************/\n\n.grid-container {\n    display: grid;\n    position: absolute;\n    top: 0.5rem;\n    bottom: 0.5rem;\n    left: 0.5rem;\n    right: 0.5rem;\n    grid-template-columns: auto auto auto;\n}\n\n.grid-container.grid-visible {\n    opacity: 0.7;\n    visibility: visible;\n}\n\n.grid-container.grid-hidden {\n    opacity: 0;\n    visibility: hidden;\n}\n\n.grid-container:focus {\n    opacity: 1;\n}\n\n.grid-item {\n    border: 1px solid rgba(0, 0, 0, 0.6);\n    padding: 1rem;\n    /* Fix overlapping borders */\n    margin: 0 -1px -1px 0;\n}\n\n.grid-item-number {\n    border-radius: 50%;\n    width: 1.5rem;\n    height: 1.5rem;\n    padding: 0.5rem;\n\n    background: #fff;\n    border: 2px solid #666;\n    color: black;\n    text-align: center;\n\n    font:\n        bold 1.3rem Arial,\n        sans-serif;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1426,14 +1422,72 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/*************************************
 :root {
     --glsp-navigation-highlight: rgba(136, 68, 68, 0.2);
 }
+
 .navigable-element {
-    stroke: var(--glsp-navigation-highlight) !important;
+    stroke: var(--glsp-navigation-highlight);
 }
+
 .navigable-element .sprotty-edge.arrow {
-    fill: var(--glsp-navigation-highlight) !important;
-    stroke: var(--glsp-navigation-highlight) !important;
+    fill: var(--glsp-navigation-highlight);
+    stroke: var(--glsp-navigation-highlight);
 }
-`, "",{"version":3,"sources":["webpack://./../../node_modules/@eclipse-glsp/client/css/navigation.css"],"names":[],"mappings":"AAAA;;;;;;;;;;;;;;iFAciF;;AAEjF;IACI,mDAAmD;AACvD;AACA;IACI,mDAAmD;AACvD;AACA;IACI,iDAAiD;IACjD,mDAAmD;AACvD","sourcesContent":["/********************************************************************************\n * Copyright (c) 2023 Business Informatics Group (TU Wien) and others.\n *\n * This program and the accompanying materials are made available under the\n * terms of the Eclipse Public License v. 2.0 which is available at\n * http://www.eclipse.org/legal/epl-2.0.\n *\n * This Source Code may also be made available under the following Secondary\n * Licenses when the conditions for such availability set forth in the Eclipse\n * Public License v. 2.0 are satisfied: GNU General Public License, version 2\n * with the GNU Classpath Exception which is available at\n * https://www.gnu.org/software/classpath/license.html.\n *\n * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0\n ********************************************************************************/\n\n:root {\n    --glsp-navigation-highlight: rgba(136, 68, 68, 0.2);\n}\n.navigable-element {\n    stroke: var(--glsp-navigation-highlight) !important;\n}\n.navigable-element .sprotty-edge.arrow {\n    fill: var(--glsp-navigation-highlight) !important;\n    stroke: var(--glsp-navigation-highlight) !important;\n}\n"],"sourceRoot":""}]);
+`, "",{"version":3,"sources":["webpack://./../../node_modules/@eclipse-glsp/client/css/navigation.css"],"names":[],"mappings":"AAAA;;;;;;;;;;;;;;iFAciF;;AAEjF;IACI,mDAAmD;AACvD;;AAEA;IACI,wCAAwC;AAC5C;;AAEA;IACI,sCAAsC;IACtC,wCAAwC;AAC5C","sourcesContent":["/********************************************************************************\n * Copyright (c) 2023 Business Informatics Group (TU Wien) and others.\n *\n * This program and the accompanying materials are made available under the\n * terms of the Eclipse Public License v. 2.0 which is available at\n * http://www.eclipse.org/legal/epl-2.0.\n *\n * This Source Code may also be made available under the following Secondary\n * Licenses when the conditions for such availability set forth in the Eclipse\n * Public License v. 2.0 are satisfied: GNU General Public License, version 2\n * with the GNU Classpath Exception which is available at\n * https://www.gnu.org/software/classpath/license.html.\n *\n * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0\n ********************************************************************************/\n\n:root {\n    --glsp-navigation-highlight: rgba(136, 68, 68, 0.2);\n}\n\n.navigable-element {\n    stroke: var(--glsp-navigation-highlight);\n}\n\n.navigable-element .sprotty-edge.arrow {\n    fill: var(--glsp-navigation-highlight);\n    stroke: var(--glsp-navigation-highlight);\n}\n"],"sourceRoot":""}]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "../../node_modules/css-loader/dist/cjs.js!../../node_modules/@eclipse-glsp/client/css/search.css":
+/*!********************************************************************************************************!*\
+  !*** ../../node_modules/css-loader/dist/cjs.js!../../node_modules/@eclipse-glsp/client/css/search.css ***!
+  \********************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../css-loader/dist/runtime/sourceMaps.js */ "../../node_modules/css-loader/dist/runtime/sourceMaps.js");
+/* harmony import */ var _css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../css-loader/dist/runtime/api.js */ "../../node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, `/********************************************************************************
+ * Copyright (c) 2023-2025 Business Informatics Group (TU Wien) and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
+
+.search-hidden {
+    opacity: 0.4;
+}
+
+.search-highlighted .sprotty-node,
+.search-highlighted .sprotty-edge {
+    stroke-width: 1.5px;
+    stroke-width: 2px;
+    stroke-dashoffset: 5;
+    stroke-dasharray: 5, 5;
+    stroke-linecap: round;
+    stroke: #130bf7;
+}
+`, "",{"version":3,"sources":["webpack://./../../node_modules/@eclipse-glsp/client/css/search.css"],"names":[],"mappings":"AAAA;;;;;;;;;;;;;;iFAciF;;AAEjF;IACI,YAAY;AAChB;;AAEA;;IAEI,mBAAmB;IACnB,iBAAiB;IACjB,oBAAoB;IACpB,sBAAsB;IACtB,qBAAqB;IACrB,eAAe;AACnB","sourcesContent":["/********************************************************************************\n * Copyright (c) 2023-2025 Business Informatics Group (TU Wien) and others.\n *\n * This program and the accompanying materials are made available under the\n * terms of the Eclipse Public License v. 2.0 which is available at\n * http://www.eclipse.org/legal/epl-2.0.\n *\n * This Source Code may also be made available under the following Secondary\n * Licenses when the conditions for such availability set forth in the Eclipse\n * Public License v. 2.0 are satisfied: GNU General Public License, version 2\n * with the GNU Classpath Exception which is available at\n * https://www.gnu.org/software/classpath/license.html.\n *\n * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0\n ********************************************************************************/\n\n.search-hidden {\n    opacity: 0.4;\n}\n\n.search-highlighted .sprotty-node,\n.search-highlighted .sprotty-edge {\n    stroke-width: 1.5px;\n    stroke-width: 2px;\n    stroke-dashoffset: 5;\n    stroke-dasharray: 5, 5;\n    stroke-linecap: round;\n    stroke: #130bf7;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -3613,27 +3667,35 @@ class AutoCompleteWidget {
             onSelect: (item) => this.onSelect(item),
             render: (item, currentValue) => this.renderSuggestions(item, currentValue),
             customize: (input, inputRect, container, maxHeight) => {
+                var _a;
                 this.customizeInputElement(input, inputRect, container, maxHeight);
+                const selectedSuggestionChanged = (_a = this.options) === null || _a === void 0 ? void 0 : _a.selectedSuggestionChanged;
+                if (selectedSuggestionChanged) {
+                    this.observer = new MutationObserver(mutations => this.handleContainerMutations(mutations, selectedSuggestionChanged));
+                    this.observer.observe(container, { childList: true, attributes: true, subtree: true });
+                }
             }
         };
     }
     customizeInputElement(input, inputRect, container, maxHeight) {
-        var _a;
         // move container into our UIExtension container as this is already positioned correctly
         container.style.position = 'fixed';
         if (this.containerElement) {
             this.containerElement.appendChild(container);
-            if (this.options && this.options.selectedSuggestionChanged) {
-                const selectedElement = container.querySelector('.selected');
-                // eslint-disable-next-line no-null/no-null
-                if (selectedElement !== null && selectedElement !== undefined) {
-                    const index = Array.from(container.children).indexOf(selectedElement);
-                    this.options.selectedSuggestionChanged((_a = this.contextActions) === null || _a === void 0 ? void 0 : _a[index]);
-                }
-                else {
-                    this.options.selectedSuggestionChanged(undefined);
-                }
-            }
+        }
+        this.container = container;
+    }
+    handleContainerMutations(mutations, selectionChanged) {
+        var _a;
+        const selectedElement = this.container.querySelector('.selected');
+        // Trigger selection changed event
+        // eslint-disable-next-line no-null/no-null
+        if (selectedElement !== null && selectedElement !== undefined) {
+            const index = Array.from(this.container.children).indexOf(selectedElement);
+            selectionChanged((_a = this.contextActions) === null || _a === void 0 ? void 0 : _a[index]);
+        }
+        else {
+            selectionChanged(undefined);
         }
     }
     updateSuggestions(update, text, root, ...contextElementIds) {
@@ -3835,6 +3897,7 @@ const inversify_1 = __webpack_require__(/*! inversify */ "../../node_modules/inv
 __webpack_require__(/*! ../../../css/autocomplete-palette.css */ "../../node_modules/@eclipse-glsp/client/css/autocomplete-palette.css");
 const ui_extension_1 = __webpack_require__(/*! ../ui-extension/ui-extension */ "../../node_modules/@eclipse-glsp/client/lib/base/ui-extension/ui-extension.js");
 const auto_complete_widget_1 = __webpack_require__(/*! ./auto-complete-widget */ "../../node_modules/@eclipse-glsp/client/lib/base/auto-complete/auto-complete-widget.js");
+const messages_1 = __webpack_require__(/*! ../messages */ "../../node_modules/@eclipse-glsp/client/lib/base/messages.js");
 /**
  * A reusable base implementation for `UIExtensions` that want to provide autocomplete functionality
  * using the {@link AutoCompleteWidget}.
@@ -3844,7 +3907,7 @@ class BaseAutocompletePalette extends ui_extension_1.GLSPAbstractUIExtension {
     constructor() {
         super(...arguments);
         this.autoSuggestionSettings = {
-            noSuggestionsMessage: 'No suggestions available',
+            noSuggestionsMessage: messages_1.messages.autocomplete.no_suggestions,
             suggestionsClass: 'command-palette-suggestions',
             debounceWaitMs: 50,
             showOnFocus: true
@@ -4179,6 +4242,7 @@ const model_registry_1 = __webpack_require__(/*! ./model/model-registry */ "../.
 const mouse_position_tracker_1 = __webpack_require__(/*! ./mouse-position-tracker */ "../../node_modules/@eclipse-glsp/client/lib/base/mouse-position-tracker.js");
 const selection_clearing_mouse_listener_1 = __webpack_require__(/*! ./selection-clearing-mouse-listener */ "../../node_modules/@eclipse-glsp/client/lib/base/selection-clearing-mouse-listener.js");
 const selection_service_1 = __webpack_require__(/*! ./selection-service */ "../../node_modules/@eclipse-glsp/client/lib/base/selection-service.js");
+const shortcuts_manager_1 = __webpack_require__(/*! ./shortcuts/shortcuts-manager */ "../../node_modules/@eclipse-glsp/client/lib/base/shortcuts/shortcuts-manager.js");
 const tool_1 = __webpack_require__(/*! ./tool-manager/tool */ "../../node_modules/@eclipse-glsp/client/lib/base/tool-manager/tool.js");
 const tool_manager_1 = __webpack_require__(/*! ./tool-manager/tool-manager */ "../../node_modules/@eclipse-glsp/client/lib/base/tool-manager/tool-manager.js");
 const ui_extension_registry_1 = __webpack_require__(/*! ./ui-extension/ui-extension-registry */ "../../node_modules/@eclipse-glsp/client/lib/base/ui-extension/ui-extension-registry.js");
@@ -4250,6 +4314,8 @@ exports.defaultModule = new sprotty_1.FeatureModule((bind, unbind, isBound, rebi
     (0, sprotty_1.bindOrRebind)(context, sprotty_1.TYPES.UIExtensionRegistry).toService(ui_extension_registry_1.GLSPUIExtensionRegistry);
     bind(sprotty_1.TYPES.IDiagramStartup).toService(ui_extension_registry_1.GLSPUIExtensionRegistry);
     bind(sprotty_1.TYPES.EmptyArray).toDynamicValue(() => []);
+    // Shortcut manager initialization ------------------------------------
+    (0, sprotty_1.bindAsService)(context, sprotty_1.TYPES.IShortcutManager, shortcuts_manager_1.ShortcutManager);
 }, {
     featureId: Symbol('default')
 });
@@ -5344,6 +5410,93 @@ exports.FocusTracker = FocusTracker = __decorate([
 
 /***/ }),
 
+/***/ "../../node_modules/@eclipse-glsp/client/lib/base/messages.js":
+/*!********************************************************************!*\
+  !*** ../../node_modules/@eclipse-glsp/client/lib/base/messages.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.repeatOnMessagesUpdated = exports.updateMessages = exports.onMessagesUpdated = exports.messages = void 0;
+/********************************************************************************
+ * Copyright (c) 2025 EclipseSource and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
+const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_modules/@eclipse-glsp/sprotty/lib/index.js");
+const rawMessages = __webpack_require__(/*! ./messages.json */ "../../node_modules/@eclipse-glsp/client/lib/base/messages.json");
+const deepUpdate = (target, updates) => {
+    for (const key in updates) {
+        // Guard against prototype pollution and block __proto__ and constructor
+        if (!Object.prototype.hasOwnProperty.call(updates, key) || key === '__proto__' || key === 'constructor') {
+            continue;
+        }
+        if (updates[key] && typeof updates[key] === 'object' && !Array.isArray(updates[key])) {
+            if (!target[key]) {
+                target[key] = {};
+            }
+            deepUpdate(target[key], updates[key]);
+        }
+        else {
+            target[key] = updates[key];
+        }
+    }
+};
+/**
+ * The messages object containing all known messages.
+ */
+exports.messages = rawMessages;
+const messagesUpdatedEmitter = new sprotty_1.Emitter();
+/**
+ * Event that is fired when the messages are updated.
+ */
+exports.onMessagesUpdated = messagesUpdatedEmitter.event;
+/**
+ * Update the messages with the given set of messages. This may include overwriting existing messages or adding new ones.
+ *
+ * @param updates The updates to apply to the messages object.
+ */
+const updateMessages = (updates) => {
+    deepUpdate(exports.messages, updates);
+    messagesUpdatedEmitter.fire(exports.messages);
+};
+exports.updateMessages = updateMessages;
+/**
+ * Executes the given listener with the current messages and re-executes it whenever the messages are updated.
+ * If the listener returns a disposable, it will be disposed before the listener is called again.
+ *
+ * @param listener The listener to re-execute when the messages are updated.
+ * @param options Options to control the behavior of the listener execution.
+ * @returns A disposable that can be used to clean up the listener.
+ */
+function repeatOnMessagesUpdated(listener, options = { initial: true }) {
+    let cleanup = options.initial ? listener(exports.messages) : {};
+    const updateListener = (0, exports.onMessagesUpdated)(() => {
+        sprotty_1.Disposable.dispose(cleanup);
+        cleanup = listener();
+    });
+    return sprotty_1.Disposable.create(() => {
+        sprotty_1.Disposable.dispose(cleanup);
+        updateListener.dispose();
+    });
+}
+exports.repeatOnMessagesUpdated = repeatOnMessagesUpdated;
+
+
+/***/ }),
+
 /***/ "../../node_modules/@eclipse-glsp/client/lib/base/model/diagram-loader.js":
 /*!********************************************************************************!*\
   !*** ../../node_modules/@eclipse-glsp/client/lib/base/model/diagram-loader.js ***!
@@ -6354,6 +6507,345 @@ var SelectFeedbackAction;
 
 /***/ }),
 
+/***/ "../../node_modules/@eclipse-glsp/client/lib/base/shortcuts/available-shortcuts-extension.js":
+/*!***************************************************************************************************!*\
+  !*** ../../node_modules/@eclipse-glsp/client/lib/base/shortcuts/available-shortcuts-extension.js ***!
+  \***************************************************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+/********************************************************************************
+ * Copyright (c) 2023-2024 Business Informatics Group (TU Wien) and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var AvailableShortcutsUIExtension_1;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.AvailableShortcutsUIExtension = void 0;
+const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_modules/@eclipse-glsp/sprotty/lib/index.js");
+const inversify_1 = __webpack_require__(/*! inversify */ "../../node_modules/inversify/lib/cjs/index.js");
+const lodash_1 = __webpack_require__(/*! lodash */ "../../node_modules/lodash/lodash.js");
+const ui_extension_1 = __webpack_require__(/*! ../../base/ui-extension/ui-extension */ "../../node_modules/@eclipse-glsp/client/lib/base/ui-extension/ui-extension.js");
+const messages_1 = __webpack_require__(/*! ../messages */ "../../node_modules/@eclipse-glsp/client/lib/base/messages.js");
+let AvailableShortcutsUIExtension = AvailableShortcutsUIExtension_1 = class AvailableShortcutsUIExtension extends ui_extension_1.GLSPAbstractUIExtension {
+    id() {
+        return AvailableShortcutsUIExtension_1.ID;
+    }
+    containerClass() {
+        return AvailableShortcutsUIExtension_1.ID;
+    }
+    show(root, ...contextElementIds) {
+        super.show(root, ...contextElementIds);
+        this.shortcutsContainer.focus();
+        this.toDisposeOnHide.push(this.shortcutManager.onDidChange(() => this.refreshUI()));
+    }
+    refreshUI() {
+        this.shortcutsContainer.innerHTML = '';
+        const registrations = this.shortcutManager.getRegistrations();
+        registrations.sort((a, b) => {
+            if (a.group < b.group) {
+                return -1;
+            }
+            if (a.group > b.group) {
+                return 1;
+            }
+            return a.position - b.position;
+        });
+        const grouped = (0, lodash_1.groupBy)(registrations, k => k.group);
+        const groupTable = document.createElement('table');
+        groupTable.classList.add('shortcut-table');
+        const tableHead = document.createElement('thead');
+        const tableBody = document.createElement('tbody');
+        const headerRow = document.createElement('tr');
+        const commandCell = document.createElement('th');
+        const keybindingCell = document.createElement('th');
+        commandCell.classList.add('column-title');
+        commandCell.innerText = messages_1.messages.shortcut.header_command;
+        keybindingCell.innerText = messages_1.messages.shortcut.header_shortcut;
+        headerRow.appendChild(commandCell);
+        headerRow.appendChild(keybindingCell);
+        tableHead.appendChild(headerRow);
+        for (const [group, shortcuts] of Object.entries(grouped)) {
+            tableBody.appendChild(this.createGroupHeader(group));
+            shortcuts.forEach(s => {
+                tableBody.appendChild(this.createEntry(s));
+            });
+        }
+        groupTable.appendChild(tableHead);
+        groupTable.appendChild(tableBody);
+        this.shortcutsContainer.append(groupTable);
+    }
+    createGroupHeader(group) {
+        const entryRow = document.createElement('tr');
+        const groupElement = document.createElement('td');
+        const text = document.createElement('strong');
+        const emptyElement = document.createElement('td');
+        text.innerText = group;
+        groupElement.appendChild(text);
+        entryRow.appendChild(groupElement);
+        entryRow.appendChild(emptyElement);
+        return entryRow;
+    }
+    getShortcutHTML(shortcuts) {
+        const shortcutKeys = document.createElement('span');
+        shortcutKeys.innerHTML = shortcuts.map(key => `<kbd>${key}</kbd>`).join(' + ');
+        return shortcutKeys;
+    }
+    createEntry(registration) {
+        const entryRow = document.createElement('tr');
+        const shortcutElement = document.createElement('td');
+        const descElement = document.createElement('td');
+        const shortcut = this.getShortcutHTML(registration.shortcuts);
+        descElement.innerText = registration.description;
+        shortcutElement.appendChild(shortcut);
+        entryRow.appendChild(descElement);
+        entryRow.appendChild(shortcutElement);
+        return entryRow;
+    }
+    initializeContents(containerElement) {
+        this.container = document.createElement('div');
+        this.container.classList.add('keyboard-shortcuts-menu');
+        // create title
+        const menuTitle = document.createElement('h3');
+        menuTitle.classList.add('menu-header');
+        menuTitle.innerText = messages_1.messages.shortcut.title;
+        this.container.appendChild(menuTitle);
+        const closeBtn = document.createElement('button');
+        closeBtn.id = 'key-shortcut-close-btn';
+        closeBtn.textContent = 'x';
+        closeBtn.addEventListener('click', () => {
+            this.hide();
+        });
+        this.container.appendChild(closeBtn);
+        // create shortcuts container
+        this.shortcutsContainer = document.createElement('div');
+        this.shortcutsContainer.classList.add('keyboard-shortcuts-container');
+        this.shortcutsContainer.tabIndex = 30;
+        this.shortcutsContainer.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' || (0, sprotty_1.matchesKeystroke)(event, 'KeyH', 'alt')) {
+                this.hide();
+            }
+        });
+        this.container.appendChild(this.shortcutsContainer);
+        containerElement.appendChild(this.container);
+        containerElement.ariaLabel = messages_1.messages.shortcut.menu_title;
+        this.refreshUI();
+    }
+};
+exports.AvailableShortcutsUIExtension = AvailableShortcutsUIExtension;
+AvailableShortcutsUIExtension.ID = 'key-shortcut';
+__decorate([
+    (0, inversify_1.inject)(sprotty_1.TYPES.IShortcutManager),
+    __metadata("design:type", Object)
+], AvailableShortcutsUIExtension.prototype, "shortcutManager", void 0);
+exports.AvailableShortcutsUIExtension = AvailableShortcutsUIExtension = AvailableShortcutsUIExtension_1 = __decorate([
+    (0, inversify_1.injectable)()
+], AvailableShortcutsUIExtension);
+
+
+/***/ }),
+
+/***/ "../../node_modules/@eclipse-glsp/client/lib/base/shortcuts/available-shortcuts-tool.js":
+/*!**********************************************************************************************!*\
+  !*** ../../node_modules/@eclipse-glsp/client/lib/base/shortcuts/available-shortcuts-tool.js ***!
+  \**********************************************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+/********************************************************************************
+ * Copyright (c) 2023 Business Informatics Group (TU Wien) and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var AvailableShortcutsTool_1;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.AccessibleShortcutKeyListener = exports.AvailableShortcutsTool = void 0;
+const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_modules/@eclipse-glsp/sprotty/lib/index.js");
+const inversify_1 = __webpack_require__(/*! inversify */ "../../node_modules/inversify/lib/cjs/index.js");
+const base_tools_1 = __webpack_require__(/*! ../../features/tools/base-tools */ "../../node_modules/@eclipse-glsp/client/lib/features/tools/base-tools.js");
+const available_shortcuts_extension_1 = __webpack_require__(/*! ./available-shortcuts-extension */ "../../node_modules/@eclipse-glsp/client/lib/base/shortcuts/available-shortcuts-extension.js");
+let AvailableShortcutsTool = AvailableShortcutsTool_1 = class AvailableShortcutsTool extends base_tools_1.BaseTool {
+    constructor() {
+        super(...arguments);
+        this.shortcutKeyListener = new AccessibleShortcutKeyListener();
+    }
+    get id() {
+        return AvailableShortcutsTool_1.ID;
+    }
+    enable() {
+        this.toDisposeOnDisable.push(this.keyTool.registerListener(this.shortcutKeyListener));
+    }
+};
+exports.AvailableShortcutsTool = AvailableShortcutsTool;
+AvailableShortcutsTool.ID = 'available-shortcuts-tool';
+exports.AvailableShortcutsTool = AvailableShortcutsTool = AvailableShortcutsTool_1 = __decorate([
+    (0, inversify_1.injectable)()
+], AvailableShortcutsTool);
+class AccessibleShortcutKeyListener extends sprotty_1.KeyListener {
+    constructor() {
+        super(...arguments);
+        this.token = Symbol(AccessibleShortcutKeyListener.name);
+    }
+    keyDown(element, event) {
+        if (this.matchesActivateShortcutHelpKeystroke(event)) {
+            return [sprotty_1.SetUIExtensionVisibilityAction.create({ extensionId: available_shortcuts_extension_1.AvailableShortcutsUIExtension.ID, visible: true })];
+        }
+        return [];
+    }
+    matchesActivateShortcutHelpKeystroke(event) {
+        return (0, sprotty_1.matchesKeystroke)(event, 'KeyH', 'alt');
+    }
+}
+exports.AccessibleShortcutKeyListener = AccessibleShortcutKeyListener;
+
+
+/***/ }),
+
+/***/ "../../node_modules/@eclipse-glsp/client/lib/base/shortcuts/shortcuts-manager.js":
+/*!***************************************************************************************!*\
+  !*** ../../node_modules/@eclipse-glsp/client/lib/base/shortcuts/shortcuts-manager.js ***!
+  \***************************************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+/********************************************************************************
+ * Copyright (c) 2025 EclipseSource and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ShortcutManager = void 0;
+const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_modules/@eclipse-glsp/sprotty/lib/index.js");
+const inversify_1 = __webpack_require__(/*! inversify */ "../../node_modules/inversify/lib/cjs/index.js");
+let ShortcutManager = class ShortcutManager {
+    constructor() {
+        this.registrations = new Map();
+        this.onDidChangeEmitter = new sprotty_1.Emitter();
+        this.onDidChange = this.onDidChangeEmitter.event;
+    }
+    getShortcuts() {
+        return this.registrations;
+    }
+    getRegistrations() {
+        return Array.from(this.registrations.values()).flat();
+    }
+    register(token, shortcuts) {
+        this.registrations.set(token, shortcuts);
+        this.onDidChangeEmitter.fire(this.registrations);
+        return sprotty_1.Disposable.create(() => {
+            this.deregister(token);
+        });
+    }
+    deregister(token) {
+        this.registrations.delete(token);
+        this.onDidChangeEmitter.fire(this.registrations);
+    }
+};
+exports.ShortcutManager = ShortcutManager;
+exports.ShortcutManager = ShortcutManager = __decorate([
+    (0, inversify_1.injectable)()
+], ShortcutManager);
+
+
+/***/ }),
+
+/***/ "../../node_modules/@eclipse-glsp/client/lib/base/shortcuts/shortcuts-module.js":
+/*!**************************************************************************************!*\
+  !*** ../../node_modules/@eclipse-glsp/client/lib/base/shortcuts/shortcuts-module.js ***!
+  \**************************************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+/********************************************************************************
+ * Copyright (c) 2023-2024 Business Informatics Group (TU Wien) and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.standaloneShortcutsModule = void 0;
+const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_modules/@eclipse-glsp/sprotty/lib/index.js");
+__webpack_require__(/*! ../../../css/key-shortcut.css */ "../../node_modules/@eclipse-glsp/client/css/key-shortcut.css");
+const available_shortcuts_extension_1 = __webpack_require__(/*! ./available-shortcuts-extension */ "../../node_modules/@eclipse-glsp/client/lib/base/shortcuts/available-shortcuts-extension.js");
+const available_shortcuts_tool_1 = __webpack_require__(/*! ./available-shortcuts-tool */ "../../node_modules/@eclipse-glsp/client/lib/base/shortcuts/available-shortcuts-tool.js");
+/**
+ * Feature module that is intended for the standalone deployment of GLSP (i.e. plain webapp)
+ * When integrated into an application frame (e.g Theia/VS Code) this module is typically omitted and/or replaced
+ * with an application native module.
+ */
+exports.standaloneShortcutsModule = new sprotty_1.FeatureModule((bind, unbind, isBound, rebind) => {
+    const context = { bind, unbind, isBound, rebind };
+    (0, sprotty_1.bindAsService)(context, sprotty_1.TYPES.IDefaultTool, available_shortcuts_tool_1.AvailableShortcutsTool);
+    (0, sprotty_1.bindAsService)(context, sprotty_1.TYPES.IUIExtension, available_shortcuts_extension_1.AvailableShortcutsUIExtension);
+}, { featureId: Symbol('standaloneShortcuts') });
+
+
+/***/ }),
+
 /***/ "../../node_modules/@eclipse-glsp/client/lib/base/tool-manager/tool-manager.js":
 /*!*************************************************************************************!*\
   !*** ../../node_modules/@eclipse-glsp/client/lib/base/tool-manager/tool-manager.js ***!
@@ -6690,6 +7182,10 @@ exports.CSS_HIDDEN_EXTENSION_CLASS = 'hidden';
  * Intended for UI extensions that directly interact with the DOM API to create and manage UI elements.
  */
 let GLSPAbstractUIExtension = class GLSPAbstractUIExtension extends sprotty_1.AbstractUIExtension {
+    constructor() {
+        super(...arguments);
+        this.toDisposeOnHide = new sprotty_1.DisposableCollection();
+    }
     get diagramContainerId() {
         return this.options.baseDiv;
     }
@@ -6770,6 +7266,10 @@ let GLSPAbstractUIExtension = class GLSPAbstractUIExtension extends sprotty_1.Ab
     }
     toggleContainerVisible() {
         this.setContainerVisible(!this.isContainerVisible());
+    }
+    hide() {
+        super.hide();
+        this.toDisposeOnHide.dispose();
     }
 };
 exports.GLSPAbstractUIExtension = GLSPAbstractUIExtension;
@@ -7050,6 +7550,7 @@ exports.initializeDiagramContainer = exports.configureDiagramOptions = exports.c
 const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_modules/@eclipse-glsp/sprotty/lib/index.js");
 const default_module_1 = __webpack_require__(/*! ./base/default.module */ "../../node_modules/@eclipse-glsp/client/lib/base/default.module.js");
 const bounds_module_1 = __webpack_require__(/*! ./features/bounds/bounds-module */ "../../node_modules/@eclipse-glsp/client/lib/features/bounds/bounds-module.js");
+const resize_module_1 = __webpack_require__(/*! ./features/change-bounds/resize/resize-module */ "../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/resize/resize-module.js");
 const command_palette_module_1 = __webpack_require__(/*! ./features/command-palette/command-palette-module */ "../../node_modules/@eclipse-glsp/client/lib/features/command-palette/command-palette-module.js");
 const context_menu_module_1 = __webpack_require__(/*! ./features/context-menu/context-menu-module */ "../../node_modules/@eclipse-glsp/client/lib/features/context-menu/context-menu-module.js");
 const copy_paste_modules_1 = __webpack_require__(/*! ./features/copy-paste/copy-paste-modules */ "../../node_modules/@eclipse-glsp/client/lib/features/copy-paste/copy-paste-modules.js");
@@ -7114,7 +7615,8 @@ exports.DEFAULT_MODULES = [
     validation_modules_1.validationModule,
     sprotty_1.zorderModule,
     svg_metadata_module_1.svgMetadataModule,
-    status_module_1.statusModule
+    status_module_1.statusModule,
+    resize_module_1.resizeModule
 ];
 /**
  * Wraps the {@link configureDiagramOptions} utility function in a module. Adopters can either include this
@@ -7218,11 +7720,8 @@ exports.accessibilityModule = void 0;
 const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_modules/@eclipse-glsp/sprotty/lib/index.js");
 const element_navigation_module_1 = __webpack_require__(/*! ./element-navigation/element-navigation-module */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/element-navigation/element-navigation-module.js");
 const focus_tracker_module_1 = __webpack_require__(/*! ./focus-tracker/focus-tracker-module */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/focus-tracker/focus-tracker-module.js");
-const shortcut_help_module_1 = __webpack_require__(/*! ./key-shortcut/shortcut-help-module */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/key-shortcut/shortcut-help-module.js");
 const keyboard_pointer_module_1 = __webpack_require__(/*! ./keyboard-pointer/keyboard-pointer-module */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/keyboard-pointer/keyboard-pointer-module.js");
 const keyboard_tool_palette_module_1 = __webpack_require__(/*! ./keyboard-tool-palette/keyboard-tool-palette-module */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/keyboard-tool-palette/keyboard-tool-palette-module.js");
-const move_zoom_module_1 = __webpack_require__(/*! ./move-zoom/move-zoom-module */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/move-zoom/move-zoom-module.js");
-const resize_key_module_1 = __webpack_require__(/*! ./resize-key-tool/resize-key-module */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/resize-key-tool/resize-key-module.js");
 const search_palette_module_1 = __webpack_require__(/*! ./search/search-palette-module */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/search/search-palette-module.js");
 const toast_module_1 = __webpack_require__(/*! ./toast/toast-module */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/toast/toast-module.js");
 const view_key_tools_module_1 = __webpack_require__(/*! ./view-key-tools/view-key-tools-module */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/view-key-tools/view-key-tools-module.js");
@@ -7231,11 +7730,8 @@ const view_key_tools_module_1 = __webpack_require__(/*! ./view-key-tools/view-ke
  */
 exports.accessibilityModule = new sprotty_1.FeatureModule((bind, unbind, isBound, rebind) => {
     const context = { bind, unbind, isBound, rebind };
-    (0, resize_key_module_1.configureResizeTools)(context);
     (0, view_key_tools_module_1.configureViewKeyTools)(context);
-    (0, move_zoom_module_1.configureMoveZoom)(context);
     (0, search_palette_module_1.configureSearchPaletteModule)(context);
-    (0, shortcut_help_module_1.configureShortcutHelpTool)(context);
     (0, keyboard_tool_palette_module_1.configureKeyboardToolPaletteTool)(context);
     (0, keyboard_pointer_module_1.configureKeyboardControlTools)(context);
     (0, element_navigation_module_1.configureElementNavigationTool)(context);
@@ -7623,36 +8119,46 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ElementNavigatorKeyListener = exports.ElementNavigatorTool = void 0;
 const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_modules/@eclipse-glsp/sprotty/lib/index.js");
 const inversify_1 = __webpack_require__(/*! inversify */ "../../node_modules/inversify/lib/cjs/index.js");
+const messages_1 = __webpack_require__(/*! ../../../base/messages */ "../../node_modules/@eclipse-glsp/client/lib/base/messages.js");
+const available_shortcuts_tool_1 = __webpack_require__(/*! ../../../base/shortcuts/available-shortcuts-tool */ "../../node_modules/@eclipse-glsp/client/lib/base/shortcuts/available-shortcuts-tool.js");
 const tool_1 = __webpack_require__(/*! ../../../base/tool-manager/tool */ "../../node_modules/@eclipse-glsp/client/lib/base/tool-manager/tool.js");
 const model_1 = __webpack_require__(/*! ../../../model */ "../../node_modules/@eclipse-glsp/client/lib/model.js");
+const base_tools_1 = __webpack_require__(/*! ../../tools/base-tools */ "../../node_modules/@eclipse-glsp/client/lib/features/tools/base-tools.js");
 const reposition_1 = __webpack_require__(/*! ../../viewport/reposition */ "../../node_modules/@eclipse-glsp/client/lib/features/viewport/reposition.js");
-const accessible_key_shortcut_1 = __webpack_require__(/*! ../key-shortcut/accessible-key-shortcut */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/key-shortcut/accessible-key-shortcut.js");
-const accessible_key_shortcut_tool_1 = __webpack_require__(/*! ../key-shortcut/accessible-key-shortcut-tool */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/key-shortcut/accessible-key-shortcut-tool.js");
 const search_tool_1 = __webpack_require__(/*! ../search/search-tool */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/search/search-tool.js");
-const messages = __webpack_require__(/*! ../toast/messages.json */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/toast/messages.json");
 const toast_handler_1 = __webpack_require__(/*! ../toast/toast-handler */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/toast/toast-handler.js");
-let ElementNavigatorTool = ElementNavigatorTool_1 = class ElementNavigatorTool {
+let ElementNavigatorTool = ElementNavigatorTool_1 = class ElementNavigatorTool extends base_tools_1.BaseTool {
     constructor() {
-        this.isEditTool = false;
+        super(...arguments);
         this.elementNavigatorKeyListener = new ElementNavigatorKeyListener(this);
     }
     get id() {
         return ElementNavigatorTool_1.ID;
     }
     enable() {
-        this.keytool.register(this.elementNavigatorKeyListener);
-        this.elementNavigatorKeyListener.registerShortcutKey();
-    }
-    disable() {
-        this.keytool.deregister(this.elementNavigatorKeyListener);
+        this.toDisposeOnDisable.push(this.keyTool.registerListener(this.elementNavigatorKeyListener), (0, messages_1.repeatOnMessagesUpdated)(() => this.shortcutManager.register(ElementNavigatorTool_1.TOKEN, [
+            {
+                shortcuts: ['ALT', 'N'],
+                description: messages_1.messages.navigation.shortcut_local_mode,
+                group: messages_1.messages.shortcut.group_navigation,
+                position: 0
+            },
+            {
+                shortcuts: ['N'],
+                description: messages_1.messages.navigation.shortcut_global_mode,
+                group: messages_1.messages.shortcut.group_navigation,
+                position: 1
+            }
+        ])));
     }
 };
 exports.ElementNavigatorTool = ElementNavigatorTool;
 ElementNavigatorTool.ID = 'glsp.diagram-navigation';
+ElementNavigatorTool.TOKEN = Symbol.for(ElementNavigatorTool_1.ID);
 __decorate([
-    (0, inversify_1.inject)(sprotty_1.KeyTool),
-    __metadata("design:type", sprotty_1.KeyTool)
-], ElementNavigatorTool.prototype, "keytool", void 0);
+    (0, inversify_1.inject)(sprotty_1.TYPES.IShortcutManager),
+    __metadata("design:type", Object)
+], ElementNavigatorTool.prototype, "shortcutManager", void 0);
 __decorate([
     (0, inversify_1.inject)(sprotty_1.TYPES.IElementNavigator),
     __metadata("design:type", Object)
@@ -7661,10 +8167,6 @@ __decorate([
     (0, inversify_1.inject)(sprotty_1.TYPES.ILocalElementNavigator),
     __metadata("design:type", Object)
 ], ElementNavigatorTool.prototype, "localElementNavigator", void 0);
-__decorate([
-    (0, inversify_1.inject)(sprotty_1.TYPES.IActionDispatcher),
-    __metadata("design:type", Object)
-], ElementNavigatorTool.prototype, "actionDispatcher", void 0);
 exports.ElementNavigatorTool = ElementNavigatorTool = ElementNavigatorTool_1 = __decorate([
     (0, inversify_1.injectable)()
 ], ElementNavigatorTool);
@@ -7680,26 +8182,6 @@ class ElementNavigatorKeyListener extends sprotty_1.KeyListener {
         this.tool = tool;
         this.mode = NavigationMode.NONE;
         this.token = ElementNavigatorKeyListener.name;
-    }
-    registerShortcutKey() {
-        this.tool.actionDispatcher.dispatchOnceModelInitialized(accessible_key_shortcut_1.SetAccessibleKeyShortcutAction.create({
-            token: this.token,
-            keys: [
-                { shortcuts: ['N'], description: 'Activate default navigation', group: 'Navigation', position: 0 },
-                {
-                    shortcuts: ['ALT', 'N'],
-                    description: 'Activate position based navigation',
-                    group: 'Navigation',
-                    position: 1
-                },
-                {
-                    shortcuts: ['⬅  ⬆  ➡  ⬇'],
-                    description: 'Navigate by relation or neighbors according to navigation mode',
-                    group: 'Navigation',
-                    position: 2
-                }
-            ]
-        }));
     }
     keyDown(element, event) {
         this.resetOnEscape(event, element);
@@ -7719,20 +8201,20 @@ class ElementNavigatorKeyListener extends sprotty_1.KeyListener {
             (_b = (_a = this.navigator) === null || _a === void 0 ? void 0 : _a.clean) === null || _b === void 0 ? void 0 : _b.call(_a, element.root);
             this.clean();
             if (this.mode === NavigationMode.POSITION) {
-                this.tool.actionDispatcher.dispatchAll([
+                this.tool.dispatchActions([
                     tool_1.EnableDefaultToolsAction.create(),
                     toast_handler_1.ShowToastMessageAction.createWithTimeout({
                         id: Symbol.for(ElementNavigatorKeyListener.name),
-                        message: messages.navigation.local_navigation_mode_deactivated
+                        message: messages_1.messages.navigation.local_navigation_mode_deactivated
                     })
                 ]);
             }
             else if (this.mode === NavigationMode.DEFAULT) {
-                this.tool.actionDispatcher.dispatchAll([
+                this.tool.dispatchActions([
                     tool_1.EnableDefaultToolsAction.create(),
                     toast_handler_1.ShowToastMessageAction.createWithTimeout({
                         id: Symbol.for(ElementNavigatorKeyListener.name),
-                        message: messages.navigation.default_navigation_mode_deactivated
+                        message: messages_1.messages.navigation.default_navigation_mode_deactivated
                     })
                 ]);
             }
@@ -7743,11 +8225,11 @@ class ElementNavigatorKeyListener extends sprotty_1.KeyListener {
         if (this.matchesActivatePositionNavigation(event)) {
             if (this.mode !== NavigationMode.POSITION) {
                 this.clean();
-                this.tool.actionDispatcher.dispatchAll([
-                    tool_1.EnableToolsAction.create([ElementNavigatorTool.ID, search_tool_1.SearchAutocompletePaletteTool.ID, accessible_key_shortcut_tool_1.AccessibleKeyShortcutTool.ID]),
+                this.tool.dispatchActions([
+                    tool_1.EnableToolsAction.create([ElementNavigatorTool.ID, search_tool_1.SearchAutocompletePaletteTool.ID, available_shortcuts_tool_1.AvailableShortcutsTool.ID]),
                     toast_handler_1.ShowToastMessageAction.create({
                         id: Symbol.for(ElementNavigatorKeyListener.name),
-                        message: messages.navigation.local_navigation_mode_activated
+                        message: messages_1.messages.navigation.local_navigation_mode_activated
                     })
                 ]);
                 this.navigator = this.tool.elementNavigator;
@@ -7766,11 +8248,11 @@ class ElementNavigatorKeyListener extends sprotty_1.KeyListener {
             (_b = (_a = this.navigator) === null || _a === void 0 ? void 0 : _a.clean) === null || _b === void 0 ? void 0 : _b.call(_a, element.root);
             this.clean();
             this.mode = NavigationMode.NONE;
-            this.tool.actionDispatcher.dispatchAll([
+            this.tool.dispatchActions([
                 tool_1.EnableDefaultToolsAction.create(),
                 toast_handler_1.ShowToastMessageAction.createWithTimeout({
                     id: Symbol.for(ElementNavigatorKeyListener.name),
-                    message: messages.navigation.local_navigation_mode_deactivated
+                    message: messages_1.messages.navigation.local_navigation_mode_deactivated
                 })
             ]);
         }
@@ -7779,11 +8261,11 @@ class ElementNavigatorKeyListener extends sprotty_1.KeyListener {
         if (this.matchesActivateDefaultNavigation(event)) {
             if (this.mode !== NavigationMode.DEFAULT) {
                 this.clean();
-                this.tool.actionDispatcher.dispatchAll([
-                    tool_1.EnableToolsAction.create([ElementNavigatorTool.ID, search_tool_1.SearchAutocompletePaletteTool.ID, accessible_key_shortcut_tool_1.AccessibleKeyShortcutTool.ID]),
+                this.tool.dispatchActions([
+                    tool_1.EnableToolsAction.create([ElementNavigatorTool.ID, search_tool_1.SearchAutocompletePaletteTool.ID, available_shortcuts_tool_1.AvailableShortcutsTool.ID]),
                     toast_handler_1.ShowToastMessageAction.create({
                         id: Symbol.for(ElementNavigatorKeyListener.name),
-                        message: messages.navigation.default_navigation_mode_activated
+                        message: messages_1.messages.navigation.default_navigation_mode_activated
                     })
                 ]);
                 this.navigator = this.tool.localElementNavigator;
@@ -7802,11 +8284,11 @@ class ElementNavigatorKeyListener extends sprotty_1.KeyListener {
             (_b = (_a = this.navigator) === null || _a === void 0 ? void 0 : _a.clean) === null || _b === void 0 ? void 0 : _b.call(_a, element.root);
             this.clean();
             this.mode = NavigationMode.NONE;
-            this.tool.actionDispatcher.dispatchAll([
+            this.tool.dispatchActions([
                 tool_1.EnableDefaultToolsAction.create(),
                 toast_handler_1.ShowToastMessageAction.createWithTimeout({
                     id: Symbol.for(ElementNavigatorKeyListener.name),
-                    message: messages.navigation.default_navigation_mode_deactivated
+                    message: messages_1.messages.navigation.default_navigation_mode_deactivated
                 })
             ]);
         }
@@ -8373,7 +8855,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.FocusTrackerTool = void 0;
 const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_modules/@eclipse-glsp/sprotty/lib/index.js");
 const inversify_1 = __webpack_require__(/*! inversify */ "../../node_modules/inversify/lib/cjs/index.js");
-const messages = __webpack_require__(/*! ../toast/messages.json */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/toast/messages.json");
+const messages_1 = __webpack_require__(/*! ../../../base/messages */ "../../node_modules/@eclipse-glsp/client/lib/base/messages.js");
 const toast_handler_1 = __webpack_require__(/*! ../toast/toast-handler */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/toast/toast-handler.js");
 let FocusTrackerTool = FocusTrackerTool_1 = class FocusTrackerTool {
     constructor() {
@@ -8396,7 +8878,7 @@ let FocusTrackerTool = FocusTrackerTool_1 = class FocusTrackerTool {
         // the focus tracker cannot be disabled after enabling it
     }
     async focusOut(event) {
-        await this.showToast('Focus not set');
+        await this.showToast(messages_1.messages.focus.focus_not_set);
     }
     async focusIn(event) {
         let message;
@@ -8413,7 +8895,7 @@ let FocusTrackerTool = FocusTrackerTool_1 = class FocusTrackerTool {
                     message = textMessage;
                 }
                 else if (parent !== undefined && textMessage === undefined) {
-                    message = `Focus is in ${parent.ariaLabel}`;
+                    message = `${messages_1.messages.focus.focus_within} ${parent.ariaLabel}`;
                 }
                 else if (parent !== undefined && textMessage !== undefined) {
                     message = `${parent.ariaLabel} -> ${textMessage}`;
@@ -8440,7 +8922,7 @@ let FocusTrackerTool = FocusTrackerTool_1 = class FocusTrackerTool {
         return this.actionDispatcher.dispatchAll([
             toast_handler_1.ShowToastMessageAction.create({
                 id: Symbol.for(FocusTrackerTool_1.ID),
-                message: `${messages.focus.focus_on} ${message !== null && message !== void 0 ? message : 'unknown'}`,
+                message: `${messages_1.messages.focus.focus_on} ${message !== null && message !== void 0 ? message : 'unknown'}`,
                 position: 'left'
             })
         ]);
@@ -8516,15 +8998,15 @@ exports.GlobalKeyListenerTool = void 0;
  ********************************************************************************/
 const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_modules/@eclipse-glsp/sprotty/lib/index.js");
 const inversify_1 = __webpack_require__(/*! inversify */ "../../node_modules/inversify/lib/cjs/index.js");
+const messages_1 = __webpack_require__(/*! ../../base/messages */ "../../node_modules/@eclipse-glsp/client/lib/base/messages.js");
 const constants_1 = __webpack_require__(/*! ../accessibility/keyboard-grid/constants */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/keyboard-grid/constants.js");
 const tool_palette_1 = __webpack_require__(/*! ../tool-palette/tool-palette */ "../../node_modules/@eclipse-glsp/client/lib/features/tool-palette/tool-palette.js");
+const base_tools_1 = __webpack_require__(/*! ../tools/base-tools */ "../../node_modules/@eclipse-glsp/client/lib/features/tools/base-tools.js");
 const actions_1 = __webpack_require__(/*! ./actions */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/actions.js");
-const accessible_key_shortcut_1 = __webpack_require__(/*! ./key-shortcut/accessible-key-shortcut */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/key-shortcut/accessible-key-shortcut.js");
 const constants_2 = __webpack_require__(/*! ./keyboard-pointer/constants */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/keyboard-pointer/constants.js");
-const keyboard_tool_palette_1 = __webpack_require__(/*! ./keyboard-tool-palette/keyboard-tool-palette */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/keyboard-tool-palette/keyboard-tool-palette.js");
-let GlobalKeyListenerTool = GlobalKeyListenerTool_1 = class GlobalKeyListenerTool {
+let GlobalKeyListenerTool = GlobalKeyListenerTool_1 = class GlobalKeyListenerTool extends base_tools_1.BaseEditTool {
     constructor() {
-        this.isEditTool = false;
+        super(...arguments);
         this.alreadyRegistered = false;
     }
     get id() {
@@ -8534,26 +9016,21 @@ let GlobalKeyListenerTool = GlobalKeyListenerTool_1 = class GlobalKeyListenerToo
         if (!this.alreadyRegistered) {
             this.alreadyRegistered = true;
             document.addEventListener('keyup', this.trigger.bind(this));
-            this.registerShortcutKey();
+            (0, messages_1.repeatOnMessagesUpdated)(() => this.shortcutManager.register(GlobalKeyListenerTool_1.TOKEN, [
+                {
+                    shortcuts: ['ALT', 'P'],
+                    description: messages_1.messages.focus.shortcut_focus_palette,
+                    group: messages_1.messages.shortcut.group_tool_palette,
+                    position: 0
+                },
+                {
+                    shortcuts: ['ALT', 'G'],
+                    description: messages_1.messages.focus.shortcut_focus_graph,
+                    group: messages_1.messages.shortcut.group_graph,
+                    position: 0
+                }
+            ]));
         }
-    }
-    disable() {
-        // It is not possible to remove the handlers after registration
-        // The handlers need to be available all the time to work correctly
-    }
-    registerShortcutKey() {
-        this.actionDispatcher.onceModelInitialized().then(() => {
-            this.actionDispatcher.dispatchAll([
-                accessible_key_shortcut_1.SetAccessibleKeyShortcutAction.create({
-                    token: keyboard_tool_palette_1.KeyboardToolPalette.name,
-                    keys: [{ shortcuts: ['ALT', 'P'], description: 'Focus on tool palette', group: 'Tool-Palette', position: 0 }]
-                }),
-                accessible_key_shortcut_1.SetAccessibleKeyShortcutAction.create({
-                    token: 'Graph',
-                    keys: [{ shortcuts: ['ALT', 'G'], description: 'Focus on graph', group: 'Graph', position: 0 }]
-                })
-            ]);
-        });
     }
     trigger(event) {
         this.actionDispatcher.dispatchAll(this.handleKeyEvent(event));
@@ -8586,316 +9063,14 @@ let GlobalKeyListenerTool = GlobalKeyListenerTool_1 = class GlobalKeyListenerToo
 };
 exports.GlobalKeyListenerTool = GlobalKeyListenerTool;
 GlobalKeyListenerTool.ID = 'glsp.global-key-listener';
+GlobalKeyListenerTool.TOKEN = Symbol.for(GlobalKeyListenerTool_1.name);
 __decorate([
-    (0, inversify_1.inject)(sprotty_1.TYPES.IActionDispatcher),
+    (0, inversify_1.inject)(sprotty_1.TYPES.IShortcutManager),
     __metadata("design:type", Object)
-], GlobalKeyListenerTool.prototype, "actionDispatcher", void 0);
+], GlobalKeyListenerTool.prototype, "shortcutManager", void 0);
 exports.GlobalKeyListenerTool = GlobalKeyListenerTool = GlobalKeyListenerTool_1 = __decorate([
     (0, inversify_1.injectable)()
 ], GlobalKeyListenerTool);
-
-
-/***/ }),
-
-/***/ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/key-shortcut/accessible-key-shortcut-tool.js":
-/*!***********************************************************************************************************************!*\
-  !*** ../../node_modules/@eclipse-glsp/client/lib/features/accessibility/key-shortcut/accessible-key-shortcut-tool.js ***!
-  \***********************************************************************************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-/********************************************************************************
- * Copyright (c) 2023 Business Informatics Group (TU Wien) and others.
- *
- * This program and the accompanying materials are made available under the
- * terms of the Eclipse Public License v. 2.0 which is available at
- * http://www.eclipse.org/legal/epl-2.0.
- *
- * This Source Code may also be made available under the following Secondary
- * Licenses when the conditions for such availability set forth in the Eclipse
- * Public License v. 2.0 are satisfied: GNU General Public License, version 2
- * with the GNU Classpath Exception which is available at
- * https://www.gnu.org/software/classpath/license.html.
- *
- * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
- ********************************************************************************/
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var AccessibleKeyShortcutTool_1;
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.AccessibleShortcutKeyListener = exports.AccessibleKeyShortcutTool = void 0;
-const inversify_1 = __webpack_require__(/*! inversify */ "../../node_modules/inversify/lib/cjs/index.js");
-const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_modules/@eclipse-glsp/sprotty/lib/index.js");
-const base_tools_1 = __webpack_require__(/*! ../../tools/base-tools */ "../../node_modules/@eclipse-glsp/client/lib/features/tools/base-tools.js");
-const accessible_key_shortcut_1 = __webpack_require__(/*! ./accessible-key-shortcut */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/key-shortcut/accessible-key-shortcut.js");
-let AccessibleKeyShortcutTool = AccessibleKeyShortcutTool_1 = class AccessibleKeyShortcutTool extends base_tools_1.BaseEditTool {
-    constructor() {
-        super(...arguments);
-        this.shortcutKeyListener = new AccessibleShortcutKeyListener();
-    }
-    get id() {
-        return AccessibleKeyShortcutTool_1.ID;
-    }
-    enable() {
-        this.keytool.register(this.shortcutKeyListener);
-    }
-    disable() {
-        this.keytool.deregister(this.shortcutKeyListener);
-    }
-};
-exports.AccessibleKeyShortcutTool = AccessibleKeyShortcutTool;
-AccessibleKeyShortcutTool.ID = 'accessible-key-shortcut-tool';
-__decorate([
-    (0, inversify_1.inject)(sprotty_1.KeyTool),
-    __metadata("design:type", sprotty_1.KeyTool)
-], AccessibleKeyShortcutTool.prototype, "keytool", void 0);
-exports.AccessibleKeyShortcutTool = AccessibleKeyShortcutTool = AccessibleKeyShortcutTool_1 = __decorate([
-    (0, inversify_1.injectable)()
-], AccessibleKeyShortcutTool);
-class AccessibleShortcutKeyListener extends sprotty_1.KeyListener {
-    constructor() {
-        super(...arguments);
-        this.token = Symbol(AccessibleShortcutKeyListener.name);
-    }
-    keyDown(element, event) {
-        if (this.matchesActivateShortcutHelpKeystroke(event)) {
-            return [sprotty_1.SetUIExtensionVisibilityAction.create({ extensionId: accessible_key_shortcut_1.KeyShortcutUIExtension.ID, visible: true })];
-        }
-        return [];
-    }
-    matchesActivateShortcutHelpKeystroke(event) {
-        return (0, sprotty_1.matchesKeystroke)(event, 'KeyH', 'alt');
-    }
-}
-exports.AccessibleShortcutKeyListener = AccessibleShortcutKeyListener;
-
-
-/***/ }),
-
-/***/ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/key-shortcut/accessible-key-shortcut.js":
-/*!******************************************************************************************************************!*\
-  !*** ../../node_modules/@eclipse-glsp/client/lib/features/accessibility/key-shortcut/accessible-key-shortcut.js ***!
-  \******************************************************************************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-/********************************************************************************
- * Copyright (c) 2023-2024 Business Informatics Group (TU Wien) and others.
- *
- * This program and the accompanying materials are made available under the
- * terms of the Eclipse Public License v. 2.0 which is available at
- * http://www.eclipse.org/legal/epl-2.0.
- *
- * This Source Code may also be made available under the following Secondary
- * Licenses when the conditions for such availability set forth in the Eclipse
- * Public License v. 2.0 are satisfied: GNU General Public License, version 2
- * with the GNU Classpath Exception which is available at
- * https://www.gnu.org/software/classpath/license.html.
- *
- * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
- ********************************************************************************/
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var KeyShortcutUIExtension_1;
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.KeyShortcutUIExtension = exports.SetAccessibleKeyShortcutAction = void 0;
-const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_modules/@eclipse-glsp/sprotty/lib/index.js");
-const inversify_1 = __webpack_require__(/*! inversify */ "../../node_modules/inversify/lib/cjs/index.js");
-const lodash_1 = __webpack_require__(/*! lodash */ "../../node_modules/lodash/lodash.js");
-const ui_extension_1 = __webpack_require__(/*! ../../../base/ui-extension/ui-extension */ "../../node_modules/@eclipse-glsp/client/lib/base/ui-extension/ui-extension.js");
-var SetAccessibleKeyShortcutAction;
-(function (SetAccessibleKeyShortcutAction) {
-    SetAccessibleKeyShortcutAction.KIND = 'setAccessibleKeyShortcut';
-    function is(object) {
-        return sprotty_1.Action.hasKind(object, SetAccessibleKeyShortcutAction.KIND);
-    }
-    SetAccessibleKeyShortcutAction.is = is;
-    function create(options) {
-        return { kind: SetAccessibleKeyShortcutAction.KIND, token: options.token, keys: options.keys };
-    }
-    SetAccessibleKeyShortcutAction.create = create;
-})(SetAccessibleKeyShortcutAction || (exports.SetAccessibleKeyShortcutAction = SetAccessibleKeyShortcutAction = {}));
-let KeyShortcutUIExtension = KeyShortcutUIExtension_1 = class KeyShortcutUIExtension extends ui_extension_1.GLSPAbstractUIExtension {
-    constructor() {
-        super(...arguments);
-        this.registrations = {};
-    }
-    handle(action) {
-        if (SetAccessibleKeyShortcutAction.is(action)) {
-            this.registrations[action.token] = action.keys;
-            if (this.containerElement) {
-                this.refreshUI();
-            }
-        }
-    }
-    id() {
-        return KeyShortcutUIExtension_1.ID;
-    }
-    containerClass() {
-        return KeyShortcutUIExtension_1.ID;
-    }
-    show(root, ...contextElementIds) {
-        super.show(root, ...contextElementIds);
-        this.shortcutsContainer.focus();
-    }
-    refreshUI() {
-        this.shortcutsContainer.innerHTML = '';
-        const registrations = Object.values(this.registrations).flatMap(r => r);
-        registrations.sort((a, b) => {
-            if (a.group < b.group) {
-                return -1;
-            }
-            if (a.group > b.group) {
-                return 1;
-            }
-            return a.position - b.position;
-        });
-        const grouped = (0, lodash_1.groupBy)(registrations, k => k.group);
-        const groupTable = document.createElement('table');
-        groupTable.classList.add('shortcut-table');
-        const tableHead = document.createElement('thead');
-        const tableBody = document.createElement('tbody');
-        const headerRow = document.createElement('tr');
-        const commandCell = document.createElement('th');
-        const keybindingCell = document.createElement('th');
-        commandCell.classList.add('column-title');
-        commandCell.innerText = 'Command';
-        keybindingCell.innerText = 'Keybinding';
-        headerRow.appendChild(commandCell);
-        headerRow.appendChild(keybindingCell);
-        tableHead.appendChild(headerRow);
-        for (const [group, shortcuts] of Object.entries(grouped)) {
-            tableBody.appendChild(this.createGroupHeader(group));
-            shortcuts.forEach(s => {
-                tableBody.appendChild(this.createEntry(s));
-            });
-        }
-        groupTable.appendChild(tableHead);
-        groupTable.appendChild(tableBody);
-        this.shortcutsContainer.append(groupTable);
-    }
-    createGroupHeader(group) {
-        const entryRow = document.createElement('tr');
-        const groupElement = document.createElement('td');
-        const text = document.createElement('strong');
-        const emptyElement = document.createElement('td');
-        text.innerText = group;
-        groupElement.appendChild(text);
-        entryRow.appendChild(groupElement);
-        entryRow.appendChild(emptyElement);
-        return entryRow;
-    }
-    getShortcutHTML(shortcuts) {
-        const shortcutKeys = document.createElement('span');
-        shortcutKeys.innerHTML = shortcuts.map(key => `<kbd>${key}</kbd>`).join(' + ');
-        return shortcutKeys;
-    }
-    createEntry(registration) {
-        const entryRow = document.createElement('tr');
-        const shortcutElement = document.createElement('td');
-        const descElement = document.createElement('td');
-        const shortcut = this.getShortcutHTML(registration.shortcuts);
-        descElement.innerText = registration.description;
-        shortcutElement.appendChild(shortcut);
-        entryRow.appendChild(descElement);
-        entryRow.appendChild(shortcutElement);
-        return entryRow;
-    }
-    initializeContents(containerElement) {
-        this.container = document.createElement('div');
-        this.container.classList.add('keyboard-shortcuts-menu');
-        // create title
-        const menuTitle = document.createElement('h3');
-        menuTitle.classList.add('menu-header');
-        menuTitle.innerText = 'Keyboard Shortcuts';
-        this.container.appendChild(menuTitle);
-        const closeBtn = document.createElement('button');
-        closeBtn.id = 'key-shortcut-close-btn';
-        closeBtn.textContent = 'x';
-        closeBtn.addEventListener('click', () => {
-            this.hide();
-        });
-        this.container.appendChild(closeBtn);
-        // create shortcuts container
-        this.shortcutsContainer = document.createElement('div');
-        this.shortcutsContainer.classList.add('keyboard-shortcuts-container');
-        this.shortcutsContainer.tabIndex = 30;
-        this.shortcutsContainer.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape' || (0, sprotty_1.matchesKeystroke)(event, 'KeyH', 'alt')) {
-                this.hide();
-            }
-        });
-        this.container.appendChild(this.shortcutsContainer);
-        containerElement.appendChild(this.container);
-        containerElement.ariaLabel = 'Shortcut-Menu';
-        this.refreshUI();
-    }
-};
-exports.KeyShortcutUIExtension = KeyShortcutUIExtension;
-KeyShortcutUIExtension.ID = 'key-shortcut';
-exports.KeyShortcutUIExtension = KeyShortcutUIExtension = KeyShortcutUIExtension_1 = __decorate([
-    (0, inversify_1.injectable)()
-], KeyShortcutUIExtension);
-
-
-/***/ }),
-
-/***/ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/key-shortcut/shortcut-help-module.js":
-/*!***************************************************************************************************************!*\
-  !*** ../../node_modules/@eclipse-glsp/client/lib/features/accessibility/key-shortcut/shortcut-help-module.js ***!
-  \***************************************************************************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-/********************************************************************************
- * Copyright (c) 2023-2024 Business Informatics Group (TU Wien) and others.
- *
- * This program and the accompanying materials are made available under the
- * terms of the Eclipse Public License v. 2.0 which is available at
- * http://www.eclipse.org/legal/epl-2.0.
- *
- * This Source Code may also be made available under the following Secondary
- * Licenses when the conditions for such availability set forth in the Eclipse
- * Public License v. 2.0 are satisfied: GNU General Public License, version 2
- * with the GNU Classpath Exception which is available at
- * https://www.gnu.org/software/classpath/license.html.
- *
- * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
- ********************************************************************************/
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.glspShortcutHelpModule = exports.configureShortcutHelpTool = exports.shortcutHelpModule = void 0;
-const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_modules/@eclipse-glsp/sprotty/lib/index.js");
-__webpack_require__(/*! ../../../../css/key-shortcut.css */ "../../node_modules/@eclipse-glsp/client/css/key-shortcut.css");
-const accessible_key_shortcut_1 = __webpack_require__(/*! ./accessible-key-shortcut */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/key-shortcut/accessible-key-shortcut.js");
-const accessible_key_shortcut_tool_1 = __webpack_require__(/*! ./accessible-key-shortcut-tool */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/key-shortcut/accessible-key-shortcut-tool.js");
-/**
- * Handles actions for displaying help/information about keyboard shortcuts.
- */
-exports.shortcutHelpModule = new sprotty_1.FeatureModule((bind, unbind, isBound, rebind) => {
-    const context = { bind, unbind, isBound, rebind };
-    configureShortcutHelpTool(context);
-}, { featureId: Symbol('shortcutHelp') });
-exports.glspShortcutHelpModule = exports.shortcutHelpModule;
-function configureShortcutHelpTool(context) {
-    (0, sprotty_1.bindAsService)(context, sprotty_1.TYPES.IDefaultTool, accessible_key_shortcut_tool_1.AccessibleKeyShortcutTool);
-    (0, sprotty_1.bindAsService)(context, sprotty_1.TYPES.IUIExtension, accessible_key_shortcut_1.KeyShortcutUIExtension);
-    (0, sprotty_1.configureActionHandler)(context, accessible_key_shortcut_1.SetAccessibleKeyShortcutAction.KIND, accessible_key_shortcut_1.KeyShortcutUIExtension);
-}
-exports.configureShortcutHelpTool = configureShortcutHelpTool;
 
 
 /***/ }),
@@ -9182,12 +9357,12 @@ let KeyboardGrid = class KeyboardGrid extends ui_extension_1.GLSPAbstractUIExten
     setContainerVisible(visible) {
         if (this.containerElement) {
             if (visible) {
-                this.containerElement.style.visibility = 'visible';
-                this.containerElement.style.opacity = '0.7';
+                this.containerElement.classList.remove('grid-hidden');
+                this.containerElement.classList.add('grid-visible');
             }
             else {
-                this.containerElement.style.visibility = 'hidden';
-                this.containerElement.style.opacity = '0';
+                this.containerElement.classList.remove('grid-visible');
+                this.containerElement.classList.add('grid-hidden');
             }
         }
     }
@@ -9926,6 +10101,7 @@ exports.KeyboardToolPalette = void 0;
  ********************************************************************************/
 const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_modules/@eclipse-glsp/sprotty/lib/index.js");
 const inversify_1 = __webpack_require__(/*! inversify */ "../../node_modules/inversify/lib/cjs/index.js");
+const messages_1 = __webpack_require__(/*! ../../../base/messages */ "../../node_modules/@eclipse-glsp/client/lib/base/messages.js");
 const tool_1 = __webpack_require__(/*! ../../../base/tool-manager/tool */ "../../node_modules/@eclipse-glsp/client/lib/base/tool-manager/tool.js");
 const tool_palette_1 = __webpack_require__(/*! ../../tool-palette/tool-palette */ "../../node_modules/@eclipse-glsp/client/lib/features/tool-palette/tool-palette.js");
 const delete_tool_1 = __webpack_require__(/*! ../../tools/deletion/delete-tool */ "../../node_modules/@eclipse-glsp/client/lib/features/tools/deletion/delete-tool.js");
@@ -9934,12 +10110,8 @@ const actions_1 = __webpack_require__(/*! ../actions */ "../../node_modules/@ecl
 const edge_autocomplete_palette_1 = __webpack_require__(/*! ../edge-autocomplete/edge-autocomplete-palette */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/edge-autocomplete/edge-autocomplete-palette.js");
 const diagram_navigation_tool_1 = __webpack_require__(/*! ../element-navigation/diagram-navigation-tool */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/element-navigation/diagram-navigation-tool.js");
 const constants_1 = __webpack_require__(/*! ../keyboard-grid/constants */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/keyboard-grid/constants.js");
-const messages = __webpack_require__(/*! ../toast/messages.json */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/toast/messages.json");
 const toast_handler_1 = __webpack_require__(/*! ../toast/toast-handler */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/toast/toast-handler.js");
 const SEARCH_ICON_ID = 'search';
-const PALETTE_ICON_ID = 'tools';
-const CHEVRON_DOWN_ICON_ID = 'chevron-right';
-const PALETTE_HEIGHT = '500px';
 const SELECTION_TOOL_KEY = ['Digit1', 'Numpad1'];
 const DELETION_TOOL_KEY = ['Digit2', 'Numpad2'];
 const MARQUEE_TOOL_KEY = ['Digit3', 'Numpad3'];
@@ -9987,9 +10159,10 @@ let KeyboardToolPalette = class KeyboardToolPalette extends tool_palette_1.ToolP
             .reduce((acc, val) => acc.concat(val), []);
     }
     initializeContents(_containerElement) {
-        this.containerElement.setAttribute('aria-label', 'Tool Palette');
+        this.containerElement.setAttribute('aria-label', messages_1.messages.tool_palette.label);
         this.containerElement.tabIndex = 20;
         this.containerElement.classList.add('accessibility-tool-palette');
+        this.addMinimizePaletteButton();
         this.createHeader();
         this.createBody();
         this.lastActiveButton = this.defaultToolsButton;
@@ -10031,31 +10204,6 @@ let KeyboardToolPalette = class KeyboardToolPalette extends tool_palette_1.ToolP
             super.handle(action);
         }
     }
-    addMinimizePaletteButton() {
-        const baseDiv = document.getElementById(this.options.baseDiv);
-        const minPaletteDiv = document.createElement('div');
-        minPaletteDiv.classList.add('minimize-palette-button');
-        this.containerElement.classList.add('collapsible-palette');
-        if (baseDiv) {
-            const insertedDiv = baseDiv.insertBefore(minPaletteDiv, baseDiv.firstChild);
-            const minimizeIcon = (0, tool_palette_1.createIcon)(CHEVRON_DOWN_ICON_ID);
-            this.updateMinimizePaletteButtonTooltip(minPaletteDiv);
-            minimizeIcon.onclick = _event => {
-                if (this.isPaletteMaximized()) {
-                    this.containerElement.style.overflow = 'hidden';
-                    this.containerElement.style.maxHeight = '0px';
-                }
-                else {
-                    this.containerElement.style.overflow = 'visible';
-                    this.containerElement.style.maxHeight = PALETTE_HEIGHT;
-                }
-                this.updateMinimizePaletteButtonTooltip(minPaletteDiv);
-                (0, tool_palette_1.changeCodiconClass)(minimizeIcon, PALETTE_ICON_ID);
-                (0, tool_palette_1.changeCodiconClass)(minimizeIcon, CHEVRON_DOWN_ICON_ID);
-            };
-            insertedDiv.appendChild(minimizeIcon);
-        }
-    }
     createBody() {
         const bodyDiv = document.createElement('div');
         bodyDiv.classList.add('palette-body');
@@ -10082,11 +10230,11 @@ let KeyboardToolPalette = class KeyboardToolPalette extends tool_palette_1.ToolP
         });
         if (this.paletteItems.length === 0) {
             const noResultsDiv = document.createElement('div');
-            noResultsDiv.innerText = 'No results found.';
+            noResultsDiv.innerText = messages_1.messages.tool_palette.no_items;
             noResultsDiv.classList.add('tool-button');
             bodyDiv.appendChild(noResultsDiv);
         }
-        // Remove existing body to refresh filtered entries
+        // Replace existing body to refresh filtered entries
         if (this.bodyDiv) {
             this.containerElement.removeChild(this.bodyDiv);
         }
@@ -10132,24 +10280,24 @@ let KeyboardToolPalette = class KeyboardToolPalette extends tool_palette_1.ToolP
     createDefaultToolButton() {
         const button = (0, tool_palette_1.createIcon)('inspect');
         button.id = 'btn_default_tools';
-        button.title = 'Enable selection tool';
+        button.title = messages_1.messages.tool_palette.selection_button;
         button.onclick = this.onClickStaticToolButton(button);
         button.appendChild(this.createKeyboardShotcut(SELECTION_TOOL_KEY[0]));
         return button;
     }
     createMouseDeleteToolButton() {
         const deleteToolButton = (0, tool_palette_1.createIcon)('chrome-close');
-        deleteToolButton.title = 'Enable deletion tool';
+        deleteToolButton.title = messages_1.messages.tool_palette.delete_button;
         deleteToolButton.onclick = this.onClickStaticToolButton(deleteToolButton, delete_tool_1.MouseDeleteTool.ID);
         deleteToolButton.appendChild(this.createKeyboardShotcut(DELETION_TOOL_KEY[0]));
         return deleteToolButton;
     }
     createMarqueeToolButton() {
         const marqueeToolButton = (0, tool_palette_1.createIcon)('screen-full');
-        marqueeToolButton.title = 'Enable marquee tool';
+        marqueeToolButton.title = messages_1.messages.tool_palette.marquee_button;
         const toastMessageAction = toast_handler_1.ShowToastMessageAction.createWithTimeout({
             id: Symbol.for(diagram_navigation_tool_1.ElementNavigatorKeyListener.name),
-            message: messages.tool_palette.marqueeTool
+            message: messages_1.messages.tool_palette.marquee_message
         });
         marqueeToolButton.onclick = this.onClickStaticToolButton(marqueeToolButton, marquee_mouse_tool_1.MarqueeMouseTool.ID, toastMessageAction);
         marqueeToolButton.appendChild(this.createKeyboardShotcut(MARQUEE_TOOL_KEY[0]));
@@ -10157,7 +10305,7 @@ let KeyboardToolPalette = class KeyboardToolPalette extends tool_palette_1.ToolP
     }
     createValidateButton() {
         const validateToolButton = (0, tool_palette_1.createIcon)('pass');
-        validateToolButton.title = 'Validate model';
+        validateToolButton.title = messages_1.messages.tool_palette.validate_button;
         validateToolButton.onclick = _event => {
             const modelIds = [this.modelRootId];
             this.actionDispatcher.dispatch(sprotty_1.RequestMarkersAction.create(modelIds));
@@ -10195,7 +10343,7 @@ let KeyboardToolPalette = class KeyboardToolPalette extends tool_palette_1.ToolP
             }
         };
         searchIcon.classList.add('search-icon');
-        searchIcon.title = 'Filter palette entries';
+        searchIcon.title = messages_1.messages.tool_palette.search_button;
         searchIcon.appendChild(this.createKeyboardShotcut(SEARCH_TOOL_KEY[0]));
         return searchIcon;
     }
@@ -10205,7 +10353,7 @@ let KeyboardToolPalette = class KeyboardToolPalette extends tool_palette_1.ToolP
         searchField.tabIndex = 21;
         searchField.id = this.containerElement.id + '_search_field';
         searchField.type = 'text';
-        searchField.placeholder = 'Search...';
+        searchField.placeholder = messages_1.messages.tool_palette.search_placeholder;
         searchField.style.display = 'none';
         searchField.onkeyup = ev => {
             this.requestFilterUpdate(this.searchField.value);
@@ -10376,815 +10524,6 @@ exports.KeyboardToolPalette = KeyboardToolPalette = __decorate([
 
 /***/ }),
 
-/***/ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/move-zoom/move-handler.js":
-/*!****************************************************************************************************!*\
-  !*** ../../node_modules/@eclipse-glsp/client/lib/features/accessibility/move-zoom/move-handler.js ***!
-  \****************************************************************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-/********************************************************************************
- * Copyright (c) 2023-2024 Business Informatics Group (TU Wien) and others.
- *
- * This program and the accompanying materials are made available under the
- * terms of the Eclipse Public License v. 2.0 which is available at
- * http://www.eclipse.org/legal/epl-2.0.
- *
- * This Source Code may also be made available under the following Secondary
- * Licenses when the conditions for such availability set forth in the Eclipse
- * Public License v. 2.0 are satisfied: GNU General Public License, version 2
- * with the GNU Classpath Exception which is available at
- * https://www.gnu.org/software/classpath/license.html.
- *
- * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
- ********************************************************************************/
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.MoveElementHandler = exports.MoveViewportHandler = exports.MoveElementAction = exports.MoveViewportAction = void 0;
-const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_modules/@eclipse-glsp/sprotty/lib/index.js");
-const inversify_1 = __webpack_require__(/*! inversify */ "../../node_modules/inversify/lib/cjs/index.js");
-const lodash_1 = __webpack_require__(/*! lodash */ "../../node_modules/lodash/lodash.js");
-const editor_context_service_1 = __webpack_require__(/*! ../../../base/editor-context-service */ "../../node_modules/@eclipse-glsp/client/lib/base/editor-context-service.js");
-const gmodel_util_1 = __webpack_require__(/*! ../../../utils/gmodel-util */ "../../node_modules/@eclipse-glsp/client/lib/utils/gmodel-util.js");
-const layout_utils_1 = __webpack_require__(/*! ../../../utils/layout-utils */ "../../node_modules/@eclipse-glsp/client/lib/utils/layout-utils.js");
-const viewpoint_util_1 = __webpack_require__(/*! ../../../utils/viewpoint-util */ "../../node_modules/@eclipse-glsp/client/lib/utils/viewpoint-util.js");
-var MoveViewportAction;
-(function (MoveViewportAction) {
-    MoveViewportAction.KIND = 'moveViewportAction';
-    function is(object) {
-        return sprotty_1.Action.hasKind(object, MoveViewportAction.KIND);
-    }
-    MoveViewportAction.is = is;
-    function create(moveX, moveY) {
-        return { kind: MoveViewportAction.KIND, moveX, moveY };
-    }
-    MoveViewportAction.create = create;
-})(MoveViewportAction || (exports.MoveViewportAction = MoveViewportAction = {}));
-var MoveElementAction;
-(function (MoveElementAction) {
-    MoveElementAction.KIND = 'moveElementAction';
-    function is(object) {
-        return sprotty_1.Action.hasKind(object, MoveElementAction.KIND);
-    }
-    MoveElementAction.is = is;
-    function create(elementIds, moveX, moveY, snap = true) {
-        return { kind: MoveElementAction.KIND, elementIds, moveX, moveY, snap };
-    }
-    MoveElementAction.create = create;
-})(MoveElementAction || (exports.MoveElementAction = MoveElementAction = {}));
-/**
- * Action handler for moving of the viewport.
- */
-let MoveViewportHandler = class MoveViewportHandler {
-    handle(action) {
-        if (MoveViewportAction.is(action)) {
-            this.handleMoveViewport(action);
-        }
-    }
-    handleMoveViewport(action) {
-        const viewport = (0, sprotty_1.findParentByFeature)(this.editorContextService.modelRoot, sprotty_1.isViewport);
-        if (!viewport) {
-            return;
-        }
-        this.dispatcher.dispatch(this.moveViewport(viewport, action.moveX, action.moveY));
-    }
-    moveViewport(viewport, offsetX, offSetY) {
-        const newViewport = {
-            scroll: {
-                x: viewport.scroll.x + offsetX,
-                y: viewport.scroll.y + offSetY
-            },
-            zoom: viewport.zoom
-        };
-        return sprotty_1.SetViewportAction.create(viewport.id, newViewport, { animate: false });
-    }
-};
-exports.MoveViewportHandler = MoveViewportHandler;
-__decorate([
-    (0, inversify_1.inject)(editor_context_service_1.EditorContextService),
-    __metadata("design:type", editor_context_service_1.EditorContextService)
-], MoveViewportHandler.prototype, "editorContextService", void 0);
-__decorate([
-    (0, inversify_1.inject)(sprotty_1.TYPES.IActionDispatcher),
-    __metadata("design:type", Object)
-], MoveViewportHandler.prototype, "dispatcher", void 0);
-exports.MoveViewportHandler = MoveViewportHandler = __decorate([
-    (0, inversify_1.injectable)()
-], MoveViewportHandler);
-/**
- * Action handler for moving elements.
- */
-let MoveElementHandler = class MoveElementHandler {
-    init() {
-        this.moveFeedback = this.feedbackDispatcher.createEmitter();
-    }
-    handle(action) {
-        if (MoveElementAction.is(action)) {
-            this.handleMoveElement(action);
-        }
-    }
-    handleMoveElement(action) {
-        const modelRoot = this.editorContextService.modelRoot;
-        const viewport = (0, sprotty_1.findParentByFeature)(modelRoot, sprotty_1.isViewport);
-        if (!viewport) {
-            return;
-        }
-        const viewportActions = [];
-        const elementMoves = [];
-        const elements = (0, gmodel_util_1.getElements)(modelRoot.index, action.elementIds, gmodel_util_1.isSelectableAndBoundsAware);
-        for (const element of elements) {
-            const newPosition = this.getTargetBounds(element, action);
-            elementMoves.push({
-                elementId: element.id,
-                fromPosition: {
-                    x: element.bounds.x,
-                    y: element.bounds.y
-                },
-                toPosition: newPosition
-            });
-            if ((0, viewpoint_util_1.outsideOfViewport)(newPosition, viewport)) {
-                viewportActions.push(MoveViewportAction.create(action.moveX, action.moveY));
-            }
-        }
-        this.dispatcher.dispatchAll(viewportActions);
-        const moveAction = sprotty_1.MoveAction.create(elementMoves, { animate: false });
-        this.moveFeedback.add(moveAction).submit();
-        this.scheduleChangeBounds(this.toElementAndBounds(elementMoves));
-    }
-    getTargetBounds(element, action) {
-        let position = sprotty_1.Point.add(element.bounds, { x: action.moveX, y: action.moveY });
-        if (this.snapper && action.snap) {
-            position = this.snapper.snap(position, element);
-        }
-        if (!(0, layout_utils_1.isValidMove)(element, position, this.movementRestrictor)) {
-            // reset to position before the move, if not valid
-            position = { x: element.bounds.x, y: element.bounds.y };
-        }
-        return position;
-    }
-    scheduleChangeBounds(elementAndBounds) {
-        var _a;
-        (_a = this.debouncedChangeBounds) === null || _a === void 0 ? void 0 : _a.cancel();
-        this.debouncedChangeBounds = (0, lodash_1.debounce)(() => {
-            this.moveFeedback.dispose();
-            this.dispatcher.dispatchAll([sprotty_1.ChangeBoundsOperation.create(elementAndBounds)]);
-            this.debouncedChangeBounds = undefined;
-        }, 300);
-        this.debouncedChangeBounds();
-    }
-    toElementAndBounds(elementMoves) {
-        const elementBounds = [];
-        for (const elementMove of elementMoves) {
-            const element = this.editorContextService.modelRoot.index.getById(elementMove.elementId);
-            if (element && (0, sprotty_1.isBoundsAware)(element)) {
-                elementBounds.push({
-                    elementId: elementMove.elementId,
-                    newSize: {
-                        height: element.bounds.height,
-                        width: element.bounds.width
-                    },
-                    newPosition: {
-                        x: elementMove.toPosition.x,
-                        y: elementMove.toPosition.y
-                    }
-                });
-            }
-        }
-        return elementBounds;
-    }
-};
-exports.MoveElementHandler = MoveElementHandler;
-__decorate([
-    (0, inversify_1.inject)(editor_context_service_1.EditorContextService),
-    __metadata("design:type", editor_context_service_1.EditorContextService)
-], MoveElementHandler.prototype, "editorContextService", void 0);
-__decorate([
-    (0, inversify_1.inject)(sprotty_1.TYPES.IActionDispatcher),
-    __metadata("design:type", Object)
-], MoveElementHandler.prototype, "dispatcher", void 0);
-__decorate([
-    (0, inversify_1.inject)(sprotty_1.TYPES.IFeedbackActionDispatcher),
-    __metadata("design:type", Object)
-], MoveElementHandler.prototype, "feedbackDispatcher", void 0);
-__decorate([
-    (0, inversify_1.inject)(sprotty_1.TYPES.ISnapper),
-    (0, inversify_1.optional)(),
-    __metadata("design:type", Object)
-], MoveElementHandler.prototype, "snapper", void 0);
-__decorate([
-    (0, inversify_1.inject)(sprotty_1.TYPES.IMovementRestrictor),
-    (0, inversify_1.optional)(),
-    __metadata("design:type", Object)
-], MoveElementHandler.prototype, "movementRestrictor", void 0);
-__decorate([
-    (0, inversify_1.postConstruct)(),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], MoveElementHandler.prototype, "init", null);
-exports.MoveElementHandler = MoveElementHandler = __decorate([
-    (0, inversify_1.injectable)()
-], MoveElementHandler);
-
-
-/***/ }),
-
-/***/ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/move-zoom/move-zoom-module.js":
-/*!********************************************************************************************************!*\
-  !*** ../../node_modules/@eclipse-glsp/client/lib/features/accessibility/move-zoom/move-zoom-module.js ***!
-  \********************************************************************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-/********************************************************************************
- * Copyright (c) 2023-2024 Business Informatics Group (TU Wien) and others.
- *
- * This program and the accompanying materials are made available under the
- * terms of the Eclipse Public License v. 2.0 which is available at
- * http://www.eclipse.org/legal/epl-2.0.
- *
- * This Source Code may also be made available under the following Secondary
- * Licenses when the conditions for such availability set forth in the Eclipse
- * Public License v. 2.0 are satisfied: GNU General Public License, version 2
- * with the GNU Classpath Exception which is available at
- * https://www.gnu.org/software/classpath/license.html.
- *
- * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
- ********************************************************************************/
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.configureMoveZoom = exports.moveZoomModule = void 0;
-const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_modules/@eclipse-glsp/sprotty/lib/index.js");
-const move_handler_1 = __webpack_require__(/*! ./move-handler */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/move-zoom/move-handler.js");
-const zoom_handler_1 = __webpack_require__(/*! ./zoom-handler */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/move-zoom/zoom-handler.js");
-/**
- * Handles move and zoom actions.
- */
-exports.moveZoomModule = new sprotty_1.FeatureModule((bind, unbind, isBound, rebind) => {
-    const context = { bind, unbind, isBound, rebind };
-    configureMoveZoom(context);
-}, { featureId: Symbol('moveZoom') });
-function configureMoveZoom(context) {
-    context.bind(move_handler_1.MoveViewportHandler).toSelf().inSingletonScope();
-    context.bind(move_handler_1.MoveElementHandler).toSelf().inSingletonScope();
-    context.bind(zoom_handler_1.ZoomViewportHandler).toSelf().inSingletonScope();
-    context.bind(zoom_handler_1.ZoomElementHandler).toSelf().inSingletonScope();
-    (0, sprotty_1.configureActionHandler)(context, move_handler_1.MoveViewportAction.KIND, move_handler_1.MoveViewportHandler);
-    (0, sprotty_1.configureActionHandler)(context, move_handler_1.MoveElementAction.KIND, move_handler_1.MoveElementHandler);
-    (0, sprotty_1.configureActionHandler)(context, zoom_handler_1.ZoomViewportAction.KIND, zoom_handler_1.ZoomViewportHandler);
-    (0, sprotty_1.configureActionHandler)(context, zoom_handler_1.ZoomElementAction.KIND, zoom_handler_1.ZoomElementHandler);
-}
-exports.configureMoveZoom = configureMoveZoom;
-
-
-/***/ }),
-
-/***/ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/move-zoom/zoom-handler.js":
-/*!****************************************************************************************************!*\
-  !*** ../../node_modules/@eclipse-glsp/client/lib/features/accessibility/move-zoom/zoom-handler.js ***!
-  \****************************************************************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-/********************************************************************************
- * Copyright (c) 2023 Business Informatics Group (TU Wien) and others.
- *
- * This program and the accompanying materials are made available under the
- * terms of the Eclipse Public License v. 2.0 which is available at
- * http://www.eclipse.org/legal/epl-2.0.
- *
- * This Source Code may also be made available under the following Secondary
- * Licenses when the conditions for such availability set forth in the Eclipse
- * Public License v. 2.0 are satisfied: GNU General Public License, version 2
- * with the GNU Classpath Exception which is available at
- * https://www.gnu.org/software/classpath/license.html.
- *
- * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
- ********************************************************************************/
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.ZoomElementHandler = exports.ZoomViewportHandler = exports.ZoomElementAction = exports.ZoomViewportAction = void 0;
-const inversify_1 = __webpack_require__(/*! inversify */ "../../node_modules/inversify/lib/cjs/index.js");
-const lodash_1 = __webpack_require__(/*! lodash */ "../../node_modules/lodash/lodash.js");
-const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_modules/@eclipse-glsp/sprotty/lib/index.js");
-const editor_context_service_1 = __webpack_require__(/*! ../../../base/editor-context-service */ "../../node_modules/@eclipse-glsp/client/lib/base/editor-context-service.js");
-const gmodel_util_1 = __webpack_require__(/*! ../../../utils/gmodel-util */ "../../node_modules/@eclipse-glsp/client/lib/utils/gmodel-util.js");
-var ZoomViewportAction;
-(function (ZoomViewportAction) {
-    ZoomViewportAction.KIND = 'zoomViewportAction';
-    function is(object) {
-        return sprotty_1.Action.hasKind(object, ZoomViewportAction.KIND);
-    }
-    ZoomViewportAction.is = is;
-    function create(zoomFactor) {
-        return { kind: ZoomViewportAction.KIND, zoomFactor };
-    }
-    ZoomViewportAction.create = create;
-})(ZoomViewportAction || (exports.ZoomViewportAction = ZoomViewportAction = {}));
-var ZoomElementAction;
-(function (ZoomElementAction) {
-    ZoomElementAction.KIND = 'zoomElementAction';
-    function is(object) {
-        return sprotty_1.Action.hasKind(object, ZoomElementAction.KIND);
-    }
-    ZoomElementAction.is = is;
-    function create(elementIds, zoomFactor) {
-        return { kind: ZoomElementAction.KIND, elementIds, zoomFactor };
-    }
-    ZoomElementAction.create = create;
-})(ZoomElementAction || (exports.ZoomElementAction = ZoomElementAction = {}));
-/* The ZoomViewportHandler class is an implementation of the IActionHandler interface that handles
-zooming in and out of a viewport. */
-let ZoomViewportHandler = class ZoomViewportHandler {
-    constructor() {
-        this.throttledHandleViewportZoom = (0, lodash_1.throttle)((action) => this.handleZoomViewport(action), 150);
-    }
-    handle(action) {
-        if (ZoomViewportAction.is(action)) {
-            this.throttledHandleViewportZoom(action);
-        }
-    }
-    handleZoomViewport(action) {
-        const viewport = (0, sprotty_1.findParentByFeature)(this.editorContextService.modelRoot, sprotty_1.isViewport);
-        if (!viewport) {
-            return;
-        }
-        this.dispatcher.dispatch(this.setNewZoomFactor(viewport, action.zoomFactor));
-    }
-    setNewZoomFactor(viewport, zoomFactor) {
-        const newZoom = viewport.zoom * zoomFactor;
-        const newViewport = {
-            scroll: viewport.scroll,
-            zoom: newZoom
-        };
-        return sprotty_1.SetViewportAction.create(viewport.id, newViewport, { animate: true });
-    }
-};
-exports.ZoomViewportHandler = ZoomViewportHandler;
-ZoomViewportHandler.defaultZoomInFactor = 1.1;
-ZoomViewportHandler.defaultZoomOutFactor = 0.9;
-__decorate([
-    (0, inversify_1.inject)(editor_context_service_1.EditorContextService),
-    __metadata("design:type", editor_context_service_1.EditorContextService)
-], ZoomViewportHandler.prototype, "editorContextService", void 0);
-__decorate([
-    (0, inversify_1.inject)(sprotty_1.TYPES.IActionDispatcher),
-    __metadata("design:type", Object)
-], ZoomViewportHandler.prototype, "dispatcher", void 0);
-exports.ZoomViewportHandler = ZoomViewportHandler = __decorate([
-    (0, inversify_1.injectable)()
-], ZoomViewportHandler);
-/* The ZoomElementHandler class is an implementation of the IActionHandler interface that handles
-zooming in and out of elements. */
-let ZoomElementHandler = class ZoomElementHandler {
-    constructor() {
-        this.throttledHandleElementZoom = (0, lodash_1.throttle)((action) => this.handleZoomElement(action), 150);
-    }
-    handle(action) {
-        if (ZoomElementAction.is(action)) {
-            this.throttledHandleElementZoom(action);
-        }
-    }
-    handleZoomElement(action) {
-        const viewport = (0, sprotty_1.findParentByFeature)(this.editorContextService.modelRoot, sprotty_1.isViewport);
-        if (!viewport) {
-            return;
-        }
-        const elements = (0, gmodel_util_1.getElements)(this.editorContextService.modelRoot.index, action.elementIds, gmodel_util_1.isSelectableAndBoundsAware);
-        const center = this.getCenter(viewport, elements);
-        this.dispatcher.dispatch(this.setNewZoomFactor(viewport, action.zoomFactor, center));
-    }
-    getCenter(viewport, selectedElements) {
-        // Get bounds of elements based on the viewport
-        const allBounds = selectedElements.map(e => this.boundsInViewport(viewport, e, e.bounds));
-        const mergedBounds = allBounds.reduce((b0, b1) => sprotty_1.Bounds.combine(b0, b1));
-        return sprotty_1.Bounds.center(mergedBounds);
-    }
-    // copy from center-fit.ts, translates the children bounds to the viewport bounds
-    boundsInViewport(viewport, element, bounds) {
-        if (element instanceof sprotty_1.GChildElement && element.parent !== viewport) {
-            return this.boundsInViewport(viewport, element.parent, element.parent.localToParent(bounds));
-        }
-        else {
-            return bounds;
-        }
-    }
-    setNewZoomFactor(viewport, zoomFactor, point) {
-        const newZoom = viewport.zoom * zoomFactor;
-        const newViewport = {
-            scroll: {
-                x: point.x - (0.5 * viewport.canvasBounds.width) / newZoom,
-                y: point.y - (0.5 * viewport.canvasBounds.height) / newZoom
-            },
-            zoom: newZoom
-        };
-        return sprotty_1.SetViewportAction.create(viewport.id, newViewport, { animate: true });
-    }
-};
-exports.ZoomElementHandler = ZoomElementHandler;
-__decorate([
-    (0, inversify_1.inject)(editor_context_service_1.EditorContextService),
-    __metadata("design:type", editor_context_service_1.EditorContextService)
-], ZoomElementHandler.prototype, "editorContextService", void 0);
-__decorate([
-    (0, inversify_1.inject)(sprotty_1.TYPES.IActionDispatcher),
-    __metadata("design:type", Object)
-], ZoomElementHandler.prototype, "dispatcher", void 0);
-exports.ZoomElementHandler = ZoomElementHandler = __decorate([
-    (0, inversify_1.injectable)()
-], ZoomElementHandler);
-
-
-/***/ }),
-
-/***/ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/resize-key-tool/resize-key-handler.js":
-/*!****************************************************************************************************************!*\
-  !*** ../../node_modules/@eclipse-glsp/client/lib/features/accessibility/resize-key-tool/resize-key-handler.js ***!
-  \****************************************************************************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-/********************************************************************************
- * Copyright (c) 2023-2024 Business Informatics Group (TU Wien) and others.
- *
- * This program and the accompanying materials are made available under the
- * terms of the Eclipse Public License v. 2.0 which is available at
- * http://www.eclipse.org/legal/epl-2.0.
- *
- * This Source Code may also be made available under the following Secondary
- * Licenses when the conditions for such availability set forth in the Eclipse
- * Public License v. 2.0 are satisfied: GNU General Public License, version 2
- * with the GNU Classpath Exception which is available at
- * https://www.gnu.org/software/classpath/license.html.
- *
- * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
- ********************************************************************************/
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
-var ResizeElementHandler_1;
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.ResizeElementHandler = exports.ResizeElementAction = exports.ResizeType = void 0;
-const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_modules/@eclipse-glsp/sprotty/lib/index.js");
-const inversify_1 = __webpack_require__(/*! inversify */ "../../node_modules/inversify/lib/cjs/index.js");
-const lodash_1 = __webpack_require__(/*! lodash */ "../../node_modules/lodash/lodash.js");
-const editor_context_service_1 = __webpack_require__(/*! ../../../base/editor-context-service */ "../../node_modules/@eclipse-glsp/client/lib/base/editor-context-service.js");
-const gmodel_util_1 = __webpack_require__(/*! ../../../utils/gmodel-util */ "../../node_modules/@eclipse-glsp/client/lib/utils/gmodel-util.js");
-const layout_utils_1 = __webpack_require__(/*! ../../../utils/layout-utils */ "../../node_modules/@eclipse-glsp/client/lib/utils/layout-utils.js");
-var ResizeType;
-(function (ResizeType) {
-    ResizeType[ResizeType["Increase"] = 0] = "Increase";
-    ResizeType[ResizeType["Decrease"] = 1] = "Decrease";
-    ResizeType[ResizeType["MinSize"] = 2] = "MinSize";
-})(ResizeType || (exports.ResizeType = ResizeType = {}));
-var ResizeElementAction;
-(function (ResizeElementAction) {
-    ResizeElementAction.KIND = 'resizeElementAction';
-    function is(object) {
-        return sprotty_1.Action.hasKind(object, ResizeElementAction.KIND);
-    }
-    ResizeElementAction.is = is;
-    function create(elementIds, resizeType) {
-        return { kind: ResizeElementAction.KIND, elementIds, resizeType };
-    }
-    ResizeElementAction.create = create;
-})(ResizeElementAction || (exports.ResizeElementAction = ResizeElementAction = {}));
-/* The ResizeElementHandler class is an implementation of the IActionHandler interface that handles
-resizing of elements. */
-let ResizeElementHandler = ResizeElementHandler_1 = class ResizeElementHandler {
-    constructor(snapper) {
-        this.snapper = snapper;
-        this.grid = {
-            x: ResizeElementHandler_1.defaultResizeX,
-            y: ResizeElementHandler_1.defaultResizeY
-        };
-        this.isEditMode = false;
-    }
-    init() {
-        this.resizeFeedback = this.feedbackDispatcher.createEmitter();
-    }
-    handle(action) {
-        if (ResizeElementAction.is(action)) {
-            this.handleResizeElement(action);
-        }
-    }
-    handleResizeElement(action) {
-        var _a;
-        const elements = (0, gmodel_util_1.getElements)(this.editorContextService.modelRoot.index, action.elementIds, gmodel_util_1.isSelectableAndBoundsAware);
-        const elementAndBounds = this.computeElementAndBounds(elements, action);
-        this.resizeFeedback.add(sprotty_1.SetBoundsAction.create(elementAndBounds)).submit();
-        (_a = this.debouncedChangeBounds) === null || _a === void 0 ? void 0 : _a.cancel();
-        this.debouncedChangeBounds = (0, lodash_1.debounce)(() => {
-            this.resizeFeedback.dispose();
-            this.dispatcher.dispatchAll([sprotty_1.ChangeBoundsOperation.create(elementAndBounds)]);
-            this.debouncedChangeBounds = undefined;
-        }, 300);
-        this.debouncedChangeBounds();
-    }
-    computeElementAndBounds(elements, action) {
-        const elementAndBounds = [];
-        elements.forEach(element => {
-            const { x, y, width: oldWidth, height: oldHeight } = element.bounds;
-            let width = 0;
-            let height = 0;
-            if (action.resizeType === ResizeType.Decrease) {
-                width = oldWidth - this.grid.x;
-                height = oldHeight - this.grid.y;
-            }
-            else if (action.resizeType === ResizeType.Increase) {
-                width = oldWidth + this.grid.x;
-                height = oldHeight + this.grid.y;
-            }
-            else if (action.resizeType === ResizeType.MinSize) {
-                width = (0, layout_utils_1.minWidth)(element);
-                height = (0, layout_utils_1.minHeight)(element);
-            }
-            if (this.isValidBoundChange(element, { x, y }, { width, height })) {
-                const resizeElement = { id: element.id, bounds: { x, y, width, height } };
-                elementAndBounds.push((0, gmodel_util_1.toElementAndBounds)(resizeElement));
-            }
-        });
-        return elementAndBounds;
-    }
-    isValidBoundChange(element, newPosition, newSize) {
-        return (0, layout_utils_1.isValidSize)(element, newSize) && (0, layout_utils_1.isValidMove)(element, newPosition);
-    }
-};
-exports.ResizeElementHandler = ResizeElementHandler;
-// Default x resize used if grid is not provided
-ResizeElementHandler.defaultResizeX = 20;
-// Default y resize used if grid is not provided
-ResizeElementHandler.defaultResizeY = 20;
-__decorate([
-    (0, inversify_1.inject)(editor_context_service_1.EditorContextService),
-    __metadata("design:type", editor_context_service_1.EditorContextService)
-], ResizeElementHandler.prototype, "editorContextService", void 0);
-__decorate([
-    (0, inversify_1.inject)(sprotty_1.TYPES.IActionDispatcher),
-    __metadata("design:type", Object)
-], ResizeElementHandler.prototype, "dispatcher", void 0);
-__decorate([
-    (0, inversify_1.inject)(sprotty_1.TYPES.IFeedbackActionDispatcher),
-    __metadata("design:type", Object)
-], ResizeElementHandler.prototype, "feedbackDispatcher", void 0);
-__decorate([
-    (0, inversify_1.inject)(sprotty_1.TYPES.Grid),
-    (0, inversify_1.optional)(),
-    __metadata("design:type", Object)
-], ResizeElementHandler.prototype, "grid", void 0);
-__decorate([
-    (0, inversify_1.postConstruct)(),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], ResizeElementHandler.prototype, "init", null);
-exports.ResizeElementHandler = ResizeElementHandler = ResizeElementHandler_1 = __decorate([
-    (0, inversify_1.injectable)(),
-    __param(0, (0, inversify_1.inject)(sprotty_1.TYPES.ISnapper)),
-    __param(0, (0, inversify_1.optional)()),
-    __metadata("design:paramtypes", [Object])
-], ResizeElementHandler);
-
-
-/***/ }),
-
-/***/ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/resize-key-tool/resize-key-module.js":
-/*!***************************************************************************************************************!*\
-  !*** ../../node_modules/@eclipse-glsp/client/lib/features/accessibility/resize-key-tool/resize-key-module.js ***!
-  \***************************************************************************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-/********************************************************************************
- * Copyright (c) 2023-2024 Business Informatics Group (TU Wien) and others.
- *
- * This program and the accompanying materials are made available under the
- * terms of the Eclipse Public License v. 2.0 which is available at
- * http://www.eclipse.org/legal/epl-2.0.
- *
- * This Source Code may also be made available under the following Secondary
- * Licenses when the conditions for such availability set forth in the Eclipse
- * Public License v. 2.0 are satisfied: GNU General Public License, version 2
- * with the GNU Classpath Exception which is available at
- * https://www.gnu.org/software/classpath/license.html.
- *
- * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
- ********************************************************************************/
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.configureResizeTools = exports.resizeKeyModule = void 0;
-const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_modules/@eclipse-glsp/sprotty/lib/index.js");
-const resize_key_handler_1 = __webpack_require__(/*! ./resize-key-handler */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/resize-key-tool/resize-key-handler.js");
-const resize_key_tool_1 = __webpack_require__(/*! ./resize-key-tool */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/resize-key-tool/resize-key-tool.js");
-/**
- * Handles resize actions.
- */
-exports.resizeKeyModule = new sprotty_1.FeatureModule((bind, unbind, isBound, rebind) => {
-    const context = { bind, unbind, isBound, rebind };
-    configureResizeTools(context);
-}, { featureId: Symbol('resizeKey') });
-function configureResizeTools(context) {
-    context.bind(resize_key_handler_1.ResizeElementHandler).toSelf().inSingletonScope();
-    (0, sprotty_1.configureActionHandler)(context, resize_key_handler_1.ResizeElementAction.KIND, resize_key_handler_1.ResizeElementHandler);
-    (0, sprotty_1.bindAsService)(context, sprotty_1.TYPES.IDefaultTool, resize_key_tool_1.ResizeKeyTool);
-}
-exports.configureResizeTools = configureResizeTools;
-
-
-/***/ }),
-
-/***/ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/resize-key-tool/resize-key-tool.js":
-/*!*************************************************************************************************************!*\
-  !*** ../../node_modules/@eclipse-glsp/client/lib/features/accessibility/resize-key-tool/resize-key-tool.js ***!
-  \*************************************************************************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-/********************************************************************************
- * Copyright (c) 2023 Business Informatics Group (TU Wien) and others.
- *
- * This program and the accompanying materials are made available under the
- * terms of the Eclipse Public License v. 2.0 which is available at
- * http://www.eclipse.org/legal/epl-2.0.
- *
- * This Source Code may also be made available under the following Secondary
- * Licenses when the conditions for such availability set forth in the Eclipse
- * Public License v. 2.0 are satisfied: GNU General Public License, version 2
- * with the GNU Classpath Exception which is available at
- * https://www.gnu.org/software/classpath/license.html.
- *
- * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
- ********************************************************************************/
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var ResizeKeyTool_1, ResizeKeyListener_1;
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.ResizeKeyListener = exports.ResizeKeyTool = void 0;
-const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_modules/@eclipse-glsp/sprotty/lib/index.js");
-const inversify_1 = __webpack_require__(/*! inversify */ "../../node_modules/inversify/lib/cjs/index.js");
-const selection_service_1 = __webpack_require__(/*! ../../../base/selection-service */ "../../node_modules/@eclipse-glsp/client/lib/base/selection-service.js");
-const tool_1 = __webpack_require__(/*! ../../../base/tool-manager/tool */ "../../node_modules/@eclipse-glsp/client/lib/base/tool-manager/tool.js");
-const accessible_key_shortcut_1 = __webpack_require__(/*! ../key-shortcut/accessible-key-shortcut */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/key-shortcut/accessible-key-shortcut.js");
-const messages = __webpack_require__(/*! ../toast/messages.json */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/toast/messages.json");
-const toast_handler_1 = __webpack_require__(/*! ../toast/toast-handler */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/toast/toast-handler.js");
-const resize_key_handler_1 = __webpack_require__(/*! ./resize-key-handler */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/resize-key-tool/resize-key-handler.js");
-let ResizeKeyTool = ResizeKeyTool_1 = class ResizeKeyTool {
-    constructor() {
-        this.isEditTool = true;
-        this.resizeKeyListener = new ResizeKeyListener(this);
-    }
-    get id() {
-        return ResizeKeyTool_1.ID;
-    }
-    enable() {
-        this.keytool.register(this.resizeKeyListener);
-        this.resizeKeyListener.registerShortcutKey();
-    }
-    disable() {
-        this.keytool.deregister(this.resizeKeyListener);
-    }
-};
-exports.ResizeKeyTool = ResizeKeyTool;
-ResizeKeyTool.ID = 'glsp.resize-key-tool';
-__decorate([
-    (0, inversify_1.inject)(sprotty_1.KeyTool),
-    __metadata("design:type", sprotty_1.KeyTool)
-], ResizeKeyTool.prototype, "keytool", void 0);
-__decorate([
-    (0, inversify_1.inject)(sprotty_1.TYPES.IMovementRestrictor),
-    (0, inversify_1.optional)(),
-    __metadata("design:type", Object)
-], ResizeKeyTool.prototype, "movementRestrictor", void 0);
-__decorate([
-    (0, inversify_1.inject)(sprotty_1.TYPES.ISnapper),
-    (0, inversify_1.optional)(),
-    __metadata("design:type", Object)
-], ResizeKeyTool.prototype, "snapper", void 0);
-__decorate([
-    (0, inversify_1.inject)(sprotty_1.TYPES.IActionDispatcher),
-    __metadata("design:type", Object)
-], ResizeKeyTool.prototype, "actionDispatcher", void 0);
-__decorate([
-    (0, inversify_1.inject)(selection_service_1.SelectionService),
-    __metadata("design:type", selection_service_1.SelectionService)
-], ResizeKeyTool.prototype, "selectionService", void 0);
-exports.ResizeKeyTool = ResizeKeyTool = ResizeKeyTool_1 = __decorate([
-    (0, inversify_1.injectable)()
-], ResizeKeyTool);
-let ResizeKeyListener = ResizeKeyListener_1 = class ResizeKeyListener extends sprotty_1.KeyListener {
-    constructor(tool) {
-        super();
-        this.tool = tool;
-        this.isEditMode = false;
-        this.token = ResizeKeyListener_1.name;
-    }
-    registerShortcutKey() {
-        this.tool.actionDispatcher.dispatchOnceModelInitialized(accessible_key_shortcut_1.SetAccessibleKeyShortcutAction.create({
-            token: this.token,
-            keys: [
-                { shortcuts: ['ALT', 'A'], description: 'Activate resize mode for selected element', group: 'Resize', position: 0 },
-                { shortcuts: ['+'], description: 'Increase size of element', group: 'Resize', position: 1 },
-                { shortcuts: ['-'], description: 'Increase size of element', group: 'Resize', position: 2 },
-                { shortcuts: ['CTRL', '0'], description: 'Set element size to default', group: 'Resize', position: 3 }
-            ]
-        }));
-    }
-    keyDown(element, event) {
-        const actions = [];
-        const selectedElementsIds = this.tool.selectionService.getSelectedElementIDs();
-        if (this.isEditMode && this.matchesDeactivateResizeModeKeystroke(event)) {
-            this.isEditMode = false;
-            this.tool.actionDispatcher.dispatch(toast_handler_1.ShowToastMessageAction.createWithTimeout({
-                id: Symbol.for(ResizeKeyListener_1.name),
-                message: messages.resize.resize_mode_deactivated
-            }));
-            actions.push(tool_1.EnableDefaultToolsAction.create());
-        }
-        if (selectedElementsIds.length > 0) {
-            if (!this.isEditMode && this.matchesActivateResizeModeKeystroke(event)) {
-                this.isEditMode = true;
-                this.tool.actionDispatcher.dispatch(toast_handler_1.ShowToastMessageAction.create({
-                    id: Symbol.for(ResizeKeyListener_1.name),
-                    message: messages.resize.resize_mode_activated
-                }));
-                actions.push(tool_1.EnableToolsAction.create([ResizeKeyTool.ID]));
-            }
-            if (this.isEditMode) {
-                if (this.matchesIncreaseSizeKeystroke(event)) {
-                    actions.push(resize_key_handler_1.ResizeElementAction.create(selectedElementsIds, resize_key_handler_1.ResizeType.Increase));
-                }
-                else if (this.matchesDecreaseSizeKeystroke(event)) {
-                    actions.push(resize_key_handler_1.ResizeElementAction.create(selectedElementsIds, resize_key_handler_1.ResizeType.Decrease));
-                }
-                else if (this.matchesMinSizeKeystroke(event)) {
-                    actions.push(resize_key_handler_1.ResizeElementAction.create(selectedElementsIds, resize_key_handler_1.ResizeType.MinSize));
-                }
-            }
-        }
-        return actions;
-    }
-    matchesIncreaseSizeKeystroke(event) {
-        /** here event.key is used for '+', as keycode 187 is already declared for 'Equals' in {@link matchesKeystroke}.*/
-        return event.key === '+' || (0, sprotty_1.matchesKeystroke)(event, 'NumpadAdd');
-    }
-    matchesActivateResizeModeKeystroke(event) {
-        return (0, sprotty_1.matchesKeystroke)(event, 'KeyA', 'alt');
-    }
-    matchesDeactivateResizeModeKeystroke(event) {
-        return (0, sprotty_1.matchesKeystroke)(event, 'Escape');
-    }
-    matchesMinSizeKeystroke(event) {
-        return (0, sprotty_1.matchesKeystroke)(event, 'Digit0', 'ctrl') || (0, sprotty_1.matchesKeystroke)(event, 'Numpad0', 'ctrl');
-    }
-    matchesDecreaseSizeKeystroke(event) {
-        return (0, sprotty_1.matchesKeystroke)(event, 'Minus') || (0, sprotty_1.matchesKeystroke)(event, 'NumpadSubtract');
-    }
-};
-exports.ResizeKeyListener = ResizeKeyListener;
-exports.ResizeKeyListener = ResizeKeyListener = ResizeKeyListener_1 = __decorate([
-    (0, inversify_1.injectable)(),
-    __metadata("design:paramtypes", [ResizeKeyTool])
-], ResizeKeyListener);
-
-
-/***/ }),
-
 /***/ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/search/search-palette-module.js":
 /*!**********************************************************************************************************!*\
   !*** ../../node_modules/@eclipse-glsp/client/lib/features/accessibility/search/search-palette-module.js ***!
@@ -11211,6 +10550,7 @@ exports.ResizeKeyListener = ResizeKeyListener = ResizeKeyListener_1 = __decorate
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.configureSearchPaletteModule = exports.searchPaletteModule = void 0;
 const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_modules/@eclipse-glsp/sprotty/lib/index.js");
+__webpack_require__(/*! ../../../../css/search.css */ "../../node_modules/@eclipse-glsp/client/css/search.css");
 const search_palette_1 = __webpack_require__(/*! ./search-palette */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/search/search-palette.js");
 const search_tool_1 = __webpack_require__(/*! ./search-tool */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/search/search-tool.js");
 exports.searchPaletteModule = new sprotty_1.FeatureModule((bind, _unbind, isBound, rebind) => {
@@ -11263,6 +10603,7 @@ const inversify_1 = __webpack_require__(/*! inversify */ "../../node_modules/inv
 const lodash_1 = __webpack_require__(/*! lodash */ "../../node_modules/lodash/lodash.js");
 const base_autocomplete_palette_1 = __webpack_require__(/*! ../../../base/auto-complete/base-autocomplete-palette */ "../../node_modules/@eclipse-glsp/client/lib/base/auto-complete/base-autocomplete-palette.js");
 const css_feedback_1 = __webpack_require__(/*! ../../../base/feedback/css-feedback */ "../../node_modules/@eclipse-glsp/client/lib/base/feedback/css-feedback.js");
+const messages_1 = __webpack_require__(/*! ../../../base/messages */ "../../node_modules/@eclipse-glsp/client/lib/base/messages.js");
 const reposition_1 = __webpack_require__(/*! ../../../features/viewport/reposition */ "../../node_modules/@eclipse-glsp/client/lib/features/viewport/reposition.js");
 const model_1 = __webpack_require__(/*! ../../../model */ "../../node_modules/@eclipse-glsp/client/lib/model.js");
 const CSS_SEARCH_HIDDEN = 'search-hidden';
@@ -11345,8 +10686,8 @@ let SearchAutocompletePalette = SearchAutocompletePalette_1 = class SearchAutoco
     }
     initializeContents(containerElement) {
         super.initializeContents(containerElement);
-        this.autocompleteWidget.inputField.placeholder = 'Search for elements';
-        containerElement.setAttribute('aria-label', 'Search Field');
+        this.autocompleteWidget.inputField.placeholder = messages_1.messages.search.placeholder;
+        containerElement.setAttribute('aria-label', messages_1.messages.search.label);
     }
     getSuggestionProviders(root, input) {
         return [
@@ -11458,33 +10799,35 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.SearchAutocompletePaletteKeyListener = exports.SearchAutocompletePaletteTool = void 0;
 const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_modules/@eclipse-glsp/sprotty/lib/index.js");
 const inversify_1 = __webpack_require__(/*! inversify */ "../../node_modules/inversify/lib/cjs/index.js");
-const accessible_key_shortcut_1 = __webpack_require__(/*! ../key-shortcut/accessible-key-shortcut */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/key-shortcut/accessible-key-shortcut.js");
+const messages_1 = __webpack_require__(/*! ../../../base/messages */ "../../node_modules/@eclipse-glsp/client/lib/base/messages.js");
+const base_tools_1 = __webpack_require__(/*! ../../tools/base-tools */ "../../node_modules/@eclipse-glsp/client/lib/features/tools/base-tools.js");
 const search_palette_1 = __webpack_require__(/*! ./search-palette */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/search/search-palette.js");
-let SearchAutocompletePaletteTool = SearchAutocompletePaletteTool_1 = class SearchAutocompletePaletteTool {
+let SearchAutocompletePaletteTool = SearchAutocompletePaletteTool_1 = class SearchAutocompletePaletteTool extends base_tools_1.BaseTool {
     constructor() {
+        super(...arguments);
         this.keyListener = new SearchAutocompletePaletteKeyListener(this);
     }
     get id() {
         return SearchAutocompletePaletteTool_1.ID;
     }
     enable() {
-        this.keyTool.register(this.keyListener);
-        this.keyListener.registerShortcutKey();
-    }
-    disable() {
-        this.keyTool.deregister(this.keyListener);
+        this.toDisposeOnDisable.push(this.keyTool.registerListener(this.keyListener), (0, messages_1.repeatOnMessagesUpdated)(() => this.shortcutManager.register(SearchAutocompletePaletteTool_1.TOKEN, [
+            {
+                shortcuts: ['CTRL', 'F'],
+                description: messages_1.messages.search.shortcut_activate,
+                group: messages_1.messages.shortcut.group_search,
+                position: 0
+            }
+        ])));
     }
 };
 exports.SearchAutocompletePaletteTool = SearchAutocompletePaletteTool;
 SearchAutocompletePaletteTool.ID = 'glsp.search-autocomplete-palette-tool';
+SearchAutocompletePaletteTool.TOKEN = Symbol.for(SearchAutocompletePaletteTool_1.ID);
 __decorate([
-    (0, inversify_1.inject)(sprotty_1.TYPES.IActionDispatcher),
+    (0, inversify_1.inject)(sprotty_1.TYPES.IShortcutManager),
     __metadata("design:type", Object)
-], SearchAutocompletePaletteTool.prototype, "actionDispatcher", void 0);
-__decorate([
-    (0, inversify_1.inject)(sprotty_1.KeyTool),
-    __metadata("design:type", sprotty_1.KeyTool)
-], SearchAutocompletePaletteTool.prototype, "keyTool", void 0);
+], SearchAutocompletePaletteTool.prototype, "shortcutManager", void 0);
 exports.SearchAutocompletePaletteTool = SearchAutocompletePaletteTool = SearchAutocompletePaletteTool_1 = __decorate([
     (0, inversify_1.injectable)()
 ], SearchAutocompletePaletteTool);
@@ -11492,13 +10835,6 @@ class SearchAutocompletePaletteKeyListener extends sprotty_1.KeyListener {
     constructor(tool) {
         super();
         this.tool = tool;
-        this.token = search_palette_1.SearchAutocompletePalette.name;
-    }
-    registerShortcutKey() {
-        this.tool.actionDispatcher.dispatchOnceModelInitialized(accessible_key_shortcut_1.SetAccessibleKeyShortcutAction.create({
-            token: this.token,
-            keys: [{ shortcuts: ['CTRL', 'F'], description: 'Activate search for elements', group: 'Search', position: 0 }]
-        }));
     }
     keyDown(element, event) {
         if (this.matchesSearchActivateKeystroke(event)) {
@@ -11852,16 +11188,16 @@ exports.DeselectKeyListener = DeselectKeyListener;
 
 /***/ }),
 
-/***/ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/view-key-tools/movement-key-tool.js":
-/*!**************************************************************************************************************!*\
-  !*** ../../node_modules/@eclipse-glsp/client/lib/features/accessibility/view-key-tools/movement-key-tool.js ***!
-  \**************************************************************************************************************/
+/***/ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/view-key-tools/grid-cell-zoom-key-tool.js":
+/*!********************************************************************************************************************!*\
+  !*** ../../node_modules/@eclipse-glsp/client/lib/features/accessibility/view-key-tools/grid-cell-zoom-key-tool.js ***!
+  \********************************************************************************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
 /********************************************************************************
- * Copyright (c) 2023-2024 Business Informatics Group (TU Wien) and others.
+ * Copyright (c) 2023 Business Informatics Group (TU Wien) and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -11884,136 +11220,125 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var MovementKeyTool_1;
+var GridCellZoomTool_1;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.MoveKeyListener = exports.MovementKeyTool = void 0;
+exports.GridZoomKeyListener = exports.GridCellZoomTool = void 0;
 const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_modules/@eclipse-glsp/sprotty/lib/index.js");
 const inversify_1 = __webpack_require__(/*! inversify */ "../../node_modules/inversify/lib/cjs/index.js");
+const messages_1 = __webpack_require__(/*! ../../../base/messages */ "../../node_modules/@eclipse-glsp/client/lib/base/messages.js");
 const selection_service_1 = __webpack_require__(/*! ../../../base/selection-service */ "../../node_modules/@eclipse-glsp/client/lib/base/selection-service.js");
-const accessible_key_shortcut_1 = __webpack_require__(/*! ../key-shortcut/accessible-key-shortcut */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/key-shortcut/accessible-key-shortcut.js");
-const move_handler_1 = __webpack_require__(/*! ../move-zoom/move-handler */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/move-zoom/move-handler.js");
+const viewpoint_util_1 = __webpack_require__(/*! ../../../utils/viewpoint-util */ "../../node_modules/@eclipse-glsp/client/lib/utils/viewpoint-util.js");
+const base_tools_1 = __webpack_require__(/*! ../../tools/base-tools */ "../../node_modules/@eclipse-glsp/client/lib/features/tools/base-tools.js");
+const diagram_navigation_tool_1 = __webpack_require__(/*! ../element-navigation/diagram-navigation-tool */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/element-navigation/diagram-navigation-tool.js");
+const action_1 = __webpack_require__(/*! ../keyboard-grid/action */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/keyboard-grid/action.js");
+const toast_handler_1 = __webpack_require__(/*! ../toast/toast-handler */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/toast/toast-handler.js");
 /**
- * Moves viewport and elements when its focused and arrow keys are hit.
+ * Zoom viewport and elements when its focused and arrow keys are hit.
  */
-let MovementKeyTool = MovementKeyTool_1 = class MovementKeyTool {
+let GridCellZoomTool = GridCellZoomTool_1 = class GridCellZoomTool extends base_tools_1.BaseTool {
     constructor() {
-        this.isEditTool = true;
+        super(...arguments);
+        this.zoomKeyListener = new GridZoomKeyListener(this);
     }
     get id() {
-        return MovementKeyTool_1.ID;
+        return GridCellZoomTool_1.ID;
     }
     enable() {
-        if (!this.movementKeyListener) {
-            this.movementKeyListener = new MoveKeyListener(this, this.grid);
-        }
-        this.keytool.register(this.movementKeyListener);
-        this.movementKeyListener.registerShortcutKey();
+        this.toDisposeOnDisable.push(this.keyTool.registerListener(this.zoomKeyListener), (0, messages_1.repeatOnMessagesUpdated)(() => this.shortcutManager.register(GridCellZoomTool_1.TOKEN, [
+            {
+                shortcuts: ['CTRL', '+'],
+                description: messages_1.messages.grid.shortcut_zoom_in,
+                group: messages_1.messages.shortcut.group_zoom,
+                position: 0
+            }
+        ])));
     }
-    disable() {
-        this.keytool.deregister(this.movementKeyListener);
+    handle(action) {
+        if ((0, sprotty_1.isViewport)(this.editorContext.modelRoot)) {
+            let viewportAction = undefined;
+            if (action_1.KeyboardGridCellSelectedAction.is(action) && action.options.originId === GridCellZoomTool_1.ID) {
+                viewportAction = this.zoomKeyListener.setNewZoomFactor(this.editorContext.modelRoot, this.zoomFactors.in, (0, viewpoint_util_1.getAbsolutePositionByPoint)(this.editorContext.modelRoot, action.options.centerCellPosition));
+            }
+            else if (action_1.KeyboardGridKeyboardEventAction.is(action) && action.options.originId === GridCellZoomTool_1.ID) {
+                if ((0, sprotty_1.matchesKeystroke)(action.options.event, 'Minus')) {
+                    viewportAction = this.zoomKeyListener.setNewZoomFactor(this.editorContext.modelRoot, this.zoomFactors.out);
+                }
+                else if ((0, sprotty_1.matchesKeystroke)(action.options.event, 'Digit0', 'ctrl')) {
+                    viewportAction = sprotty_1.CenterAction.create([]);
+                }
+            }
+            if (viewportAction) {
+                this.actionDispatcher.dispatchAll([
+                    viewportAction,
+                    toast_handler_1.HideToastAction.create({ id: Symbol.for(diagram_navigation_tool_1.ElementNavigatorKeyListener.name) })
+                ]);
+            }
+        }
     }
 };
-exports.MovementKeyTool = MovementKeyTool;
-MovementKeyTool.ID = 'glsp.movement-key-tool';
+exports.GridCellZoomTool = GridCellZoomTool;
+GridCellZoomTool.ID = 'glsp.accessibility-grid-cell-zoom-tool';
+GridCellZoomTool.TOKEN = Symbol.for(GridCellZoomTool_1.name);
 __decorate([
-    (0, inversify_1.inject)(sprotty_1.KeyTool),
-    __metadata("design:type", sprotty_1.KeyTool)
-], MovementKeyTool.prototype, "keytool", void 0);
+    (0, inversify_1.inject)(sprotty_1.TYPES.IShortcutManager),
+    __metadata("design:type", Object)
+], GridCellZoomTool.prototype, "shortcutManager", void 0);
+__decorate([
+    (0, inversify_1.inject)(sprotty_1.TYPES.ZoomFactors),
+    __metadata("design:type", Object)
+], GridCellZoomTool.prototype, "zoomFactors", void 0);
 __decorate([
     (0, inversify_1.inject)(selection_service_1.SelectionService),
     __metadata("design:type", selection_service_1.SelectionService)
-], MovementKeyTool.prototype, "selectionService", void 0);
-__decorate([
-    (0, inversify_1.inject)(sprotty_1.TYPES.ISnapper),
-    (0, inversify_1.optional)(),
-    __metadata("design:type", Object)
-], MovementKeyTool.prototype, "snapper", void 0);
-__decorate([
-    (0, inversify_1.inject)(sprotty_1.TYPES.IActionDispatcher),
-    __metadata("design:type", Object)
-], MovementKeyTool.prototype, "actionDispatcher", void 0);
-__decorate([
-    (0, inversify_1.inject)(sprotty_1.TYPES.Grid),
-    (0, inversify_1.optional)(),
-    __metadata("design:type", Object)
-], MovementKeyTool.prototype, "grid", void 0);
-__decorate([
-    (0, inversify_1.inject)(sprotty_1.TYPES.IChangeBoundsManager),
-    __metadata("design:type", Object)
-], MovementKeyTool.prototype, "changeBoundsManager", void 0);
-exports.MovementKeyTool = MovementKeyTool = MovementKeyTool_1 = __decorate([
+], GridCellZoomTool.prototype, "selectionService", void 0);
+exports.GridCellZoomTool = GridCellZoomTool = GridCellZoomTool_1 = __decorate([
     (0, inversify_1.injectable)()
-], MovementKeyTool);
-class MoveKeyListener extends sprotty_1.KeyListener {
-    constructor(tool, grid = { x: MoveKeyListener.defaultMoveX, y: MoveKeyListener.defaultMoveY }) {
+], GridCellZoomTool);
+class GridZoomKeyListener extends sprotty_1.KeyListener {
+    constructor(tool) {
         super();
         this.tool = tool;
-        this.grid = grid;
-        this.token = MoveKeyListener.name;
     }
-    registerShortcutKey() {
-        this.tool.actionDispatcher.dispatchOnceModelInitialized(accessible_key_shortcut_1.SetAccessibleKeyShortcutAction.create({
-            token: this.token,
-            keys: [{ shortcuts: ['⬅  ⬆  ➡  ⬇'], description: 'Move element or viewport', group: 'Move', position: 0 }]
-        }));
-    }
-    keyDown(_element, event) {
-        const selectedElementIds = this.tool.selectionService.getSelectedElementIDs();
-        const snap = this.tool.changeBoundsManager.usePositionSnap(event);
-        const offsetX = snap ? this.grid.x : 1;
-        const offsetY = snap ? this.grid.y : 1;
-        if (selectedElementIds.length > 0) {
-            if (this.matchesMoveUpKeystroke(event)) {
-                return [move_handler_1.MoveElementAction.create(selectedElementIds, 0, -offsetY, snap)];
-            }
-            else if (this.matchesMoveDownKeystroke(event)) {
-                return [move_handler_1.MoveElementAction.create(selectedElementIds, 0, offsetY, snap)];
-            }
-            else if (this.matchesMoveRightKeystroke(event)) {
-                return [move_handler_1.MoveElementAction.create(selectedElementIds, offsetX, 0, snap)];
-            }
-            else if (this.matchesMoveLeftKeystroke(event)) {
-                return [move_handler_1.MoveElementAction.create(selectedElementIds, -offsetX, 0, snap)];
-            }
+    setNewZoomFactor(viewport, zoomFactor, point) {
+        let newViewport;
+        const newZoom = viewport.zoom * zoomFactor;
+        if (point) {
+            newViewport = {
+                scroll: {
+                    x: point.x - (0.5 * viewport.canvasBounds.width) / newZoom,
+                    y: point.y - (0.5 * viewport.canvasBounds.height) / newZoom
+                },
+                zoom: newZoom
+            };
         }
         else {
-            if (this.matchesMoveUpKeystroke(event)) {
-                return [move_handler_1.MoveViewportAction.create(0, -offsetY)];
-            }
-            else if (this.matchesMoveDownKeystroke(event)) {
-                return [move_handler_1.MoveViewportAction.create(0, offsetY)];
-            }
-            else if (this.matchesMoveRightKeystroke(event)) {
-                return [move_handler_1.MoveViewportAction.create(offsetX, 0)];
-            }
-            else if (this.matchesMoveLeftKeystroke(event)) {
-                return [move_handler_1.MoveViewportAction.create(-offsetX, 0)];
-            }
+            newViewport = {
+                scroll: viewport.scroll,
+                zoom: newZoom
+            };
+        }
+        return sprotty_1.SetViewportAction.create(viewport.id, newViewport, { animate: false });
+    }
+    keyDown(element, event) {
+        if (this.matchesZoomViaGrid(event)) {
+            return [
+                action_1.EnableKeyboardGridAction.create({
+                    originId: GridCellZoomTool.ID,
+                    triggerActions: []
+                }),
+                toast_handler_1.ShowToastMessageAction.createWithTimeout({
+                    id: Symbol.for(diagram_navigation_tool_1.ElementNavigatorKeyListener.name),
+                    message: messages_1.messages.grid.zoom_in_grid
+                })
+            ];
         }
         return [];
     }
-    matchesMoveUpKeystroke(event) {
-        const unsnap = this.tool.changeBoundsManager.unsnapModifier();
-        return (0, sprotty_1.matchesKeystroke)(event, 'ArrowUp') || (!!unsnap && (0, sprotty_1.matchesKeystroke)(event, 'ArrowUp', unsnap));
-    }
-    matchesMoveDownKeystroke(event) {
-        const unsnap = this.tool.changeBoundsManager.unsnapModifier();
-        return (0, sprotty_1.matchesKeystroke)(event, 'ArrowDown') || (!!unsnap && (0, sprotty_1.matchesKeystroke)(event, 'ArrowDown', unsnap));
-    }
-    matchesMoveRightKeystroke(event) {
-        const unsnap = this.tool.changeBoundsManager.unsnapModifier();
-        return (0, sprotty_1.matchesKeystroke)(event, 'ArrowRight') || (!!unsnap && (0, sprotty_1.matchesKeystroke)(event, 'ArrowRight', unsnap));
-    }
-    matchesMoveLeftKeystroke(event) {
-        const unsnap = this.tool.changeBoundsManager.unsnapModifier();
-        return (0, sprotty_1.matchesKeystroke)(event, 'ArrowLeft') || (!!unsnap && (0, sprotty_1.matchesKeystroke)(event, 'ArrowLeft', unsnap));
+    matchesZoomViaGrid(event) {
+        return event.key === '+' && event.ctrlKey;
     }
 }
-exports.MoveKeyListener = MoveKeyListener;
-// Default x distance used if grid is not provided
-MoveKeyListener.defaultMoveX = 20;
-// Default y distance used if grid is not provided
-MoveKeyListener.defaultMoveY = 20;
+exports.GridZoomKeyListener = GridZoomKeyListener;
 
 
 /***/ }),
@@ -12044,225 +11369,24 @@ MoveKeyListener.defaultMoveY = 20;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.configureViewKeyTools = exports.viewKeyToolsModule = void 0;
 const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_modules/@eclipse-glsp/sprotty/lib/index.js");
+const viewport_modules_1 = __webpack_require__(/*! ../../viewport/viewport-modules */ "../../node_modules/@eclipse-glsp/client/lib/features/viewport/viewport-modules.js");
 const action_1 = __webpack_require__(/*! ../keyboard-grid/action */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/keyboard-grid/action.js");
 const deselect_key_tool_1 = __webpack_require__(/*! ./deselect-key-tool */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/view-key-tools/deselect-key-tool.js");
-const movement_key_tool_1 = __webpack_require__(/*! ./movement-key-tool */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/view-key-tools/movement-key-tool.js");
-const zoom_key_tool_1 = __webpack_require__(/*! ./zoom-key-tool */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/view-key-tools/zoom-key-tool.js");
+const grid_cell_zoom_key_tool_1 = __webpack_require__(/*! ./grid-cell-zoom-key-tool */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/view-key-tools/grid-cell-zoom-key-tool.js");
 exports.viewKeyToolsModule = new sprotty_1.FeatureModule((bind, _unbind, isBound, rebind) => {
     const context = { bind, isBound, rebind };
     configureViewKeyTools(context);
 }, {
-    featureId: Symbol('viewKeyTools')
+    featureId: Symbol('viewKeyTools'),
+    requires: viewport_modules_1.viewportModule
 });
 function configureViewKeyTools(context) {
-    (0, sprotty_1.bindAsService)(context, sprotty_1.TYPES.IDefaultTool, movement_key_tool_1.MovementKeyTool);
-    (0, sprotty_1.bindAsService)(context, sprotty_1.TYPES.IDefaultTool, zoom_key_tool_1.ZoomKeyTool);
-    (0, sprotty_1.configureActionHandler)(context, action_1.KeyboardGridCellSelectedAction.KIND, zoom_key_tool_1.ZoomKeyTool);
-    (0, sprotty_1.configureActionHandler)(context, action_1.KeyboardGridKeyboardEventAction.KIND, zoom_key_tool_1.ZoomKeyTool);
+    (0, sprotty_1.bindAsService)(context, sprotty_1.TYPES.IDefaultTool, grid_cell_zoom_key_tool_1.GridCellZoomTool);
+    (0, sprotty_1.configureActionHandler)(context, action_1.KeyboardGridCellSelectedAction.KIND, grid_cell_zoom_key_tool_1.GridCellZoomTool);
+    (0, sprotty_1.configureActionHandler)(context, action_1.KeyboardGridKeyboardEventAction.KIND, grid_cell_zoom_key_tool_1.GridCellZoomTool);
     (0, sprotty_1.bindAsService)(context, sprotty_1.TYPES.IDefaultTool, deselect_key_tool_1.DeselectKeyTool);
 }
 exports.configureViewKeyTools = configureViewKeyTools;
-
-
-/***/ }),
-
-/***/ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/view-key-tools/zoom-key-tool.js":
-/*!**********************************************************************************************************!*\
-  !*** ../../node_modules/@eclipse-glsp/client/lib/features/accessibility/view-key-tools/zoom-key-tool.js ***!
-  \**********************************************************************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-/********************************************************************************
- * Copyright (c) 2023 Business Informatics Group (TU Wien) and others.
- *
- * This program and the accompanying materials are made available under the
- * terms of the Eclipse Public License v. 2.0 which is available at
- * http://www.eclipse.org/legal/epl-2.0.
- *
- * This Source Code may also be made available under the following Secondary
- * Licenses when the conditions for such availability set forth in the Eclipse
- * Public License v. 2.0 are satisfied: GNU General Public License, version 2
- * with the GNU Classpath Exception which is available at
- * https://www.gnu.org/software/classpath/license.html.
- *
- * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
- ********************************************************************************/
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var ZoomKeyTool_1;
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.ZoomKeyListener = exports.ZoomKeyTool = void 0;
-const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_modules/@eclipse-glsp/sprotty/lib/index.js");
-const inversify_1 = __webpack_require__(/*! inversify */ "../../node_modules/inversify/lib/cjs/index.js");
-const editor_context_service_1 = __webpack_require__(/*! ../../../base/editor-context-service */ "../../node_modules/@eclipse-glsp/client/lib/base/editor-context-service.js");
-const selection_service_1 = __webpack_require__(/*! ../../../base/selection-service */ "../../node_modules/@eclipse-glsp/client/lib/base/selection-service.js");
-const viewpoint_util_1 = __webpack_require__(/*! ../../../utils/viewpoint-util */ "../../node_modules/@eclipse-glsp/client/lib/utils/viewpoint-util.js");
-const diagram_navigation_tool_1 = __webpack_require__(/*! ../element-navigation/diagram-navigation-tool */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/element-navigation/diagram-navigation-tool.js");
-const accessible_key_shortcut_1 = __webpack_require__(/*! ../key-shortcut/accessible-key-shortcut */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/key-shortcut/accessible-key-shortcut.js");
-const action_1 = __webpack_require__(/*! ../keyboard-grid/action */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/keyboard-grid/action.js");
-const zoom_handler_1 = __webpack_require__(/*! ../move-zoom/zoom-handler */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/move-zoom/zoom-handler.js");
-const messages = __webpack_require__(/*! ../toast/messages.json */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/toast/messages.json");
-const toast_handler_1 = __webpack_require__(/*! ../toast/toast-handler */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/toast/toast-handler.js");
-/**
- * Zoom viewport and elements when its focused and arrow keys are hit.
- */
-let ZoomKeyTool = ZoomKeyTool_1 = class ZoomKeyTool {
-    constructor() {
-        this.isEditTool = false;
-        this.zoomKeyListener = new ZoomKeyListener(this);
-    }
-    get id() {
-        return ZoomKeyTool_1.ID;
-    }
-    enable() {
-        this.keytool.register(this.zoomKeyListener);
-        this.zoomKeyListener.registerShortcutKey();
-    }
-    disable() {
-        this.keytool.deregister(this.zoomKeyListener);
-    }
-    handle(action) {
-        if ((0, sprotty_1.isViewport)(this.editorContextService.modelRoot)) {
-            let viewportAction = undefined;
-            if (action_1.KeyboardGridCellSelectedAction.is(action) && action.options.originId === ZoomKeyTool_1.ID) {
-                viewportAction = this.zoomKeyListener.setNewZoomFactor(this.editorContextService.modelRoot, ZoomKeyListener.defaultZoomInFactor, (0, viewpoint_util_1.getAbsolutePositionByPoint)(this.editorContextService.modelRoot, action.options.centerCellPosition));
-            }
-            else if (action_1.KeyboardGridKeyboardEventAction.is(action) && action.options.originId === ZoomKeyTool_1.ID) {
-                if ((0, sprotty_1.matchesKeystroke)(action.options.event, 'Minus')) {
-                    viewportAction = this.zoomKeyListener.setNewZoomFactor(this.editorContextService.modelRoot, ZoomKeyListener.defaultZoomOutFactor);
-                }
-                else if ((0, sprotty_1.matchesKeystroke)(action.options.event, 'Digit0', 'ctrl')) {
-                    viewportAction = sprotty_1.CenterAction.create([]);
-                }
-            }
-            if (viewportAction) {
-                this.actionDispatcher.dispatchAll([
-                    viewportAction,
-                    toast_handler_1.HideToastAction.create({ id: Symbol.for(diagram_navigation_tool_1.ElementNavigatorKeyListener.name) })
-                ]);
-            }
-        }
-    }
-};
-exports.ZoomKeyTool = ZoomKeyTool;
-ZoomKeyTool.ID = 'glsp.zoom-key-tool';
-__decorate([
-    (0, inversify_1.inject)(sprotty_1.KeyTool),
-    __metadata("design:type", sprotty_1.KeyTool)
-], ZoomKeyTool.prototype, "keytool", void 0);
-__decorate([
-    (0, inversify_1.inject)(sprotty_1.TYPES.IActionDispatcher),
-    __metadata("design:type", Object)
-], ZoomKeyTool.prototype, "actionDispatcher", void 0);
-__decorate([
-    (0, inversify_1.inject)(selection_service_1.SelectionService),
-    __metadata("design:type", selection_service_1.SelectionService)
-], ZoomKeyTool.prototype, "selectionService", void 0);
-__decorate([
-    (0, inversify_1.inject)(editor_context_service_1.EditorContextService),
-    __metadata("design:type", editor_context_service_1.EditorContextService)
-], ZoomKeyTool.prototype, "editorContextService", void 0);
-exports.ZoomKeyTool = ZoomKeyTool = ZoomKeyTool_1 = __decorate([
-    (0, inversify_1.injectable)()
-], ZoomKeyTool);
-class ZoomKeyListener extends sprotty_1.KeyListener {
-    constructor(tool) {
-        super();
-        this.tool = tool;
-        this.token = ZoomKeyListener.name;
-    }
-    registerShortcutKey() {
-        this.tool.actionDispatcher.dispatchOnceModelInitialized(accessible_key_shortcut_1.SetAccessibleKeyShortcutAction.create({
-            token: this.token,
-            keys: [
-                { shortcuts: ['+'], description: 'Zoom in to element or viewport', group: 'Zoom', position: 0 },
-                { shortcuts: ['-'], description: 'Zoom out to element or viewport', group: 'Zoom', position: 1 },
-                { shortcuts: ['CTRL', '0'], description: 'Reset zoom to default', group: 'Zoom', position: 2 },
-                { shortcuts: ['CTRL', '+'], description: 'Zoom in via Grid', group: 'Zoom', position: 3 }
-            ]
-        }));
-    }
-    setNewZoomFactor(viewport, zoomFactor, point) {
-        let newViewport;
-        const newZoom = viewport.zoom * zoomFactor;
-        if (point) {
-            newViewport = {
-                scroll: {
-                    x: point.x - (0.5 * viewport.canvasBounds.width) / newZoom,
-                    y: point.y - (0.5 * viewport.canvasBounds.height) / newZoom
-                },
-                zoom: newZoom
-            };
-        }
-        else {
-            newViewport = {
-                scroll: viewport.scroll,
-                zoom: newZoom
-            };
-        }
-        return sprotty_1.SetViewportAction.create(viewport.id, newViewport, { animate: true });
-    }
-    keyDown(element, event) {
-        const selectedElementIds = this.tool.selectionService.getSelectedElementIDs();
-        if (this.matchesZoomViaGrid(event)) {
-            return [
-                action_1.EnableKeyboardGridAction.create({
-                    originId: ZoomKeyTool.ID,
-                    triggerActions: []
-                }),
-                toast_handler_1.ShowToastMessageAction.createWithTimeout({
-                    id: Symbol.for(diagram_navigation_tool_1.ElementNavigatorKeyListener.name),
-                    message: messages.grid.zoom_in_grid
-                })
-            ];
-        }
-        else if (this.matchesZoomOutKeystroke(event)) {
-            if (selectedElementIds.length > 0) {
-                return [zoom_handler_1.ZoomElementAction.create(selectedElementIds, ZoomKeyListener.defaultZoomOutFactor)];
-            }
-            else {
-                return [zoom_handler_1.ZoomViewportAction.create(ZoomKeyListener.defaultZoomOutFactor)];
-            }
-        }
-        else if (this.matchesZoomInKeystroke(event)) {
-            if (selectedElementIds.length > 0) {
-                return [zoom_handler_1.ZoomElementAction.create(selectedElementIds, ZoomKeyListener.defaultZoomInFactor)];
-            }
-            else {
-                return [zoom_handler_1.ZoomViewportAction.create(ZoomKeyListener.defaultZoomInFactor)];
-            }
-        }
-        else if (this.matchesMinZoomLevelKeystroke(event)) {
-            return [sprotty_1.CenterAction.create(selectedElementIds)];
-        }
-        return [];
-    }
-    matchesZoomInKeystroke(event) {
-        /** here event.key is used for '+', as keycode 187 is already declared for 'Equals' in {@link matchesKeystroke}.*/
-        return event.key === '+' || (0, sprotty_1.matchesKeystroke)(event, 'NumpadAdd');
-    }
-    matchesZoomViaGrid(event) {
-        return event.key === '+' && event.ctrlKey;
-    }
-    matchesMinZoomLevelKeystroke(event) {
-        return (0, sprotty_1.matchesKeystroke)(event, 'Digit0', 'ctrl') || (0, sprotty_1.matchesKeystroke)(event, 'Numpad0', 'ctrl');
-    }
-    matchesZoomOutKeystroke(event) {
-        return (0, sprotty_1.matchesKeystroke)(event, 'Minus') || (0, sprotty_1.matchesKeystroke)(event, 'NumpadSubtract');
-    }
-}
-exports.ZoomKeyListener = ZoomKeyListener;
-ZoomKeyListener.defaultZoomInFactor = 1.1;
-ZoomKeyListener.defaultZoomOutFactor = 0.9;
 
 
 /***/ }),
@@ -12293,6 +11417,8 @@ exports.boundsModule = void 0;
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_modules/@eclipse-glsp/sprotty/lib/index.js");
+const move_element_action_1 = __webpack_require__(/*! ../change-bounds/move-element-action */ "../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/move-element-action.js");
+const move_element_handler_1 = __webpack_require__(/*! ../change-bounds/move-element-handler */ "../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/move-element-handler.js");
 const position_snapper_1 = __webpack_require__(/*! ../change-bounds/position-snapper */ "../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/position-snapper.js");
 const freeform_layout_1 = __webpack_require__(/*! ./freeform-layout */ "../../node_modules/@eclipse-glsp/client/lib/features/bounds/freeform-layout.js");
 const glsp_hidden_bounds_updater_1 = __webpack_require__(/*! ./glsp-hidden-bounds-updater */ "../../node_modules/@eclipse-glsp/client/lib/features/bounds/glsp-hidden-bounds-updater.js");
@@ -12314,6 +11440,8 @@ exports.boundsModule = new sprotty_1.FeatureModule((bind, _unbind, isBound, _reb
     (0, sprotty_1.configureLayout)(context, sprotty_1.VBoxLayouter.KIND, vbox_layout_1.VBoxLayouterExt);
     (0, sprotty_1.configureLayout)(context, sprotty_1.HBoxLayouter.KIND, hbox_layout_1.HBoxLayouterExt);
     (0, sprotty_1.configureLayout)(context, freeform_layout_1.FreeFormLayouter.KIND, freeform_layout_1.FreeFormLayouter);
+    bind(move_element_handler_1.MoveElementHandler).toSelf().inSingletonScope();
+    (0, sprotty_1.configureActionHandler)(context, move_element_action_1.MoveElementRelativeAction.KIND, move_element_handler_1.MoveElementHandler);
     // backwards compatibility
     // eslint-disable-next-line deprecation/deprecation
     bind(position_snapper_1.PositionSnapper).toSelf();
@@ -13670,6 +12798,291 @@ exports.removeResizeHandles = removeResizeHandles;
 
 /***/ }),
 
+/***/ "../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/move-element-action.js":
+/*!*************************************************************************************************!*\
+  !*** ../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/move-element-action.js ***!
+  \*************************************************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+/********************************************************************************
+ * Copyright (c) 2024 EclipseSource and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.MoveElementRelativeAction = void 0;
+const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_modules/@eclipse-glsp/sprotty/lib/index.js");
+var MoveElementRelativeAction;
+(function (MoveElementRelativeAction) {
+    MoveElementRelativeAction.KIND = 'moveElementRelative';
+    function is(object) {
+        return sprotty_1.Action.hasKind(object, MoveElementRelativeAction.KIND);
+    }
+    MoveElementRelativeAction.is = is;
+    function create(options) {
+        return { kind: MoveElementRelativeAction.KIND, snap: true, ...options };
+    }
+    MoveElementRelativeAction.create = create;
+})(MoveElementRelativeAction || (exports.MoveElementRelativeAction = MoveElementRelativeAction = {}));
+
+
+/***/ }),
+
+/***/ "../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/move-element-handler.js":
+/*!**************************************************************************************************!*\
+  !*** ../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/move-element-handler.js ***!
+  \**************************************************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+/********************************************************************************
+ * Copyright (c) 2023-2024 Business Informatics Group (TU Wien) and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.MoveElementHandler = void 0;
+const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_modules/@eclipse-glsp/sprotty/lib/index.js");
+const inversify_1 = __webpack_require__(/*! inversify */ "../../node_modules/inversify/lib/cjs/index.js");
+const lodash_1 = __webpack_require__(/*! lodash */ "../../node_modules/lodash/lodash.js");
+const editor_context_service_1 = __webpack_require__(/*! ../../base/editor-context-service */ "../../node_modules/@eclipse-glsp/client/lib/base/editor-context-service.js");
+const gmodel_util_1 = __webpack_require__(/*! ../../utils/gmodel-util */ "../../node_modules/@eclipse-glsp/client/lib/utils/gmodel-util.js");
+const layout_utils_1 = __webpack_require__(/*! ../../utils/layout-utils */ "../../node_modules/@eclipse-glsp/client/lib/utils/layout-utils.js");
+const viewpoint_util_1 = __webpack_require__(/*! ../../utils/viewpoint-util */ "../../node_modules/@eclipse-glsp/client/lib/utils/viewpoint-util.js");
+const move_element_action_1 = __webpack_require__(/*! ./move-element-action */ "../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/move-element-action.js");
+/**
+ * Action handler for moving elements.
+ */
+let MoveElementHandler = class MoveElementHandler {
+    init() {
+        this.moveFeedback = this.feedbackDispatcher.createEmitter();
+    }
+    handle(action) {
+        if (move_element_action_1.MoveElementRelativeAction.is(action)) {
+            this.handleMoveElement(action);
+        }
+    }
+    handleMoveElement(action) {
+        const modelRoot = this.editorContextService.modelRoot;
+        const viewport = (0, sprotty_1.findParentByFeature)(modelRoot, sprotty_1.isViewport);
+        if (!viewport) {
+            return;
+        }
+        const viewportActions = [];
+        const elementMoves = [];
+        const elements = (0, gmodel_util_1.getElements)(modelRoot.index, action.elementIds, gmodel_util_1.isSelectableAndBoundsAware);
+        for (const element of elements) {
+            const newPosition = this.getTargetBounds(element, action);
+            elementMoves.push({
+                elementId: element.id,
+                fromPosition: {
+                    x: element.bounds.x,
+                    y: element.bounds.y
+                },
+                toPosition: newPosition
+            });
+            const topLeftCorner = newPosition;
+            const bottomRightCorner = sprotty_1.Point.add(newPosition, { x: element.bounds.width, y: element.bounds.height });
+            if ((0, viewpoint_util_1.outsideOfViewport)(topLeftCorner, viewport) || (0, viewpoint_util_1.outsideOfViewport)(bottomRightCorner, viewport)) {
+                viewportActions.push(sprotty_1.MoveViewportAction.create({ moveX: action.moveX, moveY: action.moveY }));
+            }
+        }
+        this.dispatcher.dispatchAll(viewportActions);
+        const moveAction = sprotty_1.MoveAction.create(elementMoves, { animate: false });
+        this.moveFeedback.add(moveAction).submit();
+        this.scheduleChangeBounds(this.toElementAndBounds(elementMoves));
+    }
+    getTargetBounds(element, action) {
+        let position = sprotty_1.Point.add(element.bounds, { x: action.moveX, y: action.moveY });
+        if (this.snapper && action.snap) {
+            position = this.snapper.snap(position, element);
+        }
+        if (!(0, layout_utils_1.isValidMove)(element, position, this.movementRestrictor)) {
+            // reset to position before the move, if not valid
+            position = { x: element.bounds.x, y: element.bounds.y };
+        }
+        return position;
+    }
+    scheduleChangeBounds(elementAndBounds) {
+        var _a;
+        (_a = this.debouncedChangeBounds) === null || _a === void 0 ? void 0 : _a.cancel();
+        this.debouncedChangeBounds = (0, lodash_1.debounce)(() => {
+            this.moveFeedback.dispose();
+            this.dispatcher.dispatchAll([sprotty_1.ChangeBoundsOperation.create(elementAndBounds)]);
+            this.debouncedChangeBounds = undefined;
+        }, 300);
+        this.debouncedChangeBounds();
+    }
+    toElementAndBounds(elementMoves) {
+        const elementBounds = [];
+        for (const elementMove of elementMoves) {
+            const element = this.editorContextService.modelRoot.index.getById(elementMove.elementId);
+            if (element && (0, sprotty_1.isBoundsAware)(element)) {
+                elementBounds.push({
+                    elementId: elementMove.elementId,
+                    newSize: {
+                        height: element.bounds.height,
+                        width: element.bounds.width
+                    },
+                    newPosition: {
+                        x: elementMove.toPosition.x,
+                        y: elementMove.toPosition.y
+                    }
+                });
+            }
+        }
+        return elementBounds;
+    }
+};
+exports.MoveElementHandler = MoveElementHandler;
+__decorate([
+    (0, inversify_1.inject)(editor_context_service_1.EditorContextService),
+    __metadata("design:type", editor_context_service_1.EditorContextService)
+], MoveElementHandler.prototype, "editorContextService", void 0);
+__decorate([
+    (0, inversify_1.inject)(sprotty_1.TYPES.IActionDispatcher),
+    __metadata("design:type", Object)
+], MoveElementHandler.prototype, "dispatcher", void 0);
+__decorate([
+    (0, inversify_1.inject)(sprotty_1.TYPES.IFeedbackActionDispatcher),
+    __metadata("design:type", Object)
+], MoveElementHandler.prototype, "feedbackDispatcher", void 0);
+__decorate([
+    (0, inversify_1.inject)(sprotty_1.TYPES.ISnapper),
+    (0, inversify_1.optional)(),
+    __metadata("design:type", Object)
+], MoveElementHandler.prototype, "snapper", void 0);
+__decorate([
+    (0, inversify_1.inject)(sprotty_1.TYPES.IMovementRestrictor),
+    (0, inversify_1.optional)(),
+    __metadata("design:type", Object)
+], MoveElementHandler.prototype, "movementRestrictor", void 0);
+__decorate([
+    (0, inversify_1.postConstruct)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], MoveElementHandler.prototype, "init", null);
+exports.MoveElementHandler = MoveElementHandler = __decorate([
+    (0, inversify_1.injectable)()
+], MoveElementHandler);
+
+
+/***/ }),
+
+/***/ "../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/move-element-key-listener.js":
+/*!*******************************************************************************************************!*\
+  !*** ../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/move-element-key-listener.js ***!
+  \*******************************************************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+/********************************************************************************
+ * Copyright (c) 2025 EclipseSource and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.MoveElementKeyListener = void 0;
+const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_modules/@eclipse-glsp/sprotty/lib/index.js");
+const grid_1 = __webpack_require__(/*! ../grid/grid */ "../../node_modules/@eclipse-glsp/client/lib/features/grid/grid.js");
+const move_element_action_1 = __webpack_require__(/*! ./move-element-action */ "../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/move-element-action.js");
+class MoveElementKeyListener extends sprotty_1.KeyListener {
+    constructor(selectionService, changeBoundsManager, grid = grid_1.Grid.DEFAULT) {
+        super();
+        this.selectionService = selectionService;
+        this.changeBoundsManager = changeBoundsManager;
+        this.grid = grid;
+    }
+    keyDown(_element, event) {
+        const selectedElementIds = this.selectionService
+            .getSelectedElements()
+            .filter(element => (0, sprotty_1.isMoveable)(element))
+            .map(element => element.id);
+        const snap = this.changeBoundsManager.usePositionSnap(event);
+        const offsetX = snap ? this.grid.x : 1;
+        const offsetY = snap ? this.grid.y : 1;
+        if (selectedElementIds.length > 0) {
+            if (this.matchesMoveUpKeystroke(event)) {
+                return [move_element_action_1.MoveElementRelativeAction.create({ elementIds: selectedElementIds, moveX: 0, moveY: -offsetY, snap })];
+            }
+            else if (this.matchesMoveDownKeystroke(event)) {
+                return [move_element_action_1.MoveElementRelativeAction.create({ elementIds: selectedElementIds, moveX: 0, moveY: offsetY, snap })];
+            }
+            else if (this.matchesMoveRightKeystroke(event)) {
+                return [move_element_action_1.MoveElementRelativeAction.create({ elementIds: selectedElementIds, moveX: offsetX, moveY: 0, snap })];
+            }
+            else if (this.matchesMoveLeftKeystroke(event)) {
+                return [move_element_action_1.MoveElementRelativeAction.create({ elementIds: selectedElementIds, moveX: -offsetX, moveY: 0, snap })];
+            }
+        }
+        return [];
+    }
+    matchesMoveUpKeystroke(event) {
+        const unsnap = this.changeBoundsManager.unsnapModifier();
+        return (0, sprotty_1.matchesKeystroke)(event, 'ArrowUp') || (!!unsnap && (0, sprotty_1.matchesKeystroke)(event, 'ArrowUp', unsnap));
+    }
+    matchesMoveDownKeystroke(event) {
+        const unsnap = this.changeBoundsManager.unsnapModifier();
+        return (0, sprotty_1.matchesKeystroke)(event, 'ArrowDown') || (!!unsnap && (0, sprotty_1.matchesKeystroke)(event, 'ArrowDown', unsnap));
+    }
+    matchesMoveRightKeystroke(event) {
+        const unsnap = this.changeBoundsManager.unsnapModifier();
+        return (0, sprotty_1.matchesKeystroke)(event, 'ArrowRight') || (!!unsnap && (0, sprotty_1.matchesKeystroke)(event, 'ArrowRight', unsnap));
+    }
+    matchesMoveLeftKeystroke(event) {
+        const unsnap = this.changeBoundsManager.unsnapModifier();
+        return (0, sprotty_1.matchesKeystroke)(event, 'ArrowLeft') || (!!unsnap && (0, sprotty_1.matchesKeystroke)(event, 'ArrowLeft', unsnap));
+    }
+}
+exports.MoveElementKeyListener = MoveElementKeyListener;
+
+
+/***/ }),
+
 /***/ "../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/movement-restrictor.js":
 /*!*************************************************************************************************!*\
   !*** ../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/movement-restrictor.js ***!
@@ -13978,6 +13391,469 @@ exports.PositionSnapper = PositionSnapper = __decorate([
     __param(1, (0, inversify_1.inject)(sprotty_1.TYPES.IHelperLineManager)),
     __metadata("design:paramtypes", [Object, Object])
 ], PositionSnapper);
+
+
+/***/ }),
+
+/***/ "../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/resize/resize-default-tool.js":
+/*!********************************************************************************************************!*\
+  !*** ../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/resize/resize-default-tool.js ***!
+  \********************************************************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+/********************************************************************************
+ * Copyright (c) 2023 Business Informatics Group (TU Wien) and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var DefaultResizeKeyTool_1;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.DefaultResizeKeyTool = exports.DefaultResizeKeyListener = void 0;
+const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_modules/@eclipse-glsp/sprotty/lib/index.js");
+const inversify_1 = __webpack_require__(/*! inversify */ "../../node_modules/inversify/lib/cjs/index.js");
+const messages_1 = __webpack_require__(/*! ../../../base/messages */ "../../node_modules/@eclipse-glsp/client/lib/base/messages.js");
+const selection_service_1 = __webpack_require__(/*! ../../../base/selection-service */ "../../node_modules/@eclipse-glsp/client/lib/base/selection-service.js");
+const tool_1 = __webpack_require__(/*! ../../../base/tool-manager/tool */ "../../node_modules/@eclipse-glsp/client/lib/base/tool-manager/tool.js");
+const base_tools_1 = __webpack_require__(/*! ../../tools/base-tools */ "../../node_modules/@eclipse-glsp/client/lib/features/tools/base-tools.js");
+const model_1 = __webpack_require__(/*! ../model */ "../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/model.js");
+const resize_tool_1 = __webpack_require__(/*! ./resize-tool */ "../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/resize/resize-tool.js");
+let DefaultResizeKeyListener = class DefaultResizeKeyListener extends sprotty_1.KeyListener {
+    keyDown(element, event) {
+        const selectedElementsIds = this.selectionService
+            .getSelectedElements()
+            .filter(model_1.isResizable)
+            .map(e => e.id);
+        if (selectedElementsIds.length > 0) {
+            if (this.matchesActivateResizeModeKeystroke(event)) {
+                return [tool_1.EnableToolsAction.create([resize_tool_1.ResizeKeyTool.ID])];
+            }
+        }
+        return [];
+    }
+    matchesActivateResizeModeKeystroke(event) {
+        return (0, sprotty_1.matchesKeystroke)(event, 'KeyA', 'alt');
+    }
+};
+exports.DefaultResizeKeyListener = DefaultResizeKeyListener;
+__decorate([
+    (0, inversify_1.inject)(sprotty_1.TYPES.IActionDispatcher),
+    __metadata("design:type", Object)
+], DefaultResizeKeyListener.prototype, "actionDispatcher", void 0);
+__decorate([
+    (0, inversify_1.inject)(selection_service_1.SelectionService),
+    __metadata("design:type", selection_service_1.SelectionService)
+], DefaultResizeKeyListener.prototype, "selectionService", void 0);
+exports.DefaultResizeKeyListener = DefaultResizeKeyListener = __decorate([
+    (0, inversify_1.injectable)()
+], DefaultResizeKeyListener);
+let DefaultResizeKeyTool = DefaultResizeKeyTool_1 = class DefaultResizeKeyTool extends base_tools_1.BaseEditTool {
+    get id() {
+        return DefaultResizeKeyTool_1.ID;
+    }
+    enable() {
+        this.toDisposeOnDisable.push(this.keyTool.registerListener(this.keyListener), (0, messages_1.repeatOnMessagesUpdated)(() => this.shortcutManager.register(DefaultResizeKeyTool_1.TOKEN, [
+            {
+                shortcuts: ['ALT', 'A'],
+                description: messages_1.messages.resize.shortcut_activate,
+                group: messages_1.messages.shortcut.group_resize,
+                position: 0
+            }
+        ])));
+    }
+};
+exports.DefaultResizeKeyTool = DefaultResizeKeyTool;
+DefaultResizeKeyTool.ID = 'glsp.default-resize-key-tool';
+DefaultResizeKeyTool.TOKEN = Symbol.for(DefaultResizeKeyTool_1.name);
+__decorate([
+    (0, inversify_1.inject)(sprotty_1.TYPES.IShortcutManager),
+    __metadata("design:type", Function)
+], DefaultResizeKeyTool.prototype, "shortcutManager", void 0);
+__decorate([
+    (0, inversify_1.inject)(DefaultResizeKeyListener),
+    __metadata("design:type", DefaultResizeKeyListener)
+], DefaultResizeKeyTool.prototype, "keyListener", void 0);
+exports.DefaultResizeKeyTool = DefaultResizeKeyTool = DefaultResizeKeyTool_1 = __decorate([
+    (0, inversify_1.injectable)()
+], DefaultResizeKeyTool);
+
+
+/***/ }),
+
+/***/ "../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/resize/resize-handler.js":
+/*!***************************************************************************************************!*\
+  !*** ../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/resize/resize-handler.js ***!
+  \***************************************************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+/********************************************************************************
+ * Copyright (c) 2023-2024 Business Informatics Group (TU Wien) and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ResizeElementHandler = exports.ResizeElementAction = exports.ResizeType = void 0;
+const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_modules/@eclipse-glsp/sprotty/lib/index.js");
+const inversify_1 = __webpack_require__(/*! inversify */ "../../node_modules/inversify/lib/cjs/index.js");
+const lodash_1 = __webpack_require__(/*! lodash */ "../../node_modules/lodash/lodash.js");
+const editor_context_service_1 = __webpack_require__(/*! ../../../base/editor-context-service */ "../../node_modules/@eclipse-glsp/client/lib/base/editor-context-service.js");
+const gmodel_util_1 = __webpack_require__(/*! ../../../utils/gmodel-util */ "../../node_modules/@eclipse-glsp/client/lib/utils/gmodel-util.js");
+const layout_utils_1 = __webpack_require__(/*! ../../../utils/layout-utils */ "../../node_modules/@eclipse-glsp/client/lib/utils/layout-utils.js");
+const grid_1 = __webpack_require__(/*! ../../grid/grid */ "../../node_modules/@eclipse-glsp/client/lib/features/grid/grid.js");
+var ResizeType;
+(function (ResizeType) {
+    ResizeType[ResizeType["Increase"] = 0] = "Increase";
+    ResizeType[ResizeType["Decrease"] = 1] = "Decrease";
+    ResizeType[ResizeType["MinSize"] = 2] = "MinSize";
+})(ResizeType || (exports.ResizeType = ResizeType = {}));
+var ResizeElementAction;
+(function (ResizeElementAction) {
+    ResizeElementAction.KIND = 'resizeElementAction';
+    function is(object) {
+        return sprotty_1.Action.hasKind(object, ResizeElementAction.KIND);
+    }
+    ResizeElementAction.is = is;
+    function create(elementIds, resizeType) {
+        return { kind: ResizeElementAction.KIND, elementIds, resizeType };
+    }
+    ResizeElementAction.create = create;
+})(ResizeElementAction || (exports.ResizeElementAction = ResizeElementAction = {}));
+/*
+ * The ResizeElementHandler class is an implementation of the IActionHandler interface that handles
+ * resizing of elements.
+ */
+let ResizeElementHandler = class ResizeElementHandler {
+    constructor() {
+        this.grid = grid_1.Grid.DEFAULT;
+    }
+    init() {
+        this.resizeFeedback = this.feedbackDispatcher.createEmitter();
+    }
+    handle(action) {
+        if (ResizeElementAction.is(action)) {
+            this.handleResizeElement(action);
+        }
+    }
+    handleResizeElement(action) {
+        var _a;
+        const elements = (0, gmodel_util_1.getElements)(this.editorContextService.modelRoot.index, action.elementIds, gmodel_util_1.isSelectableAndBoundsAware);
+        const elementAndBounds = this.computeElementAndBounds(elements, action);
+        this.resizeFeedback.add(sprotty_1.SetBoundsAction.create(elementAndBounds)).submit();
+        (_a = this.debouncedChangeBounds) === null || _a === void 0 ? void 0 : _a.cancel();
+        this.debouncedChangeBounds = (0, lodash_1.debounce)(() => {
+            this.resizeFeedback.dispose();
+            this.dispatcher.dispatchAll([sprotty_1.ChangeBoundsOperation.create(elementAndBounds)]);
+            this.debouncedChangeBounds = undefined;
+        }, 300);
+        this.debouncedChangeBounds();
+    }
+    computeElementAndBounds(elements, action) {
+        const elementAndBounds = [];
+        elements.forEach(element => {
+            const { x, y, width: oldWidth, height: oldHeight } = element.bounds;
+            let width = 0;
+            let height = 0;
+            if (action.resizeType === ResizeType.Decrease) {
+                width = oldWidth - this.grid.x;
+                height = oldHeight - this.grid.y;
+            }
+            else if (action.resizeType === ResizeType.Increase) {
+                width = oldWidth + this.grid.x;
+                height = oldHeight + this.grid.y;
+            }
+            else if (action.resizeType === ResizeType.MinSize) {
+                width = (0, layout_utils_1.minWidth)(element);
+                height = (0, layout_utils_1.minHeight)(element);
+            }
+            if (this.isValidBoundChange(element, { x, y }, { width, height })) {
+                const resizeElement = { id: element.id, bounds: { x, y, width, height } };
+                elementAndBounds.push((0, gmodel_util_1.toElementAndBounds)(resizeElement));
+            }
+        });
+        return elementAndBounds;
+    }
+    isValidBoundChange(element, newPosition, newSize) {
+        return (0, layout_utils_1.isValidSize)(element, newSize) && (0, layout_utils_1.isValidMove)(element, newPosition);
+    }
+};
+exports.ResizeElementHandler = ResizeElementHandler;
+__decorate([
+    (0, inversify_1.inject)(editor_context_service_1.EditorContextService),
+    __metadata("design:type", editor_context_service_1.EditorContextService)
+], ResizeElementHandler.prototype, "editorContextService", void 0);
+__decorate([
+    (0, inversify_1.inject)(sprotty_1.TYPES.IActionDispatcher),
+    __metadata("design:type", Object)
+], ResizeElementHandler.prototype, "dispatcher", void 0);
+__decorate([
+    (0, inversify_1.inject)(sprotty_1.TYPES.IFeedbackActionDispatcher),
+    __metadata("design:type", Object)
+], ResizeElementHandler.prototype, "feedbackDispatcher", void 0);
+__decorate([
+    (0, inversify_1.inject)(sprotty_1.TYPES.Grid),
+    (0, inversify_1.optional)(),
+    __metadata("design:type", Object)
+], ResizeElementHandler.prototype, "grid", void 0);
+__decorate([
+    (0, inversify_1.inject)(sprotty_1.TYPES.ISnapper),
+    (0, inversify_1.optional)(),
+    __metadata("design:type", Object)
+], ResizeElementHandler.prototype, "snapper", void 0);
+__decorate([
+    (0, inversify_1.postConstruct)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], ResizeElementHandler.prototype, "init", null);
+exports.ResizeElementHandler = ResizeElementHandler = __decorate([
+    (0, inversify_1.injectable)()
+], ResizeElementHandler);
+
+
+/***/ }),
+
+/***/ "../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/resize/resize-module.js":
+/*!**************************************************************************************************!*\
+  !*** ../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/resize/resize-module.js ***!
+  \**************************************************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+/********************************************************************************
+ * Copyright (c) 2023-2024 Business Informatics Group (TU Wien) and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.standaloneResizeModule = exports.resizeModule = void 0;
+const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_modules/@eclipse-glsp/sprotty/lib/index.js");
+const resize_default_tool_1 = __webpack_require__(/*! ./resize-default-tool */ "../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/resize/resize-default-tool.js");
+const resize_handler_1 = __webpack_require__(/*! ./resize-handler */ "../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/resize/resize-handler.js");
+const resize_tool_1 = __webpack_require__(/*! ./resize-tool */ "../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/resize/resize-tool.js");
+/**
+ * Handles resize actions.
+ */
+exports.resizeModule = new sprotty_1.FeatureModule((bind, unbind, isBound, rebind) => {
+    const context = { bind, unbind, isBound, rebind };
+    (0, sprotty_1.configureActionHandler)(context, resize_handler_1.ResizeElementAction.KIND, resize_handler_1.ResizeElementHandler);
+}, { featureId: Symbol('resize') });
+/**
+ * Feature module that is intended for the standalone deployment of GLSP (i.e. plain webapp)
+ * When integrated into an application frame (e.g Theia/VS Code) this module is typically omitted and/or replaced
+ * with an application native module.
+ */
+exports.standaloneResizeModule = new sprotty_1.FeatureModule((bind, unbind, isBound, rebind) => {
+    const context = { bind, unbind, isBound, rebind };
+    (0, sprotty_1.bindAsService)(context, sprotty_1.TYPES.IDefaultTool, resize_default_tool_1.DefaultResizeKeyTool);
+    context.bind(resize_default_tool_1.DefaultResizeKeyListener).toSelf();
+    (0, sprotty_1.bindAsService)(context, sprotty_1.TYPES.ITool, resize_tool_1.ResizeKeyTool);
+    context.bind(resize_tool_1.ResizeKeyListener).toSelf();
+}, { featureId: Symbol('standaloneResize'), requires: exports.resizeModule });
+
+
+/***/ }),
+
+/***/ "../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/resize/resize-tool.js":
+/*!************************************************************************************************!*\
+  !*** ../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/resize/resize-tool.js ***!
+  \************************************************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+/********************************************************************************
+ * Copyright (c) 2025 EclipseSource and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var ResizeKeyTool_1;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ResizeKeyTool = exports.ResizeKeyListener = void 0;
+const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_modules/@eclipse-glsp/sprotty/lib/index.js");
+const inversify_1 = __webpack_require__(/*! inversify */ "../../node_modules/inversify/lib/cjs/index.js");
+const vscode_jsonrpc_1 = __webpack_require__(/*! vscode-jsonrpc */ "../../node_modules/vscode-jsonrpc/lib/browser/main.js");
+const messages_1 = __webpack_require__(/*! ../../../base/messages */ "../../node_modules/@eclipse-glsp/client/lib/base/messages.js");
+const selection_service_1 = __webpack_require__(/*! ../../../base/selection-service */ "../../node_modules/@eclipse-glsp/client/lib/base/selection-service.js");
+const toast_handler_1 = __webpack_require__(/*! ../../accessibility/toast/toast-handler */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/toast/toast-handler.js");
+const base_tools_1 = __webpack_require__(/*! ../../tools/base-tools */ "../../node_modules/@eclipse-glsp/client/lib/features/tools/base-tools.js");
+const model_1 = __webpack_require__(/*! ../model */ "../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/model.js");
+const resize_handler_1 = __webpack_require__(/*! ./resize-handler */ "../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/resize/resize-handler.js");
+let ResizeKeyListener = class ResizeKeyListener extends sprotty_1.KeyListener {
+    keyDown(element, event) {
+        const actions = [];
+        const selectedElementsIds = this.selectionService
+            .getSelectedElements()
+            .filter(model_1.isResizable)
+            .map(e => e.id);
+        if (selectedElementsIds.length > 0) {
+            if (this.matchesIncreaseSizeKeystroke(event)) {
+                actions.push(resize_handler_1.ResizeElementAction.create(selectedElementsIds, resize_handler_1.ResizeType.Increase));
+            }
+            else if (this.matchesDecreaseSizeKeystroke(event)) {
+                actions.push(resize_handler_1.ResizeElementAction.create(selectedElementsIds, resize_handler_1.ResizeType.Decrease));
+            }
+            else if (this.matchesMinSizeKeystroke(event)) {
+                actions.push(resize_handler_1.ResizeElementAction.create(selectedElementsIds, resize_handler_1.ResizeType.MinSize));
+            }
+        }
+        return actions;
+    }
+    enable() {
+        return [
+            toast_handler_1.ShowToastMessageAction.create({
+                id: ResizeKeyTool.TOKEN,
+                message: messages_1.messages.resize.resize_mode_activated
+            })
+        ];
+    }
+    disable() {
+        return [
+            toast_handler_1.ShowToastMessageAction.createWithTimeout({
+                id: ResizeKeyTool.TOKEN,
+                message: messages_1.messages.resize.resize_mode_deactivated
+            })
+        ];
+    }
+    matchesIncreaseSizeKeystroke(event) {
+        /** here event.key is used for '+', as keycode 187 is already declared for 'Equals' in {@link matchesKeystroke}.*/
+        return event.key === '+' || (0, sprotty_1.matchesKeystroke)(event, 'NumpadAdd');
+    }
+    matchesMinSizeKeystroke(event) {
+        return (0, sprotty_1.matchesKeystroke)(event, 'Digit0', 'ctrl') || (0, sprotty_1.matchesKeystroke)(event, 'Numpad0', 'ctrl');
+    }
+    matchesDecreaseSizeKeystroke(event) {
+        return (0, sprotty_1.matchesKeystroke)(event, 'Minus') || (0, sprotty_1.matchesKeystroke)(event, 'NumpadSubtract');
+    }
+};
+exports.ResizeKeyListener = ResizeKeyListener;
+__decorate([
+    (0, inversify_1.inject)(selection_service_1.SelectionService),
+    __metadata("design:type", selection_service_1.SelectionService)
+], ResizeKeyListener.prototype, "selectionService", void 0);
+exports.ResizeKeyListener = ResizeKeyListener = __decorate([
+    (0, inversify_1.injectable)()
+], ResizeKeyListener);
+let ResizeKeyTool = ResizeKeyTool_1 = class ResizeKeyTool extends base_tools_1.BaseEditTool {
+    get id() {
+        return ResizeKeyTool_1.ID;
+    }
+    enable() {
+        this.dispatchActions(this.keyListener.enable());
+        this.toDisposeOnDisable.push(this.keyTool.registerListener(this.keyListener), (0, messages_1.repeatOnMessagesUpdated)(() => this.shortcutManager.register(ResizeKeyTool_1.TOKEN, [
+            {
+                shortcuts: ['Escape'],
+                description: messages_1.messages.resize.shortcut_deactivate,
+                group: messages_1.messages.shortcut.group_resize,
+                position: 0
+            },
+            {
+                shortcuts: ['+'],
+                description: messages_1.messages.resize.shortcut_increase,
+                group: messages_1.messages.shortcut.group_resize,
+                position: 1
+            },
+            {
+                shortcuts: ['-'],
+                description: messages_1.messages.resize.shortcut_decrease,
+                group: messages_1.messages.shortcut.group_resize,
+                position: 2
+            },
+            {
+                shortcuts: ['CTRL', '0'],
+                description: messages_1.messages.resize.shortcut_reset,
+                group: messages_1.messages.shortcut.group_resize,
+                position: 3
+            }
+        ])), vscode_jsonrpc_1.Disposable.create(() => {
+            this.dispatchActions(this.keyListener.disable());
+        }));
+    }
+};
+exports.ResizeKeyTool = ResizeKeyTool;
+ResizeKeyTool.ID = 'glsp.resize-key-tool';
+ResizeKeyTool.TOKEN = Symbol.for(ResizeKeyTool_1.name);
+__decorate([
+    (0, inversify_1.inject)(sprotty_1.TYPES.IShortcutManager),
+    __metadata("design:type", Function)
+], ResizeKeyTool.prototype, "shortcutManager", void 0);
+__decorate([
+    (0, inversify_1.inject)(ResizeKeyListener),
+    __metadata("design:type", ResizeKeyListener)
+], ResizeKeyTool.prototype, "keyListener", void 0);
+exports.ResizeKeyTool = ResizeKeyTool = ResizeKeyTool_1 = __decorate([
+    (0, inversify_1.injectable)()
+], ResizeKeyTool);
 
 
 /***/ }),
@@ -16176,6 +16052,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.GridManager = void 0;
 const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_modules/@eclipse-glsp/sprotty/lib/index.js");
 const inversify_1 = __webpack_require__(/*! inversify */ "../../node_modules/inversify/lib/cjs/index.js");
+const grid_1 = __webpack_require__(/*! ./grid */ "../../node_modules/@eclipse-glsp/client/lib/features/grid/grid.js");
 const grid_model_1 = __webpack_require__(/*! ./grid-model */ "../../node_modules/@eclipse-glsp/client/lib/features/grid/grid-model.js");
 /**
  * The default {@link IGridManager} implementation.
@@ -16343,12 +16220,13 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.gridModule = void 0;
 const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_modules/@eclipse-glsp/sprotty/lib/index.js");
 __webpack_require__(/*! ../../../css/grid.css */ "../../node_modules/@eclipse-glsp/client/css/grid.css");
+const grid_1 = __webpack_require__(/*! ./grid */ "../../node_modules/@eclipse-glsp/client/lib/features/grid/grid.js");
 const grid_manager_1 = __webpack_require__(/*! ./grid-manager */ "../../node_modules/@eclipse-glsp/client/lib/features/grid/grid-manager.js");
 const grid_model_1 = __webpack_require__(/*! ./grid-model */ "../../node_modules/@eclipse-glsp/client/lib/features/grid/grid-model.js");
 const grid_snapper_1 = __webpack_require__(/*! ./grid-snapper */ "../../node_modules/@eclipse-glsp/client/lib/features/grid/grid-snapper.js");
 exports.gridModule = new sprotty_1.FeatureModule((bind, unbind, isBound, rebind) => {
     const context = { bind, unbind, isBound, rebind };
-    bind(sprotty_1.TYPES.Grid).toConstantValue({ x: 10, y: 10 });
+    bind(sprotty_1.TYPES.Grid).toConstantValue(grid_1.Grid.DEFAULT);
     (0, sprotty_1.configureCommand)(context, grid_model_1.ShowGridCommand);
     (0, sprotty_1.bindAsService)(context, sprotty_1.TYPES.IGridManager, grid_manager_1.GridManager);
     (0, sprotty_1.configureActionHandler)(context, grid_model_1.ShowGridAction.KIND, grid_manager_1.GridManager);
@@ -16397,6 +16275,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.GLSPCenterGridSnapper = exports.GridSnapper = void 0;
 const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_modules/@eclipse-glsp/sprotty/lib/index.js");
 const inversify_1 = __webpack_require__(/*! inversify */ "../../node_modules/inversify/lib/cjs/index.js");
+const grid_1 = __webpack_require__(/*! ./grid */ "../../node_modules/@eclipse-glsp/client/lib/features/grid/grid.js");
 /**
  * A {@link ISnapper} implementation that snaps all elements onto a fixed gride size.
  * The default grid size is 10x10 pixel.
@@ -16414,7 +16293,7 @@ const inversify_1 = __webpack_require__(/*! inversify */ "../../node_modules/inv
  * ```
  */
 let GridSnapper = class GridSnapper {
-    constructor(grid = { x: 10, y: 10 }) {
+    constructor(grid = grid_1.Grid.DEFAULT) {
         this.grid = grid;
     }
     snap(position, element) {
@@ -16429,7 +16308,7 @@ exports.GridSnapper = GridSnapper = __decorate([
     __metadata("design:paramtypes", [Object])
 ], GridSnapper);
 let GLSPCenterGridSnapper = class GLSPCenterGridSnapper extends sprotty_1.CenterGridSnapper {
-    constructor(grid = { x: 10, y: 10 }) {
+    constructor(grid = grid_1.Grid.DEFAULT) {
         super();
         this.grid = grid;
     }
@@ -16498,6 +16377,11 @@ var GridProperty;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Grid = void 0;
+var Grid;
+(function (Grid) {
+    Grid.DEFAULT = { x: 10, y: 10 };
+})(Grid || (exports.Grid = Grid = {}));
 
 
 /***/ }),
@@ -16845,6 +16729,7 @@ const inversify_1 = __webpack_require__(/*! inversify */ "../../node_modules/inv
 const selection_service_1 = __webpack_require__(/*! ../../base/selection-service */ "../../node_modules/@eclipse-glsp/client/lib/base/selection-service.js");
 const set_bounds_feedback_command_1 = __webpack_require__(/*! ../bounds/set-bounds-feedback-command */ "../../node_modules/@eclipse-glsp/client/lib/features/bounds/set-bounds-feedback-command.js");
 const model_1 = __webpack_require__(/*! ../change-bounds/model */ "../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/model.js");
+const grid_1 = __webpack_require__(/*! ../grid/grid */ "../../node_modules/@eclipse-glsp/client/lib/features/grid/grid.js");
 const change_bounds_tool_feedback_1 = __webpack_require__(/*! ../tools/change-bounds/change-bounds-tool-feedback */ "../../node_modules/@eclipse-glsp/client/lib/features/tools/change-bounds/change-bounds-tool-feedback.js");
 const helper_line_feedback_1 = __webpack_require__(/*! ./helper-line-feedback */ "../../node_modules/@eclipse-glsp/client/lib/features/helper-lines/helper-line-feedback.js");
 const model_2 = __webpack_require__(/*! ./model */ "../../node_modules/@eclipse-glsp/client/lib/features/helper-lines/model.js");
@@ -19820,6 +19705,7 @@ const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_m
 const inversify_1 = __webpack_require__(/*! inversify */ "../../node_modules/inversify/lib/cjs/index.js");
 const editor_context_service_1 = __webpack_require__(/*! ../../base/editor-context-service */ "../../node_modules/@eclipse-glsp/client/lib/base/editor-context-service.js");
 const focus_tracker_1 = __webpack_require__(/*! ../../base/focus/focus-tracker */ "../../node_modules/@eclipse-glsp/client/lib/base/focus/focus-tracker.js");
+const messages_1 = __webpack_require__(/*! ../../base/messages */ "../../node_modules/@eclipse-glsp/client/lib/base/messages.js");
 const tool_1 = __webpack_require__(/*! ../../base/tool-manager/tool */ "../../node_modules/@eclipse-glsp/client/lib/base/tool-manager/tool.js");
 const ui_extension_1 = __webpack_require__(/*! ../../base/ui-extension/ui-extension */ "../../node_modules/@eclipse-glsp/client/lib/base/ui-extension/ui-extension.js");
 const delete_tool_1 = __webpack_require__(/*! ../tools/deletion/delete-tool */ "../../node_modules/@eclipse-glsp/client/lib/features/tools/deletion/delete-tool.js");
@@ -19856,6 +19742,10 @@ let ToolPalette = ToolPalette_1 = class ToolPalette extends ui_extension_1.GLSPA
     }
     postConstruct() {
         this.editorContext.onEditModeChanged(change => this.editModeChanged(change.newValue, change.oldValue));
+        (0, messages_1.repeatOnMessagesUpdated)(() => {
+            this.createHeader();
+            this.addMinimizePaletteButton();
+        }, { initial: false });
     }
     initialize() {
         if (!this.paletteItems) {
@@ -19864,10 +19754,11 @@ let ToolPalette = ToolPalette_1 = class ToolPalette extends ui_extension_1.GLSPA
         return super.initialize();
     }
     initializeContents(containerElement) {
+        this.addMinimizePaletteButton();
         this.createHeader();
         this.createBody();
         this.lastActiveButton = this.defaultToolsButton;
-        containerElement.setAttribute('aria-label', 'Tool-Palette');
+        containerElement.setAttribute('aria-label', messages_1.messages.tool_palette.label);
     }
     onBeforeShow(_containerElement, root) {
         this.modelRootId = root.id;
@@ -19875,33 +19766,41 @@ let ToolPalette = ToolPalette_1 = class ToolPalette extends ui_extension_1.GLSPA
     }
     addMinimizePaletteButton() {
         const baseDiv = document.getElementById(this.options.baseDiv);
-        const minPaletteDiv = document.createElement('div');
-        minPaletteDiv.classList.add('minimize-palette-button');
-        this.containerElement.classList.add('collapsible-palette');
-        if (baseDiv) {
-            const insertedDiv = baseDiv.insertBefore(minPaletteDiv, baseDiv.firstChild);
-            const minimizeIcon = createIcon(CHEVRON_DOWN_ICON_ID);
-            this.updateMinimizePaletteButtonTooltip(minPaletteDiv);
-            minimizeIcon.onclick = _event => {
-                if (this.isPaletteMaximized()) {
-                    this.containerElement.style.maxHeight = '0px';
-                }
-                else {
-                    this.containerElement.style.maxHeight = PALETTE_HEIGHT;
-                }
-                this.updateMinimizePaletteButtonTooltip(minPaletteDiv);
-                changeCodiconClass(minimizeIcon, PALETTE_ICON_ID);
-                changeCodiconClass(minimizeIcon, CHEVRON_DOWN_ICON_ID);
-            };
-            insertedDiv.appendChild(minimizeIcon);
+        if (!baseDiv) {
+            return;
         }
+        const toggleButton = document.createElement('div');
+        toggleButton.classList.add('minimize-palette-button');
+        this.containerElement.classList.add('collapsible-palette');
+        const minimizeIcon = createIcon(CHEVRON_DOWN_ICON_ID);
+        this.updateMinimizePaletteButtonTooltip(toggleButton);
+        minimizeIcon.onclick = _event => {
+            if (this.isPaletteMaximized()) {
+                this.containerElement.style.maxHeight = '0px';
+            }
+            else {
+                this.containerElement.style.maxHeight = PALETTE_HEIGHT;
+            }
+            this.updateMinimizePaletteButtonTooltip(toggleButton);
+            changeCodiconClass(minimizeIcon, PALETTE_ICON_ID);
+            changeCodiconClass(minimizeIcon, CHEVRON_DOWN_ICON_ID);
+        };
+        toggleButton.appendChild(minimizeIcon);
+        // Replace existing header to refresh
+        if (this.toggleButton) {
+            this.toggleButton.replaceWith(toggleButton);
+        }
+        else {
+            baseDiv.insertBefore(toggleButton, baseDiv.firstChild);
+        }
+        this.toggleButton = toggleButton;
     }
     updateMinimizePaletteButtonTooltip(button) {
         if (this.isPaletteMaximized()) {
-            button.title = 'Minimize palette';
+            button.title = messages_1.messages.tool_palette.minimize;
         }
         else {
-            button.title = 'Maximize palette';
+            button.title = messages_1.messages.tool_palette.maximize;
         }
     }
     isPaletteMaximized() {
@@ -19923,25 +19822,33 @@ let ToolPalette = ToolPalette_1 = class ToolPalette extends ui_extension_1.GLSPA
         });
         if (this.paletteItems.length === 0) {
             const noResultsDiv = document.createElement('div');
-            noResultsDiv.innerText = 'No results found.';
+            noResultsDiv.innerText = messages_1.messages.tool_palette.no_items;
             noResultsDiv.classList.add('tool-button');
             bodyDiv.appendChild(noResultsDiv);
         }
         // Remove existing body to refresh filtered entries
         if (this.bodyDiv) {
-            this.containerElement.removeChild(this.bodyDiv);
+            this.bodyDiv.replaceWith(bodyDiv);
         }
-        this.containerElement.appendChild(bodyDiv);
+        else {
+            this.containerElement.appendChild(bodyDiv);
+        }
         this.bodyDiv = bodyDiv;
     }
     createHeader() {
-        this.addMinimizePaletteButton();
         const headerCompartment = document.createElement('div');
         headerCompartment.classList.add('palette-header');
         headerCompartment.append(this.createHeaderTitle());
         headerCompartment.appendChild(this.createHeaderTools());
         headerCompartment.appendChild((this.searchField = this.createHeaderSearchField()));
-        this.containerElement.appendChild(headerCompartment);
+        // Replace existing header to refresh
+        if (this.headerDiv) {
+            this.headerDiv.replaceWith(headerCompartment);
+        }
+        else {
+            this.containerElement.appendChild(headerCompartment);
+        }
+        this.headerDiv = headerCompartment;
     }
     createHeaderTools() {
         const headerTools = document.createElement('div');
@@ -19972,7 +19879,7 @@ let ToolPalette = ToolPalette_1 = class ToolPalette extends ui_extension_1.GLSPA
     createDefaultToolButton() {
         const button = createIcon('inspect');
         button.id = 'btn_default_tools';
-        button.title = 'Enable selection tool';
+        button.title = messages_1.messages.tool_palette.selection_button;
         button.onclick = this.onClickStaticToolButton(button);
         button.ariaLabel = button.title;
         button.tabIndex = 1;
@@ -19980,7 +19887,7 @@ let ToolPalette = ToolPalette_1 = class ToolPalette extends ui_extension_1.GLSPA
     }
     createMouseDeleteToolButton() {
         const deleteToolButton = createIcon('chrome-close');
-        deleteToolButton.title = 'Enable deletion tool';
+        deleteToolButton.title = messages_1.messages.tool_palette.delete_button;
         deleteToolButton.onclick = this.onClickStaticToolButton(deleteToolButton, delete_tool_1.MouseDeleteTool.ID);
         deleteToolButton.ariaLabel = deleteToolButton.title;
         deleteToolButton.tabIndex = 1;
@@ -19988,7 +19895,7 @@ let ToolPalette = ToolPalette_1 = class ToolPalette extends ui_extension_1.GLSPA
     }
     createMarqueeToolButton() {
         const marqueeToolButton = createIcon('screen-full');
-        marqueeToolButton.title = 'Enable marquee tool';
+        marqueeToolButton.title = messages_1.messages.tool_palette.marquee_button;
         marqueeToolButton.onclick = this.onClickStaticToolButton(marqueeToolButton, marquee_mouse_tool_1.MarqueeMouseTool.ID);
         marqueeToolButton.ariaLabel = marqueeToolButton.title;
         marqueeToolButton.tabIndex = 1;
@@ -19996,7 +19903,7 @@ let ToolPalette = ToolPalette_1 = class ToolPalette extends ui_extension_1.GLSPA
     }
     createValidateButton() {
         const validateActionButton = createIcon('pass');
-        validateActionButton.title = 'Validate model';
+        validateActionButton.title = messages_1.messages.tool_palette.validate_button;
         validateActionButton.onclick = _event => {
             const modelIds = [this.modelRootId];
             this.actionDispatcher.dispatch(sprotty_1.RequestMarkersAction.create(modelIds, { reason: sprotty_1.MarkersReason.BATCH }));
@@ -20008,7 +19915,7 @@ let ToolPalette = ToolPalette_1 = class ToolPalette extends ui_extension_1.GLSPA
     }
     createResetViewportButton() {
         const resetViewportButton = createIcon('screen-normal');
-        resetViewportButton.title = 'Reset Viewport';
+        resetViewportButton.title = messages_1.messages.tool_palette.reset_viewport_button;
         resetViewportButton.onclick = _event => {
             this.actionDispatcher.dispatch(origin_viewport_1.OriginViewportAction.create());
             resetViewportButton.focus();
@@ -20020,7 +19927,7 @@ let ToolPalette = ToolPalette_1 = class ToolPalette extends ui_extension_1.GLSPA
     createToggleGridButton() {
         var _a;
         const toggleGridButton = createIcon('symbol-numeric');
-        toggleGridButton.title = 'Toggle Grid';
+        toggleGridButton.title = messages_1.messages.tool_palette.toggle_grid_button;
         toggleGridButton.onclick = () => {
             var _a, _b, _c;
             if ((_a = this.gridManager) === null || _a === void 0 ? void 0 : _a.isGridVisible) {
@@ -20042,7 +19949,7 @@ let ToolPalette = ToolPalette_1 = class ToolPalette extends ui_extension_1.GLSPA
     createToggleDebugButton() {
         var _a;
         const toggleDebugButton = createIcon('debug');
-        toggleDebugButton.title = 'Debug Mode';
+        toggleDebugButton.title = messages_1.messages.tool_palette.debug_mode_button;
         toggleDebugButton.onclick = () => {
             var _a, _b, _c;
             if ((_a = this.debugManager) === null || _a === void 0 ? void 0 : _a.isDebugEnabled) {
@@ -20076,7 +19983,7 @@ let ToolPalette = ToolPalette_1 = class ToolPalette extends ui_extension_1.GLSPA
             }
         };
         searchIcon.classList.add('search-icon');
-        searchIcon.title = 'Filter palette entries';
+        searchIcon.title = messages_1.messages.tool_palette.search_button;
         searchIcon.ariaLabel = searchIcon.title;
         searchIcon.tabIndex = 1;
         return searchIcon;
@@ -20086,7 +19993,7 @@ let ToolPalette = ToolPalette_1 = class ToolPalette extends ui_extension_1.GLSPA
         searchField.classList.add('search-input');
         searchField.id = this.containerElement.id + '_search_field';
         searchField.type = 'text';
-        searchField.placeholder = 'Search...';
+        searchField.placeholder = messages_1.messages.tool_palette.search_placeholder;
         searchField.style.display = 'none';
         searchField.onkeyup = () => this.requestFilterUpdate(this.searchField.value);
         searchField.onkeydown = ev => this.clearOnEscape(ev);
@@ -20338,7 +20245,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.BaseCreationTool = exports.BaseEditTool = void 0;
+exports.BaseCreationTool = exports.BaseEditTool = exports.BaseTool = void 0;
 /********************************************************************************
  * Copyright (c) 2020-2024 EclipseSource and others.
  *
@@ -20361,17 +20268,14 @@ const tool_1 = __webpack_require__(/*! ../../base/tool-manager/tool */ "../../no
 const key_tool_1 = __webpack_require__(/*! ../../base/view/key-tool */ "../../node_modules/@eclipse-glsp/client/lib/base/view/key-tool.js");
 const mouse_tool_1 = __webpack_require__(/*! ../../base/view/mouse-tool */ "../../node_modules/@eclipse-glsp/client/lib/base/view/mouse-tool.js");
 /**
- *  A reusable base implementation for edit {@link Tool}s.
+ * A reusable base implementation for {@link Tool}s.
  */
-let BaseEditTool = class BaseEditTool {
+let BaseTool = class BaseTool {
     constructor() {
         this.toDisposeOnDisable = new sprotty_1.DisposableCollection();
     }
     disable() {
         this.toDisposeOnDisable.dispose();
-    }
-    get isEditTool() {
-        return true;
     }
     dispatchActions(actions) {
         return this.actionDispatcher.dispatchAll(actions);
@@ -20386,27 +20290,39 @@ let BaseEditTool = class BaseEditTool {
         this.feedbackDispatcher.deregisterFeedback(feedbackEmitter, cleanupActions);
     }
 };
-exports.BaseEditTool = BaseEditTool;
+exports.BaseTool = BaseTool;
 __decorate([
     (0, inversify_1.inject)(sprotty_1.TYPES.IFeedbackActionDispatcher),
     __metadata("design:type", Object)
-], BaseEditTool.prototype, "feedbackDispatcher", void 0);
+], BaseTool.prototype, "feedbackDispatcher", void 0);
 __decorate([
     (0, inversify_1.inject)(sprotty_1.TYPES.IActionDispatcher),
     __metadata("design:type", Object)
-], BaseEditTool.prototype, "actionDispatcher", void 0);
+], BaseTool.prototype, "actionDispatcher", void 0);
 __decorate([
     (0, inversify_1.inject)(mouse_tool_1.GLSPMouseTool),
     __metadata("design:type", mouse_tool_1.GLSPMouseTool)
-], BaseEditTool.prototype, "mouseTool", void 0);
+], BaseTool.prototype, "mouseTool", void 0);
 __decorate([
     (0, inversify_1.inject)(key_tool_1.GLSPKeyTool),
     __metadata("design:type", key_tool_1.GLSPKeyTool)
-], BaseEditTool.prototype, "keyTool", void 0);
+], BaseTool.prototype, "keyTool", void 0);
 __decorate([
     (0, inversify_1.inject)(editor_context_service_1.EditorContextService),
     __metadata("design:type", editor_context_service_1.EditorContextService)
-], BaseEditTool.prototype, "editorContext", void 0);
+], BaseTool.prototype, "editorContext", void 0);
+exports.BaseTool = BaseTool = __decorate([
+    (0, inversify_1.injectable)()
+], BaseTool);
+/**
+ * A reusable base implementation for edit {@link Tool}s.
+ */
+let BaseEditTool = class BaseEditTool extends BaseTool {
+    get isEditTool() {
+        return true;
+    }
+};
+exports.BaseEditTool = BaseEditTool;
 exports.BaseEditTool = BaseEditTool = __decorate([
     (0, inversify_1.injectable)()
 ], BaseEditTool);
@@ -21039,11 +20955,14 @@ exports.ChangeBoundsListener = exports.ChangeBoundsTool = void 0;
 const inversify_1 = __webpack_require__(/*! inversify */ "../../node_modules/inversify/lib/cjs/index.js");
 const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_modules/@eclipse-glsp/sprotty/lib/index.js");
 const drag_aware_mouse_listener_1 = __webpack_require__(/*! ../../../base/drag-aware-mouse-listener */ "../../node_modules/@eclipse-glsp/client/lib/base/drag-aware-mouse-listener.js");
+const messages_1 = __webpack_require__(/*! ../../../base/messages */ "../../node_modules/@eclipse-glsp/client/lib/base/messages.js");
 const selection_service_1 = __webpack_require__(/*! ../../../base/selection-service */ "../../node_modules/@eclipse-glsp/client/lib/base/selection-service.js");
 const gmodel_util_1 = __webpack_require__(/*! ../../../utils/gmodel-util */ "../../node_modules/@eclipse-glsp/client/lib/utils/gmodel-util.js");
 const local_bounds_1 = __webpack_require__(/*! ../../bounds/local-bounds */ "../../node_modules/@eclipse-glsp/client/lib/features/bounds/local-bounds.js");
 const set_bounds_feedback_command_1 = __webpack_require__(/*! ../../bounds/set-bounds-feedback-command */ "../../node_modules/@eclipse-glsp/client/lib/features/bounds/set-bounds-feedback-command.js");
 const model_1 = __webpack_require__(/*! ../../change-bounds/model */ "../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/model.js");
+const move_element_key_listener_1 = __webpack_require__(/*! ../../change-bounds/move-element-key-listener */ "../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/move-element-key-listener.js");
+const grid_1 = __webpack_require__(/*! ../../grid/grid */ "../../node_modules/@eclipse-glsp/client/lib/features/grid/grid.js");
 const base_tools_1 = __webpack_require__(/*! ../base-tools */ "../../node_modules/@eclipse-glsp/client/lib/features/tools/base-tools.js");
 const change_bounds_manager_1 = __webpack_require__(/*! ./change-bounds-manager */ "../../node_modules/@eclipse-glsp/client/lib/features/tools/change-bounds/change-bounds-manager.js");
 const change_bounds_tool_feedback_1 = __webpack_require__(/*! ./change-bounds-tool-feedback */ "../../node_modules/@eclipse-glsp/client/lib/features/tools/change-bounds/change-bounds-tool-feedback.js");
@@ -21079,6 +20998,19 @@ let ChangeBoundsTool = ChangeBoundsTool_1 = class ChangeBoundsTool extends base_
         if (selection_service_1.ISelectionListener.is(feedbackMoveMouseListener)) {
             this.toDisposeOnDisable.push(this.selectionService.addListener(feedbackMoveMouseListener));
         }
+        // install move key listener for client-side move updates
+        const createMoveKeyListener = this.createMoveKeyListener();
+        this.toDisposeOnDisable.push(this.keyTool.registerListener(createMoveKeyListener), (0, messages_1.repeatOnMessagesUpdated)(() => this.shortcutManager.register(ChangeBoundsTool_1.TOKEN, [
+            {
+                shortcuts: ['⬅ ⬆ ➡ ⬇'],
+                description: messages_1.messages.move.shortcut_move,
+                group: messages_1.messages.shortcut.group_move,
+                position: 0
+            }
+        ])));
+        if (sprotty_1.Disposable.is(createMoveKeyListener)) {
+            this.toDisposeOnDisable.push(createMoveKeyListener);
+        }
         // install change bounds listener for client-side resize updates and server-side updates
         const changeBoundsListener = this.createChangeBoundsListener();
         this.toDisposeOnDisable.push(this.mouseTool.registerListener(changeBoundsListener));
@@ -21095,12 +21027,16 @@ let ChangeBoundsTool = ChangeBoundsTool_1 = class ChangeBoundsTool extends base_
     createMoveMouseListener() {
         return new change_bounds_tool_move_feedback_1.FeedbackMoveMouseListener(this);
     }
+    createMoveKeyListener() {
+        return new move_element_key_listener_1.MoveElementKeyListener(this.selectionService, this.changeBoundsManager, this.grid);
+    }
     createChangeBoundsListener() {
         return new ChangeBoundsListener(this);
     }
 };
 exports.ChangeBoundsTool = ChangeBoundsTool;
 ChangeBoundsTool.ID = 'glsp.change-bounds-tool';
+ChangeBoundsTool.TOKEN = Symbol.for(ChangeBoundsTool_1.ID);
 __decorate([
     (0, inversify_1.inject)(selection_service_1.SelectionService),
     __metadata("design:type", selection_service_1.SelectionService)
@@ -21124,6 +21060,15 @@ __decorate([
     (0, inversify_1.optional)(),
     __metadata("design:type", Object)
 ], ChangeBoundsTool.prototype, "movementOptions", void 0);
+__decorate([
+    (0, inversify_1.inject)(sprotty_1.TYPES.Grid),
+    (0, inversify_1.optional)(),
+    __metadata("design:type", Object)
+], ChangeBoundsTool.prototype, "grid", void 0);
+__decorate([
+    (0, inversify_1.inject)(sprotty_1.TYPES.IShortcutManager),
+    __metadata("design:type", Object)
+], ChangeBoundsTool.prototype, "shortcutManager", void 0);
 exports.ChangeBoundsTool = ChangeBoundsTool = ChangeBoundsTool_1 = __decorate([
     (0, inversify_1.injectable)()
 ], ChangeBoundsTool);
@@ -22250,6 +22195,7 @@ const drag_aware_mouse_listener_1 = __webpack_require__(/*! ../../../base/drag-a
 const css_feedback_1 = __webpack_require__(/*! ../../../base/feedback/css-feedback */ "../../node_modules/@eclipse-glsp/client/lib/base/feedback/css-feedback.js");
 const tool_1 = __webpack_require__(/*! ../../../base/tool-manager/tool */ "../../node_modules/@eclipse-glsp/client/lib/base/tool-manager/tool.js");
 const model_1 = __webpack_require__(/*! ../../../model */ "../../node_modules/@eclipse-glsp/client/lib/model.js");
+const grid_1 = __webpack_require__(/*! ../../grid/grid */ "../../node_modules/@eclipse-glsp/client/lib/features/grid/grid.js");
 const base_tools_1 = __webpack_require__(/*! ../base-tools */ "../../node_modules/@eclipse-glsp/client/lib/features/tools/base-tools.js");
 const dangling_edge_feedback_1 = __webpack_require__(/*! ./dangling-edge-feedback */ "../../node_modules/@eclipse-glsp/client/lib/features/tools/edge-creation/dangling-edge-feedback.js");
 const edge_creation_tool_feedback_1 = __webpack_require__(/*! ./edge-creation-tool-feedback */ "../../node_modules/@eclipse-glsp/client/lib/features/tools/edge-creation/edge-creation-tool-feedback.js");
@@ -23874,7 +23820,7 @@ let ContainerManager = class ContainerManager {
     }
     findContainer(location, ctx, evt) {
         // reverse order of children to find the innermost, top-rendered containers first
-        return (0, sprotty_1.findChildrenAtPosition)(ctx.root, location)
+        return [ctx.root, ...(0, sprotty_1.findChildrenAtPosition)(ctx.root, location)]
             .reverse()
             .find(element => { var _a; return (0, model_1.isContainable)(element) && !((_a = element.cssClasses) === null || _a === void 0 ? void 0 : _a.includes(css_feedback_1.CSS_GHOST_ELEMENT)); });
     }
@@ -24241,6 +24187,7 @@ exports.InsertIndicatorView = void 0;
 const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_modules/@eclipse-glsp/sprotty/lib/index.js");
 const inversify_1 = __webpack_require__(/*! inversify */ "../../node_modules/inversify/lib/cjs/index.js");
 const argument_utils_1 = __webpack_require__(/*! ../../../utils/argument-utils */ "../../node_modules/@eclipse-glsp/client/lib/utils/argument-utils.js");
+const grid_1 = __webpack_require__(/*! ../../grid/grid */ "../../node_modules/@eclipse-glsp/client/lib/features/grid/grid.js");
 const insert_indicator_1 = __webpack_require__(/*! ./insert-indicator */ "../../node_modules/@eclipse-glsp/client/lib/features/tools/node-creation/insert-indicator.js");
 let InsertIndicatorView = class InsertIndicatorView {
     render(model, context) {
@@ -25346,7 +25293,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.RestoreViewportHandler = void 0;
+exports.ZoomHandler = exports.MoveViewportHandler = exports.RestoreViewportHandler = void 0;
 /********************************************************************************
  * Copyright (c) 2023-2024 Business Informatics Group (TU Wien) and others.
  *
@@ -25367,6 +25314,7 @@ const inversify_1 = __webpack_require__(/*! inversify */ "../../node_modules/inv
 const editor_context_service_1 = __webpack_require__(/*! ../../base/editor-context-service */ "../../node_modules/@eclipse-glsp/client/lib/base/editor-context-service.js");
 const focus_tracker_1 = __webpack_require__(/*! ../../base/focus/focus-tracker */ "../../node_modules/@eclipse-glsp/client/lib/base/focus/focus-tracker.js");
 const tool_1 = __webpack_require__(/*! ../../base/tool-manager/tool */ "../../node_modules/@eclipse-glsp/client/lib/base/tool-manager/tool.js");
+const gmodel_util_1 = __webpack_require__(/*! ../../utils/gmodel-util */ "../../node_modules/@eclipse-glsp/client/lib/utils/gmodel-util.js");
 const actions_1 = __webpack_require__(/*! ../accessibility/actions */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/actions.js");
 /**
  * Focuses the graph on different actions.
@@ -25426,6 +25374,258 @@ __decorate([
 exports.RestoreViewportHandler = RestoreViewportHandler = __decorate([
     (0, inversify_1.injectable)()
 ], RestoreViewportHandler);
+/**
+ * Handles moving the viewport.
+ */
+let MoveViewportHandler = class MoveViewportHandler {
+    handle(action) {
+        return this.handleMoveViewport(action);
+    }
+    handleMoveViewport(action) {
+        const viewport = (0, sprotty_1.findParentByFeature)(this.editorContextService.modelRoot, sprotty_1.isViewport);
+        if (!viewport) {
+            return;
+        }
+        const newViewport = {
+            scroll: {
+                x: viewport.scroll.x + action.moveX,
+                y: viewport.scroll.y + action.moveY
+            },
+            zoom: viewport.zoom
+        };
+        return sprotty_1.SetViewportAction.create(viewport.id, newViewport, { animate: false });
+    }
+};
+exports.MoveViewportHandler = MoveViewportHandler;
+__decorate([
+    (0, inversify_1.inject)(editor_context_service_1.EditorContextService),
+    __metadata("design:type", editor_context_service_1.EditorContextService)
+], MoveViewportHandler.prototype, "editorContextService", void 0);
+exports.MoveViewportHandler = MoveViewportHandler = __decorate([
+    (0, inversify_1.injectable)()
+], MoveViewportHandler);
+/*
+ * Handles zooming in and out of the viewport.
+ */
+let ZoomHandler = class ZoomHandler {
+    handle(action) {
+        if (action.elementIds) {
+            return this.handleZoomElement(action.elementIds, action.zoomFactor);
+        }
+        else {
+            return this.handleZoomViewport(action.zoomFactor);
+        }
+    }
+    handleZoomViewport(zoomFactor) {
+        const viewport = (0, sprotty_1.findParentByFeature)(this.editorContextService.modelRoot, sprotty_1.isViewport);
+        if (!viewport) {
+            return;
+        }
+        const newZoom = viewport.zoom * zoomFactor;
+        const newViewport = {
+            scroll: viewport.scroll,
+            zoom: newZoom
+        };
+        return sprotty_1.SetViewportAction.create(viewport.id, newViewport, { animate: false });
+    }
+    handleZoomElement(elementIds, zoomFactor) {
+        const viewport = (0, sprotty_1.findParentByFeature)(this.editorContextService.modelRoot, sprotty_1.isViewport);
+        if (!viewport) {
+            return;
+        }
+        const elements = (0, gmodel_util_1.getElements)(this.editorContextService.modelRoot.index, elementIds, gmodel_util_1.isSelectableAndBoundsAware);
+        const center = this.getCenter(viewport, elements);
+        const newZoom = viewport.zoom * zoomFactor;
+        const newViewport = {
+            scroll: {
+                x: center.x - (0.5 * viewport.canvasBounds.width) / newZoom,
+                y: center.y - (0.5 * viewport.canvasBounds.height) / newZoom
+            },
+            zoom: newZoom
+        };
+        return sprotty_1.SetViewportAction.create(viewport.id, newViewport, { animate: false });
+    }
+    getCenter(viewport, selectedElements) {
+        // Get bounds of elements based on the viewport
+        const allBounds = selectedElements.map(e => this.boundsInViewport(viewport, e, e.bounds));
+        const mergedBounds = allBounds.reduce((b0, b1) => sprotty_1.Bounds.combine(b0, b1));
+        return sprotty_1.Bounds.center(mergedBounds);
+    }
+    boundsInViewport(viewport, element, bounds) {
+        if (element instanceof sprotty_1.GChildElement && element.parent !== viewport) {
+            return this.boundsInViewport(viewport, element.parent, element.parent.localToParent(bounds));
+        }
+        else {
+            return bounds;
+        }
+    }
+};
+exports.ZoomHandler = ZoomHandler;
+__decorate([
+    (0, inversify_1.inject)(editor_context_service_1.EditorContextService),
+    __metadata("design:type", editor_context_service_1.EditorContextService)
+], ZoomHandler.prototype, "editorContextService", void 0);
+__decorate([
+    (0, inversify_1.inject)(sprotty_1.TYPES.IActionDispatcher),
+    __metadata("design:type", Object)
+], ZoomHandler.prototype, "actionDispatcher", void 0);
+exports.ZoomHandler = ZoomHandler = __decorate([
+    (0, inversify_1.injectable)()
+], ZoomHandler);
+
+
+/***/ }),
+
+/***/ "../../node_modules/@eclipse-glsp/client/lib/features/viewport/viewport-key-listener.js":
+/*!**********************************************************************************************!*\
+  !*** ../../node_modules/@eclipse-glsp/client/lib/features/viewport/viewport-key-listener.js ***!
+  \**********************************************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+/********************************************************************************
+ * Copyright (c) 2024 EclipseSource and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ZoomKeyListener = exports.MoveViewportKeyListener = void 0;
+const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_modules/@eclipse-glsp/sprotty/lib/index.js");
+const inversify_1 = __webpack_require__(/*! inversify */ "../../node_modules/inversify/lib/cjs/index.js");
+const selection_service_1 = __webpack_require__(/*! ../../base/selection-service */ "../../node_modules/@eclipse-glsp/client/lib/base/selection-service.js");
+const grid_1 = __webpack_require__(/*! ../grid/grid */ "../../node_modules/@eclipse-glsp/client/lib/features/grid/grid.js");
+const zoom_viewport_action_1 = __webpack_require__(/*! ./zoom-viewport-action */ "../../node_modules/@eclipse-glsp/client/lib/features/viewport/zoom-viewport-action.js");
+let MoveViewportKeyListener = class MoveViewportKeyListener extends sprotty_1.KeyListener {
+    constructor() {
+        super(...arguments);
+        this.grid = grid_1.Grid.DEFAULT;
+    }
+    keyDown(_element, event) {
+        const selectedElementIds = this.selectionService.getSelectedElementIDs();
+        const snap = this.changeBoundsManager.usePositionSnap(event);
+        const offsetX = snap ? this.grid.x : 1;
+        const offsetY = snap ? this.grid.y : 1;
+        if (selectedElementIds.length === 0) {
+            if (this.matchesMoveUpKeystroke(event)) {
+                return [sprotty_1.MoveViewportAction.create({ moveX: 0, moveY: -offsetY })];
+            }
+            else if (this.matchesMoveDownKeystroke(event)) {
+                return [sprotty_1.MoveViewportAction.create({ moveX: 0, moveY: offsetY })];
+            }
+            else if (this.matchesMoveRightKeystroke(event)) {
+                return [sprotty_1.MoveViewportAction.create({ moveX: offsetX, moveY: 0 })];
+            }
+            else if (this.matchesMoveLeftKeystroke(event)) {
+                return [sprotty_1.MoveViewportAction.create({ moveX: -offsetX, moveY: 0 })];
+            }
+        }
+        return [];
+    }
+    matchesMoveUpKeystroke(event) {
+        return (0, sprotty_1.matchesKeystroke)(event, 'ArrowUp');
+    }
+    matchesMoveDownKeystroke(event) {
+        return (0, sprotty_1.matchesKeystroke)(event, 'ArrowDown');
+    }
+    matchesMoveRightKeystroke(event) {
+        return (0, sprotty_1.matchesKeystroke)(event, 'ArrowRight');
+    }
+    matchesMoveLeftKeystroke(event) {
+        return (0, sprotty_1.matchesKeystroke)(event, 'ArrowLeft');
+    }
+};
+exports.MoveViewportKeyListener = MoveViewportKeyListener;
+__decorate([
+    (0, inversify_1.inject)(selection_service_1.SelectionService),
+    __metadata("design:type", selection_service_1.SelectionService)
+], MoveViewportKeyListener.prototype, "selectionService", void 0);
+__decorate([
+    (0, inversify_1.inject)(sprotty_1.TYPES.IChangeBoundsManager),
+    __metadata("design:type", Object)
+], MoveViewportKeyListener.prototype, "changeBoundsManager", void 0);
+__decorate([
+    (0, inversify_1.inject)(sprotty_1.TYPES.Grid),
+    (0, inversify_1.optional)(),
+    __metadata("design:type", Object)
+], MoveViewportKeyListener.prototype, "grid", void 0);
+exports.MoveViewportKeyListener = MoveViewportKeyListener = __decorate([
+    (0, inversify_1.injectable)()
+], MoveViewportKeyListener);
+let ZoomKeyListener = class ZoomKeyListener extends sprotty_1.KeyListener {
+    keyDown(element, event) {
+        const selectedElementIds = this.selectionService.getSelectedElementIDs();
+        if (selectedElementIds.length === 0) {
+            if (this.matchesZoomOutKeystroke(event)) {
+                return [zoom_viewport_action_1.ZoomAction.create({ zoomFactor: zoom_viewport_action_1.ZoomFactors.DEFAULT.out })];
+            }
+            else if (this.matchesZoomInKeystroke(event)) {
+                return [zoom_viewport_action_1.ZoomAction.create({ zoomFactor: zoom_viewport_action_1.ZoomFactors.DEFAULT.in })];
+            }
+            else if (this.matchesMinZoomLevelKeystroke(event)) {
+                return [sprotty_1.CenterAction.create(selectedElementIds)];
+            }
+        }
+        else {
+            if (this.matchesZoomOutKeystroke(event)) {
+                if (selectedElementIds.length > 0) {
+                    return [
+                        zoom_viewport_action_1.ZoomAction.create({
+                            elementIds: selectedElementIds,
+                            zoomFactor: zoom_viewport_action_1.ZoomFactors.DEFAULT.out
+                        })
+                    ];
+                }
+            }
+            else if (this.matchesZoomInKeystroke(event)) {
+                if (selectedElementIds.length > 0) {
+                    return [zoom_viewport_action_1.ZoomAction.create({ elementIds: selectedElementIds, zoomFactor: zoom_viewport_action_1.ZoomFactors.DEFAULT.in })];
+                }
+            }
+            else if (this.matchesMinZoomLevelKeystroke(event)) {
+                return [sprotty_1.CenterAction.create(selectedElementIds)];
+            }
+        }
+        return [];
+    }
+    matchesZoomInKeystroke(event) {
+        /** here event.key is used for '+', as keycode 187 is already declared for 'Equals' in {@link matchesKeystroke}.*/
+        return !event.ctrlKey && (event.key === '+' || (0, sprotty_1.matchesKeystroke)(event, 'NumpadAdd'));
+    }
+    matchesMinZoomLevelKeystroke(event) {
+        return (0, sprotty_1.matchesKeystroke)(event, 'Digit0', 'ctrl') || (0, sprotty_1.matchesKeystroke)(event, 'Numpad0', 'ctrl');
+    }
+    matchesZoomOutKeystroke(event) {
+        return !event.ctrlKey && ((0, sprotty_1.matchesKeystroke)(event, 'Minus') || (0, sprotty_1.matchesKeystroke)(event, 'NumpadSubtract'));
+    }
+};
+exports.ZoomKeyListener = ZoomKeyListener;
+__decorate([
+    (0, inversify_1.inject)(selection_service_1.SelectionService),
+    __metadata("design:type", selection_service_1.SelectionService)
+], ZoomKeyListener.prototype, "selectionService", void 0);
+exports.ZoomKeyListener = ZoomKeyListener = __decorate([
+    (0, inversify_1.injectable)()
+], ZoomKeyListener);
 
 
 /***/ }),
@@ -25462,6 +25662,9 @@ const glsp_scroll_mouse_listener_1 = __webpack_require__(/*! ./glsp-scroll-mouse
 const origin_viewport_1 = __webpack_require__(/*! ./origin-viewport */ "../../node_modules/@eclipse-glsp/client/lib/features/viewport/origin-viewport.js");
 const reposition_1 = __webpack_require__(/*! ./reposition */ "../../node_modules/@eclipse-glsp/client/lib/features/viewport/reposition.js");
 const viewport_handler_1 = __webpack_require__(/*! ./viewport-handler */ "../../node_modules/@eclipse-glsp/client/lib/features/viewport/viewport-handler.js");
+const viewport_key_listener_1 = __webpack_require__(/*! ./viewport-key-listener */ "../../node_modules/@eclipse-glsp/client/lib/features/viewport/viewport-key-listener.js");
+const viewport_tool_1 = __webpack_require__(/*! ./viewport-tool */ "../../node_modules/@eclipse-glsp/client/lib/features/viewport/viewport-tool.js");
+const zoom_viewport_action_1 = __webpack_require__(/*! ./zoom-viewport-action */ "../../node_modules/@eclipse-glsp/client/lib/features/viewport/zoom-viewport-action.js");
 exports.viewportModule = new sprotty_1.FeatureModule((bind, _unbind, isBound) => {
     const context = { bind, isBound };
     (0, sprotty_1.configureCommand)(context, sprotty_1.CenterCommand);
@@ -25477,6 +25680,14 @@ exports.viewportModule = new sprotty_1.FeatureModule((bind, _unbind, isBound) =>
     (0, sprotty_1.bindAsService)(context, sprotty_1.TYPES.IDiagramStartup, viewport_handler_1.RestoreViewportHandler);
     (0, sprotty_1.configureActionHandler)(context, tool_1.EnableDefaultToolsAction.KIND, viewport_handler_1.RestoreViewportHandler);
     (0, sprotty_1.configureActionHandler)(context, actions_1.FocusDomAction.KIND, viewport_handler_1.RestoreViewportHandler);
+    bind(sprotty_1.TYPES.ZoomFactors).toConstantValue(zoom_viewport_action_1.ZoomFactors.DEFAULT);
+    (0, sprotty_1.bindAsService)(context, sprotty_1.TYPES.IDefaultTool, viewport_tool_1.ViewportKeyTool);
+    bind(viewport_handler_1.MoveViewportHandler).toSelf().inSingletonScope();
+    bind(viewport_key_listener_1.MoveViewportKeyListener).toSelf();
+    (0, sprotty_1.configureActionHandler)(context, sprotty_1.MoveViewportAction.KIND, viewport_handler_1.MoveViewportHandler);
+    bind(viewport_handler_1.ZoomHandler).toSelf().inSingletonScope();
+    bind(viewport_key_listener_1.ZoomKeyListener).toSelf();
+    (0, sprotty_1.configureActionHandler)(context, zoom_viewport_action_1.ZoomAction.KIND, viewport_handler_1.ZoomHandler);
 }, { featureId: Symbol('viewport') });
 /**
  * Feature module that is intended for the standalone deployment of GLSP (i.e. plain webapp)
@@ -25487,6 +25698,145 @@ exports.standaloneViewportModule = new sprotty_1.FeatureModule((bind, _unbind, i
     const context = { bind, isBound };
     (0, sprotty_1.bindAsService)(context, sprotty_1.TYPES.KeyListener, sprotty_1.CenterKeyboardListener);
 }, { featureId: Symbol('standaloneViewport'), requires: exports.viewportModule });
+
+
+/***/ }),
+
+/***/ "../../node_modules/@eclipse-glsp/client/lib/features/viewport/viewport-tool.js":
+/*!**************************************************************************************!*\
+  !*** ../../node_modules/@eclipse-glsp/client/lib/features/viewport/viewport-tool.js ***!
+  \**************************************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+/********************************************************************************
+ * Copyright (c) 2025 EclipseSource and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var ViewportKeyTool_1;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ViewportKeyTool = void 0;
+const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_modules/@eclipse-glsp/sprotty/lib/index.js");
+const inversify_1 = __webpack_require__(/*! inversify */ "../../node_modules/inversify/lib/cjs/index.js");
+const messages_1 = __webpack_require__(/*! ../../base/messages */ "../../node_modules/@eclipse-glsp/client/lib/base/messages.js");
+const base_tools_1 = __webpack_require__(/*! ../tools/base-tools */ "../../node_modules/@eclipse-glsp/client/lib/features/tools/base-tools.js");
+const viewport_key_listener_1 = __webpack_require__(/*! ./viewport-key-listener */ "../../node_modules/@eclipse-glsp/client/lib/features/viewport/viewport-key-listener.js");
+/**
+ * This only handles keyboard events for the viewport.
+ * Mouse specific events are handled directly by MouseListeners without any tool.
+ */
+let ViewportKeyTool = ViewportKeyTool_1 = class ViewportKeyTool extends base_tools_1.BaseTool {
+    get id() {
+        return ViewportKeyTool_1.ID;
+    }
+    enable() {
+        this.toDisposeOnDisable.push(this.keyTool.registerListener(this.moveKeyListener), this.keyTool.registerListener(this.zoomKeyListener), (0, messages_1.repeatOnMessagesUpdated)(() => this.shortcutManager.register(ViewportKeyTool_1.TOKEN, [
+            {
+                shortcuts: ['⬅ ⬆ ➡ ⬇'],
+                description: messages_1.messages.viewport.shortcut_move_viewport,
+                group: messages_1.messages.shortcut.group_move,
+                position: 0
+            },
+            {
+                shortcuts: ['+ -'],
+                description: messages_1.messages.viewport.shortcut_zoom_viewport,
+                group: messages_1.messages.shortcut.group_zoom,
+                position: 0
+            },
+            {
+                shortcuts: ['+ -'],
+                description: messages_1.messages.viewport.shortcut_zoom_element,
+                group: messages_1.messages.shortcut.group_zoom,
+                position: 0
+            }
+        ])));
+    }
+};
+exports.ViewportKeyTool = ViewportKeyTool;
+ViewportKeyTool.ID = 'glsp.viewport-key-tool';
+ViewportKeyTool.TOKEN = Symbol.for(ViewportKeyTool_1.ID);
+__decorate([
+    (0, inversify_1.inject)(sprotty_1.TYPES.IShortcutManager),
+    __metadata("design:type", Object)
+], ViewportKeyTool.prototype, "shortcutManager", void 0);
+__decorate([
+    (0, inversify_1.inject)(viewport_key_listener_1.ZoomKeyListener),
+    __metadata("design:type", viewport_key_listener_1.ZoomKeyListener)
+], ViewportKeyTool.prototype, "zoomKeyListener", void 0);
+__decorate([
+    (0, inversify_1.inject)(viewport_key_listener_1.MoveViewportKeyListener),
+    __metadata("design:type", viewport_key_listener_1.MoveViewportKeyListener)
+], ViewportKeyTool.prototype, "moveKeyListener", void 0);
+exports.ViewportKeyTool = ViewportKeyTool = ViewportKeyTool_1 = __decorate([
+    (0, inversify_1.injectable)()
+], ViewportKeyTool);
+
+
+/***/ }),
+
+/***/ "../../node_modules/@eclipse-glsp/client/lib/features/viewport/zoom-viewport-action.js":
+/*!*********************************************************************************************!*\
+  !*** ../../node_modules/@eclipse-glsp/client/lib/features/viewport/zoom-viewport-action.js ***!
+  \*********************************************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+/********************************************************************************
+ * Copyright (c) 2024 EclipseSource and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ZoomAction = exports.ZoomFactors = void 0;
+const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_modules/@eclipse-glsp/sprotty/lib/index.js");
+var ZoomFactors;
+(function (ZoomFactors) {
+    ZoomFactors.DEFAULT = { in: 1.2, out: 0.8 };
+})(ZoomFactors || (exports.ZoomFactors = ZoomFactors = {}));
+var ZoomAction;
+(function (ZoomAction) {
+    ZoomAction.KIND = 'zoom';
+    function is(object) {
+        return sprotty_1.Action.hasKind(object, ZoomAction.KIND);
+    }
+    ZoomAction.is = is;
+    function create(options) {
+        return { kind: ZoomAction.KIND, ...options };
+    }
+    ZoomAction.create = create;
+})(ZoomAction || (exports.ZoomAction = ZoomAction = {}));
 
 
 /***/ }),
@@ -25549,6 +25899,7 @@ __exportStar(__webpack_require__(/*! ./base/feedback/set-model-command */ "../..
 __exportStar(__webpack_require__(/*! ./base/feedback/update-model-command */ "../../node_modules/@eclipse-glsp/client/lib/base/feedback/update-model-command.js"), exports);
 __exportStar(__webpack_require__(/*! ./base/focus/focus-state-change-action */ "../../node_modules/@eclipse-glsp/client/lib/base/focus/focus-state-change-action.js"), exports);
 __exportStar(__webpack_require__(/*! ./base/focus/focus-tracker */ "../../node_modules/@eclipse-glsp/client/lib/base/focus/focus-tracker.js"), exports);
+__exportStar(__webpack_require__(/*! ./base/messages */ "../../node_modules/@eclipse-glsp/client/lib/base/messages.js"), exports);
 __exportStar(__webpack_require__(/*! ./base/model/diagram-loader */ "../../node_modules/@eclipse-glsp/client/lib/base/model/diagram-loader.js"), exports);
 __exportStar(__webpack_require__(/*! ./base/model/glsp-model-source */ "../../node_modules/@eclipse-glsp/client/lib/base/model/glsp-model-source.js"), exports);
 __exportStar(__webpack_require__(/*! ./base/model/model-initialization-constraint */ "../../node_modules/@eclipse-glsp/client/lib/base/model/model-initialization-constraint.js"), exports);
@@ -25557,6 +25908,10 @@ __exportStar(__webpack_require__(/*! ./base/mouse-position-tracker */ "../../nod
 __exportStar(__webpack_require__(/*! ./base/ranked */ "../../node_modules/@eclipse-glsp/client/lib/base/ranked.js"), exports);
 __exportStar(__webpack_require__(/*! ./base/selection-clearing-mouse-listener */ "../../node_modules/@eclipse-glsp/client/lib/base/selection-clearing-mouse-listener.js"), exports);
 __exportStar(__webpack_require__(/*! ./base/selection-service */ "../../node_modules/@eclipse-glsp/client/lib/base/selection-service.js"), exports);
+__exportStar(__webpack_require__(/*! ./base/shortcuts/available-shortcuts-extension */ "../../node_modules/@eclipse-glsp/client/lib/base/shortcuts/available-shortcuts-extension.js"), exports);
+__exportStar(__webpack_require__(/*! ./base/shortcuts/available-shortcuts-tool */ "../../node_modules/@eclipse-glsp/client/lib/base/shortcuts/available-shortcuts-tool.js"), exports);
+__exportStar(__webpack_require__(/*! ./base/shortcuts/shortcuts-manager */ "../../node_modules/@eclipse-glsp/client/lib/base/shortcuts/shortcuts-manager.js"), exports);
+__exportStar(__webpack_require__(/*! ./base/shortcuts/shortcuts-module */ "../../node_modules/@eclipse-glsp/client/lib/base/shortcuts/shortcuts-module.js"), exports);
 __exportStar(__webpack_require__(/*! ./base/tool-manager/tool */ "../../node_modules/@eclipse-glsp/client/lib/base/tool-manager/tool.js"), exports);
 __exportStar(__webpack_require__(/*! ./base/tool-manager/tool-manager */ "../../node_modules/@eclipse-glsp/client/lib/base/tool-manager/tool-manager.js"), exports);
 __exportStar(__webpack_require__(/*! ./base/ui-extension/ui-extension */ "../../node_modules/@eclipse-glsp/client/lib/base/ui-extension/ui-extension.js"), exports);
@@ -25580,9 +25935,6 @@ __exportStar(__webpack_require__(/*! ./features/accessibility/element-navigation
 __exportStar(__webpack_require__(/*! ./features/accessibility/focus-tracker/focus-tracker-module */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/focus-tracker/focus-tracker-module.js"), exports);
 __exportStar(__webpack_require__(/*! ./features/accessibility/focus-tracker/focus-tracker-tool */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/focus-tracker/focus-tracker-tool.js"), exports);
 __exportStar(__webpack_require__(/*! ./features/accessibility/global-keylistener-tool */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/global-keylistener-tool.js"), exports);
-__exportStar(__webpack_require__(/*! ./features/accessibility/key-shortcut/accessible-key-shortcut */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/key-shortcut/accessible-key-shortcut.js"), exports);
-__exportStar(__webpack_require__(/*! ./features/accessibility/key-shortcut/accessible-key-shortcut-tool */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/key-shortcut/accessible-key-shortcut-tool.js"), exports);
-__exportStar(__webpack_require__(/*! ./features/accessibility/key-shortcut/shortcut-help-module */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/key-shortcut/shortcut-help-module.js"), exports);
 __exportStar(__webpack_require__(/*! ./features/accessibility/keyboard-grid/action */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/keyboard-grid/action.js"), exports);
 __exportStar(__webpack_require__(/*! ./features/accessibility/keyboard-grid/constants */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/keyboard-grid/constants.js"), exports);
 __exportStar(__webpack_require__(/*! ./features/accessibility/keyboard-grid/keyboard-grid */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/keyboard-grid/keyboard-grid.js"), exports);
@@ -25596,12 +25948,6 @@ __exportStar(__webpack_require__(/*! ./features/accessibility/keyboard-pointer/k
 __exportStar(__webpack_require__(/*! ./features/accessibility/keyboard-pointer/keyboard-pointer-position */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/keyboard-pointer/keyboard-pointer-position.js"), exports);
 __exportStar(__webpack_require__(/*! ./features/accessibility/keyboard-tool-palette/keyboard-tool-palette */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/keyboard-tool-palette/keyboard-tool-palette.js"), exports);
 __exportStar(__webpack_require__(/*! ./features/accessibility/keyboard-tool-palette/keyboard-tool-palette-module */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/keyboard-tool-palette/keyboard-tool-palette-module.js"), exports);
-__exportStar(__webpack_require__(/*! ./features/accessibility/move-zoom/move-handler */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/move-zoom/move-handler.js"), exports);
-__exportStar(__webpack_require__(/*! ./features/accessibility/move-zoom/move-zoom-module */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/move-zoom/move-zoom-module.js"), exports);
-__exportStar(__webpack_require__(/*! ./features/accessibility/move-zoom/zoom-handler */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/move-zoom/zoom-handler.js"), exports);
-__exportStar(__webpack_require__(/*! ./features/accessibility/resize-key-tool/resize-key-handler */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/resize-key-tool/resize-key-handler.js"), exports);
-__exportStar(__webpack_require__(/*! ./features/accessibility/resize-key-tool/resize-key-module */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/resize-key-tool/resize-key-module.js"), exports);
-__exportStar(__webpack_require__(/*! ./features/accessibility/resize-key-tool/resize-key-tool */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/resize-key-tool/resize-key-tool.js"), exports);
 __exportStar(__webpack_require__(/*! ./features/accessibility/search/search-palette */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/search/search-palette.js"), exports);
 __exportStar(__webpack_require__(/*! ./features/accessibility/search/search-palette-module */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/search/search-palette-module.js"), exports);
 __exportStar(__webpack_require__(/*! ./features/accessibility/search/search-tool */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/search/search-tool.js"), exports);
@@ -25609,9 +25955,8 @@ __exportStar(__webpack_require__(/*! ./features/accessibility/toast/toast-handle
 __exportStar(__webpack_require__(/*! ./features/accessibility/toast/toast-module */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/toast/toast-module.js"), exports);
 __exportStar(__webpack_require__(/*! ./features/accessibility/toast/toast-tool */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/toast/toast-tool.js"), exports);
 __exportStar(__webpack_require__(/*! ./features/accessibility/view-key-tools/deselect-key-tool */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/view-key-tools/deselect-key-tool.js"), exports);
-__exportStar(__webpack_require__(/*! ./features/accessibility/view-key-tools/movement-key-tool */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/view-key-tools/movement-key-tool.js"), exports);
+__exportStar(__webpack_require__(/*! ./features/accessibility/view-key-tools/grid-cell-zoom-key-tool */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/view-key-tools/grid-cell-zoom-key-tool.js"), exports);
 __exportStar(__webpack_require__(/*! ./features/accessibility/view-key-tools/view-key-tools-module */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/view-key-tools/view-key-tools-module.js"), exports);
-__exportStar(__webpack_require__(/*! ./features/accessibility/view-key-tools/zoom-key-tool */ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/view-key-tools/zoom-key-tool.js"), exports);
 __exportStar(__webpack_require__(/*! ./features/bounds/bounds-module */ "../../node_modules/@eclipse-glsp/client/lib/features/bounds/bounds-module.js"), exports);
 __exportStar(__webpack_require__(/*! ./features/bounds/freeform-layout */ "../../node_modules/@eclipse-glsp/client/lib/features/bounds/freeform-layout.js"), exports);
 __exportStar(__webpack_require__(/*! ./features/bounds/glsp-hidden-bounds-updater */ "../../node_modules/@eclipse-glsp/client/lib/features/bounds/glsp-hidden-bounds-updater.js"), exports);
@@ -25622,9 +25967,15 @@ __exportStar(__webpack_require__(/*! ./features/bounds/local-bounds */ "../../no
 __exportStar(__webpack_require__(/*! ./features/bounds/set-bounds-feedback-command */ "../../node_modules/@eclipse-glsp/client/lib/features/bounds/set-bounds-feedback-command.js"), exports);
 __exportStar(__webpack_require__(/*! ./features/bounds/vbox-layout */ "../../node_modules/@eclipse-glsp/client/lib/features/bounds/vbox-layout.js"), exports);
 __exportStar(__webpack_require__(/*! ./features/change-bounds/model */ "../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/model.js"), exports);
+__exportStar(__webpack_require__(/*! ./features/change-bounds/move-element-action */ "../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/move-element-action.js"), exports);
+__exportStar(__webpack_require__(/*! ./features/change-bounds/move-element-handler */ "../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/move-element-handler.js"), exports);
 __exportStar(__webpack_require__(/*! ./features/change-bounds/movement-restrictor */ "../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/movement-restrictor.js"), exports);
 __exportStar(__webpack_require__(/*! ./features/change-bounds/point-position-updater */ "../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/point-position-updater.js"), exports);
 __exportStar(__webpack_require__(/*! ./features/change-bounds/position-snapper */ "../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/position-snapper.js"), exports);
+__exportStar(__webpack_require__(/*! ./features/change-bounds/resize/resize-default-tool */ "../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/resize/resize-default-tool.js"), exports);
+__exportStar(__webpack_require__(/*! ./features/change-bounds/resize/resize-handler */ "../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/resize/resize-handler.js"), exports);
+__exportStar(__webpack_require__(/*! ./features/change-bounds/resize/resize-module */ "../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/resize/resize-module.js"), exports);
+__exportStar(__webpack_require__(/*! ./features/change-bounds/resize/resize-tool */ "../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/resize/resize-tool.js"), exports);
 __exportStar(__webpack_require__(/*! ./features/change-bounds/snap */ "../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/snap.js"), exports);
 __exportStar(__webpack_require__(/*! ./features/change-bounds/tracker */ "../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/tracker.js"), exports);
 __exportStar(__webpack_require__(/*! ./features/command-palette/command-palette */ "../../node_modules/@eclipse-glsp/client/lib/features/command-palette/command-palette.js"), exports);
@@ -25735,7 +26086,9 @@ __exportStar(__webpack_require__(/*! ./features/viewport/glsp-scroll-mouse-liste
 __exportStar(__webpack_require__(/*! ./features/viewport/origin-viewport */ "../../node_modules/@eclipse-glsp/client/lib/features/viewport/origin-viewport.js"), exports);
 __exportStar(__webpack_require__(/*! ./features/viewport/reposition */ "../../node_modules/@eclipse-glsp/client/lib/features/viewport/reposition.js"), exports);
 __exportStar(__webpack_require__(/*! ./features/viewport/viewport-handler */ "../../node_modules/@eclipse-glsp/client/lib/features/viewport/viewport-handler.js"), exports);
+__exportStar(__webpack_require__(/*! ./features/viewport/viewport-key-listener */ "../../node_modules/@eclipse-glsp/client/lib/features/viewport/viewport-key-listener.js"), exports);
 __exportStar(__webpack_require__(/*! ./features/viewport/viewport-modules */ "../../node_modules/@eclipse-glsp/client/lib/features/viewport/viewport-modules.js"), exports);
+__exportStar(__webpack_require__(/*! ./features/viewport/zoom-viewport-action */ "../../node_modules/@eclipse-glsp/client/lib/features/viewport/zoom-viewport-action.js"), exports);
 __exportStar(__webpack_require__(/*! ./model */ "../../node_modules/@eclipse-glsp/client/lib/model.js"), exports);
 __exportStar(__webpack_require__(/*! ./re-exports */ "../../node_modules/@eclipse-glsp/client/lib/re-exports.js"), exports);
 __exportStar(__webpack_require__(/*! ./standalone-modules */ "../../node_modules/@eclipse-glsp/client/lib/standalone-modules.js"), exports);
@@ -25908,6 +26261,8 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.STANDALONE_MODULE_CONFIG = exports.STANDALONE_MODULES = exports.LayoutKeyListener = exports.FallbackActionHandler = exports.standaloneDefaultModule = void 0;
 const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_modules/@eclipse-glsp/sprotty/lib/index.js");
 const inversify_1 = __webpack_require__(/*! inversify */ "../../node_modules/inversify/lib/cjs/index.js");
+const shortcuts_module_1 = __webpack_require__(/*! ./base/shortcuts/shortcuts-module */ "../../node_modules/@eclipse-glsp/client/lib/base/shortcuts/shortcuts-module.js");
+const resize_module_1 = __webpack_require__(/*! ./features/change-bounds/resize/resize-module */ "../../node_modules/@eclipse-glsp/client/lib/features/change-bounds/resize/resize-module.js");
 const copy_paste_modules_1 = __webpack_require__(/*! ./features/copy-paste/copy-paste-modules */ "../../node_modules/@eclipse-glsp/client/lib/features/copy-paste/copy-paste-modules.js");
 const export_modules_1 = __webpack_require__(/*! ./features/export/export-modules */ "../../node_modules/@eclipse-glsp/client/lib/features/export/export-modules.js");
 const save_module_1 = __webpack_require__(/*! ./features/save/save-module */ "../../node_modules/@eclipse-glsp/client/lib/features/save/save-module.js");
@@ -25970,6 +26325,8 @@ exports.STANDALONE_MODULES = [
     select_module_1.standaloneSelectModule,
     export_modules_1.standaloneExportModule,
     exports.standaloneDefaultModule,
+    shortcuts_module_1.standaloneShortcutsModule,
+    resize_module_1.standaloneResizeModule,
     save_module_1.saveModule,
     undo_redo_module_1.undoRedoModule
 ];
@@ -26874,9 +27231,9 @@ exports.absoluteToLocal = absoluteToLocal;
  */
 function outsideOfViewport(point, viewport) {
     return (point.x < viewport.scroll.x ||
-        point.x > viewport.scroll.x + viewport.canvasBounds.width ||
+        point.x > viewport.scroll.x + viewport.canvasBounds.width / viewport.zoom ||
         point.y < viewport.scroll.y ||
-        point.y > viewport.scroll.y + viewport.canvasBounds.height);
+        point.y > viewport.scroll.y + viewport.canvasBounds.height / viewport.zoom);
 }
 exports.outsideOfViewport = outsideOfViewport;
 
@@ -26915,6 +27272,7 @@ const gedge_view_1 = __webpack_require__(/*! ./gedge-view */ "../../node_modules
 const ggraph_view_1 = __webpack_require__(/*! ./ggraph-view */ "../../node_modules/@eclipse-glsp/client/lib/views/ggraph-view.js");
 const issue_marker_view_1 = __webpack_require__(/*! ./issue-marker-view */ "../../node_modules/@eclipse-glsp/client/lib/views/issue-marker-view.js");
 const rounded_corner_view_1 = __webpack_require__(/*! ./rounded-corner-view */ "../../node_modules/@eclipse-glsp/client/lib/views/rounded-corner-view.js");
+const routing_point_handle_view_1 = __webpack_require__(/*! ./routing-point-handle-view */ "../../node_modules/@eclipse-glsp/client/lib/views/routing-point-handle-view.js");
 exports.baseViewModule = new sprotty_1.FeatureModule((bind, unbind, isBound, rebind) => {
     const context = { bind, unbind, isBound, rebind };
     configureDefaultModelElements(context);
@@ -26937,8 +27295,8 @@ function configureDefaultModelElements(context) {
     (0, sprotty_1.configureModelElement)(context, sprotty_1.DefaultTypes.COMPARTMENT_HEADER, sprotty_1.GCompartment, sprotty_1.GCompartmentView);
     (0, sprotty_1.configureModelElement)(context, sprotty_1.DefaultTypes.EDGE, model_1.GEdge, gedge_view_1.GEdgeView);
     (0, sprotty_1.configureModelElement)(context, sprotty_1.DefaultTypes.PORT, sprotty_1.GPort, sprotty_1.RectangularNodeView);
-    (0, sprotty_1.configureModelElement)(context, sprotty_1.DefaultTypes.ROUTING_POINT, sprotty_1.GRoutingHandle, sprotty_1.GRoutingHandleView);
-    (0, sprotty_1.configureModelElement)(context, sprotty_1.DefaultTypes.VOLATILE_ROUTING_POINT, sprotty_1.GRoutingHandle, sprotty_1.GRoutingHandleView);
+    (0, sprotty_1.configureModelElement)(context, sprotty_1.DefaultTypes.ROUTING_POINT, sprotty_1.GRoutingHandle, routing_point_handle_view_1.GRoutingHandleView);
+    (0, sprotty_1.configureModelElement)(context, sprotty_1.DefaultTypes.VOLATILE_ROUTING_POINT, sprotty_1.GRoutingHandle, routing_point_handle_view_1.GRoutingHandleView);
     (0, sprotty_1.configureModelElement)(context, sprotty_1.DefaultTypes.LABEL, sprotty_1.GLabel, sprotty_1.GLabelView);
     // UI elements
     (0, sprotty_1.configureModelElement)(context, sprotty_1.DefaultTypes.BUTTON_EXPAND, sprotty_1.GButton, sprotty_1.ExpandButtonView);
@@ -27199,6 +27557,7 @@ exports.GLSPProjectionView = void 0;
 const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_modules/@eclipse-glsp/sprotty/lib/index.js");
 const inversify_1 = __webpack_require__(/*! inversify */ "../../node_modules/inversify/lib/cjs/index.js");
 const snabbdom_1 = __webpack_require__(/*! snabbdom */ "../../node_modules/snabbdom/build/index.js");
+const messages_1 = __webpack_require__(/*! ../base/messages */ "../../node_modules/@eclipse-glsp/client/lib/base/messages.js");
 const grid_style_1 = __webpack_require__(/*! ../features/grid/grid-style */ "../../node_modules/@eclipse-glsp/client/lib/features/grid/grid-style.js");
 /**
  * Special viewport root view that renders horizontal and vertical projection bars for quick navigation.
@@ -27209,7 +27568,7 @@ let GLSPProjectionView = class GLSPProjectionView extends sprotty_1.ProjectedVie
             this.renderSvg(model, context, args),
             this.renderProjections(model, context, args)));
         (0, sprotty_1.setAttr)(rootNode, 'tabindex', 1);
-        (0, sprotty_1.setAttr)(rootNode, 'aria-label', 'Diagram');
+        (0, sprotty_1.setAttr)(rootNode, 'aria-label', messages_1.messages.diagram.label);
         return rootNode;
     }
     renderSvg(model, context, args) {
@@ -27547,6 +27906,57 @@ function scaledRadius(radius, maximalLength) {
     }
 }
 exports.scaledRadius = scaledRadius;
+
+
+/***/ }),
+
+/***/ "../../node_modules/@eclipse-glsp/client/lib/views/routing-point-handle-view.js":
+/*!**************************************************************************************!*\
+  !*** ../../node_modules/@eclipse-glsp/client/lib/views/routing-point-handle-view.js ***!
+  \**************************************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.GRoutingHandleView = void 0;
+/********************************************************************************
+ * Copyright (c) 2025 EclipseSource and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
+const sprotty_1 = __webpack_require__(/*! @eclipse-glsp/sprotty */ "../../node_modules/@eclipse-glsp/sprotty/lib/index.js");
+const inversify_1 = __webpack_require__(/*! inversify */ "../../node_modules/inversify/lib/cjs/index.js");
+const model_1 = __webpack_require__(/*! ../features/reconnect/model */ "../../node_modules/@eclipse-glsp/client/lib/features/reconnect/model.js");
+let GRoutingHandleView = class GRoutingHandleView extends sprotty_1.SRoutingHandleView {
+    render(handle, context, args) {
+        // We have our own handle view for the reconnect handles
+        if (!(0, model_1.isReconnectHandle)(handle) && (handle.kind === 'source' || handle.kind === 'target')) {
+            return undefined;
+        }
+        return super.render(handle, context, args);
+    }
+};
+exports.GRoutingHandleView = GRoutingHandleView;
+exports.GRoutingHandleView = GRoutingHandleView = __decorate([
+    (0, inversify_1.injectable)()
+], GRoutingHandleView);
 
 
 /***/ }),
@@ -29344,7 +29754,7 @@ var RedoAction;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.FitToScreenAction = exports.CenterAction = void 0;
+exports.MoveViewportAction = exports.FitToScreenAction = exports.CenterAction = void 0;
 const type_util_1 = __webpack_require__(/*! ../utils/type-util */ "../../node_modules/@eclipse-glsp/protocol/lib/utils/type-util.js");
 const base_protocol_1 = __webpack_require__(/*! ./base-protocol */ "../../node_modules/@eclipse-glsp/protocol/lib/action-protocol/base-protocol.js");
 var CenterAction;
@@ -29382,6 +29792,18 @@ var FitToScreenAction;
     }
     FitToScreenAction.create = create;
 })(FitToScreenAction || (exports.FitToScreenAction = FitToScreenAction = {}));
+var MoveViewportAction;
+(function (MoveViewportAction) {
+    MoveViewportAction.KIND = 'moveViewport';
+    function is(object) {
+        return base_protocol_1.Action.hasKind(object, MoveViewportAction.KIND);
+    }
+    MoveViewportAction.is = is;
+    function create(options) {
+        return { kind: MoveViewportAction.KIND, ...options };
+    }
+    MoveViewportAction.create = create;
+})(MoveViewportAction || (exports.MoveViewportAction = MoveViewportAction = {}));
 
 
 /***/ }),
@@ -31526,6 +31948,16 @@ var Disposable;
         return { dispose: cb };
     }
     Disposable.create = create;
+    /**
+     * Disposes the given object if it is a {@link Disposable}.
+     * @param value The object that should be disposed
+     */
+    function dispose(value) {
+        if (is(value)) {
+            value.dispose();
+        }
+    }
+    Disposable.dispose = dispose;
 })(Disposable || (exports.Disposable = Disposable = {}));
 /**
  * Reusable base class to manage a collection of {@link Disposable}s.
@@ -33688,7 +34120,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.SvgExporter = exports.ExportSvgPostprocessor = exports.ExportSvgKeyListener = exports.ExportSvgCommand = exports.isExpandable = exports.expandFeature = exports.isEdgeLayoutable = exports.edgeLayoutFeature = exports.checkEdgePlacement = exports.DEFAULT_EDGE_PLACEMENT = exports.DeleteContextMenuItemProvider = exports.ContextMenuProviderRegistry = exports.RevealNamedElementActionProvider = exports.CommandPaletteActionProviderRegistry = exports.GButton = exports.configureButtonHandler = exports.ButtonHandlerRegistry = exports.layoutableChildFeature = exports.layoutContainerFeature = exports.isSizeable = exports.isLayoutableChild = exports.isLayoutContainer = exports.isBoundsAware = exports.isAlignable = exports.getAbsoluteClientBounds = exports.getAbsoluteBounds = exports.findChildrenAtPosition = exports.boundsFeature = exports.alignFeature = exports.GShapeElement = exports.FocusFixPostprocessor = exports.PopupMouseTool = exports.MouseTool = exports.MousePositionTracker = exports.KeyTool = exports.createFeatureSet = exports.SModelRegistry = exports.GModelFactory = exports.EMPTY_ROOT = exports.isParent = exports.createRandomId = exports.ModelIndexImpl = exports.GParentElement = exports.GModelRoot = exports.GModelElement = exports.GChildElement = exports.onAction = exports.configureActionHandler = exports.ActionHandlerRegistry = exports.ActionDispatcher = void 0;
-exports.JumpingPolylineEdgeView = exports.GRoutingHandleView = exports.GLabelView = exports.GCompartmentView = exports.GBezierCreateHandleView = exports.GBezierControlHandleView = exports.BezierCurveEdgeView = exports.SGraphImpl = exports.SEdgeImpl = exports.GPort = exports.GNode = exports.GLabel = exports.GGraphIndex = exports.GCompartment = exports.GViewportRootElement = exports.SprottySelectCommand = exports.SprottySelectAllCommand = exports.SelectMouseListener = exports.SelectKeyboardListener = exports.GetSelectionCommand = exports.selectFeature = exports.isSelected = exports.isSelectable = exports.isConnectable = exports.getRouteBounds = exports.getAbsoluteRouteBounds = exports.edgeInProgressTargetHandleID = exports.edgeInProgressID = exports.connectableFeature = exports.GRoutingHandle = exports.GRoutableElement = exports.GDanglingAnchor = exports.GConnectableElement = exports.isProjectable = exports.getProjections = exports.getProjectedBounds = exports.getModelBounds = exports.moveFeature = exports.isMoveable = exports.isLocateable = exports.isDecoration = exports.decorationFeature = exports.SIssueMarkerImpl = exports.GDecoration = exports.popupFeature = exports.isHoverable = exports.hoverFeedbackFeature = exports.hasPopupFeature = exports.isFadeable = exports.fadeFeature = void 0;
+exports.JumpingPolylineEdgeView = exports.SRoutingHandleView = exports.GLabelView = exports.GCompartmentView = exports.GBezierCreateHandleView = exports.GBezierControlHandleView = exports.BezierCurveEdgeView = exports.SGraphImpl = exports.SEdgeImpl = exports.GPort = exports.GNode = exports.GLabel = exports.GGraphIndex = exports.GCompartment = exports.GViewportRootElement = exports.SprottySelectCommand = exports.SprottySelectAllCommand = exports.SelectMouseListener = exports.SelectKeyboardListener = exports.GetSelectionCommand = exports.selectFeature = exports.isSelected = exports.isSelectable = exports.isConnectable = exports.getRouteBounds = exports.getAbsoluteRouteBounds = exports.edgeInProgressTargetHandleID = exports.edgeInProgressID = exports.connectableFeature = exports.GRoutingHandle = exports.GRoutableElement = exports.GDanglingAnchor = exports.GConnectableElement = exports.isProjectable = exports.getProjections = exports.getProjectedBounds = exports.getModelBounds = exports.moveFeature = exports.isMoveable = exports.isLocateable = exports.isDecoration = exports.decorationFeature = exports.SIssueMarkerImpl = exports.GDecoration = exports.popupFeature = exports.isHoverable = exports.hoverFeedbackFeature = exports.hasPopupFeature = exports.isFadeable = exports.fadeFeature = void 0;
 exports.SvgViewportView = exports.RectangularNodeView = exports.EmptyGroupView = exports.RectangularPort = exports.RectangularNode = exports.GShapedPreRenderedElement = exports.GPreRenderedElement = exports.GHtmlRoot = exports.GForeignObjectElement = exports.DiamondNode = exports.CircularPort = exports.CircularNode = exports.SGraphView = exports.PolylineEdgeViewWithGapsOnIntersections = exports.PolylineEdgeView = void 0;
 /**
  * @eclipse-glsp/protocol
@@ -33923,7 +34355,7 @@ Object.defineProperty(exports, "GBezierControlHandleView", ({ enumerable: true, 
 Object.defineProperty(exports, "GBezierCreateHandleView", ({ enumerable: true, get: function () { return views_1.SBezierCreateHandleView; } }));
 Object.defineProperty(exports, "GCompartmentView", ({ enumerable: true, get: function () { return views_1.SCompartmentView; } }));
 Object.defineProperty(exports, "GLabelView", ({ enumerable: true, get: function () { return views_1.SLabelView; } }));
-Object.defineProperty(exports, "GRoutingHandleView", ({ enumerable: true, get: function () { return views_1.SRoutingHandleView; } }));
+Object.defineProperty(exports, "SRoutingHandleView", ({ enumerable: true, get: function () { return views_1.SRoutingHandleView; } }));
 Object.defineProperty(exports, "JumpingPolylineEdgeView", ({ enumerable: true, get: function () { return views_1.JumpingPolylineEdgeView; } }));
 Object.defineProperty(exports, "PolylineEdgeView", ({ enumerable: true, get: function () { return views_1.PolylineEdgeView; } }));
 Object.defineProperty(exports, "PolylineEdgeViewWithGapsOnIntersections", ({ enumerable: true, get: function () { return views_1.PolylineEdgeViewWithGapsOnIntersections; } }));
@@ -34124,7 +34556,13 @@ exports.TYPES = {
     IChangeBoundsManager: Symbol('IChangeBoundsManager'),
     IGridManager: Symbol('IGridManager'),
     IDebugManager: Symbol('IDebugManager'),
-    Grid: Symbol('Grid')
+    Grid: Symbol('Grid'),
+    ZoomFactors: Symbol('ZoomFactors'),
+    /**
+     * Experimental shortcut manager.
+     * The API is not stable yet.
+     */
+    IShortcutManager: Symbol('IShortcutManager')
 };
 
 
@@ -80692,6 +81130,61 @@ var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMP
 
 /***/ }),
 
+/***/ "../../node_modules/@eclipse-glsp/client/css/search.css":
+/*!**************************************************************!*\
+  !*** ../../node_modules/@eclipse-glsp/client/css/search.css ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../../../style-loader/dist/runtime/styleDomAPI.js */ "../../node_modules/style-loader/dist/runtime/styleDomAPI.js");
+/* harmony import */ var _style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../style-loader/dist/runtime/insertBySelector.js */ "../../node_modules/style-loader/dist/runtime/insertBySelector.js");
+/* harmony import */ var _style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../style-loader/dist/runtime/setAttributesWithoutAttributes.js */ "../../node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js");
+/* harmony import */ var _style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! !../../../style-loader/dist/runtime/insertStyleElement.js */ "../../node_modules/style-loader/dist/runtime/insertStyleElement.js");
+/* harmony import */ var _style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! !../../../style-loader/dist/runtime/styleTagTransform.js */ "../../node_modules/style-loader/dist/runtime/styleTagTransform.js");
+/* harmony import */ var _style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _css_loader_dist_cjs_js_search_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! !!../../../css-loader/dist/cjs.js!./search.css */ "../../node_modules/css-loader/dist/cjs.js!../../node_modules/@eclipse-glsp/client/css/search.css");
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+var options = {};
+
+options.styleTagTransform = (_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default());
+options.setAttributes = (_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3___default());
+
+      options.insert = _style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default().bind(null, "head");
+    
+options.domAPI = (_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default());
+options.insertStyleElement = (_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default());
+
+var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_css_loader_dist_cjs_js_search_css__WEBPACK_IMPORTED_MODULE_6__["default"], options);
+
+
+
+
+       /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_css_loader_dist_cjs_js_search_css__WEBPACK_IMPORTED_MODULE_6__["default"] && _css_loader_dist_cjs_js_search_css__WEBPACK_IMPORTED_MODULE_6__["default"].locals ? _css_loader_dist_cjs_js_search_css__WEBPACK_IMPORTED_MODULE_6__["default"].locals : undefined);
+
+
+/***/ }),
+
 /***/ "../../node_modules/@eclipse-glsp/client/css/status-overlay.css":
 /*!**********************************************************************!*\
   !*** ../../node_modules/@eclipse-glsp/client/css/status-overlay.css ***!
@@ -86081,14 +86574,14 @@ function stringifyMetadata(metadata) {
 
 /***/ }),
 
-/***/ "../../node_modules/@eclipse-glsp/client/lib/features/accessibility/toast/messages.json":
-/*!**********************************************************************************************!*\
-  !*** ../../node_modules/@eclipse-glsp/client/lib/features/accessibility/toast/messages.json ***!
-  \**********************************************************************************************/
+/***/ "../../node_modules/@eclipse-glsp/client/lib/base/messages.json":
+/*!**********************************************************************!*\
+  !*** ../../node_modules/@eclipse-glsp/client/lib/base/messages.json ***!
+  \**********************************************************************/
 /***/ ((module) => {
 
 "use strict";
-module.exports = /*#__PURE__*/JSON.parse('{"navigation":{"default_navigation_mode_activated":"Navigation On: Use arrow keys to select preceding (←) or succeding (→) elements. Use the up (↑) and down (↓) arrows to navigate paths. Press \'N\' to exit.","default_navigation_mode_deactivated":"Navigation Off: Press \'N\' for default navigation, \'ALT+N\' for position based navigation.","local_navigation_mode_activated":"Position based Nav On: Navigate nearest elements using arrow keys: (↑) for above, (↓) for below, (←) for previous, (→) for next element. Press \'ALT+N\' to exit.","local_navigation_mode_deactivated":"Position based Nav Off: Press \'N\' for default navigation, \'ALT+N\' for position based navigation."},"focus":{"focus_on":"Currently focused: ","focus_off":"Currently no element is focused."},"resize":{"resize_mode_activated":"Resize On: Use plus(+) and minus(-) to resize, \'CTRL\'+\'0\' for default size. Press \'ESC\' to exit.","resize_mode_deactivated":"Resize Off: Press \'ALT\'+\'A\' for resize mode."},"grid":{"zoom_in_grid":"Select a digit from 1-9 to zoom in on the respective box."},"tool_palette":{"marqueeTool":"Currently marquee tool is only usable with mouse."}}');
+module.exports = /*#__PURE__*/JSON.parse('{"navigation":{"default_navigation_mode_activated":"Navigation On: Use arrow keys to select preceding (←) or succeding (→) elements. Use the up (↑) and down (↓) arrows to navigate paths. Press \'N\' to exit.","default_navigation_mode_deactivated":"Navigation Off: Press \'N\' for default navigation, \'ALT+N\' for position based navigation.","local_navigation_mode_activated":"Position based Nav On: Navigate nearest elements using arrow keys: (↑) for above, (↓) for below, (←) for previous, (→) for next element. Press \'ALT+N\' to exit.","local_navigation_mode_deactivated":"Position based Nav Off: Press \'N\' for default navigation, \'ALT+N\' for position based navigation.","shortcut_local_mode":"Activate local navigation mode","shortcut_global_mode":"Activate global navigation mode"},"focus":{"focus_not_set":"Focus not set","focus_on":"Currently focused: ","focus_off":"Currently no element is focused.","focus_within":"Within","shortcut_focus_palette":"Focus on tool palette","shortcut_focus_graph":"Focus on graph"},"resize":{"resize_mode_activated":"Resize On: Use plus(+) and minus(-) to resize, \'CTRL\'+\'0\' for default size. Press \'ESC\' to exit.","resize_mode_deactivated":"Resize Off: Press \'ALT\'+\'A\' for resize mode.","shortcut_activate":"Activate resize mode for selected element","shortcut_deactivate":"Deactivate resize handler","shortcut_increase":"Increase size of element","shortcut_decrease":"Decrease size of element","shortcut_reset":"Set element size to default"},"move":{"shortcut_move":"Move element"},"grid":{"zoom_in_grid":"Select a digit from 1-9 to zoom in on the respective box.","shortcut_zoom_in":"Zoom in via grid"},"search":{"shortcut_activate":"Activate search for elements","placeholder":"Search for elements...","label":"Search Field"},"tool_palette":{"label":"Tool Palette","delete_button":"Enable deletion tool","marquee_button":"Enable marquee tool","marquee_message":"Currently marquee tool is only usable with mouse.","search_placeholder":"Search...","search_button":"Filter palette entries","selection_button":"Enable selection tool","validate_button":"Validate model","reset_viewport_button":"Reset Viewport","toggle_grid_button":"Toggle Grid","debug_mode_button":"Debug Mode","minimize":"Minimize palette","maximize":"Maximize palette","no_items":"No results found."},"viewport":{"shortcut_move_viewport":"Move viewport","shortcut_zoom_viewport":"Zoom viewport","shortcut_zoom_element":"Zoom element"},"shortcut":{"title":"Keyboard Shortcuts","header_command":"Command","header_shortcut":"Keybinding","menu_title":"Shortcut Menu","group_move":"Move","group_graph":"Graph","group_resize":"Resize","group_focus":"Focus","group_zoom":"Zoom","group_navigation":"Navigation","group_grid":"Grid","group_search":"Search","group_tool_palette":"Tool Palette","group_viewport":"Viewport"},"diagram":{"label":"Diagram"},"autocomplete":{"no_suggestions":"No suggestions available"}}');
 
 /***/ })
 

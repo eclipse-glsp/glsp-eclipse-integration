@@ -13,5 +13,5 @@
    <category-def name="org.eclipse.glsp.example" label="Workflow Example integration">
       <category name="org.eclipse.glsp"/>
    </category-def>
-   <repository-reference location="https://download.eclipse.org/glsp/server/releases/2.3.0.javax" enabled="true" />
+   <repository-reference location="https://download.eclipse.org/glsp/server/releases/2.4.0.javax" enabled="true" />
 </site>

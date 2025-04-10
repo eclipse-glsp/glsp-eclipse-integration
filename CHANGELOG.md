@@ -1,5 +1,13 @@
 # Eclipse GLSP Eclipse Integration Changelog
 
+# v2.4.0.javax - 04/04/2025(<https://github.com/eclipse-glsp/glsp-eclipse-integration/releases/tag/v2.4.0.javax>)
+
+ Note: This release is a parallel release of the [2.3.0](https://github.com/eclipse-glsp/glsp-eclipse-integration/releases/tag/v2.4.0) release that does not contains
+       the switch to the Jakarta namespace and Jetty 12. Its main purpose is to enable an update for adopters that cannot switch to the Jarkata-based release yet.
+       Future versions will only be released in the jakarta version.
+
+## v2.4.0 - 04/04/2025(<https://github.com/eclipse-glsp/glsp-eclipse-integration/releases/tag/v2.4.0>)
+
 ## v2.3.0.javax - 27/12/2024(<https://github.com/eclipse-glsp/glsp-eclipse-integration/releases/tag/v2.3.0.javax>)
 
 Note: This release is a parallel release of the [2.3.0](https://github.com/eclipse-glsp/glsp-eclipse-integration/releases/tag/v2.3.0) release that does not contains
