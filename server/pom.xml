@@ -36,6 +36,20 @@
 		<tag>HEAD</tag>
 	</scm>
 
+	<pluginRepositories>
+		<pluginRepository>
+			<name>Central Portal Snapshots</name>
+			<id>central-portal-snapshots</id>
+			<url>https://central.sonatype.com/repository/maven-snapshots/</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.source>17</java.source>
@@ -48,13 +62,6 @@
 		<p2.target>r2024-09</p2.target>
 	</properties>
 
-	<pluginRepositories>
-		<pluginRepository>
-			<id>sonatype</id>
-			<name>Sonatype</name>
-			<url>https://oss.sonatype.org/content/groups/public</url>
-		</pluginRepository>
-	</pluginRepositories>
 
 	<modules>
 		<module>plugins/org.eclipse.glsp.ide.editor</module>
