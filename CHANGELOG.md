@@ -1,8 +1,9 @@
 # Eclipse GLSP Eclipse Integration Changelog
 
-## v2.4.0 - active
+## v2.5.0 - active
 
 ### Changes
+-   [node] Update minimum requirements for Node to >=20 [#112](https://github.com/eclipse-glsp/glsp-client/pull/112)
 
 ### Potentially breaking changes
 
