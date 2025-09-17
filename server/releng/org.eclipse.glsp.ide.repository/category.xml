@@ -14,5 +14,5 @@
       <category name="org.eclipse.glsp"/>
    </category-def>
    <repository-reference location="https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/2024-09" name="Eclipse Orbit" enabled="true" />
-   <repository-reference location="https://download.eclipse.org/glsp/server/p2/releases/2.3.0/" name="GLSP" enabled="true" />
+   <repository-reference location="https://download.eclipse.org/glsp/server/p2/nightly/2.6" name="GLSP" enabled="true" />
 </site>
