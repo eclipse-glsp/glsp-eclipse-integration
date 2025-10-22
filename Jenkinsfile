@@ -107,10 +107,6 @@ pipeline {
                         dir('server') {
                             sh 'mvn checkstyle:check -B'
                         }
-                        // Execute eslint checks 
-                        dir('client') {
-                            sh 'yarn lint:ci'
-                        }
                     }
                 }
             }
@@ -123,12 +119,7 @@ pipeline {
                     qualityGates: [[threshold: 1, type: 'TOTAL', unstable: true]]
 
                     // Record maven,java warnings
-                    recordIssues enabledForFailure: true, skipPublishingChecks:true, tools: [mavenConsole(), java()]    
-                
-                    // Record & publish esLint issues
-                    recordIssues enabledForFailure: true, publishAllIssues: true, aggregatingResults: true, 
-                    tools: [esLint(pattern: 'client/eslint.xml')], 
-                    qualityGates: [[threshold: 1, type: 'TOTAL', unstable: true]] 
+                    recordIssues enabledForFailure: true, skipPublishingChecks:true, tools: [mavenConsole(), java()]     
                 }
             }
         }
@@ -140,27 +131,11 @@ pipeline {
                     expression {  
                       /* Only trigger the deployment job if the changeset contains changes in 
                       the `server` or `client/packages/` directory */
-                      sh(returnStatus: true, script: 'git diff --name-only HEAD^ | grep -q "^server\\|client/packages/"') == 0
+                      sh(returnStatus: true, script: 'git diff --name-only HEAD^ | grep -q "^server"') == 0
                     }
                 }
             }
             stages {
-                stage('Deploy client (NPM)') {
-                    steps { 
-                        container('ci') {
-                            timeout(30) {
-                                dir('client') {
-                                    withCredentials([string(credentialsId: 'npmjs-token', variable: 'NPM_AUTH_TOKEN')]) {
-                                                sh 'printf "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}\n" >> $WORKSPACE/client/.npmrc'
-                                    }
-                                    sh 'git config  user.email "eclipse-glsp-bot@eclipse.org"'
-                                    sh 'git config  user.name "eclipse-glsp-bot"'
-                                    sh 'yarn publish:next'  
-                                }
-                            }
-                        }
-                    }
-                }
                 stage('Deploy server (P2)') {
                     steps {
                         build job: 'deploy-ide-p2-nightly', wait: false
