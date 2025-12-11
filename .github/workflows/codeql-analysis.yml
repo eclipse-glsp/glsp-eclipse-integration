@@ -40,7 +40,8 @@ jobs:
       
       - uses: actions/setup-java@dded0888837ed1f317902acf8a20df0ad188d165 # v5.0.0
         with:
-         java-version: 17
+          distribution: 'temurin'
+          java-version: 17
 
 
       # Initializes the CodeQL tools for scanning.
