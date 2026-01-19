@@ -30,43 +30,6 @@
 					<skip>true</skip>
 				</configuration>
 			</plugin>
-			<!-- Temporarily remove .gitignore during p2 updatesite build to ensure
-				gitignored files are included in the repository -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<version>${maven-antrun-plugin.version}</version>
-				<executions>
-					<execution>
-						<id>remove-gitignore</id>
-						<phase>initialize</phase>
-						<goals>
-							<goal>run</goal>
-						</goals>
-						<configuration>
-							<target>
-								<move file="${project.basedir}/../../example/org.eclipse.glsp.ide.workflow.editor/diagram/.gitignore"
-								      tofile="${project.basedir}/../../example/org.eclipse.glsp.ide.workflow.editor/diagram/.gitignore.bak"
-								      failonerror="true"/>
-							</target>
-						</configuration>
-					</execution>
-					<execution>
-						<id>restore-gitignore</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>run</goal>
-						</goals>
-						<configuration>
-							<target>
-								<move file="${project.basedir}/../../example/org.eclipse.glsp.ide.workflow.editor/diagram/.gitignore.bak"
-								      tofile="${project.basedir}/../../example/org.eclipse.glsp.ide.workflow.editor/diagram/.gitignore"
-								      failonerror="true"/>
-							</target>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
 		</plugins>
 	</build>
 

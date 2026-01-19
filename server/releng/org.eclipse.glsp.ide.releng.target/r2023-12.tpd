@@ -9,7 +9,7 @@ location "http://download.eclipse.org/releases/2023-12" {
 	com.ibm.icu [74.1.0,74.1.0]
 }
 
-location "https://download.eclipse.org/tools/orbit/simrel/maven-jetty/release/12.0.12" {
+location "https://download.eclipse.org/tools/orbit/simrel/maven-jetty/release/12.1.4" {
 	org.eclipse.jetty.ee10.websocket.jakarta.server
 	org.eclipse.jetty.ee10.websocket.server
 	org.eclipse.jetty.websocket.api	
@@ -29,7 +29,7 @@ location "https://download.eclipse.org/glsp/server/p2/nightly/2.6"{
 	org.eclipse.glsp.example.workflow lazy
 }
 
-location "https://download.eclipse.org/elk/updates/releases/0.8.1/" {
+location "https://download.eclipse.org/elk/updates/releases/0.11.0/" {
 	org.eclipse.elk.core
 	org.eclipse.elk.graph
 	org.eclipse.elk.graph.text
