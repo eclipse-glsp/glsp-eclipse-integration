@@ -59,7 +59,7 @@
 		<maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
 		<checkstyle.plugin>3.4.0</checkstyle.plugin>
 		<checkstyle>8.44</checkstyle>
-		<p2.target>r2024-09</p2.target>
+		<p2.target>r2025-12</p2.target>
 	</properties>
 
 
