@@ -47,7 +47,7 @@ public class FocusAwareBrowser extends Browser {
 
    @Override
    public boolean isFocusControl() {
-      if (!focusTracker.get()) {
+      if (focusTracker != null && !focusTracker.get()) {
          return false;
       }
       return super.isFocusControl();
