@@ -106,7 +106,7 @@ pipeline {
                                 if (sh(returnStatus: true, script: 'git diff --name-only | grep -q "^client/yarn.lock"') == 0) {
                                     echo 'The yarn.lock file has uncommited changes!'
                                     error 'The yarn.lock file has uncommited changes!'
-                                } 
+                                }
                             }
                         }
                     }
@@ -151,23 +151,40 @@ pipeline {
             }
         }
 
-        stage('Deploy (master only)') {
-            when { 
-                allOf {
-                    branch 'master';
-                    expression {  
-                      /* Only trigger the deployment job if the changeset contains changes in 
-                      the `server` or `client/packages/` directory */
-                      sh(returnStatus: true, script: 'git diff --name-only HEAD^ | grep -q "^server"') == 0
+        stage('Archive Client Bundle') {
+            steps {
+                container('ci') {
+                    dir('client/examples/workflow-webapp') {
+                        archiveArtifacts artifacts: 'app/**', fingerprint: true
                     }
                 }
             }
-            stages {
-                stage('Deploy server (P2)') {
-                    steps {
-                        build job: 'deploy-ide-p2-nightly', wait: false
+        }
+
+        stage('Deploy P2 (master only)') {
+            // TODO: Re-enable when condition after testing
+            // when {
+            //     allOf {
+            //         branch 'master'
+            //         expression {
+            //             /* Only trigger the deployment job if the changeset contains changes in
+            //             the `server` or `client/packages/` directory */
+            //             sh(returnStatus: true, script: 'git diff --name-only HEAD^ | grep -q "^server\\|^client"') == 0
+            //         }
+            //     }
+            // }
+            steps {
+                container('ci') {
+                    // Add projects-storage.eclipse.org to known_hosts for SSH
+                    sh 'mkdir -p ~/.ssh && ssh-keyscan -t rsa projects-storage.eclipse.org >> ~/.ssh/known_hosts'
+                    dir('server') {
+                        sh "rm -rf ${WORKSPACE}/p2-update-site/ide/p2"
+                        sh "mkdir -p ${WORKSPACE}/p2-update-site/ide/p2/nightly"
+                        sshagent(['projects-storage.eclipse.org-bot-ssh']) {
+                            // Allow Security Manager for Java 21 compatibility with Eclipse Ant Runner
+                            sh "mvn clean install -Prelease -B -Dmaven.repo.local=${env.WORKSPACE}/.m2 -Dlocal.p2.root=${WORKSPACE}/p2-update-site -Dtycho.eclipserun.jvmArgs='-Djava.security.manager=allow'"
+                        }
                     }
-                
                 }
             }
         }
