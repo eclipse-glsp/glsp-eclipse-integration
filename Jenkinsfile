@@ -151,23 +151,27 @@ pipeline {
             }
         }
 
-        stage('Deploy (master only)') {
-            when { 
-                allOf {
-                    branch 'master';
-                    expression {  
-                      /* Only trigger the deployment job if the changeset contains changes in 
-                      the `server` or `client/packages/` directory */
-                      sh(returnStatus: true, script: 'git diff --name-only HEAD^ | grep -q "^server"') == 0
+        stage('Deploy P2') {
+            // TODO: Re-enable when condition after testing
+            // when {
+            //     allOf {
+            //         branch 'master';
+            //         expression {
+            //             sh(returnStatus: true, script: 'git diff --name-only HEAD^ | grep -q "^server"') == 0
+            //         }
+            //     }
+            // }
+            steps {
+                container('ci') {
+                    timeout(30) {
+                        dir('server') {
+                            sh "rm -rf ${WORKSPACE}/p2-update-site/ide/p2"
+                            sh "mkdir -p ${WORKSPACE}/p2-update-site/ide/p2/nightly"
+                            sshagent(['projects-storage.eclipse.org-bot-ssh']) {
+                                sh "mvn clean install -Prelease -B -Dmaven.repo.local=${WORKSPACE}/.m2 -Dlocal.p2.root=${WORKSPACE}/p2-update-site"
+                            }
+                        }
                     }
-                }
-            }
-            stages {
-                stage('Deploy server (P2)') {
-                    steps {
-                        build job: 'deploy-ide-p2-nightly', wait: false
-                    }
-                
                 }
             }
         }
