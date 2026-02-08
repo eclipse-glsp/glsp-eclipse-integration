@@ -4,7 +4,7 @@ kind: Pod
 spec:
   containers:
   - name: ci
-    image: eclipseglsp/ci:alpine-v7.0
+    image: eclipseglsp/ci:alpine-v7.1
     resources:
       limits:
         memory: "2Gi"
@@ -31,8 +31,6 @@ spec:
       readOnly: true
     - name: m2-repo
       mountPath: /home/jenkins/.m2/repository
-    - name: volume-known-hosts
-      mountPath: /home/jenkins/.ssh
   volumes:
   - name: "jenkins-home"
     emptyDir: {}
@@ -46,9 +44,6 @@ spec:
         path: settings.xml
   - name: m2-repo
     emptyDir: {}
-  - name: volume-known-hosts
-    configMap:
-      name: known-hosts
 """
 pipeline {
     agent {
@@ -106,9 +101,10 @@ pipeline {
                                 if (sh(returnStatus: true, script: 'git diff --name-only | grep -q "^client/yarn.lock"') == 0) {
                                     echo 'The yarn.lock file has uncommited changes!'
                                     error 'The yarn.lock file has uncommited changes!'
-                                } 
+                                }
                             }
                         }
+                        archiveArtifacts artifacts: 'client/examples/workflow-webapp/app/**', fingerprint: true
                     }
                 }
             }
@@ -151,28 +147,22 @@ pipeline {
             }
         }
 
-        stage('Deploy P2') {
+        stage('Deploy (master only)') {
             // TODO: Re-enable when condition after testing
             // when {
             //     allOf {
-            //         branch 'master';
+            //         branch 'master'
             //         expression {
-            //             sh(returnStatus: true, script: 'git diff --name-only HEAD^ | grep -q "^server"') == 0
+            //             sh(returnStatus: true, script: 'git diff --name-only HEAD^ | grep -q "^server\\|^client"') == 0
             //         }
             //     }
             // }
             steps {
-                container('ci') {
-                    timeout(30) {
-                        dir('server') {
-                            sh "rm -rf ${WORKSPACE}/p2-update-site/ide/p2"
-                            sh "mkdir -p ${WORKSPACE}/p2-update-site/ide/p2/nightly"
-                            sshagent(['projects-storage.eclipse.org-bot-ssh']) {
-                                sh "mvn clean install -Prelease -B -Dmaven.repo.local=${WORKSPACE}/.m2 -Dlocal.p2.root=${WORKSPACE}/p2-update-site"
-                            }
-                        }
-                    }
-                }
+                build job: 'deploy-ide-p2-nightly',
+                      wait: false,
+                      parameters: [
+                          string(name: 'ARTIFACT_URL', value: "${env.BUILD_URL}artifact/client/examples/workflow-webapp/app/*zip*/app.zip")
+                      ]
             }
         }
     }
