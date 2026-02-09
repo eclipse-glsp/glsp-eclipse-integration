@@ -31,8 +31,6 @@ spec:
       readOnly: true
     - name: m2-repo
       mountPath: /home/jenkins/.m2/repository
-    - name: volume-known-hosts
-      mountPath: /home/jenkins/.ssh
   volumes:
   - name: "jenkins-home"
     emptyDir: {}
@@ -46,9 +44,6 @@ spec:
         path: settings.xml
   - name: m2-repo
     emptyDir: {}
-  - name: volume-known-hosts
-    configMap:
-      name: known-hosts
 """
 pipeline {
     agent {
@@ -79,9 +74,10 @@ pipeline {
                                 if (sh(returnStatus: true, script: 'git diff --name-only | grep -q "^client/yarn.lock"') == 0) {
                                     echo 'The yarn.lock file has uncommited changes!'
                                     error 'The yarn.lock file has uncommited changes!'
-                                } 
+                                }
                             }
                         }
+                        archiveArtifacts artifacts: 'client/examples/workflow-webapp/app/**', fingerprint: true
                     }
                 }
             }
@@ -125,23 +121,21 @@ pipeline {
         }
 
         stage('Deploy (master only)') {
-            when { 
+            when {
                 allOf {
-                    branch 'master';
-                    expression {  
-                      /* Only trigger the deployment job if the changeset contains changes in 
-                      the `server` or `client/packages/` directory */
-                      sh(returnStatus: true, script: 'git diff --name-only HEAD^ | grep -q "^server"') == 0
+                    branch 'master'
+                    expression {
+                        /* Only trigger deployment if the changeset contains changes in `server` or `client/packages` directories */
+                        sh(returnStatus: true, script: 'git diff --name-only HEAD^ | grep -q "^server\\|^client"') == 0
                     }
                 }
             }
-            stages {
-                stage('Deploy server (P2)') {
-                    steps {
-                        build job: 'deploy-ide-p2-nightly', wait: false
-                    }
-                
-                }
+            steps {
+                build job: 'deploy-ide-p2-nightly',
+                      wait: false,
+                      parameters: [
+                          string(name: 'ARTIFACT_URL', value: "${env.BUILD_URL}artifact/client/examples/workflow-webapp/app/*zip*/app.zip")
+                      ]
             }
         }
     }
