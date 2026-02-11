@@ -1,10 +1,14 @@
 # Eclipse GLSP Eclipse Integration Changelog
 
-## v2.6.0 - active
+## [v2.6.0 - 11/02/2026](https://github.com/eclipse-glsp/glsp-eclipse-integration/releases/tag/v2.6.0)
 
 ### Changes
 
+-   [diagram] Add NPE guard to `FocusAwareBrowser` [#119](https://github.com/eclipse-glsp/glsp-eclipse-integration/pull/119)
+
 ### Potentially Breaking Changes
+
+-   [websocket] Update to Jetty 12.1.4 as new minimum version [#118](https://github.com/eclipse-glsp/glsp-eclipse-integration/pull/118)
 
 ## v2.5.0 - 07/09/2025(<https://github.com/eclipse-glsp/glsp-eclipse-integration/releases/tag/v2.5.0>)
 
