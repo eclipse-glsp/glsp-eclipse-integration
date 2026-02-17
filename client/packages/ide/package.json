@@ -1,6 +1,6 @@
 {
   "name": "@eclipse-glsp/ide",
-  "version": "2.6.0",
+  "version": "2.7.0-next",
   "description": "Glue code to integrate GLSP clients into Eclipse via a webapp",
   "homepage": "https://www.eclipse.org/glsp/",
   "bugs": "https://github.com/eclipse-glsp/glsp/issues",
@@ -34,7 +34,7 @@
     "watch": "tsc -w"
   },
   "dependencies": {
-    "@eclipse-glsp/client": "2.6.0"
+    "@eclipse-glsp/client": "next"
   },
   "engines": {
     "yarn": "1.0.x || >=1.2.1"

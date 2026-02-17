@@ -13,6 +13,6 @@
    <category-def name="org.eclipse.glsp.example" label="Workflow Example integration">
       <category name="org.eclipse.glsp"/>
    </category-def>
-   <repository-reference location="https://download.eclipse.org/glsp/server/p2/releases/2.6.0" name="GLSP" enabled="true" />
+   <repository-reference location="https://download.eclipse.org/glsp/server/p2/nightly/2.7/" name="GLSP" enabled="true" />
    <repository-reference location="https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/2025-12" name="Eclipse Orbit" enabled="true" />
 </site>
