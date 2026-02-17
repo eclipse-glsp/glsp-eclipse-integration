@@ -1,11 +1,18 @@
 # Eclipse GLSP Eclipse Integration Changelog
 
-## v2.5.0 - active
+## [v2.6.0.javax - 11/02/2026](https://github.com/eclipse-glsp/glsp-eclipse-integration/releases/tag/v2.6.0.javax)
 
 ### Changes
+
+-   [diagram] Add NPE guard to `FocusAwareBrowser` [#119](https://github.com/eclipse-glsp/glsp-eclipse-integration/pull/119)
+
+## v2.5.0.javax - 07/09/2025(<https://github.com/eclipse-glsp/glsp-eclipse-integration/releases/tag/v2.5.0.javax>)
+
+### Potentially breaking changes
+
 -   [node] Update minimum requirements for Node to >=20 [#112](https://github.com/eclipse-glsp/glsp-client/pull/112)
 
-## v2.4.0 - 04/04/2025(<https://github.com/eclipse-glsp/glsp-eclipse-integration/releases/tag/v2.4.0>)
+## v2.4.0.javax - 04/04/2025(<https://github.com/eclipse-glsp/glsp-eclipse-integration/releases/tag/v2.4.0.javax>)
 
 ## v2.3.0.javax - 27/12/2024(<https://github.com/eclipse-glsp/glsp-eclipse-integration/releases/tag/v2.3.0.javax>)
 
