@@ -29,8 +29,7 @@
     "build": "tsc -b",
     "clean": "rimraf lib tsconfig.tsbuildinfo",
     "generate:index": "glsp generateIndex src -f -s",
-    "lint": "eslint --ext .ts,.tsx ./src",
-    "lint:ci": "yarn lint -o eslint.xml -f checkstyle",
+    "lint": "eslint ./src",
     "watch": "tsc -w"
   },
   "dependencies": {

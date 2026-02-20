@@ -1,2 +1,7 @@
 .m2
 yarn-cache
+
+/.claude/settings.local.json 
+/.claude/plans
+CLAUDE.local.MD
+.reviews
