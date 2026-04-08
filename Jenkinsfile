@@ -60,7 +60,7 @@ pipeline {
         YARN_CACHE_FOLDER = "${env.WORKSPACE}/yarn-cache"
         SPAWN_WRAP_SHIM_ROOT = "${env.WORKSPACE}"
         EMAIL_TO= "glsp-build@eclipse.org"
-        MAVEN_VERSION = "3.9.12"
+        MAVEN_VERSION = "3.9.14"
 
     }
     
