@@ -67,7 +67,7 @@ pipeline {
             steps {
                 container('ci') {
                     sh '''
-                        MAVEN_VERSION=$(curl -sf "https://api.github.com/repos/apache/maven/releases/latest" | grep '"tag_name"' | sed 's/.*"maven-\([^"]*\)".*/\1/')
+                        MAVEN_VERSION=$(curl -sf "https://api.github.com/repos/apache/maven/releases/latest" | grep '"tag_name"' | sed 's/.*"maven-\\([^"]*\\)".*/\\1/')
                         curl -o maven.tar.gz -L "https://dlcdn.apache.org/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz"
                         tar -xzf maven.tar.gz -C ${WORKSPACE}
                         rm -f maven.tar.gz
