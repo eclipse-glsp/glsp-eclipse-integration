@@ -11,7 +11,7 @@ This repository is split into two main parts:
   - `server/releng/`: target platform, feature, and p2 repository modules.
 
 ## Build, Test, and Development Commands
-- `cd client && yarn install`: install workspace dependencies (Node `>=20`, Yarn 1.x).
+- `cd client && yarn install`: install workspace dependencies (Node `>=22`, Yarn 1.x).
 - `cd client && yarn build`: compile TS packages and bundle the workflow webapp.
 - `cd client && yarn lint`: run ESLint on all TS/TSX sources.
 - `cd client && yarn format:check`: verify Prettier formatting.

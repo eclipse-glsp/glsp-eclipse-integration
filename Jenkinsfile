@@ -4,7 +4,7 @@ kind: Pod
 spec:
   containers:
   - name: ci
-    image: eclipseglsp/ci:alpine-v7.1
+    image: eclipseglsp/ci:alpine-v8.0
     resources:
       limits:
         memory: "2Gi"
