@@ -2,7 +2,7 @@ name: 'Publish to NPM'
 
 on:
   workflow_run:
-    workflows: ['CI']
+    workflows: ['CI (Client)']
     types:
       - completed
     branches: [master]
