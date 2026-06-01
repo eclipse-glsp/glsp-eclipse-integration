@@ -31,6 +31,33 @@ spec:
       readOnly: true
     - name: m2-repo
       mountPath: /home/jenkins/.m2/repository
+  - name: jnlp
+    resources:
+      limits:
+        memory: "3Gi"
+        cpu: "1"
+      requests:
+        memory: "3Gi"
+        cpu: "1"
+    volumeMounts:
+    - name: known-hosts
+      mountPath: /home/jenkins/.ssh
+    - name: settings-xml
+      mountPath: /home/jenkins/.m2/settings.xml
+      subPath: settings.xml
+      readOnly: true
+    - name: settings-security-xml
+      mountPath: /home/jenkins/.m2/settings-security.xml
+      subPath: settings-security.xml
+      readOnly: true
+    - name: toolchains-xml
+      mountPath: /home/jenkins/.m2/toolchains.xml
+      subPath: toolchains.xml
+      readOnly: true
+    - name: m2-repo
+      mountPath: /home/jenkins/.m2/repository
+    - name: tools
+      mountPath: /opt/tools
   volumes:
   - name: "jenkins-home"
     emptyDir: {}
@@ -42,8 +69,26 @@ spec:
       items:
       - key: settings.xml
         path: settings.xml
+  - name: settings-security-xml
+    secret:
+      secretName: m2-secret-dir
+      items:
+      - key: settings-security.xml
+        path: settings-security.xml
+  - name: toolchains-xml
+    configMap:
+      name: m2-dir
+      items:
+      - key: toolchains.xml
+        path: toolchains.xml
   - name: m2-repo
     emptyDir: {}
+  - name: known-hosts
+    configMap:
+      name: known-hosts
+  - name: tools
+    persistentVolumeClaim:
+      claimName: tools-claim-jiro-glsp
 """
 pipeline {
     agent {
@@ -103,7 +148,6 @@ pipeline {
                                 }
                             }
                         }
-                        archiveArtifacts artifacts: 'client/examples/workflow-webapp/app/**', fingerprint: true
                     }
                 }
             }
@@ -157,11 +201,15 @@ pipeline {
                 }
             }
             steps {
-                build job: 'deploy-ide-p2-nightly',
-                      wait: false,
-                      parameters: [
-                          string(name: 'ARTIFACT_URL', value: "${env.BUILD_URL}artifact/client/examples/workflow-webapp/app/*zip*/app.zip")
-                      ]
+                container('jnlp') {
+                    sh "rm -rf ${WORKSPACE}/p2-update-site/ide/p2"
+                    sh "mkdir -p ${WORKSPACE}/p2-update-site/ide/p2/nightly"
+                    sshagent(['projects-storage.eclipse.org-bot-ssh']) {
+                        dir('server') {
+                            sh "mvn clean verify -Prelease -B -Dmaven.repo.local=${env.WORKSPACE}/.m2 -Dlocal.p2.root=${WORKSPACE}/p2-update-site"
+                        }
+                    }
+                }
             }
         }
     }
