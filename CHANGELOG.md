@@ -1,5 +1,11 @@
 # Eclipse GLSP Eclipse Integration Changelog
 
+## [v2.7.0.javax - 02/06/2026](https://github.com/eclipse-glsp/glsp-eclipse-integration/releases/tag/v2.7.0.javax)
+
+### Changes
+
+-   [deps] Migrate to ESLint 9.x [#124](https://github.com/eclipse-glsp/glsp-eclipse-integration/pull/124)
+
 ## [v2.6.0.javax - 11/02/2026](https://github.com/eclipse-glsp/glsp-eclipse-integration/releases/tag/v2.6.0.javax)
 
 ### Changes
@@ -17,8 +23,8 @@
 ## v2.3.0.javax - 27/12/2024(<https://github.com/eclipse-glsp/glsp-eclipse-integration/releases/tag/v2.3.0.javax>)
 
 Note: This release is a parallel release of the [2.3.0](https://github.com/eclipse-glsp/glsp-eclipse-integration/releases/tag/v2.3.0) release that does not contains
-      the switch to the Jakarta namespace and Jetty 12. Its main purpose is to enable an update for adopters that cannot switch to the Jarkata-based release yet.
-      Future versions will only be released in the jakarta version.
+the switch to the Jakarta namespace and Jetty 12. Its main purpose is to enable an update for adopters that cannot switch to the Jarkata-based release yet.
+Future versions will only be released in the jakarta version.
 
 ### Changes
 
@@ -33,7 +39,7 @@ Note: This release is a parallel release of the [2.3.0](https://github.com/eclip
 
 ### Changes
 
-- [api] Improved customizability by changing the visibility of private methods and fields to protected [#101](https://github.com/eclipse-glsp/glsp-eclipse-integration/pull/101)
+-   [api] Improved customizability by changing the visibility of private methods and fields to protected [#101](https://github.com/eclipse-glsp/glsp-eclipse-integration/pull/101)
 
 ## v2.1.0 - 24/01/2024(<https://github.com/eclipse-glsp/glsp-eclipse-integration/releases/tag/v2.1.0>)
 
