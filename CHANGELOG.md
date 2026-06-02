@@ -1,6 +1,6 @@
 # Eclipse GLSP Eclipse Integration Changelog
 
-## [v2.7.0 - 02/06/2026](https://github.com/eclipse-glsp/glsp-eclipse-integration/releases/tag/v2.7.0)
+## v2.7.0 - active
 
 ### Changes
 
