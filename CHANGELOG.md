@@ -1,5 +1,15 @@
 # Eclipse GLSP Eclipse Integration Changelog
 
+## v2.7.0 - active
+
+### Changes
+
+-   [deps] Migrate to ESLint 9.x [#124](https://github.com/eclipse-glsp/glsp-eclipse-integration/pull/124)
+
+### Potentially Breaking Changes
+
+-   [node] Upgrade to Node 22 as new minimum version [#128](https://github.com/eclipse-glsp/glsp-eclipse-integration/pull/128)
+
 ## [v2.6.0 - 11/02/2026](https://github.com/eclipse-glsp/glsp-eclipse-integration/releases/tag/v2.6.0)
 
 ### Changes
