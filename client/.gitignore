@@ -1,10 +1,10 @@
 node_modules
 lib
 
-**/app/bundle.js
-**/app/bundle.js.map
-**/app/*.bundle.js
-**/app/*.bundle.js.map
+**/app/*bundle.js
+**/app/*bundle.js.map
+**/app/*bundle.css
+**/app/*bundle.css.map
 
 *.log
 *.ttf

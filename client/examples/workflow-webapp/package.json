@@ -4,13 +4,13 @@
   "private": true,
   "description": "GLSP-based webapp for the Workflow example",
   "scripts": {
-    "bundle": "yarn compile && webpack",
-    "clean": "rimraf lib tsconfig.tsbuildinfo app/bundle.js app/bundle.js.map",
+    "bundle": "yarn compile && node ./esbuild.js",
+    "clean": "rimraf lib tsconfig.tsbuildinfo app/bundle.js app/bundle.js.map app/bundle.css app/bundle.css.map app/*.ttf",
     "compile": "tsc -b",
     "lint": "eslint ./src",
     "test": "mocha --config ../../.mocharc.json \"./src/**/*.spec.?(ts|tsx)\"",
     "test:ci": "export JUNIT_REPORT_PATH=./report.xml && yarn test --reporter mocha-jenkins-reporter",
-    "watch": "webpack -w",
+    "watch": "node ./esbuild.js --watch",
     "watch:tsc": "tsc -w"
   },
   "dependencies": {
@@ -19,14 +19,8 @@
   },
   "devDependencies": {
     "@vscode/codicons": "^0.0.25",
-    "css-loader": "^6.7.3",
-    "file-loader": "^6.2.0",
+    "esbuild": "^0.25.0",
     "reflect-metadata": "^0.1.13",
-    "rimraf": "^3.0.2",
-    "source-map-loader": "^4.0.1",
-    "style-loader": "^3.3.1",
-    "ts-loader": "^9.4.2",
-    "webpack": "^5.75.0",
-    "webpack-cli": "^5.0.1"
+    "rimraf": "^3.0.2"
   }
 }
