@@ -3,9 +3,22 @@
 Contains the client side glue code for opening browser-based GLSP diagrams in an Eclipse IDE editor as well as the workflow webapp example.
 This project is available from npm via [@eclipse-glsp/ide](https://www.npmjs.com/package/@eclipse-glsp/ide).
 
-## Building
+## Developer Documentation
 
-To build this project locally, run `yarn` in this directory.
+### First time setup
+
+- Install [node.js](https://nodejs.org/) (requires Node v22+)
+- Install pnpm: <https://pnpm.io/installation> (use pnpm 11+); a recent pnpm automatically switches to the version pinned in the `packageManager` field
+- Clone this repository
+- Install dependencies from this `client` directory: `pnpm i` or `pnpm i --frozen-lockfile`
+
+### Build & Testing
+
+- Build (all packages + workflow webapp bundle): `pnpm build`
+- Lint: `pnpm lint`
+- Check formatting: `pnpm format:check`
+- Clean (all packages): `pnpm clean`
+- `pnpm copy:client` copies the bundled webapp into the Eclipse server's diagram folder (`../server/example/org.eclipse.glsp.ide.workflow.editor/diagram`); the Jenkins build runs this automatically before building the server.
 
 ## More information
 
