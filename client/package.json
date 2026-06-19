@@ -2,42 +2,38 @@
   "name": "parent",
   "version": "2.8.0-next",
   "private": true,
-  "workspaces": [
-    "packages/*",
-    "examples/*"
-  ],
   "scripts": {
-    "app": "yarn --cwd examples/workflow-webapp",
-    "build": "yarn compile && yarn app bundle",
-    "check:all": "yarn install && yarn lint && yarn format:check && yarn headers:check",
-    "clean": "lerna run clean",
+    "app": "pnpm -C examples/workflow-webapp",
+    "build": "pnpm compile && pnpm app bundle",
+    "check:all": "pnpm install && pnpm build && pnpm lint && pnpm format:check && pnpm headers:check",
+    "clean": "pnpm -r run clean",
     "compile": "tsc -b",
     "copy:client": "copyfiles -f ./examples/workflow-webapp/app/* ../server/example/org.eclipse.glsp.ide.workflow.editor/diagram",
-    "fix:all": "yarn lint:fix && yarn format && yarn headers:fix",
+    "fix:all": "pnpm lint:fix && pnpm format && pnpm headers:fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "generate:index": "lerna run generate:index && yarn lint:fix",
+    "generate:index": "pnpm -r generate:index && pnpm lint:fix",
     "headers:check": "glsp checkHeaders ../../glsp-eclipse-integration -f ts tsx java -e \"**/src-gen/**\"",
     "headers:fix": "glsp checkHeaders ../../glsp-eclipse-integration -f ts tsx java -e \"**/src-gen/**\" --autoFix",
-    "lint": "eslint .",
-    "lint:ci": "yarn lint --output-file eslint_report.json --format json",
-    "lint:fix": "yarn lint --fix",
-    "prepare": "yarn build && yarn copy:client",
-    "publish:latest": "lerna publish from-package --no-git-reset -y",
-    "publish:next": "lerna publish preminor --exact --canary --preid next --dist-tag next --no-git-reset --no-git-tag-version --no-push --ignore-scripts --yes",
+    "preinstall": "npx only-allow pnpm",
+    "lint": "pnpm compile && eslint .",
+    "lint:ci": "pnpm lint --output-file eslint_report.json --format json",
+    "lint:fix": "pnpm lint --fix",
+    "publish:latest": "glsp releng publish latest",
+    "publish:next": "glsp releng publish next",
     "upgrade:next": "glsp updateNext",
-    "watch": "concurrently --kill-others -n tsc,webapp -c red,yellow \"tsc -b -w --preserveWatchOutput\" \"yarn -s app watch\""
+    "watch": "concurrently --kill-others -n tsc,webapp -c red,yellow \"tsc -b -w --preserveWatchOutput\" \"pnpm -s app watch\""
   },
   "devDependencies": {
     "@eclipse-glsp/dev": "next",
     "@types/node": "22.x",
+    "concurrently": "^9.2.1",
     "copyfiles": "^2.4.1",
-    "lerna": "^9.0.0",
-    "mocha-ctrf-json-reporter": "^0.0.9",
     "typescript": "^5.9.2"
   },
+  "packageManager": "pnpm@11.7.0",
   "engines": {
     "node": ">=22",
-    "yarn": ">=1.7.0 <2"
+    "pnpm": ">=11"
   }
 }

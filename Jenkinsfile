@@ -4,7 +4,7 @@ kind: Pod
 spec:
   containers:
   - name: ci
-    image: eclipseglsp/ci:alpine-v8.0
+    image: eclipseglsp/ci:alpine-v9.0
     resources:
       limits:
         memory: "2Gi"
@@ -22,8 +22,8 @@ spec:
     - mountPath: "/home/jenkins"
       name: "jenkins-home"
       readOnly: false
-    - mountPath: "/.yarn"
-      name: "yarn-global"
+    - mountPath: "/.pnpm-store"
+      name: "pnpm-store"
       readOnly: false
     - name: settings-xml
       mountPath: /home/jenkins/.m2/settings.xml
@@ -61,7 +61,7 @@ spec:
   volumes:
   - name: "jenkins-home"
     emptyDir: {}
-  - name: "yarn-global"
+  - name: "pnpm-store"
     emptyDir: {}
   - name: settings-xml
     secret:
@@ -102,7 +102,9 @@ pipeline {
     }
 
     environment {
-        YARN_CACHE_FOLDER = "${env.WORKSPACE}/yarn-cache"
+        npm_config_store_dir = "${env.WORKSPACE}/.pnpm-store"
+        // CI=true makes pnpm's implicit pre-run install a frozen-lockfile install.
+        CI = "true"
         SPAWN_WRAP_SHIM_ROOT = "${env.WORKSPACE}"
         EMAIL_TO= "glsp-build@eclipse.org"
     }
@@ -139,14 +141,9 @@ pipeline {
                 container('ci') {
                     timeout(30){
                         dir('client') {
-                            sh "yarn install"
-                            script {
-                                // Fail the step if there are uncommited changes to the yarn.lock file
-                                if (sh(returnStatus: true, script: 'git diff --name-only | grep -q "^client/yarn.lock"') == 0) {
-                                    echo 'The yarn.lock file has uncommited changes!'
-                                    error 'The yarn.lock file has uncommited changes!'
-                                }
-                            }
+                            sh "pnpm build"
+                            // Copy the webapp bundle into the server's diagram folder for the server build.
+                            sh "pnpm copy:client"
                         }
                     }
                 }

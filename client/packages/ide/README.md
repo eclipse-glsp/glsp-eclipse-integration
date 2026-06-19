@@ -4,7 +4,7 @@ This package contains the client side glue code to integrate diagram editors bui
 
 ## Building
 
-This project is built with `yarn` and is available from npm via [@eclipse-glsp/ide](https://www.npmjs.com/package/@eclipse-glsp/iden).
+This project is built with `pnpm` and is available from npm via [@eclipse-glsp/ide](https://www.npmjs.com/package/@eclipse-glsp/ide).
 
 ## More information
 

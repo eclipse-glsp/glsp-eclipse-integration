@@ -16,7 +16,7 @@ https://user-images.githubusercontent.com/588090/161574154-1da641be-86e1-4d4b-8c
 
 ### How to start the Workflow Diagram example?
 
-First, you need to build both the client and the server (see instructions on [building the client](client/README.md#building) and [building the server](server/README.md#building)).
+First, you need to build both the client and the server (see instructions on [building the client](client/README.md#developer-documentation) and [building the server](server/README.md#building)).
 Then, import the following Eclipse plug-in projects into your Eclipse IDE workspace:
 
 - `server/plugins/org.eclipse.glsp.ide.editor`
