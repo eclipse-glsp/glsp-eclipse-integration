@@ -4,6 +4,9 @@
 
 ### Changes
 
+- [build] Switch client bundling from webpack to esbuild [#137](https://github.com/eclipse-glsp/glsp-eclipse-integration/pull/137)
+- [build] Switch the client build from yarn and lerna to pnpm workspaces [#139](https://github.com/eclipse-glsp/glsp-eclipse-integration/pull/139)
+
 ### Potentially Breaking Changes
 
 ## [v2.7.0 - 02/06/2026](https://github.com/eclipse-glsp/glsp-eclipse-integration/releases/tag/v2.7.0)
