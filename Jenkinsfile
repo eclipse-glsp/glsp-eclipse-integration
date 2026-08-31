@@ -110,24 +110,6 @@ pipeline {
     }
 
     stages {
-        stage('Download & Setup Maven') {
-            steps {
-                container('ci') {
-                    sh '''
-                        MAVEN_VERSION=$(curl -sf "https://dlcdn.apache.org/maven/maven-3/" | grep -o 'href="[0-9][^"]*"' | tr -dc '0-9.')
-                        curl -o maven.tar.gz -L "https://dlcdn.apache.org/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz"
-                        tar -xzf maven.tar.gz -C ${WORKSPACE}
-                        rm -f maven.tar.gz
-                        echo "${WORKSPACE}/apache-maven-${MAVEN_VERSION}" > ${WORKSPACE}/.maven_home
-                    '''
-                    script {
-                        env.MAVEN_HOME = sh(script: "cat ${env.WORKSPACE}/.maven_home", returnStdout: true).trim()
-                        env.PATH = "${env.MAVEN_HOME}/bin:${env.PATH}"
-                    }
-                    sh "echo 'MAVEN_HOME set to ${env.MAVEN_HOME}'"
-                }
-            }
-        }
         stage('Prepare Build') {
             steps {
                 container('ci') {
