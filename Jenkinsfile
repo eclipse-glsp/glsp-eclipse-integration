@@ -185,7 +185,9 @@ pipeline {
                     sh "mkdir -p ${WORKSPACE}/p2-update-site/ide/p2/nightly"
                     sshagent(['projects-storage.eclipse.org-bot-ssh']) {
                         dir('server') {
-                            sh "mvn clean verify -Prelease -B -Dmaven.repo.local=${env.WORKSPACE}/.m2 -Dlocal.p2.root=${WORKSPACE}/p2-update-site"
+                            // Unlike the 'ci' image, the jnlp container has no Maven on the PATH.
+                            // Use the installation provided by the mounted Jiro tools volume.
+                            sh "/opt/tools/apache-maven/latest/bin/mvn clean verify -Prelease -B -Dmaven.repo.local=${env.WORKSPACE}/.m2 -Dlocal.p2.root=${WORKSPACE}/p2-update-site"
                         }
                     }
                 }
