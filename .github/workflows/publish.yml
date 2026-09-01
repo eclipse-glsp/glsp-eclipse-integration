@@ -1,11 +1,9 @@
 name: 'Publish to NPM'
 
+# Deactivated on the javax maintenance branch: the steps below are still yarn-based while the
+# branch has moved to pnpm. This branch is built and published manually, so the workflow is kept
+# for reference but only runs when dispatched or called explicitly.
 on:
-  workflow_run:
-    workflows: ['CI']
-    types:
-      - completed
-    branches: [master]
   workflow_call:
     inputs:
       ref:

@@ -3,12 +3,11 @@ name: CI (Client)
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
+# Deactivated on the javax maintenance branch: the steps below are still yarn-based while the
+# branch has moved to pnpm. This branch is built and verified manually, so the workflow is kept
+# for reference but only runs when dispatched explicitly.
 on:
   workflow_dispatch:
-  push:
-    branches: [master]
-  pull_request:
-    branches: [master]
 
 jobs:
   build:
