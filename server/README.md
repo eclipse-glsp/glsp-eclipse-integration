@@ -1,10 +1,19 @@
-# Eclipse GLSP Eclipse IDE Integration [![build-status](https://img.shields.io/jenkins/build?jobUrl=https%3A%2F%2Fci.eclipse.org%2Fglsp%2Fjob%2Feclipse-glsp%2Fjob%2Fglsp-eclipse-integration%2Fjob%2Fmaster%2F)](https://ci.eclipse.org/glsp/job/eclipse-glsp/job/glsp-eclipse-integration/job/master/) [![publish-status-p2](https://img.shields.io/jenkins/build?jobUrl=https://ci.eclipse.org/glsp/job/deploy-ide-p2-nightly/&label=p2)](https://ci.eclipse.org/glsp/job/deploy-ide-p2-nightly/)
+# Eclipse GLSP Eclipse IDE Integration [![CI (Server)](https://github.com/eclipse-glsp/glsp-eclipse-integration/actions/workflows/ci-server.yml/badge.svg?branch=master)](https://github.com/eclipse-glsp/glsp-eclipse-integration/actions/workflows/ci-server.yml) [![Deploy](https://github.com/eclipse-glsp/glsp-eclipse-integration/actions/workflows/deploy.yml/badge.svg?branch=master)](https://github.com/eclipse-glsp/glsp-eclipse-integration/actions/workflows/deploy.yml)
 
 Contains the glue code for opening browser-based GLSP diagrams in an Eclipse IDE Editor
 
 ## Building
 
-The GLSP Eclipse integration bundles are built with `mvn clean install` (for maven) or `mvn clean install -Pp2` (for p2).
+The GLSP Eclipse integration bundles are a Tycho build and are built with `mvn clean verify` (Java 21 or higher).
+The workflow example bundle embeds the webapp from [`client`](../client/README.md), so build and copy it in first (`pnpm build && pnpm copy:client` from the `client` directory) if you need a complete bundle.
+
+### P2 Update Sites
+
+- _Snapshots:_ <https://download.eclipse.org/glsp/ide/p2/nightly/>
+- _Release Candidates:_ <https://download.eclipse.org/glsp/ide/p2/staging/>
+- _Releases:_ <https://download.eclipse.org/glsp/ide/p2/releases/>
+
+The nightly composite update site is maintained by [`p2-composite.sh`](releng/org.eclipse.glsp.ide.repository/p2-composite.sh), which the `Deploy` workflow invokes after a successful CI build on `master`.
 
 ## More information
 

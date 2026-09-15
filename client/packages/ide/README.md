@@ -1,4 +1,4 @@
-# Eclipse GLSP Eclipse IDE Integration for GLSP Clients [![build-status](https://img.shields.io/jenkins/build?jobUrl=https%3A%2F%2Fci.eclipse.org%2Fglsp%2Fjob%2Feclipse-glsp%2Fjob%2Fglsp-eclipse-integration%2Fjob%2Fmaster%2F)](https://ci.eclipse.org/glsp/job/eclipse-glsp/job/glsp-eclipse-integration/job/master/)
+# Eclipse GLSP Eclipse IDE Integration for GLSP Clients [![CI (Client)](https://github.com/eclipse-glsp/glsp-eclipse-integration/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/eclipse-glsp/glsp-eclipse-integration/actions/workflows/ci.yml)
 
 This package contains the client side glue code to integrate diagram editors built with the [graphical language server platform](https://github.com/eclipse-glsp/glsp) in [Eclipse IDE](https://www.eclipse.org/eclipseide/) editors.
 

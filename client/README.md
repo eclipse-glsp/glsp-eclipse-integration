@@ -1,4 +1,4 @@
-# Eclipse GLSP Eclipse IDE Integration webapp [![build-status](https://img.shields.io/jenkins/build?jobUrl=https%3A%2F%2Fci.eclipse.org%2Fglsp%2Fjob%2Feclipse-glsp%2Fjob%2Fglsp-eclipse-integration%2Fjob%2Fmaster%2F)](https://ci.eclipse.org/glsp/job/eclipse-glsp/job/glsp-eclipse-integration/job/master/)
+# Eclipse GLSP Eclipse IDE Integration webapp [![CI (Client)](https://github.com/eclipse-glsp/glsp-eclipse-integration/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/eclipse-glsp/glsp-eclipse-integration/actions/workflows/ci.yml)
 
 Contains the client side glue code for opening browser-based GLSP diagrams in an Eclipse IDE editor as well as the workflow webapp example.
 This project is available from npm via [@eclipse-glsp/ide](https://www.npmjs.com/package/@eclipse-glsp/ide).
@@ -18,7 +18,7 @@ This project is available from npm via [@eclipse-glsp/ide](https://www.npmjs.com
 - Lint: `pnpm lint`
 - Check formatting: `pnpm format:check`
 - Clean (all packages): `pnpm clean`
-- `pnpm copy:client` copies the bundled webapp into the Eclipse server's diagram folder (`../server/example/org.eclipse.glsp.ide.workflow.editor/diagram`); the Jenkins build runs this automatically before building the server.
+- `pnpm copy:client` copies the bundled webapp into the Eclipse server's diagram folder (`../server/example/org.eclipse.glsp.ide.workflow.editor/diagram`); the CI build runs this automatically before building the server.
 
 ## More information
 
