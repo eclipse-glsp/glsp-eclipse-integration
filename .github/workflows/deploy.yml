@@ -1,0 +1,87 @@
+name: Deploy
+
+concurrency:
+  # a half-finished upload to download.eclipse.org must never be cancelled
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ['CI (Server)']
+    types: [completed]
+    branches: [master]
+
+permissions:
+  contents: read
+
+env:
+  # the commit that CI validated; falls back to the dispatched ref for manual runs
+  DEPLOY_REF: ${{ github.event.workflow_run.head_sha || github.sha }}
+
+jobs:
+  p2:
+    name: Deploy P2 update site
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    if: >-
+      github.repository == 'eclipse-glsp/glsp-eclipse-integration' &&
+      (github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success')
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          ref: ${{ env.DEPLOY_REF }}
+      - uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093 # v6.0.8
+        with:
+          package_json_file: client/package.json
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version: 22.x
+          cache: pnpm
+          cache-dependency-path: client/pnpm-lock.yaml
+      - name: Set up JDK
+        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          cache: 'maven'
+
+      # the published workflow example bundle embeds the webapp from 'client'
+      - name: Build client
+        working-directory: ./client
+        run: |
+          pnpm build
+          pnpm copy:client
+      - name: Build p2 repository
+        working-directory: ./server
+        run: mvn clean verify -B -Dcheckstyle.skip
+
+      - name: Set up SSH access to projects-storage.eclipse.org
+        env:
+          SCP_KEY: ${{ secrets.SCP_KEY }}
+          SCP_PASSPHRASE: ${{ secrets.SCP_PASSPHRASE }}
+        run: |
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          install -m 600 /dev/null ~/.ssh/id_ed25519
+          printf '%s\n' "$SCP_KEY" >~/.ssh/id_ed25519
+          # the bot key is passphrase-protected; strip the passphrase from the on-disk
+          # copy so the rsync/ssh steps need neither an agent nor an interactive prompt
+          ssh-keygen -p -P "$SCP_PASSPHRASE" -N '' -f ~/.ssh/id_ed25519
+          ssh-keyscan projects-storage.eclipse.org >>~/.ssh/known_hosts
+
+      - name: Publish nightly composite update site
+        env:
+          SCP_USERNAME: ${{ secrets.SCP_USERNAME }}
+        # the script detects the version from the build output and owns the rsync up/down cycle
+        run: |
+          server/releng/org.eclipse.glsp.ide.repository/p2-composite.sh add \
+            --source-repo "${{ github.workspace }}/server/releng/org.eclipse.glsp.ide.repository/target/repository" \
+            --local "${{ github.workspace }}/p2-update-site/ide/p2" \
+            --remote "${SCP_USERNAME}@projects-storage.eclipse.org:/home/data/httpd/download.eclipse.org/glsp/ide/p2"
+
+      - name: Upload update site
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: p2-update-site
+          path: p2-update-site/
+          if-no-files-found: ignore

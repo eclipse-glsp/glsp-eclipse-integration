@@ -1,4 +1,4 @@
-# Eclipse GLSP Eclipse IDE Integration [![Build Status](https://ci.eclipse.org/glsp/job/eclipse-glsp/job/glsp-eclipse-integration/job/master/badge/icon)](https://ci.eclipse.org/glsp/job/eclipse-glsp/job/glsp-eclipse-integration/job/master/)
+# Eclipse GLSP Eclipse IDE Integration [![CI (Client)](https://github.com/eclipse-glsp/glsp-eclipse-integration/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/eclipse-glsp/glsp-eclipse-integration/actions/workflows/ci.yml) [![CI (Server)](https://github.com/eclipse-glsp/glsp-eclipse-integration/actions/workflows/ci-server.yml/badge.svg?branch=master)](https://github.com/eclipse-glsp/glsp-eclipse-integration/actions/workflows/ci-server.yml) [![Deploy](https://github.com/eclipse-glsp/glsp-eclipse-integration/actions/workflows/deploy.yml/badge.svg?branch=master)](https://github.com/eclipse-glsp/glsp-eclipse-integration/actions/workflows/deploy.yml)
 
 Contains the glue code for opening browser-based GLSP diagrams in an Eclipse IDE Editor
 

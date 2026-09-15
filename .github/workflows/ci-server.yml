@@ -1,0 +1,62 @@
+name: CI (Server)
+
+concurrency:
+  group: ci-server-${{ github.ref }}
+  cancel-in-progress: true
+on:
+  workflow_dispatch:
+  push:
+    branches: [master]
+    paths-ignore:
+      - '**/*.md'
+      - 'LICENSE'
+      - '.vscode/**'
+  pull_request:
+    branches: [master]
+    paths-ignore:
+      - '**/*.md'
+      - 'LICENSE'
+      - '.vscode/**'
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build & Checkstyle
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093 # v6.0.8
+        with:
+          package_json_file: client/package.json
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version: 22.x
+          cache: pnpm
+          cache-dependency-path: client/pnpm-lock.yaml
+      - name: Set up JDK
+        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          cache: 'maven'
+
+      # the workflow example bundle ships the webapp from 'client' in its 'diagram' folder,
+      # so the client has to be built and copied in before Tycho packages the bundle.
+      - name: Build client
+        working-directory: ./client
+        run: |
+          pnpm build
+          pnpm copy:client
+
+      # checkstyle runs at 'validate', so letting it fail the build here would skip the
+      # rest of the build entirely - the report step below turns the collected violations
+      # into the failure instead.
+      - name: Build server
+        working-directory: ./server
+        run: mvn clean verify -B -Dcheckstyle.failOnViolation=false
+      - name: Report checkstyle violations
+        if: always()
+        run: .github/scripts/checkstyle-summary.py
