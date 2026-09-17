@@ -32,7 +32,7 @@ The Workflow Diagram Editor is registered for any .wf files. You can use the pro
 In addition to this repository, the related source code can be found here:
 
 - <https://github.com/eclipse-glsp/glsp-server>
-- <https://github.com/eclipse-glsp/glsp-client>
+- <https://github.com/eclipse-glsp/glsp-core>
 
 ## More information
 
