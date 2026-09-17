@@ -1,7 +1,9 @@
 .m2
 yarn-cache
 
-/.claude/settings.local.json 
-/.claude/plans
-CLAUDE.local.MD
+# Agent specific files
+.claude/plans
+.claude/local.settings.json
+.claude/settings.local.json
+CLAUDE.local.md
 .reviews

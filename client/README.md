@@ -7,16 +7,17 @@ This project is available from npm via [@eclipse-glsp/ide](https://www.npmjs.com
 
 ### First time setup
 
-- Install [node.js](https://nodejs.org/) (requires Node v22+)
-- Install pnpm: <https://pnpm.io/installation> (use pnpm 11+); a recent pnpm automatically switches to the version pinned in the `packageManager` field
+- Install [node.js](https://nodejs.org/) (requires Node v24+)
+- Install pnpm: <https://pnpm.io/installation> (use pnpm 12+); a recent pnpm automatically switches to the version pinned in the `packageManager` field
 - Clone this repository
 - Install dependencies from this `client` directory: `pnpm i` or `pnpm i --frozen-lockfile`
 
 ### Build & Testing
 
 - Build (all packages + workflow webapp bundle): `pnpm build`
-- Lint: `pnpm lint`
-- Check formatting: `pnpm format:check`
+- Lint and type-check (oxlint, no prior build needed): `pnpm lint`
+- Check formatting (oxfmt): `pnpm format:check`
+- Auto-fix lint, formatting and copyright headers: `pnpm fix:all`
 - Clean (all packages): `pnpm clean`
 - `pnpm copy:client` copies the bundled webapp into the Eclipse server's diagram folder (`../server/example/org.eclipse.glsp.ide.workflow.editor/diagram`); the CI build runs this automatically before building the server.
 
