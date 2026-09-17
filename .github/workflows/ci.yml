@@ -10,7 +10,7 @@ on:
     paths-ignore:
       - '**/*.md'
       - 'LICENSE'
-      - '.vscode/**'
+      - '**/.vscode/**'
       - '.claude/**'
       - '.agents/**'
   pull_request:
@@ -18,7 +18,7 @@ on:
     paths-ignore:
       - '**/*.md'
       - 'LICENSE'
-      - '.vscode/**'
+      - '**/.vscode/**'
       - '.claude/**'
       - '.agents/**'
 
