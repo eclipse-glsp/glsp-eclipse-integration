@@ -1,6 +1,9 @@
 name: 'Publish to NPM'
 
 on:
+  # a pushed release tag v<version> publishes that version under 'latest'
+  push:
+    tags: ['v[0-9]+.[0-9]+.[0-9]+']
   workflow_run:
     workflows: ['CI (Client)']
     types:
@@ -34,13 +37,16 @@ on:
 
 permissions:
   contents: read
+  actions: read
   id-token: write
 
 jobs:
   publish:
     name: Build & Publish
     runs-on: ubuntu-22.04
-    if: github.repository == 'eclipse-glsp/glsp-eclipse-integration' && (github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_call' || (github.event.workflow_run.event == 'push' && github.event.workflow_run.conclusion == 'success'))
+    env:
+      DIST_TAG: ${{ github.event_name == 'push' && 'latest' || inputs.dist-tag || github.event.inputs.dist-tag || 'next' }}
+    if: github.repository == 'eclipse-glsp/glsp-eclipse-integration' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_call' || (github.event.workflow_run.event == 'push' && github.event.workflow_run.conclusion == 'success'))
     steps:
       - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
@@ -48,13 +54,42 @@ jobs:
           # Fetch all history to determine the canary version (commits since last tag)
           fetch-depth: 0
 
+      - name: Check release tag
+        if: github.event_name == 'push'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        # the tag filter is a glob, so recheck the exact format; a lightweight tag has no tag object and therefore no signature
+        run: |
+          [[ $GITHUB_REF_NAME =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]] \
+            || { echo "::error::Tag $GITHUB_REF_NAME is not a final release tag (v<major>.<minor>.<patch>)"; exit 1; }
+          VERSION=$(jq -r .version client/package.json)
+          [[ "$GITHUB_REF_NAME" == "v$VERSION" ]] \
+            || { echo "::error::Tag $GITHUB_REF_NAME does not match the version $VERSION in client/package.json"; exit 1; }
+          TAG_SHA=$(gh api "repos/$GITHUB_REPOSITORY/git/ref/tags/$GITHUB_REF_NAME" --jq 'select(.object.type == "tag") | .object.sha')
+          if [[ -z "$TAG_SHA" || $(gh api "repos/$GITHUB_REPOSITORY/git/tags/$TAG_SHA" --jq .verification.verified) != "true" ]]; then
+            echo "::error::Tag $GITHUB_REF_NAME is not a signed tag verified by GitHub"
+            exit 1
+          fi
+
+      - name: Check that CI passed on the tagged commit
+        if: github.event_name == 'push'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          CI=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow ci.yml --commit "$GITHUB_SHA" --event push --json conclusion --jq '.[0].conclusion')
+          # ci.yml cancels in-progress runs per ref, so a merge right after the release commit leaves it cancelled
+          [[ "$CI" == "success" ]] || { echo "::error::ci.yml has not passed on $GITHUB_SHA (conclusion: ${CI:-no run}). Re-run it if it failed or was cancelled, then re-run this workflow."; exit 1; }
+
       - name: Check for changes in "client/packages" directory
         id: check_changes
         run: |
-          DIST_TAG="${{ inputs.dist-tag || github.event.inputs.dist-tag || 'next' }}"
+          # For 'next' dist-tag: skip release versions (a merged release PR), they publish from their tag
           # For 'next' dist-tag: check for changes when triggered by workflow_run or workflow_call
           # For 'latest' dist-tag or workflow_dispatch: always publish
-          if [[ "$DIST_TAG" == "next" ]] && [[ "${{ github.event_name }}" != "workflow_dispatch" ]]; then
+          if [[ "$DIST_TAG" == "next" && ! "$(jq -r .version client/package.json)" =~ -next$ ]]; then
+            echo "::notice::Not on a next version. Skipping the next publish."
+            echo "should_publish=false" >> $GITHUB_OUTPUT
+          elif [[ "$DIST_TAG" == "next" ]] && [[ "${{ github.event_name }}" != "workflow_dispatch" ]]; then
             if git diff --name-only HEAD^ HEAD | grep -qE '^client/packages'; then
               echo "should_publish=true" >> $GITHUB_OUTPUT
             else
@@ -86,7 +121,6 @@ jobs:
         if: steps.check_changes.outputs.should_publish == 'true'
         working-directory: ./client
         run: |
-          DIST_TAG="${{ inputs.dist-tag || github.event.inputs.dist-tag || 'next' }}"
           if [[ "$DIST_TAG" == "next" ]]; then
              pnpm publish:next
           elif [[ "$DIST_TAG" == "latest" ]]; then
