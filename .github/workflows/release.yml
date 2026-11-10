@@ -1,0 +1,105 @@
+name: Release
+
+# Publishes a release when its signed tag v<version> is pushed.
+on:
+  push:
+    # javax tags (v<version>.javax) are not released by this workflow yet
+    tags: ['v*', '!v*.javax']
+
+concurrency:
+  # a half-finished upload to download.eclipse.org must never be cancelled
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Check release tag
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+    if: github.repository == 'eclipse-glsp/glsp-eclipse-integration'
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - name: Check that the tag is a final release matching the project version
+        # snapshots, release candidates and javax variants have no release path here
+        run: |
+          [[ $GITHUB_REF_NAME =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]] \
+            || { echo "::error::Tag $GITHUB_REF_NAME is not a final release tag (v<major>.<minor>.<patch>)"; exit 1; }
+          grep -m1 '<version>' server/pom.xml | grep -qF "<version>${GITHUB_REF_NAME#v}</version>" \
+            || { echo "::error::Tag $GITHUB_REF_NAME does not match the version in server/pom.xml"; exit 1; }
+      - name: Check that the tag is signed
+        env:
+          GH_TOKEN: ${{ github.token }}
+        # a lightweight tag has no tag object and therefore no signature
+        run: |
+          TAG_SHA=$(gh api "repos/$GITHUB_REPOSITORY/git/ref/tags/$GITHUB_REF_NAME" --jq 'select(.object.type == "tag") | .object.sha')
+          if [[ -z "$TAG_SHA" || $(gh api "repos/$GITHUB_REPOSITORY/git/tags/$TAG_SHA" --jq .verification.verified) != "true" ]]; then
+            echo "::error::Tag $GITHUB_REF_NAME is not a signed tag verified by GitHub"
+            exit 1
+          fi
+      - name: Check that CI passed on the tagged commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          CI=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow ci-server.yml --commit "$GITHUB_SHA" --event push --json conclusion --jq '.[0].conclusion')
+          [[ "$CI" == "success" ]] || { echo "::error::ci-server.yml has not passed on $GITHUB_SHA. Re-run this job once it has."; exit 1; }
+
+  p2:
+    name: Publish P2 release update site
+    needs: check
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+        with:
+          package_json_file: client/package.json
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version: 24.x
+          cache: pnpm
+          cache-dependency-path: client/pnpm-lock.yaml
+      - name: Set up JDK
+        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          cache: 'maven'
+
+      # the published workflow example bundle embeds the webapp from 'client'
+      - name: Build client
+        working-directory: ./client
+        run: |
+          pnpm build
+          pnpm copy:client
+      - name: Build p2 repository
+        working-directory: ./server
+        run: mvn clean verify -B -Dcheckstyle.skip
+
+      - name: Set up SSH access to projects-storage.eclipse.org
+        env:
+          SCP_KEY: ${{ secrets.SCP_KEY }}
+          SCP_PASSPHRASE: ${{ secrets.SCP_PASSPHRASE }}
+        run: |
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          install -m 600 /dev/null ~/.ssh/id_ed25519
+          printf '%s\n' "$SCP_KEY" >~/.ssh/id_ed25519
+          # the bot key is passphrase-protected; strip the passphrase from the on-disk
+          # copy so the rsync/ssh steps need neither an agent nor an interactive prompt
+          ssh-keygen -p -P "$SCP_PASSPHRASE" -N '' -f ~/.ssh/id_ed25519
+          ssh-keyscan projects-storage.eclipse.org >>~/.ssh/known_hosts
+
+      - name: Upload release update site
+        env:
+          REMOTE: ${{ secrets.SCP_USERNAME }}@projects-storage.eclipse.org
+        run: |
+          TARGET="/home/data/httpd/download.eclipse.org/glsp/ide/p2/releases/${GITHUB_REF_NAME#v}"
+          ssh "$REMOTE" "test ! -e $TARGET" || { echo "::error::$TARGET already exists (or the server is unreachable)"; exit 1; }
+          # upload to a temporary dir first so a failed upload never looks like a complete release
+          rsync -az --delete --exclude='.*' server/releng/org.eclipse.glsp.ide.repository/target/repository/ "$REMOTE:$TARGET.tmp/"
+          ssh "$REMOTE" "test ! -e $TARGET && mv $TARGET.tmp $TARGET"
