@@ -3,8 +3,8 @@ name: Release
 # Publishes a release when its signed tag v<version> is pushed.
 on:
   push:
-    # javax tags (v<version>.javax) are not released by this workflow yet
-    tags: ['v*', '!v*.javax']
+    # only final releases; javax variants and release candidates have no release path yet
+    tags: ['v[0-9]+.[0-9]+.[0-9]+']
 
 concurrency:
   # a half-finished upload to download.eclipse.org must never be cancelled
@@ -26,7 +26,7 @@ jobs:
     steps:
       - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
       - name: Check that the tag is a final release matching the project version
-        # snapshots, release candidates and javax variants have no release path here
+        # the tag filter is a glob, so recheck the exact format
         run: |
           [[ $GITHUB_REF_NAME =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]] \
             || { echo "::error::Tag $GITHUB_REF_NAME is not a final release tag (v<major>.<minor>.<patch>)"; exit 1; }
@@ -47,7 +47,8 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           CI=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow ci-server.yml --commit "$GITHUB_SHA" --event push --json conclusion --jq '.[0].conclusion')
-          [[ "$CI" == "success" ]] || { echo "::error::ci-server.yml has not passed on $GITHUB_SHA. Re-run this job once it has."; exit 1; }
+          # ci-server.yml cancels in-progress runs per ref, so a merge right after the release commit leaves it cancelled
+          [[ "$CI" == "success" ]] || { echo "::error::ci-server.yml has not passed on $GITHUB_SHA (conclusion: ${CI:-no run}). Re-run it if it failed or was cancelled, then re-run this workflow."; exit 1; }
 
   p2:
     name: Publish P2 release update site
