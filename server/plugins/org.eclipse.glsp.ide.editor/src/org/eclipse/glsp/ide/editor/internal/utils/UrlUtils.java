@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2021-2023 EclipseSource and others.
+ * Copyright (c) 2021-2026 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -15,17 +15,12 @@
  ********************************************************************************/
 package org.eclipse.glsp.ide.editor.internal.utils;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.Map;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 public final class UrlUtils {
-   private static Logger LOG = LogManager.getLogger(UrlUtils.class);
-
    private UrlUtils() {}
 
    public static String createUrl(final String host, final String baseUrl) {
@@ -69,12 +64,12 @@ public final class UrlUtils {
             .append(port);
       }
       builder.append("/")
-         .append(baseUrl);
+         .append(baseUrl.replaceFirst("^/+", ""));
 
       if (!queryParams.isEmpty()) {
          builder.append("?");
          queryParams.entrySet()
-            .forEach(e -> builder.append(e.getKey())
+            .forEach(e -> builder.append(encodeParameter(e.getKey()))
                .append("=")
                .append(encodeParameter(e.getValue()))
                .append("&"));
@@ -85,12 +80,6 @@ public final class UrlUtils {
    }
 
    private static String encodeParameter(final String parameter) {
-      try {
-         return URLEncoder.encode(parameter, "UTF-8");
-      } catch (UnsupportedEncodingException exception) {
-         // UTF-8 is a supported so we should never reach this catch block;
-         LOG.warn(exception);
-         return parameter;
-      }
+      return URLEncoder.encode(parameter, StandardCharsets.UTF_8);
    }
 }

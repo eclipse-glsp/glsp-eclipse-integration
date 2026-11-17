@@ -7,4 +7,5 @@ Bundle-Vendor: Eclipse GLSP
 Fragment-Host: org.eclipse.glsp.ide.editor;bundle-version="2.9.0"
 Automatic-Module-Name: org.eclipse.glsp.ide.editor.test
 Bundle-RequiredExecutionEnvironment: JavaSE-17
-Import-Package: org.junit.jupiter.api;version="[5.10.0,6.0.0)"
+Import-Package: org.junit.jupiter.api;version="[5.10.0,6.0.0)",
+ org.junit.jupiter.api.function;version="[5.10.0,6.0.0)"
