@@ -8,6 +8,13 @@ location "http://download.eclipse.org/releases/2025-12" {
 	org.eclipse.equinox.p2.discovery.feature.feature.group
 }
 
+// JUnit 5.11 from an older release: 2025-12 ships 5.14, which the Tycho 4.0.8 surefire provider cannot run
+location "https://download.eclipse.org/releases/2025-03" {
+	junit-jupiter-api [5.11.4,5.11.4]
+	junit-jupiter-engine [5.11.4,5.11.4]
+	junit-platform-launcher [1.11.4,1.11.4]
+}
+
 location "https://download.eclipse.org/tools/orbit/simrel/maven-jetty/release/12.1.4" {
 	org.eclipse.jetty.ee10.websocket.jakarta.server
 	org.eclipse.jetty.ee10.websocket.server

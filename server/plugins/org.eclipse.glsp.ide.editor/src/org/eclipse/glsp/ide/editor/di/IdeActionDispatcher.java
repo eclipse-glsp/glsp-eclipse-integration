@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020-2024 EclipseSource and others.
+ * Copyright (c) 2020-2026 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -67,6 +67,16 @@ public class IdeActionDispatcher extends DefaultActionDispatcher {
          return actions;
       }
       return Collections.emptyList();
+   }
+
+   // Responses to pending requests (e.g. the SetModelAction for the initial RequestModelAction) bypass runAction.
+   @Override
+   protected boolean interceptPendingResponse(final Action action) {
+      boolean intercepted = super.interceptPendingResponse(action);
+      if (intercepted) {
+         this.initializationConstraint.notifyDispatched(action);
+      }
+      return intercepted;
    }
 
    protected boolean handleLocally(final Action action, final String clientId) {

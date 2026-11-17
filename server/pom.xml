@@ -65,6 +65,7 @@
 	<modules>
 		<module>plugins/org.eclipse.glsp.ide.editor</module>
 		<module>example/org.eclipse.glsp.ide.workflow.editor</module>
+		<module>tests</module>
 		<module>releng</module>
 	</modules>
 
