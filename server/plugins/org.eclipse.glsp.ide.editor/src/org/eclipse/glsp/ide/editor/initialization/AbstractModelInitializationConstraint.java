@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020-2024 EclipseSource and others.
+ * Copyright (c) 2020-2026 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -21,7 +21,7 @@ import org.eclipse.glsp.server.actions.Action;
 
 public abstract class AbstractModelInitializationConstraint implements ModelInitializationConstraint {
    protected final CompletableFuture<Void> initialized = new CompletableFuture<>();
-   protected boolean completed;
+   protected volatile boolean completed;
 
    @Override
    public CompletableFuture<Void> onInitialized() {
@@ -30,12 +30,15 @@ public abstract class AbstractModelInitializationConstraint implements ModelInit
 
    public boolean isCompleted() { return completed; }
 
+   // Intercepted responses arrive on the calling thread, all other actions on the dispatcher thread.
    @Override
    public void notifyDispatched(final Action action) {
-      if (isCompleted()) {
-         return;
+      boolean initializedAfter;
+      synchronized (this) {
+         initializedAfter = !isCompleted() && isInitializedAfter(action);
       }
-      if (isInitializedAfter(action)) {
+      // Complete outside the lock so onInitialized() callbacks cannot deadlock with a concurrent notification.
+      if (initializedAfter) {
          setCompleted(true);
       }
    }

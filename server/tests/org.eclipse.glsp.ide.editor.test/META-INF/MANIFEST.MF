@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: GLSP Editor Integration Tests
+Bundle-SymbolicName: org.eclipse.glsp.ide.editor.test
+Bundle-Version: 2.9.0.qualifier
+Bundle-Vendor: Eclipse GLSP
+Fragment-Host: org.eclipse.glsp.ide.editor;bundle-version="2.9.0"
+Automatic-Module-Name: org.eclipse.glsp.ide.editor.test
+Bundle-RequiredExecutionEnvironment: JavaSE-17
+Import-Package: org.junit.jupiter.api;version="[5.10.0,6.0.0)"

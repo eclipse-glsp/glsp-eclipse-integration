@@ -5,6 +5,7 @@ Contains the glue code for opening browser-based GLSP diagrams in an Eclipse IDE
 ## Building
 
 The GLSP Eclipse integration bundles are a Tycho build and are built with `mvn clean verify` (Java 21 or higher).
+This also runs the JUnit tests in [`tests`](tests), which are test fragments of the bundles they test; pass `-DskipTests` to skip them.
 The workflow example bundle embeds the webapp from [`client`](../client/README.md), so build and copy it in first (`pnpm build && pnpm copy:client` from the `client` directory) if you need a complete bundle.
 
 ### P2 Update Sites

@@ -12,6 +12,12 @@
       <repository location="http://download.eclipse.org/releases/2025-12"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
+      <unit id="junit-jupiter-api" version="5.11.4"/>
+      <unit id="junit-jupiter-engine" version="5.11.4"/>
+      <unit id="junit-platform-launcher" version="1.11.4"/>
+      <repository location="https://download.eclipse.org/releases/2025-03"/>
+    </location>
+    <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.jetty.ee10.websocket.jakarta.server" version="12.1.4"/>
       <unit id="org.eclipse.jetty.ee10.websocket.server" version="12.1.4"/>
       <unit id="org.eclipse.jetty.websocket.api" version="12.1.4"/>
