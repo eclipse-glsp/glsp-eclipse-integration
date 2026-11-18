@@ -24,6 +24,7 @@ import org.eclipse.glsp.ide.editor.di.IdeActionDispatcher;
 import org.eclipse.glsp.server.actions.MessageAction;
 import org.eclipse.glsp.server.types.Severity;
 import org.eclipse.jface.dialogs.ErrorDialog;
+import org.eclipse.swt.widgets.Shell;
 
 public final class IdeMessageUtil {
    private IdeMessageUtil() {}
@@ -35,11 +36,20 @@ public final class IdeMessageUtil {
       }
       Platform.getLog(IdeMessageUtil.class).log(status.get());
       if (status.get().getSeverity() >= IStatus.ERROR) {
-         UIUtil.asyncExec(() -> {
-            UIUtil.findShell(clientId).ifPresent(
-               shell -> ErrorDialog.openError(shell, "GLSP Server Error", action.getMessage(), status.get()));
-         });
+         UIUtil.asyncExec(() -> UIUtil.findShell(clientId).ifPresent(shell -> openErrorDialog(shell, action, status.get())));
       }
+   }
+
+   private static void openErrorDialog(final Shell shell, final MessageAction action, final IStatus status) {
+      String message = action.getMessage();
+      String details = action.getDetails().orElse("");
+      if (message == null || message.isEmpty() || details.isEmpty()) {
+         ErrorDialog.openError(shell, "GLSP Server Error", null, status);
+         return;
+      }
+      // ErrorDialog repeats the status text as "Reason" below the message, so the status must only carry the details.
+      IStatus reason = new Status(status.getSeverity(), IdeActionDispatcher.class, details);
+      ErrorDialog.openError(shell, "GLSP Server Error", message, reason);
    }
 
    public static Optional<IStatus> toStatus(final MessageAction action) {

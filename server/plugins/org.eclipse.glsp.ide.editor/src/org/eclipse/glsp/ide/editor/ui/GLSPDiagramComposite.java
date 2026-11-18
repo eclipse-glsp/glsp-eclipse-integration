@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020-2024 EclipseSource and others.
+ * Copyright (c) 2020-2026 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -17,8 +17,8 @@ package org.eclipse.glsp.ide.editor.ui;
 
 import static java.util.stream.Collectors.toList;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -364,8 +364,8 @@ public class GLSPDiagramComposite implements IGotoMarker, ISelectionProvider {
       return UrlUtils.createUrl(host, port, baseUrl, queryParams);
    }
 
-   protected String encodeParameter(final String parameter) throws UnsupportedEncodingException {
-      return URLEncoder.encode(parameter, "UTF-8");
+   protected String encodeParameter(final String parameter) {
+      return URLEncoder.encode(parameter, StandardCharsets.UTF_8);
    }
 
    protected GLSPDiagramEditorStatusBar createStatusBar(final Composite parent) {
