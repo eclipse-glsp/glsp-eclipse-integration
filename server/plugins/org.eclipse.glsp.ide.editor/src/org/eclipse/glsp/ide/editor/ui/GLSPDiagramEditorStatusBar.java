@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020-2024 EclipseSource and others.
+ * Copyright (c) 2020-2026 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -22,6 +22,7 @@ import static org.eclipse.ui.ISharedImages.IMG_OBJS_WARN_TSK;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.eclipse.glsp.ide.editor.utils.IdeMessageUtil;
 import org.eclipse.glsp.ide.editor.utils.UIUtil;
 import org.eclipse.glsp.server.actions.StatusAction;
 import org.eclipse.glsp.server.types.Severity;
@@ -67,7 +68,7 @@ public class GLSPDiagramEditorStatusBar extends Composite {
    }
 
    protected synchronized void updateStatusBar(final StatusAction status) {
-      Severity severity = Severity.valueOf(status.getSeverity());
+      Severity severity = IdeMessageUtil.parseSeverity(status.getSeverity());
       Image image = toImage(severity);
       String message = status.getMessage();
 

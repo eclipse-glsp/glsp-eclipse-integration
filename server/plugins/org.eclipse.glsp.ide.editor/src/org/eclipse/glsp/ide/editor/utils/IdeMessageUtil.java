@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020-2023 EclipseSource and others.
+ * Copyright (c) 2020-2026 EclipseSource and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -24,6 +24,7 @@ import org.eclipse.glsp.ide.editor.di.IdeActionDispatcher;
 import org.eclipse.glsp.server.actions.MessageAction;
 import org.eclipse.glsp.server.types.Severity;
 import org.eclipse.jface.dialogs.ErrorDialog;
+import org.eclipse.swt.widgets.Shell;
 
 public final class IdeMessageUtil {
    private IdeMessageUtil() {}
@@ -35,43 +36,54 @@ public final class IdeMessageUtil {
       }
       Platform.getLog(IdeMessageUtil.class).log(status.get());
       if (status.get().getSeverity() >= IStatus.ERROR) {
-         UIUtil.asyncExec(() -> {
-            UIUtil.findShell(clientId).ifPresent(
-               shell -> ErrorDialog.openError(shell, "GLSP Server Error", action.getMessage(), status.get()));
-         });
+         UIUtil.asyncExec(() -> UIUtil.findShell(clientId).ifPresent(shell -> openErrorDialog(shell, action, status.get())));
       }
+   }
+
+   private static void openErrorDialog(final Shell shell, final MessageAction action, final IStatus status) {
+      String message = action.getMessage();
+      String details = action.getDetails().orElse("");
+      if (message == null || message.isEmpty() || details.isEmpty()) {
+         ErrorDialog.openError(shell, "GLSP Server Error", null, status);
+         return;
+      }
+      // ErrorDialog repeats the status text as "Reason" below the message, so the status must only carry the details.
+      IStatus reason = new Status(status.getSeverity(), IdeActionDispatcher.class, details);
+      ErrorDialog.openError(shell, "GLSP Server Error", message, reason);
    }
 
    public static Optional<IStatus> toStatus(final MessageAction action) {
-      int severity = toSeverity(action.getSeverity());
-      String message = action.getMessage();
-      if (message == null || message.isEmpty()) {
-         message = action.getDetails().orElse("");
-      } else if (action.getDetails() != null && !action.getDetails().isEmpty()) {
-         message = message + "\n" + action.getDetails();
+      String message = Optional.ofNullable(action.getMessage()).orElse("");
+      String details = action.getDetails().orElse("");
+      if (message.isEmpty()) {
+         message = details;
+      } else if (!details.isEmpty()) {
+         message = message + "\n" + details;
       }
-      if (message != null && !message.isEmpty()) {
-         return Optional.of(new Status(severity, IdeActionDispatcher.class, message));
+      if (message.isEmpty()) {
+         return Optional.empty();
       }
-      return Optional.empty();
+      return Optional.of(new Status(toSeverity(action.getSeverity()), IdeActionDispatcher.class, message));
    }
 
    public static int toSeverity(final String glspSeverity) {
-      switch (Severity.valueOf(glspSeverity)) {
-         case NONE:
-            return IStatus.OK;
-         case OK:
-            return IStatus.OK;
-         case INFO:
-            return IStatus.INFO;
-         case WARNING:
-            return IStatus.WARNING;
-         case ERROR:
-            return IStatus.ERROR;
-         case FATAL:
-            return IStatus.CANCEL;
-         default:
-            return IStatus.OK;
+      return switch (parseSeverity(glspSeverity)) {
+         case INFO -> IStatus.INFO;
+         case WARNING -> IStatus.WARNING;
+         case ERROR, FATAL -> IStatus.ERROR;
+         default -> IStatus.OK;
+      };
+   }
+
+   /** Parses a GLSP severity string, returning {@link Severity#NONE} for missing or unknown values. */
+   public static Severity parseSeverity(final String glspSeverity) {
+      if (glspSeverity == null) {
+         return Severity.NONE;
+      }
+      try {
+         return Severity.valueOf(glspSeverity);
+      } catch (IllegalArgumentException exception) {
+         return Severity.NONE;
       }
    }
 }
